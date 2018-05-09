@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <!-- <TargetFramework>netcoreapp2.0</TargetFramework> -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Properties/AssemblyInfo.cs;</DefaultItemExcludes>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo-core.csproj" />
+  </ItemGroup>
+</Project>

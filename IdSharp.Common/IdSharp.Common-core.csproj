@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <!-- <TargetFramework>netcoreapp2.0</TargetFramework> -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Properties/AssemblyInfo.cs;</DefaultItemExcludes>
+  </PropertyGroup>
+</Project>
