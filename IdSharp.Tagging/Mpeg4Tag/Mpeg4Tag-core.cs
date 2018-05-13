@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 #if NET_FRAMEWORK
 using System.Windows.Forms;
-#endif NET_FRAMEWORK
+#endif
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v1;
 
