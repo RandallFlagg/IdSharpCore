@@ -33,11 +33,13 @@ namespace IdSharp.Tagging.Harness.Wpf.Events
         /// <param name="eventHandler">The event handler.</param>
         public static void Subscribe(EventType eventType, Action eventHandler)
         {
-            if (eventHandler == null)
+            if(eventHandler == null)
+            {
                 throw new ArgumentNullException("eventHandler");
+            }
 
             List<Action<object>> eventHandlers;
-            if (!_events.TryGetValue(eventType, out eventHandlers))
+            if(!_events.TryGetValue(eventType, out eventHandlers))
             {
                 eventHandlers = new List<Action<object>>();
                 _events.Add(eventType, eventHandlers);

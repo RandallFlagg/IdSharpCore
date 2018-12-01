@@ -40,9 +40,13 @@ namespace IdSharp.Tagging.VorbisComment
             get
             {
                 if (BlockData == null)
+                {
                     return 0;
+                }
                 else
+                {
                     return BlockData.Length;
+                }
             }
         }
 

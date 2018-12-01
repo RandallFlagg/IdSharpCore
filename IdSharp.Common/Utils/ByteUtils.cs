@@ -107,13 +107,21 @@ namespace IdSharp.Common.Utils
         {
             byte[] returnValue;
             if (value <= byte.MaxValue)
+            {
                 returnValue = new[] { (byte)value };
+            }
             else if (value <= ushort.MaxValue)
+            {
                 returnValue = Get2Bytes((ushort)value);
+            }
             else if (value <= uint.MaxValue)
+            {
                 returnValue = Get4Bytes((uint)value);
+            }
             else
+            {
                 returnValue = Get8Bytes(value);
+            }
 
             return returnValue;
         }

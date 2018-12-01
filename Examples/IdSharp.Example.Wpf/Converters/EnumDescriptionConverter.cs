@@ -52,7 +52,9 @@ namespace IdSharp.Tagging.Harness.Wpf.Converters
                 {
                     object enumValue = fieldInfo.GetValue(null);
                     if (enumValue.ToString() == value.ToString())
+                    {
                         return enumValue;
+                    }
                 }
             }
 
@@ -65,9 +67,13 @@ namespace IdSharp.Tagging.Harness.Wpf.Converters
 
             object[] descriptions = item.GetType().GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
             if (descriptions.Length == 1)
+            {
                 return ((DescriptionAttribute)descriptions[0]).Description;
+            }
             else
+            {
                 return enumString;
+            }
         }
     }
 }

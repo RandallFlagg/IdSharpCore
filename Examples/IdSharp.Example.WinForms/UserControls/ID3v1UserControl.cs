@@ -51,9 +51,13 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
             txtYear.Text = _id3v1.Year;
             txtComment.Text = _id3v1.Comment;
             if (_id3v1.TrackNumber > 0)
+			{
                 txtTrackNumber.Text = _id3v1.TrackNumber.ToString();
+            }
             else
+			{
                 txtTrackNumber.Text = string.Empty;
+            }
 
             switch (_id3v1.TagVersion)
             {

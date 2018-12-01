@@ -28,9 +28,13 @@ namespace IdSharp.Tagging.ID3v2
                     IID3v2Header header = new ID3v2Header(stream, false);
                     int tagSize = header.TagSize;
                     if (tagSize != 0)
+                    {
                         return tagSize + 10 + (header.IsFooterPresent ? 10 : 0);
+                    }
                     else
+                    {
                         return 0;
+                    }
                 }
                 return 0;
             }

@@ -251,11 +251,17 @@ namespace IdSharp.Tagging.ID3v2
                         // If BOM is part of the string, decode as the appropriate Unicode type.
                         // If no BOM is present use Little Endian Unicode.
                         if (byteArray[0] == 0xFF && byteArray[1] == 0xFE)
+                        {
                             returnValue = Encoding.Unicode.GetString(byteArray, 2, byteArray.Length - 2);
+                        }
                         else if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                        {
                             returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                        }
                         else
+                        {
                             returnValue = Encoding.Unicode.GetString(byteArray, 0, byteArray.Length);
+                        }
                     }
                     else
                     {
@@ -295,7 +301,9 @@ namespace IdSharp.Tagging.ID3v2
         public static string ReadString(EncodingType textEncoding, byte[] bytes)
         {
             if (bytes == null)
+            {
                 throw new ArgumentNullException("bytes");
+            }
 
             using (MemoryStream memoryStream = new MemoryStream(bytes))
             {

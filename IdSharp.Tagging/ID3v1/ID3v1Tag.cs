@@ -382,9 +382,13 @@ namespace IdSharp.Tagging.ID3v1
         private static byte[] SafeGetBytes(string value)
         {
             if (value == null)
+            {
                 return new byte[0];
+            }
             else
+            {
                 return ByteUtils.ISO88591.GetBytes(value);
+            }
         }
     }
 }

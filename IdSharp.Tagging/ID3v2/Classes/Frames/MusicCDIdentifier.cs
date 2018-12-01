@@ -36,9 +36,13 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
             if (_frameHeader.FrameSizeExcludingAdditions > 0)
+            {
                 TOC = stream.Read(_frameHeader.FrameSizeExcludingAdditions);
+            }
             else
+            {
                 TOC = null;
+            }
         }
 
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)

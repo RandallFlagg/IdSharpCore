@@ -124,10 +124,14 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     return ID3v2Utils.ReadUnsynchronized(_audioData);
 
                 default:
-                    if (_audioData == null)
+                    if(_audioData == null)
+                    {
                         return null;
+                    }
                     else
+                    {
                         return (byte[])_audioData.Clone();
+                    }
             }
         }
 

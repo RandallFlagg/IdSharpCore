@@ -126,9 +126,18 @@ namespace IdSharp.WebLookup.Amazon
             postData.Add(new PostData("AWSAccessKeyId", awsAccessKeyId));
             postData.Add(new PostData("Operation", "ItemSearch"));
             postData.Add(new PostData("SearchIndex", "Music"));
-            if (!string.IsNullOrEmpty(artist)) postData.Add(new PostData("Artist", artist));
-            if (!string.IsNullOrEmpty(album)) postData.Add(new PostData("Title", album));
-            if (!string.IsNullOrEmpty(keywords)) postData.Add(new PostData("Keywords", keywords));
+            if (!string.IsNullOrEmpty(artist))
+            {
+                postData.Add(new PostData("Artist", artist));
+            }
+            if (!string.IsNullOrEmpty(album))
+            {
+                postData.Add(new PostData("Title", album));
+            }
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                postData.Add(new PostData("Keywords", keywords));
+            }
             postData.Add(new PostData("ItemPage", page.ToString()));
             postData.Add(new PostData("Sort", sort));
             postData.Add(new PostData("Timestamp", string.Format("{0:yyyy-MM-dd}T{0:HH:mm:ss}Z", DateTime.UtcNow)));
@@ -193,7 +202,9 @@ namespace IdSharp.WebLookup.Amazon
                                     }
 
                                     if (fullErrorMessage != "")
+                                    {
                                         throw new Exception(fullErrorMessage);
+                                    }
                                 }
                             }
                         }
