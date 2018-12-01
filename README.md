@@ -13,9 +13,8 @@ This is a fork of [IdSharp](https://github.com/judwhite/IdSharp).
 ## NuGet
 If you want to use this library you basiclly need only the Tagging package which has a dependency on the common package.
 Here are the links for both of the packages. More packages will come in the (near?) future.
-* https://www.nuget.org/packages/IdSharp.Tagging/
-* https://www.nuget.org/packages/IdSharp.Common/
-
+*   <https://www.nuget.org/packages/IdSharp.Tagging/>
+*   <https://www.nuget.org/packages/IdSharp.Common/>
 
 ## Status
 
