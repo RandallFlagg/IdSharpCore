@@ -144,7 +144,7 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
             txtTrackNumber.Text = _id3v2.TrackNumber;
             chkPodcast.Checked = _id3v2.IsPodcast;
             txtPodcastFeedUrl.Text = _id3v2.PodcastFeedUrl;
-            
+
             BindingSource bindingSource = new BindingSource();
             imageBindingNavigator.BindingSource = bindingSource;
             bindingSource.CurrentChanged += bindingSource_CurrentChanged;

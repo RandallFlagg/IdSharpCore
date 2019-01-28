@@ -75,9 +75,7 @@ namespace IdSharp.Tagging.Harness.Wpf.Model
 
         private void SendPropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public ImageSource ImageSource
