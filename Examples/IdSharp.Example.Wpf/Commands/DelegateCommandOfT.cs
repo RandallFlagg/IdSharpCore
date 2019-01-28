@@ -64,10 +64,7 @@ namespace IdSharp.Tagging.Harness.Wpf.Commands
         /// </summary>
         public void Execute(T parameter)
         {
-            if (_executeMethod != null)
-            {
-                _executeMethod(parameter);
-            }
+            _executeMethod?.Invoke(parameter);
         }
 
         /// <summary>
