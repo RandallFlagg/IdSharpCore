@@ -69,17 +69,5 @@ namespace IdSharp.Tagging.ID3v2.Frames
         /// </summary>
         /// <value>A copy of the raw picture data, or URL.</value>
         byte[] PictureData { get; set; }
-
-        /// <summary>
-        /// Gets or sets the picture.
-        /// </summary>
-        /// <value>The picture.</value>
-        Image Picture { get; set; }
-
-        /// <summary>
-        /// Gets the picture extension.
-        /// </summary>
-        /// <value>The picture extension.</value>
-        string PictureExtension { get; }
     }
 }
