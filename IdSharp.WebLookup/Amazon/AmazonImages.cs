@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Text;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Xml;
+
 using IdSharp.Common.Utils;
 using IdSharp.Utils;
+
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace IdSharp.WebLookup.Amazon
 {
@@ -141,11 +139,9 @@ namespace IdSharp.WebLookup.Amazon
         /// </summary>
         public byte[] GetLargestImageBytes()
         {
-            byte[] imageBytes = LargeImageBytes;
-            if (imageBytes == null)
-                imageBytes = MediumImageBytes;
-            if (imageBytes == null)
-                imageBytes = SmallImageBytes;
+            var imageBytes = LargeImageBytes;
+            imageBytes ??= MediumImageBytes;
+            imageBytes ??= SmallImageBytes;
 
             if (imageBytes == null)
             {
@@ -156,11 +152,12 @@ namespace IdSharp.WebLookup.Amazon
             {
                 try
                 {
-                    ImageSource imageSource = GetImageSourceFromBytes(imageBytes);
+                    var imageSource = GetImageFromBytes(imageBytes);//TODO: Changed from GetImageSourceFromBytes to GetImageFromBytes
                     LargestImageSize = new Size(imageSource.Width, imageSource.Height);
                 }
-                catch
+                catch(Exception ex)//TODO: Add a ore specific exceptions
                 {
+                    throw;
                 }
 
                 HasImage = true;
@@ -208,25 +205,32 @@ namespace IdSharp.WebLookup.Amazon
         /// </summary>
         /// <param name="imageBytes">The array of bytes.</param>
         /// <returns>An <see cref="ImageSource"/> from an array of bytes.</returns>
-        public static ImageSource GetImageSourceFromBytes(byte[] imageBytes)
+        //public static ImageSource GetImageSourceFromBytes(byte[] imageBytes)
+        //{
+        //    if (imageBytes == null)
+        //        return null;
+
+        //    MemoryStream ms = new MemoryStream(imageBytes);
+
+        //    BitmapImage src = new BitmapImage();
+        //    src.BeginInit();
+        //    src.StreamSource = ms;
+        //    src.EndInit();
+        //    return src;
+        //}
+        public static Image GetImageFromBytes(byte[] imageBytes)
         {
             if (imageBytes == null)
                 return null;
 
-            MemoryStream ms = new MemoryStream(imageBytes);
-
-            BitmapImage src = new BitmapImage();
-            src.BeginInit();
-            src.StreamSource = ms;
-            src.EndInit();
-            return src;
+            return Image.Load<Rgba32>(imageBytes);
         }
 
         private void GetSmallImage()
         {
-            if (_smallImageDownloaded) 
+            if (_smallImageDownloaded)
                 return;
-            
+
             GetImageUrls();
 
             if (_smallImageUrl != null)
@@ -239,9 +243,9 @@ namespace IdSharp.WebLookup.Amazon
 
         private void GetMediumImage()
         {
-            if (_mediumImageDownloaded) 
+            if (_mediumImageDownloaded)
                 return;
-            
+
             GetImageUrls();
 
             if (_mediumImageUrl != null)
@@ -254,9 +258,9 @@ namespace IdSharp.WebLookup.Amazon
 
         private void GetLargeImage()
         {
-            if (_largeImageDownloaded) 
+            if (_largeImageDownloaded)
                 return;
-            
+
             GetImageUrls();
 
             if (_largeImageUrl != null)
