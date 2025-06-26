@@ -34,8 +34,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdSharp.Image-core", "IdSharp.Image\IdSharp.Image-core.csproj", "{980DD59D-5D4A-2B59-705C-2AB6B934BFB2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdSharp.Common.Tests-core", "Tests\IdSharp.Common.Tests\IdSharp.Common.Tests-core.csproj", "{5D99BEEA-86CA-4144-A089-7E65F27364B1}"
 EndProject
 Global
