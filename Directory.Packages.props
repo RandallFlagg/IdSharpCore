@@ -5,7 +5,9 @@
     <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.6" />
     <PackageVersion Include="System.Resources.Extensions" Version="9.0.6" />
     <PackageVersion Include="zlib.net-mutliplatform" Version="1.0.8" />
