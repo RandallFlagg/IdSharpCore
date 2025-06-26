@@ -1,134 +1,124 @@
 ﻿using System;
 using System.IO;
+
 using IdSharp.AudioInfo;
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v1;
 using IdSharp.Tagging.ID3v2;
 using IdSharp.Tagging.VorbisComment;
 
-namespace IdSharp.Example.ConsoleApplication
+var fileName = GetFileName(args);
+if (fileName == null)
 {
-    class Program
+    return;
+}
+
+Console.WriteLine();
+Console.WriteLine($"File: {fileName}");
+Console.WriteLine();
+
+var audioFile = AudioFile.Create(fileName, true);
+
+Console.WriteLine("Audio Info");
+Console.WriteLine();
+Console.WriteLine($"Type:      {EnumUtils.GetDescription(audioFile.FileType)}");
+Console.WriteLine($"Length:    {(int)audioFile.TotalSeconds / 60}:{(int)audioFile.TotalSeconds % 60:00}");
+Console.WriteLine($"Bitrate:   {(int)audioFile.Bitrate:#,0} kbps");
+Console.WriteLine($"Frequency: {audioFile.Frequency:#,0} Hz");
+Console.WriteLine($"Channels:  {audioFile.Channels}");
+Console.WriteLine();
+
+if (ID3v2Tag.DoesTagExist(fileName))
+{
+    Console.WriteLine(EnumUtils.GetDescription(new ID3v2Tag(fileName).Header.TagVersion));
+    Console.WriteLine();
+
+    Console.WriteLine($"Artist:    {new ID3v2Tag(fileName).Artist}");
+    Console.WriteLine($"Title:     {new ID3v2Tag(fileName).Title}");
+    Console.WriteLine($"Album:     {new ID3v2Tag(fileName).Album}");
+    Console.WriteLine($"Year:      {new ID3v2Tag(fileName).Year}");
+    Console.WriteLine($"Track:     {new ID3v2Tag(fileName).TrackNumber}");
+    Console.WriteLine($"Genre:     {new ID3v2Tag(fileName).Genre}");
+    Console.WriteLine($"Pictures:  {new ID3v2Tag(fileName).PictureList.Count}");
+    Console.WriteLine($"Comments:  {new ID3v2Tag(fileName).CommentsList.Count}");
+    Console.WriteLine();
+
+    // Example of saving an ID3v2 tag
+    //
+    // id3v2.Title = "New song title";
+    // id3v2.Save(fileName);
+}
+
+if (ID3v1Tag.DoesTagExist(fileName))
+{
+    Console.WriteLine(EnumUtils.GetDescription(new ID3v1Tag(fileName).TagVersion));
+    Console.WriteLine();
+
+    Console.WriteLine($"Artist:    {new ID3v1Tag(fileName).Artist}");
+    Console.WriteLine($"Title:     {new ID3v1Tag(fileName).Title}");
+    Console.WriteLine($"Album:     {new ID3v1Tag(fileName).Album}");
+    Console.WriteLine($"Year:      {new ID3v1Tag(fileName).Year}");
+    Console.WriteLine($"Comment:   {new ID3v1Tag(fileName).Comment}");
+    Console.WriteLine($"Track:     {new ID3v1Tag(fileName).TrackNumber}");
+    Console.WriteLine($"Genre:     {GenreHelper.GenreByIndex[new ID3v1Tag(fileName).GenreIndex]}");
+    Console.WriteLine();
+
+    // Example of saving an ID3v1 tag
+    //
+    // id3v1.Title = "New song title";
+    // id3v1.Save(fileName);
+}
+
+if (audioFile.FileType == AudioFileType.Flac)
+{
+    var vorbis = new VorbisComment(fileName);
+
+    Console.WriteLine("Vorbis Comment");
+    Console.WriteLine();
+
+    Console.WriteLine($"Artist:    {vorbis.Artist}");
+    Console.WriteLine($"Title:     {vorbis.Title}");
+    Console.WriteLine($"Album:     {vorbis.Album}");
+    Console.WriteLine($"Year:      {vorbis.Year}");
+    Console.WriteLine($"Comment:   {vorbis.Comment}");
+    Console.WriteLine($"Track:     {vorbis.TrackNumber}");
+    Console.WriteLine($"Genre:     {vorbis.Genre}");
+    Console.WriteLine($"Vendor:    {vorbis.Vendor}");
+    Console.WriteLine();
+
+    // Example of saving a Vorbis Comment
+    //
+    // vorbis.Title = "New song title";
+    // vorbis.Save(fileName);
+}
+
+static string GetFileName(string[] args)
+{
+    string fileName;
+
+    if (args.Length == 1)
     {
-        static void Main(string[] args)
+        fileName = args[0];
+    }
+    else
+    {
+        Console.Write("File name: ");
+        fileName = Console.ReadLine()?.Trim('"');
+    }
+
+    if (!File.Exists(fileName.Trim()))
+    {
+        var tryFileName = Path.Combine(Environment.CurrentDirectory, fileName);
+        if (File.Exists(tryFileName))
         {
-            string fileName = GetFileName(args);
-            if (fileName == null)
-                return;
-
-            Console.WriteLine();
-            Console.WriteLine(string.Format("File: {0}", fileName));
-            Console.WriteLine();
-
-            IAudioFile audioFile = AudioFile.Create(fileName, true);
-
-            Console.WriteLine("Audio Info");
-            Console.WriteLine();
-            Console.WriteLine(string.Format("Type:      {0}", EnumUtils.GetDescription(audioFile.FileType)));
-            Console.WriteLine(string.Format("Length:    {0}:{1:00}", (int)audioFile.TotalSeconds / 60, (int)audioFile.TotalSeconds % 60));
-            Console.WriteLine(string.Format("Bitrate:   {0:#,0} kbps", (int)audioFile.Bitrate));
-            Console.WriteLine(string.Format("Frequency: {0:#,0} Hz", audioFile.Frequency));
-            Console.WriteLine(string.Format("Channels:  {0}", audioFile.Channels));
-            Console.WriteLine();
-
-            if (ID3v2Tag.DoesTagExist(fileName))
-            {
-                IID3v2Tag id3v2 = new ID3v2Tag(fileName);
-
-                Console.WriteLine(EnumUtils.GetDescription(id3v2.Header.TagVersion));
-                Console.WriteLine();
-
-                Console.WriteLine(string.Format("Artist:    {0}", id3v2.Artist));
-                Console.WriteLine(string.Format("Title:     {0}", id3v2.Title));
-                Console.WriteLine(string.Format("Album:     {0}", id3v2.Album));
-                Console.WriteLine(string.Format("Year:      {0}", id3v2.Year));
-                Console.WriteLine(string.Format("Track:     {0}", id3v2.TrackNumber));
-                Console.WriteLine(string.Format("Genre:     {0}", id3v2.Genre));
-                Console.WriteLine(string.Format("Pictures:  {0}", id3v2.PictureList.Count));
-                Console.WriteLine(string.Format("Comments:  {0}", id3v2.CommentsList.Count));
-                Console.WriteLine();
-
-                // Example of saving an ID3v2 tag
-                //
-                // id3v2.Title = "New song title";
-                // id3v2.Save(fileName);
-            }
-
-            if (ID3v1Tag.DoesTagExist(fileName))
-            {
-                IID3v1Tag id3v1 = new ID3v1Tag(fileName);
-
-                Console.WriteLine(EnumUtils.GetDescription(id3v1.TagVersion));
-                Console.WriteLine();
-
-                Console.WriteLine(string.Format("Artist:    {0}", id3v1.Artist));
-                Console.WriteLine(string.Format("Title:     {0}", id3v1.Title));
-                Console.WriteLine(string.Format("Album:     {0}", id3v1.Album));
-                Console.WriteLine(string.Format("Year:      {0}", id3v1.Year));
-                Console.WriteLine(string.Format("Comment:   {0}", id3v1.Comment));
-                Console.WriteLine(string.Format("Track:     {0}", id3v1.TrackNumber));
-                Console.WriteLine(string.Format("Genre:     {0}", GenreHelper.GenreByIndex[id3v1.GenreIndex]));
-                Console.WriteLine();
-
-                // Example of saving an ID3v1 tag
-                //
-                // id3v1.Title = "New song title";
-                // id3v1.Save(fileName);
-            }
-
-            if (audioFile.FileType == AudioFileType.Flac)
-            {
-                VorbisComment vorbis = new VorbisComment(fileName);
-
-                Console.WriteLine("Vorbis Comment");
-                Console.WriteLine();
-
-                Console.WriteLine(string.Format("Artist:    {0}", vorbis.Artist));
-                Console.WriteLine(string.Format("Title:     {0}", vorbis.Title));
-                Console.WriteLine(string.Format("Album:     {0}", vorbis.Album));
-                Console.WriteLine(string.Format("Year:      {0}", vorbis.Year));
-                Console.WriteLine(string.Format("Comment:   {0}", vorbis.Comment));
-                Console.WriteLine(string.Format("Track:     {0}", vorbis.TrackNumber));
-                Console.WriteLine(string.Format("Genre:     {0}", vorbis.Genre));
-                Console.WriteLine(string.Format("Vendor:    {0}", vorbis.Vendor));
-                Console.WriteLine();
-
-                // Example of saving a Vorbis Comment
-                //
-                // vorbis.Title = "New song title";
-                // vorbis.Save(fileName);
-            }
+            fileName = tryFileName;
         }
-
-        private static string GetFileName(string[] args)
+        else
         {
-            string fileName;
-
-            if (args.Length == 1)
-            {
-                fileName = args[0];
-            }
-            else
-            {
-                Console.Write("File name: ");
-                fileName = Console.ReadLine();
-            }
-
-            if (!File.Exists(fileName))
-            {
-                string tryFileName = Path.Combine(Environment.CurrentDirectory, fileName);
-                if (File.Exists(tryFileName))
-                {
-                    fileName = tryFileName;
-                }
-                else
-                {
-                    Console.WriteLine(string.Format("\"{0}\" not found.", fileName));
-                    return null;
-                }
-            }
-
-            return fileName;
+            Console.WriteLine($"\"{fileName}\" not found.");
+            return null;
         }
     }
+
+    return fileName;
 }
