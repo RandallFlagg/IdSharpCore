@@ -9,7 +9,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common-core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
 </Project>
