@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="zlib.net-mutliplatform" />
-    <PackageReference Include="SixLabors.ImageSharp" />
   </ItemGroup>
 
   <ItemGroup>
