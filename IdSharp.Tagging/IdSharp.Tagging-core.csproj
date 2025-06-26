@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>library</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>IdSharp.Tagging</PackageId>
     <AssemblyName>IdSharp.Tagging</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Description>.NET Core ID3 Tagging Library</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,14 +17,3 @@
     <ProjectReference Include="..\IdSharp.Common\IdSharp.Common-core.csproj" />
   </ItemGroup>
 </Project>
-
-<!--<PropertyGroup>
-    <PackageTags>mp3tag mp3-tags mp3 id3 id3v2 id3v2-tag id3-reader id3-writer id3-parser id3v1 idsharp</PackageTags>
-    <Description>.NET Core ID3 Tagging Library</Description>
-    <PackageVersion>1.0.0-rc4</PackageVersion>
-    <RepositoryUrl>https://github.com/RandallFlagg/IdSharpCore.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/RandallFlagg/IdSharpCore</PackageProjectUrl>
-    <Authors>Jud White;Ohad</Authors>
-    <Title>IdSharp Core</Title>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/RandallFlagg/IdSharpCore/master/LICENSE</PackageLicenseUrl>
-  </PropertyGroup>-->

@@ -14,9 +14,20 @@ namespace IdSharp.Tagging.Mpeg4
     /// </summary>
     internal class Mpeg4Tag : INotifyPropertyChanged
     {
-        static Mpeg4Tag()
+        private static bool _acknowledged = false;
+
+        public static string AcknowledgeRisk()
         {
-            MessageBox.Show("WARNING: Mpeg4Tag class is KNOWN to NOT WORK.");
+            _acknowledged = true;
+            Console.WriteLine("WARNING: You have acknowledged that Mpeg4Tag may behave unpredictably.");
+            return "WARNING: Mpeg4Tag class is KNOWN to NOT WORK.";//TODO: in the example project show this warning in the UI
+        }
+
+        public static Mpeg4Tag Create()
+        {
+            return !_acknowledged
+                ? throw new InvalidOperationException("You must call Mpeg4TagAccess.AcknowledgeRisk() before using Mpeg4Tag.")
+                : new Mpeg4Tag();
         }
 
         // MAJOR TODO: REMOVES ELEMENTS IT DOESN'T KNOW ABOUT. BAD.
@@ -25,14 +36,14 @@ namespace IdSharp.Tagging.Mpeg4
         private const int TAGSIZE = 750;
 
         private static readonly string[] ATOM_TYPES = new[]{"moov", "trak", "udta", "tref", "imap", "mdia",
-		"minf", "stbl", "edts", "mdra", "rmra", "imag", "vnrp", "dinf" };
+        "minf", "stbl", "edts", "mdra", "rmra", "imag", "vnrp", "dinf" };
 
         private static readonly byte[] FREE_BYTES = Encoding.ASCII.GetBytes("free");
 
         private readonly byte[] udta = new byte[] { 0, 0, 0, 0, (byte)'u', (byte)'d', (byte)'t', (byte)'a' };
         private readonly byte[] meta = new byte[] { 0, 0, 0, 0, (byte)'m', (byte)'e', (byte)'t', (byte)'a', 0, 0, 0, 0 };
         private readonly byte[] hdlr = new byte[]{0,0,0,0,(byte)'h',(byte)'d',(byte)'l',(byte)'r',0,0,0,0,0,0,0,0,(byte)'m',(byte)'d',(byte)'i',(byte)'r',
-	                          (byte)'a',(byte)'p',(byte)'p',(byte)'l',0,0,0,0,0,0,0,0,0};// removed: ,0
+                              (byte)'a',(byte)'p',(byte)'p',(byte)'l',0,0,0,0,0,0,0,0,0};// removed: ,0
         private readonly byte[] ilst = new byte[] { 0, 0, 0, 0, (byte)'i', (byte)'l', (byte)'s', (byte)'t' };
         private readonly byte[] cnam = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'n', (byte)'a', (byte)'m', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         private readonly byte[] cart = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'A', (byte)'R', (byte)'T', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
@@ -40,9 +51,9 @@ namespace IdSharp.Tagging.Mpeg4
         //private readonly byte[] gnre = new byte[] { 0, 0, 0, 0, (byte)'g', (byte)'n', (byte)'r', (byte)'e', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private readonly byte[] cgen = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'g', (byte)'e', (byte)'n', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         private readonly byte[] trkn = new byte[]{0,0,0,0,(byte)'t',(byte)'r',(byte)'k',(byte)'n',0,0,0,0,(byte)'d',(byte)'a',(byte)'t',(byte)'a',0,0,0,0,0,0,0,0,0,0,
-	                          0,0,0,0,0,0};
+                              0,0,0,0,0,0};
         private readonly byte[] disk = new byte[]{0,0,0,0,(byte)'d',(byte)'i',(byte)'s',(byte)'k',0,0,0,0,(byte)'d',(byte)'a',(byte)'t',(byte)'a',0,0,0,0,0,0,0,0,0,0,
-	                          0,1,0,1};
+                              0,1,0,1};
         private readonly byte[] cday = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'d', (byte)'a', (byte)'y', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         private readonly byte[] cpil = new byte[] { 0, 0, 0, 0, (byte)'c', (byte)'p', (byte)'i', (byte)'l', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 21, 0, 0, 0, 0, 0 };
         private readonly byte[] tmpo = new byte[] { 0, 0, 0, 0, (byte)'t', (byte)'m', (byte)'p', (byte)'o', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 21, 0, 0, 0, 0, 0, 0 };
@@ -92,7 +103,7 @@ namespace IdSharp.Tagging.Mpeg4
         /// <summary>
         /// Initializes a new instance of the <see cref="Mpeg4Tag"/> class.
         /// </summary>
-        public Mpeg4Tag()
+        private Mpeg4Tag()
         {
         }
 
@@ -845,7 +856,7 @@ namespace IdSharp.Tagging.Mpeg4
         /// <param name="path">The path.</param>
         public static void Remove(string path)
         {
-            Mpeg4Tag tag = new Mpeg4Tag();
+            var tag = Create();//TODO: Why not use the instance? Why is this static? to pass inside an instance?
             tag.Read(path);
 
             /*if (tag.m_udtapos == 0)

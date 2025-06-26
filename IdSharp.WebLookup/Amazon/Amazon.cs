@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 
 using IdSharp.Common.Utils;
+using IdSharp.Utils;
 
 namespace IdSharp.WebLookup.Amazon
 {

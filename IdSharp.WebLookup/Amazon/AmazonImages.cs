@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using IdSharp.Common.Utils;
+using IdSharp.Utils;
 
 namespace IdSharp.WebLookup.Amazon
 {

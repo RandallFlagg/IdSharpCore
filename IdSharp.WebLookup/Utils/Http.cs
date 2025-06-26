@@ -4,12 +4,14 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace IdSharp.Common.Utils;
+using IdSharp.Common.Utils;
+
+namespace IdSharp.Utils;
 
 /// <summary>
 /// Methods for HTTP
 /// </summary>
-public static class Http
+internal static class Http
 {
     private const string m_UserAgent = @"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.9) Gecko/2009040821 Firefox/3.0.9 (.NET CLR 3.5.30729)";
 
@@ -85,7 +87,7 @@ public static class Http
         if (string.IsNullOrWhiteSpace(requestUriString))
             throw new ArgumentNullException("requestUriString");
 
-        HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
+        var webRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
         webRequest.Proxy = WebRequest.DefaultWebProxy;
         webRequest.CookieContainer = cookies;
         webRequest.UserAgent = m_UserAgent;
@@ -95,10 +97,10 @@ public static class Http
         }
         webResponse = (HttpWebResponse)webRequest.GetResponse();
 
-        byte[] data = new byte[256];
-        using (Stream responseStream = webResponse.GetResponseStream())
+        var data = new byte[256];
+        using (var responseStream = webResponse.GetResponseStream())
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
                 int read;
                 do
@@ -128,9 +130,9 @@ public static class Http
             throw new ArgumentNullException("postData");
 
         byte[] data;
-        HttpWebRequest webRequest = GetPostRequest(requestUriString, postData, out data);
+        var webRequest = GetPostRequest(requestUriString, postData, out data);
 
-        RequestAndData requestAndData = new RequestAndData { Request = webRequest, Data = data };
+        var requestAndData = new RequestAndData { Request = webRequest, Data = data };
 
         return webRequest.BeginGetRequestStream(GetRequestStreamCallback, requestAndData);
     }
@@ -148,7 +150,7 @@ public static class Http
         if (postData == null)
             throw new ArgumentNullException("postData");
 
-        Uri uri = new Uri(requestUriString);
+        var uri = new Uri(requestUriString);
         return Post(uri, postData, out cookies);
     }
 
@@ -165,7 +167,7 @@ public static class Http
         if (postData == null)
             throw new ArgumentNullException("postData");
 
-        Uri uri = new Uri(requestUriString);
+        var uri = new Uri(requestUriString);
         return PostCookies(uri, postData, cookies);
     }
 
@@ -181,7 +183,7 @@ public static class Http
         if (postData == null)
             throw new ArgumentNullException("postData");
 
-        Uri uri = new Uri(requestUriString);
+        var uri = new Uri(requestUriString);
         CookieContainer cookies;
         return Post(uri, postData, out cookies);
     }
@@ -290,8 +292,8 @@ public static class Http
         if (postData == null)
             throw new ArgumentNullException("postData");
 
-        StringBuilder getString = new StringBuilder();
-        foreach (PostData item in postData)
+        var getString = new StringBuilder();
+        foreach (var item in postData)
             AddField(getString, item);
 
         if (!requestUriString.Contains("?"))
@@ -311,8 +313,8 @@ public static class Http
         if (postData.Value == null)
             throw new ArgumentNullException("postData.Item");
 
-        StringBuilder value = new StringBuilder();
-        foreach (char c in postData.Value)
+        var value = new StringBuilder();
+        foreach (var c in postData.Value)
         {
             if (c <= 255)
             {
@@ -341,7 +343,7 @@ public static class Http
         if (postData == null)
             throw new ArgumentNullException("postData");
 
-        Uri uri = new Uri(requestUriString);
+        var uri = new Uri(requestUriString);
         return GetPostRequest(uri, postData, out data);
     }
 
@@ -350,14 +352,14 @@ public static class Http
         if (requestUri == null)
             throw new ArgumentNullException("requestUri");
 
-        StringBuilder getString = new StringBuilder();
-        foreach (PostData item in postData)
+        var getString = new StringBuilder();
+        foreach (var item in postData)
             AddField(getString, item);
 
         data = Encoding.ASCII.GetBytes(getString.ToString());
 
         // Prepare web request...
-        HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+        var webRequest = (HttpWebRequest)WebRequest.Create(requestUri);
         webRequest.AllowAutoRedirect = true;
         webRequest.Proxy = WebRequest.DefaultWebProxy;
         webRequest.Method = "POST";
@@ -371,11 +373,11 @@ public static class Http
 
     private static void GetRequestStreamCallback(IAsyncResult asyncResult)
     {
-        RequestAndData requestAndData = (RequestAndData)asyncResult.AsyncState;
-        HttpWebRequest webRequest = requestAndData.Request;
-        byte[] data = requestAndData.Data;
+        var requestAndData = (RequestAndData)asyncResult.AsyncState;
+        var webRequest = requestAndData.Request;
+        var data = requestAndData.Data;
 
-        using (Stream postStream = webRequest.EndGetRequestStream(asyncResult))
+        using (var postStream = webRequest.EndGetRequestStream(asyncResult))
         {
             postStream.Write(data, 0, data.Length);
         }
@@ -391,19 +393,19 @@ public static class Http
         if (headers == null)
             throw new ArgumentNullException("headers");
 
-        string[] keys = headers.AllKeys;
+        var keys = headers.AllKeys;
         if (keys == null || keys.Length == 0)
             throw new Exception("No keys found.");
 
-        List<string> keyList = new List<string>(keys);
+        var keyList = new List<string>(keys);
         if (keyList.Contains("Content-disposition"))
         {
-            string contentDisposition = headers["Content-disposition"];
+            var contentDisposition = headers["Content-disposition"];
 
             const string filename = "filename=\"";
-            int idx = contentDisposition.IndexOf(filename);
+            var idx = contentDisposition.IndexOf(filename);
             idx = idx + filename.Length;
-            string fn = contentDisposition.Substring(idx, contentDisposition.Length - idx - 1);
+            var fn = contentDisposition.Substring(idx, contentDisposition.Length - idx - 1);
 
             return fn;
         }
