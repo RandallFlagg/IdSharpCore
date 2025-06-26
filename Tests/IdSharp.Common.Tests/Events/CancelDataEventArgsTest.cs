@@ -1,4 +1,5 @@
-﻿using IdSharp.Common.Events;
+using IdSharp.Common.Events;
+
 using NUnit.Framework;
 
 namespace IdSharp.Common.Tests.Events
@@ -16,7 +17,7 @@ namespace IdSharp.Common.Tests.Events
         {
             const int value = 5;
             var x = Get(value);
-            Assert.AreEqual(value, x.Data);
+            Assert.That(value, Is.EqualTo(x.Data));
         }
 
         [Test]

@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo-core.csproj" />
     <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common-core.csproj" />
-    <ProjectReference Include="..\..\IdSharp.Image\IdSharp.Image-core.csproj" />
     <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging-core.csproj" />
   </ItemGroup>
 </Project>
