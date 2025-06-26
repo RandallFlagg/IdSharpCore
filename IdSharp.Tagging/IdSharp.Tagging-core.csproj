@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>IdSharp.Tagging</PackageId>
-    <Version>1.0.0</Version>
     <PackageTags>mp3tag mp3-tags mp3 id3 id3v2 id3v2-tag id3-reader id3-writer id3-parser id3v1 idsharp</PackageTags>
     <Description>.NET Core ID3 Tagging Library</Description>
     <PackageVersion>1.0.0-rc4</PackageVersion>
@@ -13,10 +12,13 @@
     <Title>IdSharp Core</Title>
     <PackageLicenseUrl>https://raw.githubusercontent.com/RandallFlagg/IdSharpCore/master/LICENSE</PackageLicenseUrl>
     <DefaultItemExcludes>$(DefaultItemExcludes);Properties/AssemblyInfo.cs;Mpeg4Tag/Mpeg4Tag.cs;</DefaultItemExcludes>
+    <AssemblyName>IdSharp.Tagging</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IdSharp.Common" Version="1.0.1"/>
-    <PackageReference Include="System.Drawing.Common" Version="4.5.0-rc1"/>
-    <PackageReference Include="zlib.net-mutliplatform" Version="1.0.4"/>
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="zlib.net-mutliplatform" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IdSharp.Common\IdSharp.Common-core.csproj" />
   </ItemGroup>
 </Project>

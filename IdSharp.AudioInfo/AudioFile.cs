@@ -59,6 +59,7 @@ namespace IdSharp.AudioInfo
                 throw new NotSupportedException(string.Format("Extension '{0}' not supported", ext));
             }
 
+            //_ = audioFile.Bitrate; //TODO: force calculate bitrate?
             return audioFile;
         }
 

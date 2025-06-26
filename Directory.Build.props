@@ -1,0 +1,39 @@
+<Project>
+  <PropertyGroup>
+    <Version>8.2.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <InformationalVersion>2.0.0.0-rc1</InformationalVersion>
+    <Authors>RandallFlagg</Authors>
+    <Company>IdSharp</Company>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AssemblyOriginatorKeyFile>$(SolutionRoot)/Solution Items/Key.snk</AssemblyOriginatorKeyFile>
+    <PublishAot>false</PublishAot>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IdSharp</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!--<OutputPath>$(SolutionDir)..\bin\$(Configuration)</OutputPath>--><!--TODO: Normalize this across solution-->
+    <SignAssembly>false</SignAssembly><!--TODO: Enable this-->
+    <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+    <Product>IdSharp</Product>
+    <Copyright>Copyright © IdSharp 2025</Copyright>
+    <IsTestProject>false</IsTestProject>
+    <UseWindowsForms>false</UseWindowsForms>
+    <ImportWindowsDesktopTargets>false</ImportWindowsDesktopTargets>
+    <EnableWindowsTargeting>false</EnableWindowsTargeting>
+    <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
+    <AssemblyTitle>FIX ME - AssemblyTitle!</AssemblyTitle>
+    <Description>FIX ME - Description!</Description>
+    <GenerateResourceUsePreserializedResources>false</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+
+  <ItemGroup Label="Links">
+    <Compile Include="$(SolutionRoot)/Solution Items/AssemblyInfo.cs" Link="Properties/SharedAssemblyInfo.cs" />
+    <None Include="$(SolutionRoot)/Solution Items/Key.snk" Link="Key.snk" />
+  </ItemGroup>
+
+</Project>
+

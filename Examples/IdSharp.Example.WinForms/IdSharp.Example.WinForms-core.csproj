@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <RootNamespace>IdSharp.Tagging.Harness.WinForms</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Image\IdSharp.Image-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging-core.csproj" />
+  </ItemGroup>
+</Project>
