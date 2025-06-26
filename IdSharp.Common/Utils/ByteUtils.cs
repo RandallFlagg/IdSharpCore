@@ -26,8 +26,10 @@ namespace IdSharp.Common.Utils
         /// <param name="byteArray">The byte array.</param>
         public static long ConvertToInt64(byte[] byteArray)
         {
+            ArgumentNullException.ThrowIfNull(byteArray, nameof(byteArray));
+
             long value = 0;
-            for (int i = 0; i < byteArray.Length; i++)
+            for (var i = 0; i < byteArray.Length; i++)
             {
                 value <<= 8;
                 value += byteArray[i];
@@ -47,7 +49,7 @@ namespace IdSharp.Common.Utils
         {
             if (bitToCheck > 7)
             {
-                throw new ArgumentOutOfRangeException("bitToCheck", bitToCheck, "bitToCheck must be <= 7");
+                throw new ArgumentOutOfRangeException(nameof(bitToCheck), bitToCheck, "bitToCheck must be <= 7");
             }
 
             bool returnValue = ((byteToCheck >> bitToCheck) & 0x01) == 0x01;
@@ -180,7 +182,7 @@ namespace IdSharp.Common.Utils
         public static byte[] Get4Bytes(int value)
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             return Get4Bytes((uint)value);
         }
 
@@ -191,7 +193,7 @@ namespace IdSharp.Common.Utils
         public static byte[] Get2Bytes(short value)
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             return Get2Bytes((ushort)value);
         }
 
@@ -204,7 +206,7 @@ namespace IdSharp.Common.Utils
         public static byte[] ISO88591GetBytes(string value)
         {
             if (value == null)
-                return new byte[0];
+                return Array.Empty<byte>();
             else
                 return m_ISO88591.GetBytes(value);
         }
@@ -245,21 +247,17 @@ namespace IdSharp.Common.Utils
         /// <param name="offset">The offset which to start replacing bytes.</param>
         public static void ReplaceBytes(string path, int bytesToRemove, byte[] bytesToAdd, long offset)
         {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
-            if (bytesToAdd == null)
-                throw new ArgumentNullException("bytesToAdd");
+            ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
+            ArgumentNullException.ThrowIfNull(bytesToAdd, nameof(bytesToAdd));
 
-            using (FileStream infile = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            {
-                infile.Position = offset + bytesToRemove;
-                byte[] extraBytes = new byte[infile.Length - offset - bytesToRemove];
-                infile.Read(extraBytes, 0, extraBytes.Length);
-                infile.SetLength(offset);
-                infile.Position = offset;
-                infile.Write(bytesToAdd, 0, bytesToAdd.Length);
-                infile.Write(extraBytes, 0, extraBytes.Length);
-            }
+            using var infile = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            infile.Position = offset + bytesToRemove;
+            var extraBytes = new byte[infile.Length - offset - bytesToRemove];
+            _ = infile.Read(extraBytes, 0, extraBytes.Length);
+            infile.SetLength(offset);
+            infile.Position = offset;
+            infile.Write(bytesToAdd, 0, bytesToAdd.Length);
+            infile.Write(extraBytes, 0, extraBytes.Length);
         }
 
         /// <summary>
@@ -271,32 +269,29 @@ namespace IdSharp.Common.Utils
         /// <param name="bytesToAdd">The bytes to add.</param>
         public static void ReplaceBytes(string path, int bytesToRemove, byte[] bytesToAdd)
         {
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
-            if (bytesToAdd == null)
-                throw new ArgumentNullException("bytesToAdd");
+            ArgumentException.ThrowIfNullOrWhiteSpace(path, nameof(path));
+            ArgumentNullException.ThrowIfNull(bytesToAdd, nameof(bytesToAdd));
 
             const int BUF_SIZE = 32767;
 
-            string tempPath = PathUtils.GetTemporaryFileNameBasedOnFileName(path);
+            var tempPath = PathUtils.GetTemporaryFileNameBasedOnFileName(path);
             File.Move(path, tempPath);
             try
             {
-                byte[] buffer = new byte[BUF_SIZE];
+                var buffer = new byte[BUF_SIZE];
 
-                using (FileStream infile = File.Open(tempPath, FileMode.Open, FileAccess.Read, FileShare.None))
-                using (FileStream outfile = File.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                using var infile = File.Open(tempPath, FileMode.Open, FileAccess.Read, FileShare.None);
+                using var outfile = File.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                outfile.Write(bytesToAdd, 0, bytesToAdd.Length);
+
+                infile.Position = bytesToRemove;
+                var bytesRead = infile.Read(buffer, 0, BUF_SIZE);
+                while (bytesRead > 0)
                 {
-                    outfile.Write(bytesToAdd, 0, bytesToAdd.Length);
-
-                    infile.Position = bytesToRemove;
-                    int bytesRead = infile.Read(buffer, 0, BUF_SIZE);
-                    while (bytesRead > 0)
-                    {
-                        outfile.Write(buffer, 0, bytesRead);
-                        bytesRead = infile.Read(buffer, 0, BUF_SIZE);
-                    }
+                    outfile.Write(buffer, 0, bytesRead);
+                    bytesRead = infile.Read(buffer, 0, BUF_SIZE);
                 }
+
                 File.Delete(tempPath);
             }
             catch
@@ -306,11 +301,33 @@ namespace IdSharp.Common.Utils
                 {
                     File.Move(tempPath, path);
                 }
-                catch (Exception ex)
+                catch (IOException ex)
                 {
                     // swallow this one
                     Trace.WriteLine(ex);
                 }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // swallow this one
+                    Trace.WriteLine(ex);
+                }
+                catch (ArgumentException ex)
+                {
+                    // swallow this one
+                    Trace.WriteLine(ex);
+                }
+                catch (NotSupportedException ex)
+                {
+                    // swallow this one
+                    Trace.WriteLine(ex);
+                }
+
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                    throw;
+                }
+
                 throw;
             }
         }
@@ -324,21 +341,31 @@ namespace IdSharp.Common.Utils
         public static bool Compare(byte[] x, byte[] y)
         {
             if (x == null && y == null)
+            {
                 return true;
+            }
 
             if (x == null || y == null)
+            {
                 return false;
+            }
 
             if (x == y)
+            {
                 return true;
+            }
 
             if (x.Length != y.Length)
+            {
                 return false;
+            }
 
-            for (int i = 0; i < x.Length; i++)
+            for (var i = 0; i < x.Length; i++)
             {
                 if (x[i] != y[i])
+                {
                     return false;
+                }
             }
 
             return true;
@@ -356,23 +383,33 @@ namespace IdSharp.Common.Utils
         public static bool Compare(byte[] x, byte[] y, int maxLength)
         {
             if (maxLength < 0)
-                throw new ArgumentOutOfRangeException("maxLength", "maxLength must be greater than or equal to 0.");
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxLength), "maxLength must be greater than or equal to 0.");
+            }
 
             if (x == null && y == null)
+            {
                 return true;
+            }
 
             if (x == null || y == null)
+            {
                 return false;
+            }
 
             if (x == y)
+            {
                 return true;
+            }
 
-            int compareTo = MathUtils.Min(x.Length, y.Length, maxLength);
+            var compareTo = MathUtils.Min(x.Length, y.Length, maxLength);
 
-            for (int i = 0; i < compareTo; i++)
+            for (var i = 0; i < compareTo; i++)
             {
                 if (x[i] != y[i])
+                {
                     return false;
+                }
             }
 
             return true;

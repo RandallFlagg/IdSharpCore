@@ -543,6 +543,9 @@ dotnet_diagnostic.IDE0190.severity = warning
 # IDE0200: Remove unnecessary lambda expression
 dotnet_diagnostic.IDE0200.severity = warning
 
+# IDE0301: Collection initaliztion can be simplified
+dotnet_diagnostic.IDE0301.severity = none
+
 # IDE1005: Use conditional delegate call
 dotnet_diagnostic.IDE1005.severity = warning
 
@@ -4875,3 +4878,26 @@ dotnet_diagnostic.xUnit3000.severity = warning
 # xUnit3001: Classes that implement Xunit.Abstractions.IXunitSerializable must have a public parameterless constructor
 dotnet_diagnostic.xUnit3001.severity = warning
 
+
+
+
+
+
+
+
+
+
+# Define a naming style (e.g., PascalCase)
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+dotnet_naming_style.pascal_case_style.required_prefix = 
+dotnet_naming_style.pascal_case_style.required_suffix = 
+
+# Define a symbol group that excludes constants
+dotnet_naming_symbols.non_const_fields.applicable_kinds = field
+dotnet_naming_symbols.non_const_fields.applicable_accessibilities = *
+dotnet_naming_symbols.non_const_fields.required_modifiers = readonly
+
+# Define the rule that applies the style to non-const fields
+dotnet_naming_rule.non_const_fields_should_be_pascal_case.symbols = non_const_fields
+dotnet_naming_rule.non_const_fields_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.non_const_fields_should_be_pascal_case.severity = warning
