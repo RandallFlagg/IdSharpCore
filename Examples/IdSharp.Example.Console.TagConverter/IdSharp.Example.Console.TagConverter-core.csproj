@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>library</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <DefaultItemExcludes>$(DefaultItemExcludes);Properties/AssemblyInfo.cs;</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>  
