@@ -1,4 +1,4 @@
-﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Processing;
@@ -6,26 +6,37 @@ using SixLabors.ImageSharp.Advanced;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using SharpImage = SixLabors.ImageSharp.Image;
+using DrawingColor = System.Drawing.Color;
 
 public static class ImageSharpInterop
 {
     public static Bitmap GetBitmapFromBytes(byte[] imageBytes)
     {
-        using var image = Image.Load<Rgba32>(imageBytes, out IImageFormat format);
+        if (imageBytes == null || imageBytes.Length == 0)
+        {
+            throw new ArgumentException("Image data cannot be null or empty.", nameof(imageBytes));
+        }
 
-        // Convert ImageSharp image to System.Drawing.Bitmap
+        using var image = SharpImage.Load<Rgba32>(imageBytes);
+
         var bitmap = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);
 
-        for (int y = 0; y < image.Height; y++)
+        image.ProcessPixelRows(accessor =>
         {
-            var row = image.GetPixelRowSpan(y);
-            for (int x = 0; x < image.Width; x++)
+            for (var y = 0; y < image.Height; y++)
             {
-                var pixel = row[x];
-                bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, pixel.R, pixel.G, pixel.B));
+                var row = accessor.GetRowSpan(y);
+                for (var x = 0; x < image.Width; x++)
+                {
+                    var pixel = row[x];
+                    bitmap.SetPixel(x, y, DrawingColor.FromArgb(pixel.A, pixel.R, pixel.G, pixel.B));
+                }
             }
-        }
+        });
 
         return bitmap;
     }
+
+
 }
