@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using IdSharp.Tagging.ID3v2.Frames;
@@ -135,43 +135,43 @@ namespace IdSharp.Tagging.ID3v2
         internal FrameContainer()
         {
             _frameBinder = new FrameBinder(this);
-            _unknownFrames = new List<UnknownFrame>();
+            _unknownFrames = [];
 
-            _id3v24SingleOccurrenceFrames = new Dictionary<string, IFrame>();
-            _id3v24MultipleOccurrenceFrames = new Dictionary<string, IBindingList>();
-            _id3v23SingleOccurrenceFrames = new Dictionary<string, IFrame>();
-            _id3v23MultipleOccurrenceFrames = new Dictionary<string, IBindingList>();
-            _id3v22SingleOccurrenceFrames = new Dictionary<string, IFrame>();
-            _id3v22MultipleOccurrenceFrames = new Dictionary<string, IBindingList>();
+            _id3v24SingleOccurrenceFrames = [];
+            _id3v24MultipleOccurrenceFrames = [];
+            _id3v23SingleOccurrenceFrames = [];
+            _id3v23MultipleOccurrenceFrames = [];
+            _id3v22SingleOccurrenceFrames = [];
+            _id3v22MultipleOccurrenceFrames = [];
 
-            _id3v24FrameAliases = new Dictionary<string, string>();
-            _id3v23FrameAliases = new Dictionary<string, string>();
+            _id3v24FrameAliases = [];
+            _id3v23FrameAliases = [];
 
             // Binding lists
-            m_AttachedPictureList = new AttachedPictureBindingList();
-            m_UserDefinedUrlList = new UserDefinedUrlBindingList();
-            m_CommentsList = new CommentsBindingList();
-            m_iTunesCommentsList = new CommentsBindingList();
+            m_AttachedPictureList = [];
+            m_UserDefinedUrlList = [];
+            m_CommentsList = [];
+            m_iTunesCommentsList = [];
             m_CommercialInfoUrlList = new UrlBindingList("WCOM", "WCOM", "WCM");
             m_ArtistUrlList = new UrlBindingList("WOAR", "WOAR", "WAR");
-            m_UserDefinedTextList = new UserDefinedTextBindingList();
-            m_RelativeVolumeAdjustmentList = new RelativeVolumeAdjustmentBindingList();
-            m_UnsynchronizedLyricsList = new UnsynchronizedLyricsBindingList();
-            m_GeneralEncapsulatedObjectList = new GeneralEncapsulatedObjectBindingList();
-            m_UniqueFileIdentifierList = new UniqueFileIdentifierBindingList();
-            m_PrivateFrameList = new PrivateFrameBindingList();
-            m_PopularimeterList = new PopularimeterBindingList();
-            m_TermsOfUseList = new TermsOfUseBindingList();
-            m_LinkedInformationList = new LinkedInformationBindingList();
-            m_CommercialInfoList = new CommercialBindingList();
-            m_EncryptionMethodList = new EncryptionMethodBindingList();
-            m_GroupIdentificationList = new GroupIdentificationBindingList();
-            m_SignatureList = new SignatureBindingList();
-            m_AudioEncryptionList = new AudioEncryptionBindingList();
-            m_EncryptedMetaFrameList = new EncryptedMetaFrameBindingList();
-            m_SynchronizedLyricsList = new SynchronizedTextBindingList();
-            m_EqualizationList = new EqualizationListBindingList();
-            m_AudioTextList = new AudioTextBindingList();
+            m_UserDefinedTextList = [];
+            m_RelativeVolumeAdjustmentList = [];
+            m_UnsynchronizedLyricsList = [];
+            m_GeneralEncapsulatedObjectList = [];
+            m_UniqueFileIdentifierList = [];
+            m_PrivateFrameList = [];
+            m_PopularimeterList = [];
+            m_TermsOfUseList = [];
+            m_LinkedInformationList = [];
+            m_CommercialInfoList = [];
+            m_EncryptionMethodList = [];
+            m_GroupIdentificationList = [];
+            m_SignatureList = [];
+            m_AudioEncryptionList = [];
+            m_EncryptedMetaFrameList = [];
+            m_SynchronizedLyricsList = [];
+            m_EqualizationList = [];
+            m_AudioTextList = [];
 
             // Add binding lists to multiple occurence frames dictionary
             AddMultipleOccurrenceFrame("APIC", "APIC", "PIC", m_AttachedPictureList);

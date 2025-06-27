@@ -1,4 +1,5 @@
-﻿using IdSharp.Common.Events;
+using IdSharp.Common.Events;
+
 using NUnit.Framework;
 
 namespace IdSharp.Common.Tests.Events
@@ -16,7 +17,7 @@ namespace IdSharp.Common.Tests.Events
         {
             const int value = 5;
             var x = Get(value);
-            Assert.AreEqual(value, x.Data);
+            Assert.That(value, Is.EqualTo(x.Data));
         }
 
         [Test]
@@ -24,7 +25,7 @@ namespace IdSharp.Common.Tests.Events
         {
             const int value = 5;
             var x = Get(value);
-            Assert.AreEqual(false, x.Cancel);
+            Assert.That(false, Is.EqualTo(x.Cancel));
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace IdSharp.Common.Tests.Events
             const int value = 5;
             var x = Get(value);
             x.Cancel = true;
-            Assert.AreEqual(true, x.Cancel);
+            Assert.That(true, Is.EqualTo(x.Cancel));
         }
 
         [Test]
@@ -41,7 +42,7 @@ namespace IdSharp.Common.Tests.Events
         {
             const int value = 5;
             var x = Get(value);
-            Assert.AreEqual(null, x.CancelReason);
+            Assert.That(null, Is.EqualTo(x.CancelReason));
         }
 
         [Test]
@@ -51,7 +52,7 @@ namespace IdSharp.Common.Tests.Events
             const string msg = "hello";
             var x = Get(value);
             x.CancelReason = msg;
-            Assert.AreEqual(msg, x.CancelReason);
+            Assert.That(msg, Is.EqualTo(x.CancelReason));
         }
     }
 }

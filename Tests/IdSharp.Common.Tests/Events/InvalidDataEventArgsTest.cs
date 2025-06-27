@@ -1,4 +1,4 @@
-﻿using IdSharp.Common.Events;
+using IdSharp.Common.Events;
 using NUnit.Framework;
 
 namespace IdSharp.Common.Tests.Events
@@ -10,19 +10,19 @@ namespace IdSharp.Common.Tests.Events
         public void Test_Ctors()
         {
             var x = new InvalidDataEventArgs("propertyName", "message");
-            Assert.AreEqual("propertyName", x.Property);
-            Assert.AreEqual("message", x.Message);
-            Assert.AreEqual(ErrorType.Warning, x.ErrorType);
+            Assert.That("propertyName", Is.EqualTo(x.Property));
+            Assert.That("message", Is.EqualTo(x.Message));
+            Assert.That(ErrorType.Warning, Is.EqualTo(x.ErrorType));
 
             x = new InvalidDataEventArgs("propertyName2", "message", ErrorType.Error);
-            Assert.AreEqual("propertyName2", x.Property);
-            Assert.AreEqual("message", x.Message);
-            Assert.AreEqual(ErrorType.Error, x.ErrorType);
+            Assert.That("propertyName2", Is.EqualTo(x.Property));
+            Assert.That("message", Is.EqualTo(x.Message));
+            Assert.That(ErrorType.Error, Is.EqualTo(x.ErrorType));
 
             x = new InvalidDataEventArgs("propertyName3", ErrorType.None);
-            Assert.AreEqual("propertyName3", x.Property);
-            Assert.IsTrue(string.IsNullOrEmpty(x.Message));
-            Assert.AreEqual(ErrorType.None, x.ErrorType);
+            Assert.That("propertyName3", Is.EqualTo(x.Property));
+            Assert.That(x.Message, Is.Null.Or.Empty);
+            Assert.That(ErrorType.None, Is.EqualTo(x.ErrorType));
         }
     }
 }

@@ -28,11 +28,15 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
 
         private void bindingSource_CurrentChanged(object sender, EventArgs e)
         {
-            IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+            var attachedPicture = GetCurrentPictureFrame();
             if (attachedPicture != null)
+            {
                 LoadImageData(attachedPicture);
+            }
             else
+            {
                 ClearImageData();
+            }
         }
 
         private void imageContextMenu_Opening(object sender, CancelEventArgs e)
@@ -43,19 +47,19 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
 
         private void miSaveImage_Click(object sender, EventArgs e)
         {
-            IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+            var attachedPicture = GetCurrentPictureFrame();
             SaveImageToFile(attachedPicture);
         }
 
         private void miLoadImage_Click(object sender, EventArgs e)
         {
-            IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+            var attachedPicture = GetCurrentPictureFrame();
             LoadImageFromFile(attachedPicture);
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+            var attachedPicture = GetCurrentPictureFrame();
             LoadImageFromFile(attachedPicture);
         }
 
@@ -165,20 +169,17 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
             txtBitrate.Text = string.Empty;
             txtEncoderPreset.Text = string.Empty;
 
-            Thread t = new Thread(LoadAudioFileDetails);
-            t.Start(path);
+            _ = Task.Run(() => LoadAudioFileDetails(path));
         }
 
-        private void LoadAudioFileDetails(object pathObject)
+        private void LoadAudioFileDetails(string path)
         {
-            string path = (string)pathObject;
+            var audioFile = AudioFile.Create(path, false);
+            _ = audioFile.Bitrate; // force bitrate calculation
 
-            IAudioFile audioFile = AudioFile.Create(path, false);
-            decimal bitrate = audioFile.Bitrate; // force bitrate calculation
+            var lameTagReader = new DescriptiveLameTagReader(path);
 
-            DescriptiveLameTagReader lameTagReader = new DescriptiveLameTagReader(path);
-
-            Invoke(new Action<IAudioFile, DescriptiveLameTagReader>(SetAudioFileDetails), audioFile, lameTagReader);
+            Invoke(() => SetAudioFileDetails(audioFile, lameTagReader));
         }
 
         private void SetAudioFileDetails(IAudioFile audioFile, DescriptiveLameTagReader lameTagReader)

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -15,10 +15,11 @@ namespace IdSharp.Common.Utils
         /// <param name="stream">The stream.</param>
         public static byte Read1(this Stream stream)
         {
-            int readByte = stream.ReadByte();
+            ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+            var readByte = stream.ReadByte();
             if (readByte == -1)
             {
-                string msg = string.Format("Attempted to read past the end of the stream at position {0}", stream.Position);
+                var msg = $"Attempted to read past the end of the stream at position {stream.Position}";
                 throw new InvalidDataException(msg);
             }
             return (byte)readByte;

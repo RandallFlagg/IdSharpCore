@@ -19,7 +19,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Lists
 
         protected override object AddNewCore()
         {
-            IAttachedPicture attachedPicture = new AttachedPicture();
+            var attachedPicture = new AttachedPicture();
             Add(attachedPicture);
 
             // Not necessary to hook up event handlers, base class calls InsertItem

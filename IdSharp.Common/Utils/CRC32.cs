@@ -42,10 +42,7 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a string.</returns>
         public static string Calculate(FileInfo file)
         {
-            if (file == null)
-                throw new ArgumentNullException("file");
-
-            return string.Format("{0:X8}", CalculateInt32(file));
+            return file == null ? throw new ArgumentNullException(nameof(file)) : $"{CalculateInt32(file):X8}";
         }
 
         /// <summary>
@@ -55,10 +52,7 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a string.</returns>
         public static string Calculate(Stream stream)
         {
-            if (stream == null)
-                throw new ArgumentNullException("stream");
-
-            return string.Format("{0:X8}", CalculateInt32(stream));
+            return stream == null ? throw new ArgumentNullException(nameof(stream)) : $"{CalculateInt32(stream):X8}";
         }
 
         /// <summary>
@@ -68,10 +62,7 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a string.</returns>
         public static string Calculate(byte[] data)
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
-
-            return string.Format("{0:X8}", CalculateInt32(data));
+            return data == null ? throw new ArgumentNullException(nameof(data)) : $"{CalculateInt32(data):X8}";
         }
 
         /// <summary>
@@ -81,13 +72,10 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a four byte signed integer (Int32).</returns>
         public static uint CalculateInt32(FileInfo file)
         {
-            if (file == null)
-                throw new ArgumentNullException("file");
+            ArgumentNullException.ThrowIfNull(file);
 
-            using (FileStream fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                return CalculateInt32(fileStream);
-            }
+            using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
+            return CalculateInt32(fileStream);
         }
 
         /// <summary>
@@ -97,23 +85,22 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a four byte signed integer (Int32).</returns>
         public static uint CalculateInt32(Stream stream)
         {
-            if (stream == null)
-                throw new ArgumentNullException("stream");
+            ArgumentNullException.ThrowIfNull(stream);
 
             unchecked
             {
                 stream.Position = 0;
-                uint crc32Result = 0xFFFFFFFF;
-                byte[] buffer = new byte[BUFFER_SIZE];
+                var crc32Result = 0xFFFFFFFF;
+                var buffer = new byte[BUFFER_SIZE];
 
-                int count = stream.Read(buffer, 0, BUFFER_SIZE);
+                var count = stream.Read(buffer, 0, BUFFER_SIZE);
                 while (count > 0)
                 {
-                    for (int i = 0; i < count; i++)
+                    for (var i = 0; i < count; i++)
                     {
-                        crc32Result = ((crc32Result) >> 8) ^ crc32Table[(buffer[i]) ^
-                                                                        ((crc32Result) & 0x000000FF)];
+                        crc32Result = ((crc32Result) >> 8) ^ crc32Table[(buffer[i]) ^ ((crc32Result) & 0x000000FF)];
                     }
+
                     count = stream.Read(buffer, 0, BUFFER_SIZE);
                 }
 
@@ -128,13 +115,10 @@ namespace IdSharp.Common.Utils
         /// <returns>CRC32 Checksum as a four byte signed integer (Int32).</returns>
         public static uint CalculateInt32(byte[] data)
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
 
-            using (MemoryStream memoryStream = new MemoryStream(data))
-            {
-                return CalculateInt32(memoryStream);
-            }
+            using var memoryStream = new MemoryStream(data);
+            return CalculateInt32(memoryStream);
         }
     }
 }

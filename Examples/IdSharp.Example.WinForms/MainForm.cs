@@ -172,19 +172,27 @@ namespace IdSharp.Tagging.Harness.WinForms
 
         private void EnableCancelButton()
         {
-            if (!InvokeRequired)
-                btnScan.Enabled = true;
+            if (InvokeRequired)
+            {
+                Invoke(() => EnableCancelButton());
+            }
             else
-                Invoke(new MethodInvoker(EnableCancelButton));
+            {
+                btnScan.Enabled = true;
+            }
         }
 
         private delegate void UpdateProgressDelegate(int progressValue);
         private void UpdateProgress(int progressValue)
         {
-            if (!InvokeRequired)
-                prgScanFiles.Value = progressValue;
-            else
+            if (InvokeRequired)
+            {
                 Invoke(new UpdateProgressDelegate(UpdateProgress), progressValue);
+            }
+            else
+            {
+                prgScanFiles.Value = progressValue;
+            }
         }
 
         private delegate void EndRecursiveScanningDelegate(int totalFiles, BindingList<Track> trackList);

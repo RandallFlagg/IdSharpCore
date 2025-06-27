@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+
 using IdSharp.Common.Utils;
+using IdSharp.Utils;
 
 namespace IdSharp.WebLookup.Amazon
 {
@@ -13,25 +13,22 @@ namespace IdSharp.WebLookup.Amazon
     /// </summary>
     public static class Amazon
     {
-        private static readonly Dictionary<AmazonServer, string> _amazonServers;
+        private static readonly Dictionary<AmazonServer, string> _amazonServers = new()        {
+                { AmazonServer.UnitedStates, "amazonaws.com" },
+                { AmazonServer.Germany, "amazonaws.de" },
+                { AmazonServer.Japan, "amazonaws.jp" },
+                { AmazonServer.UnitedKingdom, "amazonaws.co.uk" },
+                { AmazonServer.France, "amazonaws.fr" },
+                { AmazonServer.Canada, "amazonaws.ca" }
+            };
         internal const string HttpRequestUri = "/onca/xml";
-
-        static Amazon()
-        {
-            _amazonServers = new Dictionary<AmazonServer, string>();
-
-            _amazonServers.Add(AmazonServer.UnitedStates, "amazonaws.com");
-            _amazonServers.Add(AmazonServer.Germany, "amazonaws.de");
-            _amazonServers.Add(AmazonServer.Japan, "amazonaws.jp");
-            _amazonServers.Add(AmazonServer.UnitedKingdom, "amazonaws.co.uk");
-            _amazonServers.Add(AmazonServer.France, "amazonaws.fr");
-            _amazonServers.Add(AmazonServer.Canada, "amazonaws.ca");
-        }
 
         private static void FixSearchString(ref string value)
         {
             if (value == null)
+            {
                 return;
+            }
 
             // remove everything after parentheses
             int parenIndex = value.IndexOf('(');
@@ -77,7 +74,7 @@ namespace IdSharp.WebLookup.Amazon
 
             // remove common words
             value = value.ToLower();
-            
+
             value = value.Replace(" the ", " ");
             value = value.Replace(" a ", " ");
             value = value.Replace(" of ", " ");
@@ -192,9 +189,9 @@ namespace IdSharp.WebLookup.Amazon
 
                                             if (errorMessage != "" || errorCode != "")
                                             {
-                                                if (errorCode != "") 
+                                                if (errorCode != "")
                                                     errorMessage = string.Format("{0} ({1})", errorMessage, errorCode);
-                                                if (fullErrorMessage != "") 
+                                                if (fullErrorMessage != "")
                                                     fullErrorMessage += "\n\n";
                                                 fullErrorMessage += errorMessage;
                                             }
@@ -269,12 +266,15 @@ namespace IdSharp.WebLookup.Amazon
 
         internal static string GetSignature(List<PostData> postData, string hostHeader, string secretAccessKey)
         {
-            List<PostData> ordered = GetOrderedPostData(postData);
-            StringBuilder getString = new StringBuilder();
-            foreach (PostData item in ordered)
+            var ordered = GetOrderedPostData(postData);
+            StringBuilder getString = new();
+            foreach (var item in ordered)
             {
                 if (getString.Length != 0)
+                {
                     getString.Append("&");
+                }
+
                 getString.Append(item.Field);
                 getString.Append("=");
                 foreach (char c in item.Value)
@@ -293,18 +293,16 @@ namespace IdSharp.WebLookup.Amazon
                 }
             }
 
-            string stringToSign = string.Format("GET{0}{1}{0}{2}{0}{3}", "\n", hostHeader, HttpRequestUri, getString);
-
-            HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(secretAccessKey));
-            byte[] hash = hmac.ComputeHash(Encoding.ASCII.GetBytes(stringToSign));
-            string signature = Encoding.ASCII.GetString(Base64Encoder.Encode(hash)).Replace("+", "%2B").Replace("=", "%3D");
-
+            var stringToSign = $"GET{"\n"}{hostHeader}{"\n"}{HttpRequestUri}{"\n"}{getString}";
+            var hmac = new HMACSHA256(Encoding.ASCII.GetBytes(secretAccessKey));
+            var hash = hmac.ComputeHash(Encoding.ASCII.GetBytes(stringToSign));
+            var signature = Convert.ToBase64String(hash).Replace("+", "%2B", StringComparison.Ordinal).Replace("=", "%3D", StringComparison.Ordinal);
             return signature;
         }
 
-        private static List<PostData> GetOrderedPostData(IEnumerable<PostData> postData)
+        private static List<PostData> GetOrderedPostData(List<PostData> postData)
         {
-            List<PostData> newList = new List<PostData>(postData);
+            List<PostData> newList = [.. postData];
             newList.Sort(new PostDataComparer());
             return newList;
         }
