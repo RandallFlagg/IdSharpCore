@@ -171,55 +171,70 @@ bool ParseArguments(string[] args)
 {
     for (var i = 0; i < args.Length; i++)
     {
-        if (args[i].StartsWith("--"))
-            args[i] = args[i].Substring(1);
+        string arg = args[i];
 
-        if (args[i] == "-2.3" || args[i] == "-23")
+        if (arg.StartsWith("--"))
+            arg = arg.Substring(1);
+
+        if (arg == "-2.3" || arg == "-23")
         {
             _newTagVersion = ID3v2TagVersion.ID3v23;
         }
-        else if (args[i] == "-2.4" || args[i] == "-24")
+        else if (arg == "-2.4" || arg == "-24")
         {
             _newTagVersion = ID3v2TagVersion.ID3v24;
         }
-        else if (args[i] == "-r" || args[i] == "-recursive")
+        else if (arg == "-r" || arg == "-recursive")
         {
             _isRecursive = true;
         }
-        else if (args[i] == "-v" || args[i] == "-verbose" || args[i] == "-verbosity")
+        else if (arg == "-v" || arg == "-verbose" || arg == "-verbosity")
         {
-            i++;
-            if (args[i] == "0")
-                _verbosity = Verbosity.Silent;
-            else if (args[i] == "1")
-                _verbosity = Verbosity.Default;
-            else if (args[i] == "2")
-                _verbosity = Verbosity.Full;
-            else
-                throw new NotSupportedException(string.Format("'-v {0}' not supported.", args[i]));
+            if (i + 1 >= args.Length)
+                throw new ArgumentException("Missing verbosity level after -v.");
+
+            string level = args[++i];
+
+            switch (level)
+            {
+                case "0":
+                    _verbosity = Verbosity.Silent;
+                    break;
+                case "1":
+                    _verbosity = Verbosity.Default;
+                    break;
+                case "2":
+                    _verbosity = Verbosity.Full;
+                    break;
+                default:
+                    throw new NotSupportedException($"'-v {level}' not supported.");
+            }
         }
-        else if (args[i] == "-t" || args[i] == "-test")
+        else if (arg == "-t" || arg == "-test")
         {
             _isTest = true;
         }
-        else if (args[i] == "-u" || args[i] == "-up" || args[i] == "-upgrade" || args[i] == "-upgradeonly")
+        else if (arg == "-u" || arg == "-up" || arg == "-upgrade" || arg == "-upgradeonly")
         {
             _upgradeOnly = true;
         }
         else
         {
-            if (File.Exists(args[i]))
+            if (File.Exists(arg))
             {
-                _fileName = args[i];
+                _fileName = arg;
             }
-            else if (Directory.Exists(args[i]))
+            else if (Directory.Exists(arg))
             {
-                _directory = args[i];
+                _directory = arg;
             }
             else
             {
-                var message = args[i].StartsWith("-") ? $"switch '{args[i]}' not recognized." : $"'{args[i]}' not found.";
-                WriteLine(string.Format($"Error: {message}"));
+                string message = arg.StartsWith("-")
+                    ? $"switch '{arg}' not recognized."
+                    : $"'{arg}' not found.";
+
+                WriteLine($"Error: {message}");
                 WriteLine();
 
                 PrintUsage();
@@ -230,21 +245,16 @@ bool ParseArguments(string[] args)
 
     if (_newTagVersion == null)
     {
-        //WriteLine("-[2.3|2.4] is required");
-        //WriteLine();
-
         PrintUsage();
         return false;
     }
-    else if (_fileName == null && _directory == null)
+
+    if (_fileName == null && _directory == null)
     {
         _directory = Environment.CurrentDirectory;
-        return true;
     }
-    else
-    {
-        return true;
-    }
+
+    return true;
 }
 
 void PrintUsage()
