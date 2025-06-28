@@ -1,11 +1,16 @@
-using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Text;
+
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v2.Extensions;
+
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Tiff;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace IdSharp.Tagging.ID3v2.Frames
 {
@@ -108,33 +113,42 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             get
             {
+                //TODO: see if this code can be merged with the SetMime method.
+                throw new NotImplementedException("PictureExtension is not implemented yet.");
                 LoadPicture();
 
                 if (_picture == null)
+                {
                     return null;
+                }
 
-                if (_picture.RawFormat.Equals(ImageFormat.Bmp))
-                    return "bmp";
-                else if (_picture.RawFormat.Equals(ImageFormat.Emf))
-                    return "emf";
-                else if (_picture.RawFormat.Equals(ImageFormat.Exif))
-                    return null;  // TODO - Unsure of MIME type?
-                else if (_picture.RawFormat.Equals(ImageFormat.Gif))
-                    return "gif";
-                else if (_picture.RawFormat.Equals(ImageFormat.Icon))
-                    return "ico";
-                else if (_picture.RawFormat.Equals(ImageFormat.Jpeg))
-                    return "jpg";
-                else if (_picture.RawFormat.Equals(ImageFormat.MemoryBmp))
-                    return "bmp";
-                else if (_picture.RawFormat.Equals(ImageFormat.Png))
-                    return "png";
-                else if (_picture.RawFormat.Equals(ImageFormat.Tiff))
-                    return "tif";
-                else if (_picture.RawFormat.Equals(ImageFormat.Wmf))
-                    return "wmf";
-                else
-                    return "";
+
+                int width = Picture.Width;
+                int height = Picture.Height;
+                var image = Image.LoadPixelData<Rgba32>(_pictureData, width, height);
+                //image.Metadata.DecodedImageFormat
+                //if (_picture.RawFormat.Equals(ImageFormat.Bmp))
+                //    return "bmp";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Emf))
+                //    return "emf";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Exif))
+                //    return null;  // TODO - Unsure of MIME type?
+                //else if (_picture.RawFormat.Equals(ImageFormat.Gif))
+                //    return "gif";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Icon))
+                //    return "ico";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Jpeg))
+                //    return "jpg";
+                //else if (_picture.RawFormat.Equals(ImageFormat.MemoryBmp))
+                //    return "bmp";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Png))
+                //    return "png";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Tiff))
+                //    return "tif";
+                //else if (_picture.RawFormat.Equals(ImageFormat.Wmf))
+                //    return "wmf";
+                //else
+                //    return "";
             }
         }
 
@@ -142,22 +156,31 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             get
             {
-                if (_pictureCached == false)
+                if (!_pictureCached)
                 {
                     LoadPicture();
                 }
 
-                return (_picture == null ? null : (Image)_picture.Clone());
+                //return (_picture == null ? null : (Image)_picture.Clone());
+                //TODO: Test. If it is good simplify the condition below.
+                if (_picture == null)
+                {
+                    return null;
+                }
+                else if (_picture is Image<Rgba32> rgbaImage)
+                {
+                    return rgbaImage.Clone();//TODO: Why do we need to clone the image?
+                }
+                else
+                {
+                    throw new InvalidOperationException("Image is not Rgba32 and cannot be cloned.");
+                }
             }
             set
             {
                 if (_picture != value)
                 {
-                    if (_picture != null)
-                    {
-                        _picture.Dispose();
-                    }
-
+                    _picture?.Dispose();
                     _picture = value;
 
                     if (value == null)
@@ -166,73 +189,78 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     }
                     else
                     {
-                        if (_loadingPicture == false)
+                        if (!_loadingPicture)
                         {
-                            using (MemoryStream memoryStream = new MemoryStream())
-                            {
-                                value.Save(memoryStream, value.RawFormat);
-                                _pictureData = memoryStream.ToArray();
-                            }
+                            using var ms = new MemoryStream();
+                            var format = value.Metadata.DecodedImageFormat;
+                            value.Save(ms, format);
+                            _pictureData = ms.ToArray();
 
                             SetMimeType();
                         }
                     }
                 }
 
-                RaisePropertyChanged("Picture");
+                RaisePropertyChanged(nameof(Picture));
             }
         }
 
         private void SetMimeType()
         {
-            LoadPicture();
+            //TODO: See if this code can be merged with the PictureExtension property.
+            //LoadPicture();//TODO: Why do we need to load picture at this point? If SetMime is called the image should be loaded already?
 
+            //TODO: Add more formats as needed.
             if (_picture != null)
             {
-                if (_picture.RawFormat.Equals(ImageFormat.Bmp))
+                var format = _picture.Metadata.DecodedImageFormat;
+                //var format = _picture.RawFormat;
+
+                if (format.Equals(BmpFormat.Instance))
                 {
                     MimeType = "image/bmp";
                 }
-                else if (_picture.RawFormat.Equals(ImageFormat.Emf))
-                {
-                    MimeType = "image/x-emf";
-                }
-                else if (_picture.RawFormat.Equals(ImageFormat.Exif))
-                {
-                    // TODO - Unsure of MIME type?
-                }
-                else if (_picture.RawFormat.Equals(ImageFormat.Gif))
+                //else if (format.Equals(ImageFormat.Emf))
+                //{
+                //    MimeType = "image/x-emf";
+                //}
+                //else if (format.Equals(ImageFormat.Exif))
+                //{
+                //    // TODO - Unsure of MIME type?
+                //}
+                else if (format.Equals(GifFormat.Instance))
                 {
                     MimeType = "image/gif";
                 }
-                else if (_picture.RawFormat.Equals(ImageFormat.Icon))
-                {
-                    // TODO - How to handle this?
-                }
-                else if (_picture.RawFormat.Equals(ImageFormat.Jpeg))
+                //else if (format.Equals(ImageFormat.Icon))
+                //{
+                //    // TODO - How to handle this?
+                //}
+                else if (format.Equals(JpegFormat.Instance))
                 {
                     MimeType = "image/jpeg";
                 }
-                else if (_picture.RawFormat.Equals(ImageFormat.MemoryBmp))
-                {
-                    MimeType = "image/bmp";
-                }
-                else if (_picture.RawFormat.Equals(ImageFormat.Png))
+                //else if (format.Equals(ImageFormat.MemoryBmp))
+                //{
+                //    MimeType = "image/bmp";
+                //}
+                else if (format.Equals(PngFormat.Instance))
                 {
                     MimeType = "image/png";
                 }
-                else if (_picture.RawFormat.Equals(ImageFormat.Tiff))
+                else if (format.Equals(TiffFormat.Instance))
                 {
                     MimeType = "image/tiff";
                 }
-                else if (_picture.RawFormat.Equals(ImageFormat.Wmf))
-                {
-                    MimeType = "image/x-wmf";
-                }
+                //else if (format.Equals(ImageFormat.Wmf))
+                //{
+                //    MimeType = "image/x-wmf";
+                //}
                 else
                 {
                     // TODO
                     //MimeType = "image/";
+                    throw new NotSupportedException($"Unsupported image format: {format.Name}"); //TODO: Is this correct? Should we throw an exception here?
                 }
             }
         }
@@ -342,11 +370,15 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 stream.WriteByte((byte)_textEncoding);
                 if (tagVersion == ID3v2TagVersion.ID3v22)
                 {
-                    string format = PictureExtension;
+                    var format = PictureExtension;
                     if (string.IsNullOrEmpty(format) || format.Length < 3)
+                    {
                         format = "   ";
+                    }
                     else if (format.Length > 3)
-                        format = format.Substring(0, 3);
+                    {
+                        format = format[..3]; //TODO: This condition is correct? Why only 3 characters?
+                    }
 
                     stream.Write(Encoding.ASCII.GetBytes(format));
                 }
@@ -356,6 +388,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     stream.Write(ByteUtils.ISO88591GetBytes(_mimeType));
                     stream.WriteByte(0); // terminator
                 }
+
                 stream.WriteByte((byte)_pictureType);
                 stream.Write(descriptionData);
                 stream.Write(_pictureData);
@@ -373,59 +406,59 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 return;
             }
 
-            using (MemoryStream memoryStream = new MemoryStream(_pictureData))
+            using var memoryStream = new MemoryStream(_pictureData);
+            var isInvalidImage = false;
+
+            try
             {
-                bool isInvalidImage = false;
+                _loadingPicture = true;
+                try
+                {
+                    Picture = Image.Load(memoryStream); //TODO: Changed. Needs to be tested.
+                }
+                catch
+                {
+                    _pictureCached = false;
+                    throw;
+                }
+                finally
+                {
+                    _loadingPicture = false;
+                }
+            }
+            catch (OutOfMemoryException)
+            {
+                var msg = "OutOfMemoryException caught in APIC's PictureData setter";
+                Trace.WriteLine(msg);
+
+                isInvalidImage = true;
+            }
+            catch (ArgumentException)
+            {
+                var msg = "ArgumentException caught in APIC's PictureData setter";
+                Trace.WriteLine(msg);
+
+                isInvalidImage = true;
+            }
+
+            if (isInvalidImage)
+            {
+                // Invalid image
+                _picture?.Dispose();
+                _picture = null;
 
                 try
                 {
-                    _loadingPicture = true;
-                    try
+                    var url = ByteUtils.ISO88591GetString(_pictureData);
+                    if (url.Contains("://"))
                     {
-                        Picture = Image.FromStream(memoryStream);
-                    }
-                    finally
-                    {
-                        _loadingPicture = false;
+                        MimeType = "-->";
                     }
                 }
-                catch (OutOfMemoryException)
+                catch (Exception ex)
                 {
-                    string msg = string.Format("OutOfMemoryException caught in APIC's PictureData setter");
-                    Trace.WriteLine(msg);
-
-                    isInvalidImage = true;
-                }
-                catch (ArgumentException)
-                {
-                    string msg = string.Format("ArgumentException caught in APIC's PictureData setter");
-                    Trace.WriteLine(msg);
-
-                    isInvalidImage = true;
-                }
-
-                if (isInvalidImage)
-                {
-                    // Invalid image
-                    if (_picture != null)
-                    {
-                        _picture.Dispose();
-                    }
-
-                    _picture = null;
-                    try
-                    {
-                        string url = ByteUtils.ISO88591GetString(_pictureData);
-                        if (url.Contains("://"))
-                        {
-                            MimeType = "-->";
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // don't throw an exception
-                        Trace.WriteLine(ex);
-                    }
+                    // don't throw an exception
+                    Trace.WriteLine(ex);
                 }
             }
         }
