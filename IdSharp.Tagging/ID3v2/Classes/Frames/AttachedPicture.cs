@@ -1,15 +1,16 @@
-using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v2.Extensions;
 
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 
 namespace IdSharp.Tagging.ID3v2.Frames
 {
@@ -20,7 +21,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         private PictureType _pictureType;
         private string _description;
         private byte[] _pictureData;
-        private Image _picture;//TODO: Is this correct? Should it be Image<Rgba32> or Image or something else?
+        private Image _picture;
 
         private bool _loadingPicture;
         private bool _readingTag;
@@ -190,75 +191,77 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     {
                         if (!_loadingPicture)
                         {
-                            using (var memoryStream = new MemoryStream())
-                            {
-                                throw new NotImplementedException("Saving image to memory stream is not implemented yet.");
-                                //value.Save(memoryStream, value.RawFormat);//TODO: Check format in other places and fix.
-                                _pictureData = memoryStream.ToArray();
-                            }
+                            using var ms = new MemoryStream();
+                            var format = value.Metadata.DecodedImageFormat;
+                            value.Save(ms, format);
+                            _pictureData = ms.ToArray();
 
                             SetMimeType();
                         }
                     }
                 }
 
-                RaisePropertyChanged("Picture");
+                RaisePropertyChanged(nameof(Picture));
             }
         }
 
         private void SetMimeType()
         {
             //TODO: See if this code can be merged with the PictureExtension property.
-            throw new NotImplementedException("SetMimeType is not implemented yet.");
-            LoadPicture();
+            //LoadPicture();//TODO: Why do we need to load picture at this point? If SetMime is called the image should be loaded already?
 
+            //TODO: Add more formats as needed.
             if (_picture != null)
             {
-                //if (_picture.RawFormat.Equals(ImageFormat.Bmp))
-                //{
-                //    MimeType = "image/bmp";
-                //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Emf))
+                var format = _picture.Metadata.DecodedImageFormat;
+                //var format = _picture.RawFormat;
+
+                if (format.Equals(BmpFormat.Instance))
+                {
+                    MimeType = "image/bmp";
+                }
+                //else if (format.Equals(ImageFormat.Emf))
                 //{
                 //    MimeType = "image/x-emf";
                 //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Exif))
+                //else if (format.Equals(ImageFormat.Exif))
                 //{
                 //    // TODO - Unsure of MIME type?
                 //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Gif))
-                //{
-                //    MimeType = "image/gif";
-                //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Icon))
+                else if (format.Equals(GifFormat.Instance))
+                {
+                    MimeType = "image/gif";
+                }
+                //else if (format.Equals(ImageFormat.Icon))
                 //{
                 //    // TODO - How to handle this?
                 //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Jpeg))
-                //{
-                //    MimeType = "image/jpeg";
-                //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.MemoryBmp))
+                else if (format.Equals(JpegFormat.Instance))
+                {
+                    MimeType = "image/jpeg";
+                }
+                //else if (format.Equals(ImageFormat.MemoryBmp))
                 //{
                 //    MimeType = "image/bmp";
                 //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Png))
-                //{
-                //    MimeType = "image/png";
-                //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Tiff))
-                //{
-                //    MimeType = "image/tiff";
-                //}
-                //else if (_picture.RawFormat.Equals(ImageFormat.Wmf))
+                else if (format.Equals(PngFormat.Instance))
+                {
+                    MimeType = "image/png";
+                }
+                else if (format.Equals(TiffFormat.Instance))
+                {
+                    MimeType = "image/tiff";
+                }
+                //else if (format.Equals(ImageFormat.Wmf))
                 //{
                 //    MimeType = "image/x-wmf";
                 //}
-                //else
-                //{
-                //    // TODO
-                //    //MimeType = "image/";
-                //}
+                else
+                {
+                    // TODO
+                    //MimeType = "image/";
+                    throw new NotSupportedException($"Unsupported image format: {format.Name}"); //TODO: Is this correct? Should we throw an exception here?
+                }
             }
         }
 
@@ -385,6 +388,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     stream.Write(ByteUtils.ISO88591GetBytes(_mimeType));
                     stream.WriteByte(0); // terminator
                 }
+
                 stream.WriteByte((byte)_pictureType);
                 stream.Write(descriptionData);
                 stream.Write(_pictureData);
@@ -412,7 +416,8 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 {
                     Picture = Image.Load(memoryStream); //TODO: Changed. Needs to be tested.
                 }
-                catch {
+                catch
+                {
                     _pictureCached = false;
                     throw;
                 }

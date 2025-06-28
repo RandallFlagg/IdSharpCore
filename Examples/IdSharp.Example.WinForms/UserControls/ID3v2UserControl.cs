@@ -1,14 +1,12 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using System.Windows.Forms;
+
 using IdSharp.AudioInfo;
 using IdSharp.AudioInfo.Inspection;
 using IdSharp.Tagging.ID3v1;
 using IdSharp.Tagging.ID3v2;
 using IdSharp.Tagging.ID3v2.Frames;
+
+using SharpImage = SixLabors.ImageSharp.Image;
 
 namespace IdSharp.Tagging.Harness.WinForms.UserControls
 {
@@ -79,7 +77,7 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
 
         private void LoadImageData(IAttachedPicture attachedPicture)
         {
-            pictureBox1.Image = attachedPicture.Picture.ToBitmap();
+            pictureBox1.Image = attachedPicture.Picture?.ToBitmap();
 
             txtImageDescription.Text = attachedPicture.Description;
             cmbImageType.SelectedIndex = cmbImageType.Items.IndexOf(PictureTypeHelper.GetStringFromPictureType(attachedPicture.PictureType));
@@ -116,12 +114,11 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
 
         private void LoadImageFromFile(IAttachedPicture attachedPicture)
         {
-            DialogResult dialogResult = imageOpenFileDialog.ShowDialog();
+            var dialogResult = imageOpenFileDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                throw new NotImplementedException("This method is not implemented in this example. Please implement the logic to load an image from file and set it to the attached picture.");
-                //attachedPicture.Picture = Image.FromFile(imageOpenFileDialog.FileName);
-                //pictureBox1.Image = attachedPicture.Picture;
+                attachedPicture.Picture = SharpImage.Load(imageOpenFileDialog.FileName);
+                pictureBox1.Image = attachedPicture.Picture.ToBitmap();
             }
         }
 

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v1;
 
@@ -19,7 +19,7 @@ namespace IdSharp.Tagging.Mpeg4
         public static string AcknowledgeRisk()
         {
             _acknowledged = true;
-            Console.WriteLine("WARNING: You have acknowledged that Mpeg4Tag may behave unpredictably.");
+            Debug.WriteLine("WARNING: You have acknowledged that Mpeg4Tag may behave unpredictably.");
             return "WARNING: Mpeg4Tag class is KNOWN to NOT WORK.";//TODO: in the example project show this warning in the UI
         }
 
@@ -45,20 +45,20 @@ namespace IdSharp.Tagging.Mpeg4
         private readonly byte[] hdlr = new byte[]{0,0,0,0,(byte)'h',(byte)'d',(byte)'l',(byte)'r',0,0,0,0,0,0,0,0,(byte)'m',(byte)'d',(byte)'i',(byte)'r',
                               (byte)'a',(byte)'p',(byte)'p',(byte)'l',0,0,0,0,0,0,0,0,0};// removed: ,0
         private readonly byte[] ilst = new byte[] { 0, 0, 0, 0, (byte)'i', (byte)'l', (byte)'s', (byte)'t' };
-        private readonly byte[] cnam = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'n', (byte)'a', (byte)'m', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
-        private readonly byte[] cart = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'A', (byte)'R', (byte)'T', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
-        private readonly byte[] calb = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'a', (byte)'l', (byte)'b', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] cnam = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'n', (byte)'a', (byte)'m', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] cart = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'A', (byte)'R', (byte)'T', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] calb = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'a', (byte)'l', (byte)'b', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         //private readonly byte[] gnre = new byte[] { 0, 0, 0, 0, (byte)'g', (byte)'n', (byte)'r', (byte)'e', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        private readonly byte[] cgen = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'g', (byte)'e', (byte)'n', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] cgen = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'g', (byte)'e', (byte)'n', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         private readonly byte[] trkn = new byte[]{0,0,0,0,(byte)'t',(byte)'r',(byte)'k',(byte)'n',0,0,0,0,(byte)'d',(byte)'a',(byte)'t',(byte)'a',0,0,0,0,0,0,0,0,0,0,
                               0,0,0,0,0,0};
         private readonly byte[] disk = new byte[]{0,0,0,0,(byte)'d',(byte)'i',(byte)'s',(byte)'k',0,0,0,0,(byte)'d',(byte)'a',(byte)'t',(byte)'a',0,0,0,0,0,0,0,0,0,0,
                               0,1,0,1};
-        private readonly byte[] cday = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'d', (byte)'a', (byte)'y', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] cday = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'d', (byte)'a', (byte)'y', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
         private readonly byte[] cpil = new byte[] { 0, 0, 0, 0, (byte)'c', (byte)'p', (byte)'i', (byte)'l', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 21, 0, 0, 0, 0, 0 };
         private readonly byte[] tmpo = new byte[] { 0, 0, 0, 0, (byte)'t', (byte)'m', (byte)'p', (byte)'o', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 21, 0, 0, 0, 0, 0, 0 };
-        private readonly byte[] ctoo = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'t', (byte)'o', (byte)'o', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
-        private readonly byte[] ccmt = new byte[] { 0, 0, 0, 0, (byte)'©', (byte)'c', (byte)'m', (byte)'t', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] ctoo = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'t', (byte)'o', (byte)'o', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
+        private readonly byte[] ccmt = new byte[] { 0, 0, 0, 0, (byte)'Â©', (byte)'c', (byte)'m', (byte)'t', 0, 0, 0, 0, (byte)'d', (byte)'a', (byte)'t', (byte)'a', 0, 0, 0, 1, 0, 0, 0, 0 };
 
         private readonly List<Atom> _atoms = new List<Atom>();
 
@@ -427,27 +427,27 @@ namespace IdSharp.Tagging.Mpeg4
         {
             if (_isWriting) return;
 
-            if (string.Compare(key, "©nam", true) == 0)
+            if (string.Compare(key, "Â©nam", true) == 0)
             {
                 Title = Encoding.UTF8.GetString(data, 0, size);
             }
-            else if (string.Compare(key, "©ART", true) == 0)
+            else if (string.Compare(key, "Â©ART", true) == 0)
             {
                 Artist = Encoding.UTF8.GetString(data, 0, size);
             }
-            else if (string.Compare(key, "©alb", true) == 0)
+            else if (string.Compare(key, "Â©alb", true) == 0)
             {
                 Album = Encoding.UTF8.GetString(data, 0, size);
             }
-            else if (string.Compare(key, "©cmt", true) == 0)
+            else if (string.Compare(key, "Â©cmt", true) == 0)
             {
                 Comment = Encoding.UTF8.GetString(data, 0, size);
             }
-            else if (string.Compare(key, "©day", true) == 0)
+            else if (string.Compare(key, "Â©day", true) == 0)
             {
                 Year = Encoding.UTF8.GetString(data, 0, size);
             }
-            else if (string.Compare(key, "©too", true) == 0)
+            else if (string.Compare(key, "Â©too", true) == 0)
             {
                 Tool = Encoding.UTF8.GetString(data, 0, size);
             }
@@ -462,7 +462,7 @@ namespace IdSharp.Tagging.Mpeg4
                     }
                 }
             }
-            else if (string.Compare(key, "©gen", true) == 0)
+            else if (string.Compare(key, "Â©gen", true) == 0)
             {
                 Genre = Encoding.UTF8.GetString(data, 0, size);
             }
@@ -476,7 +476,7 @@ namespace IdSharp.Tagging.Mpeg4
                 Disc = data[3];
                 TotalDiscs = data[5];
             }
-            else if (string.Compare(key, "©wrt", true) == 0)
+            else if (string.Compare(key, "Â©wrt", true) == 0)
             {
                 Composer = Encoding.UTF8.GetString(data, 0, size);
             }
