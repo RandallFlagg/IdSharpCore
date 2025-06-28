@@ -1,5 +1,7 @@
 using System.Drawing;
 
+using SixLabors.ImageSharp;
+
 namespace IdSharp.Tagging.ID3v2.Frames
 {
     /// <summary>

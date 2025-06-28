@@ -79,7 +79,7 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
 
         private void LoadImageData(IAttachedPicture attachedPicture)
         {
-            pictureBox1.Image = attachedPicture.Picture;
+            pictureBox1.Image = attachedPicture.Picture.ToBitmap();
 
             txtImageDescription.Text = attachedPicture.Description;
             cmbImageType.SelectedIndex = cmbImageType.Items.IndexOf(PictureTypeHelper.GetStringFromPictureType(attachedPicture.PictureType));
@@ -119,8 +119,9 @@ namespace IdSharp.Tagging.Harness.WinForms.UserControls
             DialogResult dialogResult = imageOpenFileDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                attachedPicture.Picture = Image.FromFile(imageOpenFileDialog.FileName);
-                pictureBox1.Image = attachedPicture.Picture;
+                throw new NotImplementedException("This method is not implemented in this example. Please implement the logic to load an image from file and set it to the attached picture.");
+                //attachedPicture.Picture = Image.FromFile(imageOpenFileDialog.FileName);
+                //pictureBox1.Image = attachedPicture.Picture;
             }
         }
 

@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" />
-    <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="zlib.net-mutliplatform" />
   </ItemGroup>
 
