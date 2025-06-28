@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
+
 using IdSharp.Common.Utils;
 using IdSharp.Tagging.ID3v1;
 
@@ -425,7 +423,10 @@ namespace IdSharp.Tagging.Mpeg4
 
         private void ParseTag(string key, byte[] data, int size)
         {
-            if (_isWriting) return;
+            if (_isWriting)
+            {
+                return;
+            }
 
             if (string.Compare(key, "©nam", true) == 0)
             {
