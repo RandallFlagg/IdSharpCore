@@ -4,7 +4,7 @@
  -->
  [![MIT License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/judwhite/IdSharp/blob/master/LICENSE)
 
-.NET Core ID3 Tagging Library.
+.NET 8+ ID3 Tagging Library.
 
 ## Project Origins
 
