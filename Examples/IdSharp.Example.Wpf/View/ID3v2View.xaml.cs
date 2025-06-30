@@ -1,8 +1,10 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
+
 using IdSharp.Common.Events;
 using IdSharp.Tagging.Harness.Wpf.Model;
 using IdSharp.Tagging.Harness.Wpf.ViewModel;
+
 using Microsoft.Win32;
 
 namespace IdSharp.Tagging.Harness.Wpf.View

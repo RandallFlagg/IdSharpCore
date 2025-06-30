@@ -10,6 +10,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageVersion Include="SixLabors.ImageSharp" Version="3.1.10" />
     <PackageVersion Include="System.Resources.Extensions" Version="9.0.6" />
+    <PackageVersion Include="WindowsAPICodePack.Shell.CommonFileDialogs.Wpf" Version="1.1.5.1" />
     <PackageVersion Include="zlib.net-mutliplatform" Version="1.0.8" />
   </ItemGroup>
 </Project>

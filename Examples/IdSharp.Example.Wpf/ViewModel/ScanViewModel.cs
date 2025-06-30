@@ -1,22 +1,22 @@
-﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Threading;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Input;
+
 using IdSharp.Tagging.Harness.Wpf.Commands;
 using IdSharp.Tagging.Harness.Wpf.Model;
 using IdSharp.Tagging.Harness.Wpf.ViewModel.Interfaces;
 using IdSharp.Tagging.ID3v2;
 using IdSharp.Tagging.ID3v2.Frames;
-using Application = System.Windows.Application;
+
+using WindowsAPICodePack.Dialogs;
 
 namespace IdSharp.Tagging.Harness.Wpf.ViewModel
 {
     public class ScanViewModel : ViewModelBase, IScanViewModel
     {
-        private readonly FolderBrowserDialog _folderBrowserDialog;
+        private readonly CommonOpenFileDialog _folderDialog;
 
         private readonly DelegateCommand _scanCommand;
         private readonly DelegateCommand _cancelCommand;
@@ -36,7 +36,12 @@ namespace IdSharp.Tagging.Harness.Wpf.ViewModel
             _cancelCommand = new DelegateCommand(CancelScan, () => IsScanning && !_cancelScanning);
             _browseCommand = new DelegateCommand(Browse, () => !IsScanning);
 
-            _folderBrowserDialog = new FolderBrowserDialog();
+            _folderDialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Title = "Select a folder",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
         }
 
         private void ScanViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -143,9 +148,10 @@ namespace IdSharp.Tagging.Harness.Wpf.ViewModel
 
         private void Browse()
         {
-            if (_folderBrowserDialog.ShowDialog(Application.Current.MainWindow.GetIWin32Window()) == DialogResult.OK)
+            if (_folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                Directory = _folderBrowserDialog.SelectedPath;
+                Directory = _folderDialog.FileName;
+                _folderDialog.InitialDirectory = Directory;
             }
         }
 

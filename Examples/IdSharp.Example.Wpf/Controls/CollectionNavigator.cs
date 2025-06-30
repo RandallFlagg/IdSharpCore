@@ -1,8 +1,8 @@
-﻿using System;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+
 using IdSharp.Common.Events;
 
 namespace IdSharp.Tagging.Harness.Wpf.Controls
@@ -54,10 +54,14 @@ namespace IdSharp.Tagging.Harness.Wpf.Controls
             ItemCountTextBlock = (TextBlock)GetTemplateChild("ItemCountTextBlock");
 
             // ReSharper disable PossibleNullReferenceException
-            FirstButton.Click += delegate { CurrentPosition = 1; };
-            PreviousButton.Click += delegate { CurrentPosition--; };
-            NextButton.Click += delegate { CurrentPosition++; };
-            LastButton.Click += delegate { CurrentPosition = ItemsSource.Count; };
+            FirstButton.Click += delegate
+            { CurrentPosition = 1; };
+            PreviousButton.Click += delegate
+            { CurrentPosition--; };
+            NextButton.Click += delegate
+            { CurrentPosition++; };
+            LastButton.Click += delegate
+            { CurrentPosition = ItemsSource.Count; };
             DeleteButton.Click += DeleteButton_Click;
             AddButton.Click += AddButton_Click;
             // ReSharper restore PossibleNullReferenceException
@@ -158,9 +162,8 @@ namespace IdSharp.Tagging.Harness.Wpf.Controls
                 CurrentPositionTextBox.IsEnabled = false;
                 DeleteButton.IsEnabled = false;
                 AddButton.IsEnabled = collection != null;
+                SelectedItem = null;
 
-                SelectedItem = null;                
-                
                 return;
             }
 
