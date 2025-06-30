@@ -1,4 +1,3 @@
-﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,7 +8,7 @@ namespace IdSharp.Tagging.Harness.Wpf.Commands
     /// <summary>
     /// WPF helper class.
     /// </summary>
-    public static class WpfApplicationHelper
+    internal static class WpfApplicationHelper
     {
         /// <summary>
         /// Invokes a method on the UI thread.
@@ -65,27 +64,27 @@ namespace IdSharp.Tagging.Harness.Wpf.Commands
             ((TextBox)sender).SelectAll();
         }
 
-        public static System.Windows.Forms.IWin32Window GetIWin32Window(this System.Windows.Media.Visual visual)
-        {
-            var source = (System.Windows.Interop.HwndSource)PresentationSource.FromVisual(visual);
-            System.Windows.Forms.IWin32Window win = new OldWindow(source.Handle);
-            return win;
-        }
+        //public static System.Windows.Forms.IWin32Window GetIWin32Window(this System.Windows.Media.Visual visual)
+        //{
+        //    var source = (System.Windows.Interop.HwndSource)PresentationSource.FromVisual(visual);
+        //    System.Windows.Forms.IWin32Window win = new OldWindow(source.Handle);
+        //    return win;
+        //}
 
-        private class OldWindow : System.Windows.Forms.IWin32Window
-        {
-            private readonly IntPtr _handle;
+        //private class OldWindow : System.Windows.Forms.IWin32Window
+        //{
+        //    private readonly IntPtr _handle;
 
-            public OldWindow(IntPtr handle)
-            {
-                _handle = handle;
-            }
+        //    public OldWindow(IntPtr handle)
+        //    {
+        //        _handle = handle;
+        //    }
 
-            IntPtr System.Windows.Forms.IWin32Window.Handle
-            {
-                get { return _handle; }
-            }
-        }
+        //    IntPtr System.Windows.Forms.IWin32Window.Handle
+        //    {
+        //        get { return _handle; }
+        //    }
+        //}
 
         /// <summary>
         /// Finds a parent of a given item on the visual tree.

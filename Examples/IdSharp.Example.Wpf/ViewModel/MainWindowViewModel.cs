@@ -1,9 +1,11 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+
 using IdSharp.Tagging.Harness.Wpf.Commands;
 using IdSharp.Tagging.Harness.Wpf.Events;
 using IdSharp.Tagging.Harness.Wpf.ViewModel.Interfaces;
+
 using Microsoft.Win32;
 
 namespace IdSharp.Tagging.Harness.Wpf.ViewModel
