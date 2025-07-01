@@ -4,7 +4,7 @@ using IdSharp.Tagging.ID3v2.Frames;
 
 namespace IdSharp.Tagging.ID3v2;
 
-public abstract partial class FrameContainer : IFrameContainer
+partial class FrameContainer
 {
     /// <summary>
     /// Gets the list of unique file identifiers.  See <see cref="IUniqueFileIdentifier"/>.  UFID/UFI.
