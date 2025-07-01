@@ -177,7 +177,8 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
         }
 
-        public override byte[] GetBytes(ID3v2TagVersion tagVersion) {
+        public override byte[] GetBytes(ID3v2TagVersion tagVersion)
+        {
             return GetBytes(tagVersion, false);
         }
 
@@ -188,7 +189,8 @@ namespace IdSharp.Tagging.ID3v2.Frames
         /// <param name="tagVersion">The tag version</param>
         /// <param name="appendNullTerminator">Should a null terminator be appended</param>
         /// <returns>The byte array representation of the frame</returns>
-        public byte[] GetBytes(ID3v2TagVersion tagVersion, bool appendNullTerminator) {
+        public byte[] GetBytes(ID3v2TagVersion tagVersion, bool appendNullTerminator)
+        {
             if (string.IsNullOrEmpty(Value))
                 return new byte[0];
 
@@ -198,7 +200,8 @@ namespace IdSharp.Tagging.ID3v2.Frames
             byte[] descriptionData;
             byte[] valueData;
 
-            do {
+            do
+            {
                 descriptionData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Description, true);
                 valueData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Value, false);
 
@@ -209,8 +212,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 this.RequiresFix(tagVersion, Value, valueData)
             );
 
-            using (MemoryStream frameData = new MemoryStream()) {
-                frameData.WriteByte((byte) TextEncoding);
+            using (MemoryStream frameData = new MemoryStream())
+            {
+                frameData.WriteByte((byte)TextEncoding);
                 frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));
                 frameData.Write(descriptionData);
                 frameData.Write(valueData);

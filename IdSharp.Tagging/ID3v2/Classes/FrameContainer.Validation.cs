@@ -3,7 +3,7 @@ using IdSharp.Common.Events;
 
 namespace IdSharp.Tagging.ID3v2
 {
-    public abstract partial class FrameContainer : IFrameContainer
+    partial class FrameContainer
     {
         private void ValidateTimeRecorded()
         {
