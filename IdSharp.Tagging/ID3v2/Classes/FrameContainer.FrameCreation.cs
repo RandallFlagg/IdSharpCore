@@ -6,7 +6,7 @@ using IdSharp.Tagging.ID3v2.Frames.Lists;
 
 namespace IdSharp.Tagging.ID3v2;
 
-public abstract partial class FrameContainer : IFrameContainer
+partial class FrameContainer
 {
     private readonly FrameBinder _frameBinder;
 
