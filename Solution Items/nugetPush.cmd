@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 :: === Configuration ===
-set PROJECT_FILE=IdSharp.Tagging-core.csproj
+set PROJECT_FILE=IdSharp.Tagging.csproj
 set OUTPUT_DIR=NuGetPackages
 set CONFIGURATION=Release
 set NUGET_SOURCE=https://api.nuget.org/v3/index.json

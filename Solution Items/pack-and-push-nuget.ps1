@@ -1,5 +1,5 @@
 # === Configuration ===
-$Projects = @("IdSharp.Tagging-core", "IdSharp.Common-core", "IdSharp.AudioInfo-core")  # Add/remove project names as needed
+$Projects = @("IdSharp.Tagging", "IdSharp.Common", "IdSharp.AudioInfo")  # Add/remove project names as needed
 $OutputDir = "NuGetPackages"
 $Configuration = "Release"
 $NuGetSource = "https://api.nuget.org/v3/index.json"
@@ -26,7 +26,7 @@ if (-not (Test-Path $OutputDir)) {
 
 # === Loop through each project ===
 foreach ($proj in $Projects) {
-    $projFile = "./src/$proj/$proj.csproj"
+    $projFile = "../$proj/$proj.csproj"
     
     if (-not (Test-Path $projFile)) {
         Write-Host "⚠️ Skipping: $projFile not found." -ForegroundColor Yellow
@@ -51,7 +51,7 @@ foreach ($proj in $Projects) {
 # === Push all .nupkg files ===
 Get-ChildItem -Path $OutputDir -Filter *.nupkg | ForEach-Object {
     Write-Host "🚀 Pushing $($_.Name)..."
-    dotnet nuget push $_.FullName --api-key $ApiKey --source $NuGetSource --skip-duplicate --no-service-endpoint
+    # dotnet nuget push $_.FullName --api-key $ApiKey --source $NuGetSource --skip-duplicate --no-service-endpoint
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Push failed for $($_.Name)" -ForegroundColor Red
         exit 1
@@ -59,3 +59,4 @@ Get-ChildItem -Path $OutputDir -Filter *.nupkg | ForEach-Object {
 }
 
 Write-Host "✅ All NuGet packages pushed successfully!" -ForegroundColor Green
+
