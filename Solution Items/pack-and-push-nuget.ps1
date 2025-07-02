@@ -1,8 +1,30 @@
+function Confirm-And-RemoveFolder {
+    param (
+        [Parameter(Mandatory)][string] $FolderPath,
+        [string] $Prompt = "Do you want to delete the folder '$FolderPath'?"
+    )
+
+    if (-not (Test-Path $FolderPath)) {
+        return
+    }
+
+    $response = Read-Host "🧹 $Prompt (y/n)"
+    if ($response.Trim() -match '^[Yy]$') {
+        Remove-Item -Recurse -Force -Path $FolderPath
+        Write-Host "🗑️  Deleted folder: $FolderPath"
+    } else {
+        Write-Host "📦 Folder preserved: $FolderPath"
+    }
+}
+
 # === Configuration ===
-$Projects = @("IdSharp.Tagging", "IdSharp.Common", "IdSharp.AudioInfo")  # Add/remove project names as needed
+$Projects = @("IdSharp.Common", "IdSharp.Tagging", "IdSharp.AudioInfo") # Add/remove project names as needed
 $OutputDir = "NuGetPackages"
 $Configuration = "Release"
 $NuGetSource = "https://api.nuget.org/v3/index.json"
+
+# === Ask user if they want to start with a clean folder ===
+Confirm-And-RemoveFolder -FolderPath $OutputDir -Prompt "Delete existing '$OutputDir' folder before building?"
 
 # === 🔐 Check for API key file ===
 if ($args.Count -lt 1) {
@@ -51,7 +73,7 @@ foreach ($proj in $Projects) {
 # === Push all .nupkg files ===
 Get-ChildItem -Path $OutputDir -Filter *.nupkg | ForEach-Object {
     Write-Host "🚀 Pushing $($_.Name)..."
-    # dotnet nuget push $_.FullName --api-key $ApiKey --source $NuGetSource --skip-duplicate --no-service-endpoint
+    dotnet nuget push $_.FullName --api-key $ApiKey --source $NuGetSource --skip-duplicate --no-service-endpoint
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Push failed for $($_.Name)" -ForegroundColor Red
         exit 1
@@ -60,3 +82,6 @@ Get-ChildItem -Path $OutputDir -Filter *.nupkg | ForEach-Object {
 
 Write-Host "✅ All NuGet packages pushed successfully!" -ForegroundColor Green
 
+# === clean up output directory ===
+# === Ask if user wants to delete the output folder ===
+Confirm-And-RemoveFolder -FolderPath $OutputDir -Prompt "Delete '$OutputDir' folder now that packing is complete?"
