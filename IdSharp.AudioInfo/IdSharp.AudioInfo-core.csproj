@@ -1,8 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
+
+  <PropertyGroup Label="project">
     <OutputType>library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>IdSharp.AudioInfo</AssemblyName>
+    <Description>.NET Core ID3 Audio Info Library</Description>
   </PropertyGroup>
+
+  <PropertyGroup Label="nuget">
+    <PackageId>IdSharp.AudioInfo</PackageId>
+    <Title>IdSharp Audio Info</Title>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\IdSharp.Common\IdSharp.Common-core.csproj" />
   </ItemGroup>
