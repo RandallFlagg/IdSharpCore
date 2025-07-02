@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging.csproj" />
+    <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo.csproj" />
+  </ItemGroup>
+</Project>

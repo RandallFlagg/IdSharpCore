@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo-core.csproj" />
-    <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common-core.csproj" />
-    <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging-core.csproj" />
+    <ProjectReference Include="..\..\IdSharp.AudioInfo\IdSharp.AudioInfo.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Common\IdSharp.Common.csproj" />
+    <ProjectReference Include="..\..\IdSharp.Tagging\IdSharp.Tagging.csproj" />
   </ItemGroup>
 
 </Project>

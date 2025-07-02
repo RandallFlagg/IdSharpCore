@@ -13,6 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdSharp.Common\IdSharp.Common-core.csproj" />
+    <ProjectReference Include="..\IdSharp.Common\IdSharp.Common.csproj" />
   </ItemGroup>
 </Project>
