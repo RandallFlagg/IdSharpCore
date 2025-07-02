@@ -2,10 +2,11 @@ using System;
 
 namespace IdSharp.Common.Utils;
 
+//TODO: This class is redundant and not really in use. Consider removing it.
 /// <summary>
 /// MathUtils
 /// </summary>
-public class MathUtils
+public static class MathUtils
 {
     /// <summary>
     /// Gets the maximum value from the specified array.
@@ -15,11 +16,11 @@ public class MathUtils
     {
         if (array == null || array.Length == 0)
         {
-            throw new ArgumentNullException(nameof(array));
+            throw new ArgumentException("Array must not be null or empty.", nameof(array));
         }
 
-        int max = array[0];
-        foreach (int val in array)
+        var max = array[0];
+        foreach (var val in array)
         {
             if (val > max)
             {
@@ -38,11 +39,11 @@ public class MathUtils
     {
         if (array == null || array.Length == 0)
         {
-            throw new ArgumentNullException(nameof(array));
+            throw new ArgumentException("Array must not be null or empty.", nameof(array));
         }
 
-        int min = array[0];
-        foreach (int val in array)
+        var min = array[0];
+        foreach (var val in array)
         {
             if (val < min)
             {
@@ -61,7 +62,7 @@ public class MathUtils
     /// <returns><c>true</c> if the values are equal; otherwise, <c>false</c>.</returns>
     public static bool DoublesAreEqual(double double1, double double2)
     {
-        return (Math.Abs(double1 - double2) < double.Epsilon);
+            return Math.Abs(double1 - double2) < double.Epsilon;
     }
 
     /// <summary>
@@ -71,9 +72,9 @@ public class MathUtils
     /// <returns><c>true</c> if the type is a numeric type; otherwise, <c>false</c>.</returns>
     public static bool IsNumericType(Type type)
     {
-        ArgumentNullException.ThrowIfNull(type);
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
 
-        return (type == typeof(int) ||
+        return type == typeof(int) ||
                 type == typeof(int?) ||
                 type == typeof(long) ||
                 type == typeof(long?) ||
@@ -90,6 +91,6 @@ public class MathUtils
                 type == typeof(ushort) ||
                 type == typeof(ushort?) ||
                 type == typeof(decimal) ||
-                type == typeof(decimal?));
+                type == typeof(decimal?);
     }
 }
