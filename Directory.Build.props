@@ -18,8 +18,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IdSharp</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <!--<OutputPath>$(SolutionDir)..\bin\$(Configuration)</OutputPath>--><!--TODO: Normalize this across solution-->
-    <SignAssembly>false</SignAssembly><!--TODO: Enable this-->
+    <!--<OutputPath>$(SolutionDir)..\bin\$(Configuration)</OutputPath>-->
+    <!--TODO: Normalize this across solution-->
+    <SignAssembly>false</SignAssembly>
+    <!--TODO: Enable this-->
     <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
     <Product>IdSharp</Product>
     <Copyright>Copyright © IdSharp 2025</Copyright>
@@ -30,11 +32,17 @@
     <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
     <AssemblyTitle>FIX ME - AssemblyTitle!</AssemblyTitle>
     <GenerateResourceUsePreserializedResources>false</GenerateResourceUsePreserializedResources>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-    <PropertyGroup Label="nuget">
-        <Version>2.0.2</Version>
-    <PackageVersion>2.0.1</PackageVersion>
+  <PropertyGroup Label="nuget">
+    <Version>2.0.0</Version>
+    <PackageVersion>2.0.3</PackageVersion>
     <PackageProjectUrl>https://github.com/RandallFlagg/IdSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RandallFlagg/IdSharp.git</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -51,7 +59,7 @@
     <None Include="$(SolutionRoot)/Solution Items/Key.snk" Link="Key.snk" />
   </ItemGroup>
 
-    <ItemGroup Label="nuget">
+  <ItemGroup Label="nuget">
     <!-- If README is outside of project folders -->
     <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
     <None Include="..\README.md" Pack="true" PackagePath="/" />

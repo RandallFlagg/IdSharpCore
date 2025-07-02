@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <PropertyGroup Label="nuget">
-      <PackageId>IdSharp.Tagging</PackageId>
-      <Title>IdSharp Tagging</Title>
-  <!-- 
+    <PackageId>IdSharp.Tagging</PackageId>
+    <Title>IdSharp Tagging</Title>
+    <!-- 
     <PackageId>IdSharp.Tagging</PackageId>
     <PackageTags>mp3tag mp3-tags mp3 id3 id3v2 id3v2-tag id3-reader id3-writer id3-parser id3v1 idsharp mpeg4tag</PackageTags>
     <Description>.NET 8+ ID3 Tagging Library</Description>
