@@ -3,6 +3,8 @@
     <OutputType>library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <NoWarn>CA1303</NoWarn>
+    <PackageId>IdSharp.Common</PackageId>
+    <Title>IdSharp Common</Title>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Utils\BouncyCastle\**" />
@@ -20,6 +22,5 @@
 <PackageVersion>1.0.1</PackageVersion>
 <RepositoryUrl>https://github.com/RandallFlagg/IdSharpCore.git</RepositoryUrl>
 <PackageProjectUrl>https://github.com/RandallFlagg/IdSharpCore</PackageProjectUrl>
-<Authors>Jud White;Ohad</Authors>
 <Title>IdSharp Core</Title>
 <PackageLicenseUrl>https://raw.githubusercontent.com/RandallFlagg/IdSharpCore/master/LICENSE</PackageLicenseUrl>-->
