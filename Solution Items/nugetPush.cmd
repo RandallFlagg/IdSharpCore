@@ -7,7 +7,6 @@ set OUTPUT_DIR=NuGetPackages
 set CONFIGURATION=Release
 set NUGET_SOURCE=https://api.nuget.org/v3/index.json
 
-::set "API_KEY="
 
 :: 🔐 Check if an API key file was provided
 if "%~1"=="" (
@@ -24,6 +23,7 @@ if not exist "%~1" (
 set "API_KEY_FILE=%~1"
 echo 🔍 Using API key file: "%API_KEY_FILE%"
 
+::set "API_KEY="
 set /p API_KEY=<"%API_KEY_FILE%"
 
 :: === Build the project ===
