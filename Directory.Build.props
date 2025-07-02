@@ -2,11 +2,7 @@
   <PropertyGroup Label="project">
     <Authors>Jud White; RandallFlagg; Various Contributers</Authors>
     <Company>CrOSS Solutions</Company>
-    <!-- <Version>9.0.0</Version> -->
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>4.0.0.0</FileVersion>
-    <InformationalVersion>5.0.0.0+sha1.abcd1234</InformationalVersion>
-    <Authors>Jud White; RandallFlagg; Various Contributers</Authors>
+    <Authors>RandallFlagg; Various Contributers; Jud White;</Authors>
     <Company>CrOSS Solutions</Company>
     <Description>.NET 8+ ID3 Tagging Library</Description>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -24,7 +20,7 @@
     <!--TODO: Enable this-->
     <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
     <Product>IdSharp</Product>
-    <Copyright>Copyright © IdSharp 2025</Copyright>
+    <Copyright>Copyright © CrOSS Solutions 2025</Copyright>
     <IsTestProject>false</IsTestProject>
     <UseWindowsForms>false</UseWindowsForms>
     <ImportWindowsDesktopTargets>false</ImportWindowsDesktopTargets>
@@ -40,8 +36,14 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-  <PropertyGroup Label="nuget">
+  <PropertyGroup Label="version">
     <Version>2.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
+    <InformationalVersion>5.0.0.0+sha1.abcd1234</InformationalVersion>
+  </PropertyGroup>
+
+    <PropertyGroup Label="nuget">
     <PackageVersion>2.0.3</PackageVersion>
     <PackageProjectUrl>https://github.com/RandallFlagg/IdSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RandallFlagg/IdSharp.git</RepositoryUrl>

@@ -67,13 +67,3 @@ REM Delete the folder before exiting
 
 :EXIT
 endlocal
-
-@REM set DEPLOY_DIR=%CD%\..\Nuget Deploy
-@REM set TAGGING_VERSION=1.0.0-rc4
-@REM set TAGGING_NUPKG_FILE=%CD%\bin\release\IdSharp.Tagging.%TAGGING_VERSION%.nupkg
-
-@REM dotnet pack "%CD%\IdSharp.Tagging-core.csproj" -c release
-@REM ::Release or release?
-@REM mkdir "%DEPLOY_DIR%"
-@REM copy "%TAGGING_NUPKG_FILE%" "%DEPLOY_DIR%"
-@REM dotnet nuget push "%TAGGING_NUPKG_FILE%" -k %1 -s https://api.nuget.org/v3/index.json
