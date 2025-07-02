@@ -1,33 +1,53 @@
 <Project>
-  <PropertyGroup>
-    <Version>8.2.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <InformationalVersion>2.0.0.0-rc1</InformationalVersion>
-    <Authors>RandallFlagg</Authors>
-    <Company>IdSharp</Company>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  <PropertyGroup Label="project">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <AssemblyOriginatorKeyFile>$(SolutionRoot)/Solution Items/Key.snk</AssemblyOriginatorKeyFile>
-    <PublishAot>false</PublishAot>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IdSharp</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <!--<OutputPath>$(SolutionDir)..\bin\$(Configuration)</OutputPath>--><!--TODO: Normalize this across solution-->
-    <SignAssembly>false</SignAssembly><!--TODO: Enable this-->
-    <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
-    <Product>IdSharp</Product>
-    <Copyright>Copyright © IdSharp 2025</Copyright>
-    <IsTestProject>false</IsTestProject>
-    <UseWindowsForms>false</UseWindowsForms>
-    <ImportWindowsDesktopTargets>false</ImportWindowsDesktopTargets>
-    <EnableWindowsTargeting>false</EnableWindowsTargeting>
-    <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
+    <AssemblyOriginatorKeyFile>$(SolutionRoot)/Solution Items/Key.snk</AssemblyOriginatorKeyFile>
     <AssemblyTitle>FIX ME - AssemblyTitle!</AssemblyTitle>
-    <Description>FIX ME - Description!</Description>
+    <Authors>RandallFlagg; Various Contributers; Jud White</Authors>
+    <Company>CrOSS Solutions</Company>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Copyright>Copyright © CrOSS Solutions 2025</Copyright>
+    <Description>.NET 8+ ID3 Tagging Library</Description>
+    <Deterministic>true</Deterministic>
+    <EnableWindowsTargeting>false</EnableWindowsTargeting>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateResourceUsePreserializedResources>false</GenerateResourceUsePreserializedResources>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ImportWindowsDesktopTargets>false</ImportWindowsDesktopTargets>
+    <IsTestProject>false</IsTestProject>
+    <Nullable>enable</Nullable>
+    <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+    <!--<OutputPath>$(SolutionDir)..\bin\$(Configuration)</OutputPath>--><!--TODO: Normalize this across solution-->
+    <Product>IdSharp</Product>
+    <PublishAot>false</PublishAot>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RootNamespace>IdSharp</RootNamespace>
+    <SignAssembly>false</SignAssembly><!--TODO: Enable this-->
+    <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
+    <UseWindowsForms>false</UseWindowsForms>
+  </PropertyGroup>
+
+  <PropertyGroup Label="version">
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
+    <InformationalVersion>5.0.0.0+sha1.abcd1234</InformationalVersion>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Label="nuget">
+    <IncludeSymbols>true</IncludeSymbols>
+    <!-- <PackageLicenseExpression>FSL-1.1-MIT</PackageLicenseExpression> -->
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/RandallFlagg/IdSharp</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>id3 id3-parser id3-reader id3-writer id3v1 id3v2 id3v2-tag idsharp mp3 mp3-tags mp3tag mpeg4tag</PackageTags>
+    <PackageVersion>2.0.3</PackageVersion>
+    <RepositoryUrl>https://github.com/RandallFlagg/IdSharp.git</RepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Title>IdSharp</Title>
   </PropertyGroup>
 
   <ItemGroup Label="Links">
@@ -35,12 +55,17 @@
     <None Include="$(SolutionRoot)/Solution Items/Key.snk" Link="Key.snk" />
   </ItemGroup>
 
+  <ItemGroup Label="nuget">
+    <!-- If README is outside of project folders -->
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
 </Project>
 
 <!--<PackageVersion>1.0.0-rc4</PackageVersion>
 <RepositoryUrl>https://github.com/RandallFlagg/IdSharpCore.git</RepositoryUrl>
 <PackageProjectUrl>https://github.com/RandallFlagg/IdSharpCore</PackageProjectUrl>
-<Authors>Jud White;Ohad</Authors>
 <Title>IdSharp Core</Title>
 <PackageLicenseUrl>https://raw.githubusercontent.com/RandallFlagg/IdSharpCore/master/LICENSE</PackageLicenseUrl>
 <PackageTags>mp3tag mp3-tags mp3 id3 id3v2 id3v2-tag id3-reader id3-writer id3-parser id3v1 idsharp</PackageTags>-->

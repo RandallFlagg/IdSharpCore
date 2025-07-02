@@ -1,80 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1C83FB63-E16E-4380-9DD0-26E1799C417D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IdSharp.Common</RootNamespace>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="FIX and DEL">
+    <NoWarn>CA1303</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="project">
+    <OutputType>library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>IdSharp.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <Description>.NET Core ID3 Common Library</Description>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\IdSharp.Common.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Label="nuget">
+    <PackageId>IdSharp.Common</PackageId>
+    <Title>IdSharp Common</Title>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\IdSharp.Common.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>idsharp.common.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
+    <Compile Remove="Utils\BouncyCastle\**" />
+    <EmbeddedResource Remove="Utils\BouncyCastle\**" />
+    <None Remove="Utils\BouncyCastle\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Events\CancelDataEventArgs.cs" />
-    <Compile Include="Events\DataEventArgs.cs" />
-    <Compile Include="Events\ErrorType.cs" />
-    <Compile Include="Events\INotifyInvalidData.cs" />
-    <Compile Include="Events\InvalidDataEventArgs.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Base64Encoder.cs" />
-    <Compile Include="Utils\BouncyCastle\Base64Encoder.cs" />
-    <Compile Include="Utils\BouncyCastle\IEncoder.cs" />
-    <Compile Include="Utils\ByteUtils.cs" />
-    <Compile Include="Utils\CRC32.cs" />
-    <Compile Include="Utils\EnumUtils.cs" />
-    <Compile Include="Utils\Http.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
-    <Compile Include="Utils\PathUtils.cs" />
-    <Compile Include="Utils\PostData.cs" />
-    <Compile Include="Utils\StreamUtils.cs" />
+    <Compile Remove="Utils\Base64Encoder.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="idsharp.common.snk" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
+
+<!--
+<PackageTags>mp3tag mp3-tags mp3 id3 id3v2 id3v2-tag id3-reader id3-writer id3-parser id3v1 idsharp</PackageTags>
+<Description>.NET Core ID3 Tagging Library</Description>
+<PackageVersion>1.0.1</PackageVersion>
+<RepositoryUrl>https://github.com/RandallFlagg/IdSharpCore.git</RepositoryUrl>
+<PackageProjectUrl>https://github.com/RandallFlagg/IdSharpCore</PackageProjectUrl>
+<Title>IdSharp Core</Title>
+<PackageLicenseUrl>https://raw.githubusercontent.com/RandallFlagg/IdSharpCore/master/LICENSE</PackageLicenseUrl>-->
