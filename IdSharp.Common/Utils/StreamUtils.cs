@@ -39,7 +39,7 @@ namespace IdSharp.Common.Utils
             }
             else
             {
-                string msg = string.Format("Attempted to read past the end of the frame at position {0}", stream.Position);
+                string msg = $"Attempted to read past the end of the frame at position {stream.Position}";
                 throw new InvalidDataException(msg);
             }
         }
@@ -54,9 +54,10 @@ namespace IdSharp.Common.Utils
             byte[] buffer = new byte[count];
             if (stream.Read(buffer, 0, count) != count)
             {
-                string msg = string.Format("Attempted to read past the end of the stream when requesting {0} bytes at position {1}", count, stream.Position);
+                string msg = $"Attempted to read past the end of the stream when requesting {count} bytes at position {stream.Position}";
                 throw new InvalidDataException(msg);
             }
+
             return buffer;
         }
 
@@ -70,7 +71,7 @@ namespace IdSharp.Common.Utils
         {
             if (bytesLeft < count)
             {
-                string msg = string.Format("Attempted to read past the end of the frame at position {0}", stream.Position);
+                string msg = $"Attempted to read past the end of the frame at position {stream.Position}";
                 throw new InvalidDataException(msg);
             }
             bytesLeft -= count;
@@ -125,9 +126,9 @@ namespace IdSharp.Common.Utils
         /// <param name="value">The value.</param>
         public static void WriteInt32(this Stream stream, int value)
         {
-            byte[] byteArray = new[] { (byte)((value >> 24) & 0xFF), 
-                                       (byte)((value >> 16) & 0xFF), 
-                                       (byte)((value >> 8) & 0xFF), 
+            byte[] byteArray = new[] { (byte)((value >> 24) & 0xFF),
+                                       (byte)((value >> 16) & 0xFF),
+                                       (byte)((value >> 8) & 0xFF),
                                        (byte)(value & 0xFF)
                                      };
             Write(stream, byteArray);
@@ -140,8 +141,8 @@ namespace IdSharp.Common.Utils
         /// <param name="value">The value.</param>
         public static void WriteInt24(this Stream stream, int value)
         {
-            byte[] byteArray = new[] { (byte)((value >> 16) & 0xFF), 
-                                       (byte)((value >> 8) & 0xFF), 
+            byte[] byteArray = new[] { (byte)((value >> 16) & 0xFF),
+                                       (byte)((value >> 8) & 0xFF),
                                        (byte)(value & 0xFF)
                                      };
             Write(stream, byteArray);
@@ -154,9 +155,9 @@ namespace IdSharp.Common.Utils
         /// <param name="value">The value.</param>
         public static void WriteInt32LittleEndian(this Stream stream, int value)
         {
-            byte[] byteArray = new[] { (byte)(value & 0xFF), 
-                                       (byte)((value >> 8) & 0xFF), 
-                                       (byte)((value >> 16) & 0xFF), 
+            byte[] byteArray = new[] { (byte)(value & 0xFF),
+                                       (byte)((value >> 8) & 0xFF),
+                                       (byte)((value >> 16) & 0xFF),
                                        (byte)((value >> 24) & 0xFF)
                                      };
             Write(stream, byteArray);
@@ -181,7 +182,7 @@ namespace IdSharp.Common.Utils
         {
             if (bytesLeft < 2)
             {
-                string msg = string.Format("Attempted to read past the end of the stream at position {0}", stream.Position);
+                string msg = $"Attempted to read past the end of the stream at position {stream.Position}";
                 throw new InvalidDataException(msg);
             }
 

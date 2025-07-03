@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -35,7 +35,7 @@ namespace IdSharp.Common.Utils
 
             for (int i = 1; i == 1 || File.Exists(path); i++)
             {
-                path = string.Format("{0} ({1}){2}", basePath, i, ext);
+                path = $"{basePath} ({i}){ext}";
             }
 
             return path;
@@ -51,9 +51,11 @@ namespace IdSharp.Common.Utils
             if (!string.IsNullOrEmpty(extension))
             {
                 if (extension[0] != '.')
+                {
                     extension = "." + extension;
+                }
 
-                if (extension.EndsWith("."))
+                if (extension.EndsWith(".", StringComparison.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException("Parameter 'extension' cannot end with a '.'", "extension");
                 }
@@ -61,7 +63,9 @@ namespace IdSharp.Common.Utils
                 foreach (char c in extension)
                 {
                     if (_invalidFileNameChars.Contains(c))
-                        throw new ArgumentException(string.Format("Parameter 'extension' cannot contain '{0}'", c), "extension");
+                    {
+                        throw new ArgumentException($"Parameter 'extension' cannot contain '{c}'", nameof(extension));
+                    }
                 }
             }
 
@@ -93,7 +97,7 @@ namespace IdSharp.Common.Utils
                 }
 
                 string randomString = Encoding.ASCII.GetString(randomBytes);
-                tempFile = string.Format("{0}.{1}.tmp", baseFileName, randomString);
+                tempFile = $"{baseFileName}.{randomString}.tmp";
             } while (File.Exists(tempFile));
             return tempFile;
         }
