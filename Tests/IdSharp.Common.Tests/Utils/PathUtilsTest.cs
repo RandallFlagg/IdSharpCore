@@ -43,7 +43,7 @@ namespace IdSharp.Common.Tests.Utils
         public void GetTemporaryFileNameBasedOnFileName_ArgumentExceptions()
         {
             Assert.Throws<ArgumentNullException>(() => PathUtils.GetTemporaryFileNameBasedOnFileName(null));
-            Assert.Throws<ArgumentNullException>(() => PathUtils.GetTemporaryFileNameBasedOnFileName(string.Empty));
+            Assert.Throws<ArgumentException>(() => PathUtils.GetTemporaryFileNameBasedOnFileName(string.Empty));
         }
 
         [Test]
