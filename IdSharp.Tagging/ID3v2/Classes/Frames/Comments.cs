@@ -39,7 +39,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     // Language code must be 3 characters
                     if (_languageCode.Length != 3)
                     {
-                        string msg = string.Format("Invalid language code '{0}' in COMM frame", value);
+                        var msg = string.Format("Invalid language code '{0}' in COMM frame", value);
                         Trace.WriteLine(msg);
 
                         // TODO: Should this fire a warning?
@@ -103,11 +103,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
                 if (_frameHeader.FrameSizeExcludingAdditions >= 4)
                 {
-                    string languageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
-                    int bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 - 3;
-                    string description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+                    var languageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
+                    var bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 - 3;
+                    var description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
 
-                    bool invalidFrame = false;
+                    var invalidFrame = false;
                     if (LanguageHelper.Languages.ContainsKey(languageCode.ToLower()) == false && languageCode.ToLower() != "xxx")
                     {
                         // most likely, it's en\0, or some other funk
@@ -160,7 +160,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 }
                 else
                 {
-                    string msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                    var msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
                     Trace.WriteLine(msg);
 
                     LanguageCode = "eng";
@@ -169,7 +169,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
             else
             {
-                string msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                var msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
                 Trace.WriteLine(msg);
 
                 LanguageCode = "eng";
@@ -212,7 +212,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 this.RequiresFix(tagVersion, Value, valueData)
             );
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.WriteByte((byte)TextEncoding);
                 frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));

@@ -29,7 +29,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Lists
 
         private void AttachedPicture_PictureTypeChanging(object sender, CancelDataEventArgs<PictureType> e)
         {
-            foreach (IAttachedPicture attachedPicture in Items)
+            foreach (var attachedPicture in Items)
             {
                 if (e.Data == PictureType.OtherFileIcon && attachedPicture.PictureType == PictureType.OtherFileIcon)
                 {
@@ -53,7 +53,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Lists
             if (string.IsNullOrEmpty(e.Data)) 
                 return;
 
-            foreach (IAttachedPicture attachedPicture in Items)
+            foreach (var attachedPicture in Items)
             {
                 if (attachedPicture != sender)
                 {

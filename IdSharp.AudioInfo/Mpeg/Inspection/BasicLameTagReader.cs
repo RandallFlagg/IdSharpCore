@@ -38,22 +38,22 @@ namespace IdSharp.AudioInfo.Inspection
 
             _tag = new LameTag();
 
-            using (BinaryReader br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+            using (var br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
             {
-                int startPos = ID3v2.GetTagSize(br.BaseStream);
+                var startPos = ID3v2.GetTagSize(br.BaseStream);
 
                 // Seek past ID3v2 tag
                 br.BaseStream.Seek(startPos, SeekOrigin.Begin);
 
                 // Get StartOfFile structure
-                StartOfFile startOfFile = StartOfFile.FromBinaryReader(br);
+                var startOfFile = StartOfFile.FromBinaryReader(br);
 
                 // Seek past ID3v2 tag
                 br.BaseStream.Seek(startPos, SeekOrigin.Begin);
 
-                string info1 = Encoding.ASCII.GetString(startOfFile.Info1);
-                string info2 = Encoding.ASCII.GetString(startOfFile.Info2);
-                string info3 = Encoding.ASCII.GetString(startOfFile.Info3);
+                var info1 = Encoding.ASCII.GetString(startOfFile.Info1);
+                var info2 = Encoding.ASCII.GetString(startOfFile.Info2);
+                var info3 = Encoding.ASCII.GetString(startOfFile.Info3);
 
 		        if (info1 == "Xing" || info1 == "Info")
                 {
@@ -78,14 +78,14 @@ namespace IdSharp.AudioInfo.Inspection
                 
                 // Read old LAME header
                 br.BaseStream.Seek(0 - Marshal.SizeOf(typeof(LameTag)), SeekOrigin.Current);
-                OldLameHeader oldLameHeader = OldLameHeader.FromBinaryReader(br);
+                var oldLameHeader = OldLameHeader.FromBinaryReader(br);
                 _versionStringNonLameTag = Encoding.ASCII.GetString(oldLameHeader.VersionString);
             }
 
             // Set version string
             if (_tag.VersionString[1] == '.')
             {
-                byte[] versionString = new byte[6];
+                var versionString = new byte[6];
                 int i;
                 for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++) 
                     versionString[i] = _tag.VersionString[i];

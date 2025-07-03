@@ -193,7 +193,7 @@ namespace IdSharp.Tagging.ID3v1
         /// <param name="path">The full path of the file.</param>
         public void Read(string path)
         {
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 Read(fileStream);
             }
@@ -217,9 +217,9 @@ namespace IdSharp.Tagging.ID3v1
                     Year = GetString(stream, 4);
 
                     // Comment
-                    byte[] buf = new byte[30];
+                    var buf = new byte[30];
                     stream.Read(buf, 0, 30);
-                    string comment = GetString(buf);
+                    var comment = GetString(buf);
 
                     // ID3v1.1
                     if (buf[28] == 0 && buf[29] != 0)
@@ -273,14 +273,14 @@ namespace IdSharp.Tagging.ID3v1
         /// <param name="path">The full path of the file.</param>
         public void Save(string path)
         {
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 fileStream.Seek(0 - GetTagSize(fileStream), SeekOrigin.End);
 
-                byte[] titleBytes = SafeGetBytes(_title);
-                byte[] artistBytes = SafeGetBytes(_artist);
-                byte[] albumBytes = SafeGetBytes(_album);
-                byte[] yearBytes = SafeGetBytes(_year);
+                var titleBytes = SafeGetBytes(_title);
+                var artistBytes = SafeGetBytes(_artist);
+                var albumBytes = SafeGetBytes(_album);
+                var yearBytes = SafeGetBytes(_year);
                 byte[] commentBytes;
 
                 fileStream.Write(Encoding.ASCII.GetBytes("TAG"));
@@ -337,7 +337,7 @@ namespace IdSharp.Tagging.ID3v1
         /// <param name="length">The length of the string in bytes.</param>
         private static string GetString(Stream stream, int length)
         {
-            byte[] byteArray = new byte[length];
+            var byteArray = new byte[length];
             stream.Read(byteArray, 0, length);
             return GetString(byteArray);
         }

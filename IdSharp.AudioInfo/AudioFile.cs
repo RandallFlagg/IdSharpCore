@@ -19,7 +19,7 @@ namespace IdSharp.AudioInfo
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            string ext = Path.GetExtension(path).ToLower();
+            var ext = Path.GetExtension(path).ToLower();
             IAudioFile audioFile = null;
 
             if (ext == ".mp3" || ext == ".mp2")
@@ -95,10 +95,10 @@ namespace IdSharp.AudioInfo
                 Array.Sort(fileList);
             }
 
-            List<IAudioFile> audioFileList = new List<IAudioFile>();
-            foreach (string path in fileList)
+            var audioFileList = new List<IAudioFile>();
+            foreach (var path in fileList)
             {
-                IAudioFile audioFile = Create(path, throwExceptionIfUnknown);
+                var audioFile = Create(path, throwExceptionIfUnknown);
                 if (audioFile != null)
                     audioFileList.Add(audioFile);
             }
@@ -121,15 +121,15 @@ namespace IdSharp.AudioInfo
         /// <param name="includeAllFormats">if set to <c>true</c> "All supported formats" will be added to the filter.</param>
         public static string GetFilter(bool includeAllFiles, bool includeAllFormats)
         {
-            string filter = "";
+            var filter = "";
             if (includeAllFiles)
             {
                 filter += "All files|*.*|";
             }
             if (includeAllFormats)
             {
-                string allExtensions = "";
-                foreach (string extension in GetExtensions())
+                var allExtensions = "";
+                foreach (var extension in GetExtensions())
                 {
                     if (allExtensions != "") allExtensions += ";";
                     allExtensions += "*" + extension;

@@ -74,7 +74,7 @@ namespace IdSharp.Tagging.ID3v2
             {
                 if (value > 0xFFFFFFF)
                 {
-                    string msg = string.Format("Argument 'value' out of range.  Maximum tag size is {0}.", 0xFFFFFFF);
+                    var msg = string.Format("Argument 'value' out of range.  Maximum tag size is {0}.", 0xFFFFFFF);
                     Trace.WriteLine(msg);
                     throw new ArgumentOutOfRangeException("value", value, msg);
                 }
@@ -166,12 +166,12 @@ namespace IdSharp.Tagging.ID3v2
             }
             else
             {
-                byte[] tmpHeader = stream.Read(7);
+                var tmpHeader = stream.Read(7);
 
                 // Version
                 if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
                 {
-                    string msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
+                    var msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
                     Trace.WriteLine(msg);
                     throw new InvalidDataException(msg);
                 }
@@ -223,7 +223,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             //Guard.ArgumentNotNull(stream, "stream");
 
-            byte[] header = stream.Read(3);
+            var header = stream.Read(3);
 
             // Identifier
             if (!(header[0] == 0x49 && header[1] == 0x44 && header[2] == 0x33))
@@ -238,7 +238,7 @@ namespace IdSharp.Tagging.ID3v2
 
         public byte[] GetBytes()
         {
-            byte[] header = new byte[10];
+            var header = new byte[10];
 
             // Identifier
             header[0] = 0x49; // 'I'

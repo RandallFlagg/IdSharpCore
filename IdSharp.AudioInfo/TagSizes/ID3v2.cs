@@ -18,7 +18,7 @@ namespace IdSharp.AudioInfo
                 {
                     stream.Position = 0;
 
-                    byte[] identifier = stream.Read(3);
+                    var identifier = stream.Read(3);
 
                     // Identifier 'ID3'
                     if (!(identifier[0] == 0x49 && identifier[1] == 0x44 && identifier[2] == 0x33))
@@ -26,8 +26,8 @@ namespace IdSharp.AudioInfo
                         return 0;
                     }
 
-                    ID3v2Header header = new ID3v2Header(stream);
-                    int tagSize = header.TagSize;
+                    var header = new ID3v2Header(stream);
+                    var tagSize = header.TagSize;
                     if (tagSize != 0)
                         return tagSize + 10 + (header.IsFooterPresent ? 10 : 0);
                     else
@@ -49,12 +49,12 @@ namespace IdSharp.AudioInfo
 
             public ID3v2Header(Stream stream)
             {
-                byte[] tmpHeader = stream.Read(7);
+                var tmpHeader = stream.Read(7);
 
                 // Version
                 if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
                 {
-                    string msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
+                    var msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
                     Trace.WriteLine(msg);
                     throw new InvalidDataException(msg);
                 }

@@ -50,7 +50,7 @@ namespace IdSharp.Tagging.ID3v2
         /// <param name="pictureType">Type of the picture.</param>
         public static string GetStringFromPictureType(PictureType pictureType)
         {
-            foreach (KeyValuePair<string, PictureType> pictureTypeKVP in m_PictureTypeDictionary)
+            foreach (var pictureTypeKVP in m_PictureTypeDictionary)
             {
                 if (pictureTypeKVP.Value == pictureType)
                     return pictureTypeKVP.Key;
@@ -87,8 +87,8 @@ namespace IdSharp.Tagging.ID3v2
             m_PictureTypeStrings = new string[m_PictureTypeDictionary.Count];
             m_PictureTypes = new PictureType[m_PictureTypeDictionary.Count];
             
-            int i = 0;
-            foreach (KeyValuePair<string, PictureType> kvp in m_PictureTypeDictionary)
+            var i = 0;
+            foreach (var kvp in m_PictureTypeDictionary)
             {
                 m_PictureTypeStrings[i] = kvp.Key;
                 m_PictureTypes[i] = kvp.Value;
@@ -99,7 +99,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private static void AddToPictureTypeDictionary(PictureType pictureType)
         {
-            string enumString = EnumUtils.GetDescription(pictureType);
+            var enumString = EnumUtils.GetDescription(pictureType);
 
             m_PictureTypeDictionary.Add(enumString, pictureType);
         }

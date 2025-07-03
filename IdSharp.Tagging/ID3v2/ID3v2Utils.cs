@@ -12,8 +12,8 @@ namespace IdSharp.Tagging.ID3v2
     {
         public static int ReadInt32SyncSafe(Stream stream)
         {
-            byte[] byteArray = stream.Read(4);
-            int returnValue = ((byteArray[0] << 21) +
+            var byteArray = stream.Read(4);
+            var returnValue = ((byteArray[0] << 21) +
                                  (byteArray[1] << 14) +
                                  (byteArray[2] << 7) +
                                   byteArray[3]);
@@ -22,7 +22,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private static void CopyStream(Stream input, Stream output, int size)
         {
-            byte[] buffer = new byte[size];
+            var buffer = new byte[size];
             input.Read(buffer, 0, size);
             output.Write(buffer, 0, size);
             output.Flush();
@@ -31,7 +31,7 @@ namespace IdSharp.Tagging.ID3v2
         public static Stream DecompressFrame(Stream stream, int compressedSize)
         {
             Stream outStream = new MemoryStream();
-            ZOutputStream outZStream = new ZOutputStream(outStream);
+            var outZStream = new ZOutputStream(outStream);
             CopyStream(stream, outZStream, compressedSize);
             outStream.Position = 0;
             return outStream;
@@ -46,11 +46,11 @@ namespace IdSharp.Tagging.ID3v2
 
         public static byte[] ReadUnsynchronized(byte[] stream)
         {
-            using (MemoryStream byteList = new MemoryStream(stream.Length))
+            using (var byteList = new MemoryStream(stream.Length))
             {
                 for (int i = 0, j = 0; i < stream.Length; i++)
                 {
-                    byte myByte = stream[j++];
+                    var myByte = stream[j++];
                     byteList.WriteByte(myByte);
                     if (myByte == 0xFF)
                     {
@@ -69,11 +69,11 @@ namespace IdSharp.Tagging.ID3v2
 
         public static byte[] ReadUnsynchronized(Stream stream, int size)
         {
-            using (MemoryStream byteList = new MemoryStream(size))
+            using (var byteList = new MemoryStream(size))
             {
-                for (int i = 0; i < size; i++)
+                for (var i = 0; i < size; i++)
                 {
-                    byte myByte = stream.Read1();
+                    var myByte = stream.Read1();
                     byteList.WriteByte(myByte);
                     if (myByte == 0xFF)
                     {
@@ -92,8 +92,8 @@ namespace IdSharp.Tagging.ID3v2
 
         public static int ReadInt32Unsynchronized(Stream stream)
         {
-            byte[] byteArray = ReadUnsynchronized(stream, 4);
-            int returnValue = (byteArray[0] << 24) +
+            var byteArray = ReadUnsynchronized(stream, 4);
+            var returnValue = (byteArray[0] << 24) +
                               (byteArray[1] << 16) +
                               (byteArray[2] << 8) +
                                byteArray[3];
@@ -102,8 +102,8 @@ namespace IdSharp.Tagging.ID3v2
 
         public static int ReadInt24Unsynchronized(Stream stream)
         {
-            byte[] byteArray = ReadUnsynchronized(stream, 3);
-            int returnValue = (byteArray[0] << 16) +
+            var byteArray = ReadUnsynchronized(stream, 3);
+            var returnValue = (byteArray[0] << 16) +
                               (byteArray[1] << 8) +
                                byteArray[2];
             return returnValue;
@@ -111,7 +111,7 @@ namespace IdSharp.Tagging.ID3v2
 
         public static byte[] GetStringBytes(ID3v2TagVersion tagVersion, EncodingType encodingType, string value, bool isTerminated)
         {
-            List<byte> byteList = new List<byte>();
+            var byteList = new List<byte>();
 
             switch (tagVersion)
             {
@@ -203,9 +203,9 @@ namespace IdSharp.Tagging.ID3v2
 
         public static byte[] ConvertToUnsynchronized(byte[] data)
         {
-            using (MemoryStream newStream = new MemoryStream((int)(data.Length * 1.05)))
+            using (var newStream = new MemoryStream((int)(data.Length * 1.05)))
             {
-                for (int i = 0; i < data.Length; i++)
+                for (var i = 0; i < data.Length; i++)
                 {
                     newStream.WriteByte(data[i]);
                     if (data[i] == 0xFF)
@@ -226,7 +226,7 @@ namespace IdSharp.Tagging.ID3v2
 
         public static string ReadString(EncodingType textEncoding, byte[] bytes, int length)
         {
-            using (MemoryStream memoryStream = new MemoryStream(bytes))
+            using (var memoryStream = new MemoryStream(bytes))
             {
                 return ReadString(textEncoding, memoryStream, length);
             }
@@ -234,9 +234,9 @@ namespace IdSharp.Tagging.ID3v2
 
         public static string ReadString(EncodingType textEncoding, Stream stream, int length)
         {
-            string returnValue = string.Empty;
+            var returnValue = string.Empty;
 
-            byte[] byteArray = stream.Read(length);
+            var byteArray = stream.Read(length);
 
             if (textEncoding == EncodingType.ISO88591)
             {
@@ -291,7 +291,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
                 Trace.WriteLine(msg);
             }
 
@@ -305,7 +305,7 @@ namespace IdSharp.Tagging.ID3v2
                 throw new ArgumentNullException("bytes");
             }
 
-            using (MemoryStream memoryStream = new MemoryStream(bytes))
+            using (var memoryStream = new MemoryStream(bytes))
             {
                 return ReadString(textEncoding, memoryStream);
             }
@@ -317,11 +317,11 @@ namespace IdSharp.Tagging.ID3v2
                 throw new ArgumentNullException("stream");
 
             string returnValue;
-            List<byte> byteList = new List<byte>();
+            var byteList = new List<byte>();
 
             if (textEncoding == EncodingType.ISO88591)
             {
-                byte readByte = stream.Read1();
+                var readByte = stream.Read1();
                 while (readByte != 0)
                 {
                     byteList.Add(readByte);
@@ -344,7 +344,7 @@ namespace IdSharp.Tagging.ID3v2
                     byteList.Add(byte2);
                 } while (byte1 != 0 || byte2 != 0);
 
-                byte[] byteArray = byteList.ToArray();
+                var byteArray = byteList.ToArray();
                 if (byteArray.Length >= 2)
                 {
                     // If BOM is part of the string, decode as the appropriate Unicode type.
@@ -374,7 +374,7 @@ namespace IdSharp.Tagging.ID3v2
                     byteList.Add(byte2);
                 } while (byte1 != 0 || byte2 != 0);
 
-                byte[] byteArray = byteList.ToArray();
+                var byteArray = byteList.ToArray();
                 if (byteArray.Length >= 2)
                 {
                     // If BOM is part of the string, remove before decoding.
@@ -390,7 +390,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             else if (textEncoding == EncodingType.UTF8)
             {
-                byte readByte = stream.Read1();
+                var readByte = stream.Read1();
                 while (readByte != 0)
                 {
                     byteList.Add(readByte);
@@ -403,7 +403,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
                 Trace.WriteLine(msg);
                 return "";
             }
@@ -422,11 +422,11 @@ namespace IdSharp.Tagging.ID3v2
             }
 
             string returnValue;
-            List<byte> byteList = new List<byte>();
+            var byteList = new List<byte>();
 
             if (textEncoding == EncodingType.ISO88591)
             {
-                byte readByte = stream.Read1();
+                var readByte = stream.Read1();
                 --bytesLeft;
                 if (bytesLeft == 0)
                 {
@@ -479,7 +479,7 @@ namespace IdSharp.Tagging.ID3v2
                     }
                 } while (byte1 != 0 || byte2 != 0);
 
-                byte[] byteArray = byteList.ToArray();
+                var byteArray = byteList.ToArray();
                 if (byteArray.Length >= 2)
                 {
                     // If BOM is part of the string, decode as the appropriate Unicode type.
@@ -524,7 +524,7 @@ namespace IdSharp.Tagging.ID3v2
                     }
                 } while (byte1 != 0 || byte2 != 0);
 
-                byte[] byteArray = byteList.ToArray();
+                var byteArray = byteList.ToArray();
                 if (byteArray.Length >= 2)
                 {
                     // If BOM is part of the string, remove before decoding.
@@ -540,7 +540,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             else if (textEncoding == EncodingType.UTF8)
             {
-                byte readByte = stream.Read1();
+                var readByte = stream.Read1();
                 --bytesLeft;
                 if (bytesLeft == 0)
                 {
@@ -567,7 +567,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
                 Trace.WriteLine(msg);
                 return "";
             }

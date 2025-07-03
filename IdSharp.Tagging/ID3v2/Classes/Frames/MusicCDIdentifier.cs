@@ -50,7 +50,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (TOC == null || TOC.Length == 0)
                 return new byte[0];
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.Write(TOC, 0, TOC.Length);
                 return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));

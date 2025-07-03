@@ -60,7 +60,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
             _frameHeader.Read(tagReadingInfo, ref stream);
 
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
             if (bytesLeft > 0)
             {
@@ -84,7 +84,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.Write(ByteUtils.ISO88591GetBytes(_ownerIdentifier));
                 frameData.WriteByte(0); // terminate

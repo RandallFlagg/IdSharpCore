@@ -61,7 +61,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (_frameHeader.FrameSizeExcludingAdditions > 0)
             {
                 TextEncoding = (EncodingType)stream.Read1();
-                int bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1;
+                var bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1;
                 Description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
                 Value = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, bytesLeft);
             }
@@ -86,7 +86,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 descriptionData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Description, true);
             } while (this.RequiresFix(tagVersion, Description, descriptionData));
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.WriteByte((byte)TextEncoding);
                 frameData.Write(descriptionData);

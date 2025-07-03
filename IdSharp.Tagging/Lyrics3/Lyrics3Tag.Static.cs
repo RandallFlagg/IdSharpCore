@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using IdSharp.Common.Utils;
 
@@ -27,7 +27,7 @@ namespace IdSharp.Tagging.Lyrics3
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return GetTagSize(fileStream);
             }
@@ -61,12 +61,12 @@ namespace IdSharp.Tagging.Lyrics3
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            Lyrics3Tag lyrics3 = new Lyrics3Tag(path);
-            int tagSize = lyrics3.TotalTagSize;
+            var lyrics3 = new Lyrics3Tag(path);
+            var tagSize = lyrics3.TotalTagSize;
 
             if (tagSize > 0)
             {
-                long tagOffset = lyrics3.TagOffset.Value;
+                var tagOffset = lyrics3.TagOffset.Value;
                 ByteUtils.ReplaceBytes(path, tagSize, new byte[0], tagOffset);
                 return true;
             }

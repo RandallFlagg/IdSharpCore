@@ -30,10 +30,10 @@ namespace IdSharp.Common.Utils
             if (!File.Exists(path))
                 return path;
 
-            string basePath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
-            string ext = Path.GetExtension(path);
+            var basePath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+            var ext = Path.GetExtension(path);
 
-            for (int i = 1; i == 1 || File.Exists(path); i++)
+            for (var i = 1; i == 1 || File.Exists(path); i++)
             {
                 path = $"{basePath} ({i}){ext}";
             }
@@ -60,7 +60,7 @@ namespace IdSharp.Common.Utils
                     throw new ArgumentException("Parameter 'extension' cannot end with a '.'", "extension");
                 }
 
-                foreach (char c in extension)
+                foreach (var c in extension)
                 {
                     if (_invalidFileNameChars.Contains(c))
                     {
@@ -69,10 +69,10 @@ namespace IdSharp.Common.Utils
                 }
             }
 
-            string tempPath = Path.GetTempPath();
-            string guid = Guid.NewGuid().ToString();
+            var tempPath = Path.GetTempPath();
+            var guid = Guid.NewGuid().ToString();
 
-            string fileName = Path.Combine(tempPath, guid) + extension;
+            var fileName = Path.Combine(tempPath, guid) + extension;
             return GetUniqueFileName(fileName);
         }
 
@@ -87,16 +87,16 @@ namespace IdSharp.Common.Utils
                 throw new ArgumentNullException("basefileName");
 
             string tempFile;
-            Random rnd = new Random();
-            byte[] randomBytes = new byte[8];
+            var rnd = new Random();
+            var randomBytes = new byte[8];
             do
             {
-                for (int i = 0; i < randomBytes.Length; i++)
+                for (var i = 0; i < randomBytes.Length; i++)
                 {
                     randomBytes[i] = (byte)rnd.Next(65, 91);
                 }
 
-                string randomString = Encoding.ASCII.GetString(randomBytes);
+                var randomString = Encoding.ASCII.GetString(randomBytes);
                 tempFile = $"{baseFileName}.{randomString}.tmp";
             } while (File.Exists(tempFile));
             return tempFile;

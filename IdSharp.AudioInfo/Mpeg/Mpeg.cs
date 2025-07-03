@@ -76,17 +76,17 @@ namespace IdSharp.AudioInfo
         {
             _fileName = path;
 
-            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+                var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
                 stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
-                byte[] tmpFrameHeader = new byte[4];
+                var tmpFrameHeader = new byte[4];
 
-                bool acceptNullSamples = false;
+                var acceptNullSamples = false;
                 while (true)
                 {
-                    int tmpByte = stream.ReadByte(); // keep as ReadByte
+                    var tmpByte = stream.ReadByte(); // keep as ReadByte
                     while (tmpByte != 0xFF && tmpByte != -1)
                     {
                         tmpByte = stream.ReadByte(); // keep as ReadByte
@@ -124,9 +124,9 @@ namespace IdSharp.AudioInfo
                     }
                     else
                     {
-                        int tmpMpegID = (tmpFrameHeader[1] >> 3) & 0x03;
-                        int tmpLayerNum = (tmpFrameHeader[1] >> 1) & 0x03;
-                        int tmpFrequency = GetFrequency((MpegVersion)tmpMpegID, (tmpFrameHeader[2] >> 2) & 0x03);
+                        var tmpMpegID = (tmpFrameHeader[1] >> 3) & 0x03;
+                        var tmpLayerNum = (tmpFrameHeader[1] >> 1) & 0x03;
+                        var tmpFrequency = GetFrequency((MpegVersion)tmpMpegID, (tmpFrameHeader[2] >> 2) & 0x03);
 
                         // Check for invalid frequency
                         if (tmpFrequency == 0)
@@ -135,12 +135,12 @@ namespace IdSharp.AudioInfo
                             continue;
                         }
 
-                        int tmpSamplesPerFrame = GetSamplesPerFrame((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum);
+                        var tmpSamplesPerFrame = GetSamplesPerFrame((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum);
 
-                        int tmpUsesPadding = (tmpFrameHeader[2] >> 1) & 0x01;
-                        double tmpFrameSizeConst = 125.0 * tmpSamplesPerFrame / tmpFrequency;
-                        int tmpPaddingSize = (tmpLayerNum == 3 ? 4 : 1);
-                        int tmpBitrateIndex = tmpFrameHeader[2] >> 4;
+                        var tmpUsesPadding = (tmpFrameHeader[2] >> 1) & 0x01;
+                        var tmpFrameSizeConst = 125.0 * tmpSamplesPerFrame / tmpFrequency;
+                        var tmpPaddingSize = (tmpLayerNum == 3 ? 4 : 1);
+                        var tmpBitrateIndex = tmpFrameHeader[2] >> 4;
 
                         // Check for invalid values
                         if (tmpBitrateIndex < 1 || tmpBitrateIndex > 14 || tmpLayerNum == 0)
@@ -149,8 +149,8 @@ namespace IdSharp.AudioInfo
                             continue;
                         }
 
-                        int tmpFrameBitrate = GetBitrate((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum, tmpBitrateIndex);
-                        int tmpFrameSize = (int)(tmpFrameBitrate * tmpFrameSizeConst) + (tmpUsesPadding * tmpPaddingSize);
+                        var tmpFrameBitrate = GetBitrate((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum, tmpBitrateIndex);
+                        var tmpFrameSize = (int)(tmpFrameBitrate * tmpFrameSizeConst) + (tmpUsesPadding * tmpPaddingSize);
                         _headerOffset = stream.Position - 4;
 
                         if (tmpFrameSize < 8)
@@ -164,14 +164,14 @@ namespace IdSharp.AudioInfo
                         if (_headerOffset >= 1 && !acceptNullSamples) // if (ftell(fp) >= 5)
                         {
                             stream.Seek(-5, SeekOrigin.Current);
-                            byte tmpLastByte = stream.Read1();
+                            var tmpLastByte = stream.Read1();
                             stream.Seek(4, SeekOrigin.Current);
 
                             if (tmpFrameBitrate != 320 && (tmpLastByte == 0x00 || tmpLastByte == 0xFF))
                             {
                                 // 7/31/05
                                 // may be a valid frame - skip its contents to prevent false sync
-                                long tmpNewPosition = _headerOffset + tmpFrameSize;
+                                var tmpNewPosition = _headerOffset + tmpFrameSize;
                                 if (tmpFrameSize == 0) 
                                     tmpNewPosition++;
                                 stream.Seek(tmpNewPosition, SeekOrigin.Begin);
@@ -226,10 +226,10 @@ namespace IdSharp.AudioInfo
                 else _channels = 2;
 
                 // Read LAME Info Tag
-                bool tmpHasLameInfoTag = false;
+                var tmpHasLameInfoTag = false;
 
                 stream.Seek(tmpID3v2TagSize + 36, SeekOrigin.Begin);
-                Byte[] buf = stream.Read(4);
+                var buf = stream.Read(4);
 
                 if (ByteUtils.Compare(buf, INFO_MARKER)) // CBR
                 {
@@ -245,12 +245,12 @@ namespace IdSharp.AudioInfo
                 if (tmpHasLameInfoTag)
                 {
                     stream.Seek(4, SeekOrigin.Current);
-                    int tmpFrames = stream.ReadInt32();
-                    uint tmpBytes = (uint)stream.ReadInt32();
+                    var tmpFrames = stream.ReadInt32();
+                    var tmpBytes = (uint)stream.ReadInt32();
 
                     if (tmpFrames > 256 && tmpBytes > 50000)
                     {
-                        decimal tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)_frequency);
+                        var tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)_frequency);
                         if (tmpBitrate <= 320 && tmpBitrate >= 32)
                         {
                             _frames = tmpFrames;
@@ -287,31 +287,31 @@ namespace IdSharp.AudioInfo
 
         private void CalculateBitrate(Stream stream, CInterestedFrames InterestedFrames)
         {
-            int totalTagSize = ID3v2.GetTagSize(stream);
+            var totalTagSize = ID3v2.GetTagSize(stream);
             totalTagSize += ID3v1.GetTagSize(stream);
             totalTagSize += APEv2.GetTagSize(stream);
 
-            Int64 audioLength = stream.Length - totalTagSize;
+            var audioLength = stream.Length - totalTagSize;
 
             _bitrate = 0;
             _isVBR = null;
             _frames = 0;
             _totalSeconds = 0;
 
-            String step = "";
+            var step = "";
 
             try
             {
                 int BR, Padding;
                 int FrameSize;
 
-                int TotalBR = 0;
-                int FrameOffset = 0;
+                var TotalBR = 0;
+                var FrameOffset = 0;
                 //Int64 TagOffset = 0;
-                bool bTrusting = true;
-                bool ignoreall = false;
-                Byte[] FH = new Byte[4];
-                bool mPerfect = true;
+                var bTrusting = true;
+                var ignoreall = false;
+                var FH = new Byte[4];
+                var mPerfect = true;
 
                 stream.Position = _headerOffset;
 
@@ -320,24 +320,24 @@ namespace IdSharp.AudioInfo
                 //                    TagOffset = _headerOffset;
                 //                }
 
-                int offset = 0;
-                int frameCount = 0;
-                int FirstBR = 0;
+                var offset = 0;
+                var frameCount = 0;
+                var FirstBR = 0;
 
-                int audioDataSize = (int)(stream.Length - _headerOffset);
-                Byte[] audioData = new Byte[audioDataSize];
+                var audioDataSize = (int)(stream.Length - _headerOffset);
+                var audioData = new Byte[audioDataSize];
                 //Int64 startoffset = stream.Position;
-                int BufLen = stream.Read(audioData, 0, audioDataSize);
+                var BufLen = stream.Read(audioData, 0, audioDataSize);
                 while (offset < BufLen - 16 && !ignoreall)
                 {
-                    bool reservedlayer = false;
+                    var reservedlayer = false;
 
                     // Find FrameSync
                     if (FindFrameSync(FH, audioData, BufLen, ref FrameOffset, ref offset, ref mPerfect, ref ignoreall, ref bTrusting, ref reservedlayer))
                     {
                         FrameOffset = 0;
 
-                        int bitrateIndex = FH[2] >> 4;
+                        var bitrateIndex = FH[2] >> 4;
                         if (bitrateIndex <= 0 || bitrateIndex >= 15)
                         {
                             offset -= 3;
@@ -543,7 +543,7 @@ namespace IdSharp.AudioInfo
 
         private static int GetSamplesPerFrame(MpegVersion mpegVersion, MpegLayer mpegLayer)
         {
-            int tmpSamplesPerFrame = 0;
+            var tmpSamplesPerFrame = 0;
 
             switch (mpegVersion)
             {
@@ -568,7 +568,7 @@ namespace IdSharp.AudioInfo
 
         private static int GetFrequency(MpegVersion mpegVersion, int frequencyID)
         {
-            int tmpFrequency = 0;
+            var tmpFrequency = 0;
 
             switch (mpegVersion)
             {
@@ -635,7 +635,7 @@ namespace IdSharp.AudioInfo
 
         private void CalculateBitrate()
         {
-            using (FileStream fs = File.Open(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fs = File.Open(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 CalculateBitrate(fs, null);
             }

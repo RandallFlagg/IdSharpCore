@@ -31,14 +31,14 @@ namespace IdSharp.WebLookup.Amazon
             }
 
             // remove everything after parentheses
-            int parenIndex = value.IndexOf('(');
+            var parenIndex = value.IndexOf('(');
             if (parenIndex > 0)
                 value = value.Substring(0, parenIndex);
 
             // remove all characters that are not letters, digits, or spaces
-            for (int i = 0; i < value.Length; i++)
+            for (var i = 0; i < value.Length; i++)
             {
-                char c = value[i];
+                var c = value[i];
                 if (!char.IsLetterOrDigit(c) && c != ' ')
                 {
                     value = value.Replace(c, ' ');
@@ -47,9 +47,9 @@ namespace IdSharp.WebLookup.Amazon
             }
 
             // remove dangling digits
-            for (int i = 0; i < value.Length; i++)
+            for (var i = 0; i < value.Length; i++)
             {
-                char c = value[i];
+                var c = value[i];
                 if (char.IsDigit(c))
                 {
                     if (i > 0)
@@ -111,14 +111,14 @@ namespace IdSharp.WebLookup.Amazon
             if (string.IsNullOrWhiteSpace(secretAccessKey))
                 throw new ArgumentNullException("secretAccessKey");
 
-            String amazonDomain = GetDomain(server);
+            var amazonDomain = GetDomain(server);
 
             FixSearchString(ref artist);
             FixSearchString(ref album);
             FixSearchString(ref keywords);
 
-            string sort = (String.IsNullOrEmpty(artist) ? "artistrank" : "titlerank");
-            List<PostData> postData = new List<PostData>();
+            var sort = (String.IsNullOrEmpty(artist) ? "artistrank" : "titlerank");
+            var postData = new List<PostData>();
             postData.Add(new PostData("Service", "AWSECommerceService"));
             postData.Add(new PostData("AWSAccessKeyId", awsAccessKeyId));
             postData.Add(new PostData("Operation", "ItemSearch"));
@@ -139,22 +139,22 @@ namespace IdSharp.WebLookup.Amazon
             postData.Add(new PostData("Sort", sort));
             postData.Add(new PostData("Timestamp", string.Format("{0:yyyy-MM-dd}T{0:HH:mm:ss}Z", DateTime.UtcNow)));
 
-            string hostHeader = string.Format("ecs.{0}", amazonDomain);
-            string signature = GetSignature(postData, hostHeader, secretAccessKey);
+            var hostHeader = string.Format("ecs.{0}", amazonDomain);
+            var signature = GetSignature(postData, hostHeader, secretAccessKey);
             postData.Add(new PostData("Signature", signature));
 
-            string requestUri = string.Format("http://{0}{1}", hostHeader, HttpRequestUri);
+            var requestUri = string.Format("http://{0}{1}", hostHeader, HttpRequestUri);
             requestUri = Http.GetQueryString(requestUri, postData);
-            byte[] byteResponse = Http.Get(requestUri);
+            var byteResponse = Http.Get(requestUri);
             if (byteResponse == null)
                 throw new WebException(string.Format("Response from {0} was null", amazonDomain));
-            string response = Encoding.UTF8.GetString(byteResponse);
+            var response = Encoding.UTF8.GetString(byteResponse);
 
-            AmazonSearchResponse result = new AmazonSearchResponse();
+            var result = new AmazonSearchResponse();
             result.TotalPages = 0;
             result.TotalResults = 0;
 
-            XmlDocument xmlDocument = new XmlDocument();
+            var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(response);
             foreach (XmlNode node in xmlDocument.ChildNodes)
             {
@@ -168,13 +168,13 @@ namespace IdSharp.WebLookup.Amazon
                             {
                                 if (opReqNode.Name == "Errors")
                                 {
-                                    string fullErrorMessage = "";
+                                    var fullErrorMessage = "";
                                     foreach (XmlNode errorNode in opReqNode.ChildNodes)
                                     {
                                         if (errorNode.Name == "Error")
                                         {
-                                            string errorMessage = "";
-                                            string errorCode = "";
+                                            var errorMessage = "";
+                                            var errorCode = "";
                                             foreach (XmlNode errorItemNode in errorNode.ChildNodes)
                                             {
                                                 if (errorItemNode.Name == "Code")
@@ -223,7 +223,7 @@ namespace IdSharp.WebLookup.Amazon
                                 }
                                 else if (itemNode.Name == "Item")
                                 {
-                                    AmazonAlbum albumItem = new AmazonAlbum(server, awsAccessKeyId, secretAccessKey);
+                                    var albumItem = new AmazonAlbum(server, awsAccessKeyId, secretAccessKey);
                                     result.Items.Add(albumItem);
                                     foreach (XmlNode itemDetail in itemNode.ChildNodes)
                                     {
@@ -277,7 +277,7 @@ namespace IdSharp.WebLookup.Amazon
 
                 getString.Append(item.Field);
                 getString.Append("=");
-                foreach (char c in item.Value)
+                foreach (var c in item.Value)
                 {
                     if (c <= 255)
                     {

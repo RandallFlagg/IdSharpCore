@@ -64,9 +64,9 @@ namespace IdSharp.AudioInfo.Inspection
 
             ResetData();
 
-            using (BinaryReader br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+            using (var br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
             {
-                int startPos = ID3v2.GetTagSize(br.BaseStream);
+                var startPos = ID3v2.GetTagSize(br.BaseStream);
 
                 // Get file length
                 m_FileLength = br.BaseStream.Length;
@@ -75,7 +75,7 @@ namespace IdSharp.AudioInfo.Inspection
                 br.BaseStream.Seek(startPos, SeekOrigin.Begin);
 
                 // Read first block of data and search for a frame
-                Byte[] data = br.ReadBytes(dataLength);
+                var data = br.ReadBytes(dataLength);
                 FindFrame(data, ref m_VBR);
                 m_VendorID = FindVendorID(data);
 
@@ -127,19 +127,19 @@ namespace IdSharp.AudioInfo.Inspection
         /// <param name="vbrHeader">Method sets this variable to a VBRData struct, if frame found</param>
         private void FindFrame(Byte[] data, ref VBRData vbrHeader)
         {
-            Byte[] headerData = new Byte[4];
+            var headerData = new Byte[4];
 
             // Search for valid frame
             Buffer.BlockCopy(data, 0, headerData, 0, 4);
 
-            int size = data.Length - 4;
-            for (int i = 0; i < size; i++)
+            var size = data.Length - 4;
+            for (var i = 0; i < size; i++)
             {
                 // Decode data if frame header found
                 if (IsFrameHeader(headerData))
                 {
                     DecodeHeader(headerData);
-                    int nextHeader = i + GetFrameLength(m_Frame);
+                    var nextHeader = i + GetFrameLength(m_Frame);
                     if (nextHeader < size)
                     {
                         // Check for next frame and try to find VBR header
@@ -220,7 +220,7 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>True if valid frame found at Index</returns>
         private static bool ValidFrameAt(int index, Byte[] data)
         {
-            Byte[] HeaderData = new Byte[4];
+            var HeaderData = new Byte[4];
             
             // Check for frame at given position
             HeaderData[0] = data[index];
@@ -240,11 +240,11 @@ namespace IdSharp.AudioInfo.Inspection
         {
             // Calculate MPEG frame length
             ushort Coefficient = GetCoefficient(frame);
-            ushort BitRate = GetBitRate(frame);
-            ushort SampleRate = GetSampleRate(frame);
+            var BitRate = GetBitRate(frame);
+            var SampleRate = GetSampleRate(frame);
             ushort Padding = GetPadding(frame);
 
-            ushort result = (ushort)((Coefficient * BitRate * 1000 / SampleRate) + Padding);
+            var result = (ushort)((Coefficient * BitRate * 1000 / SampleRate) + Padding);
 
             return result;
         }
@@ -257,7 +257,7 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>True of Xing encoder</returns>
         private static bool IsXing(int index, byte[] data)
         {
-            bool result =
+            var result =
                 (data[index] == 0) &&
                 (data[index + 1] == 0) &&
                 (data[index + 2] == 0) &&
@@ -278,7 +278,7 @@ namespace IdSharp.AudioInfo.Inspection
         {
             VBRData result;
 
-            String id = String.Format("{0}{1}{2}{3}", (Char)data[index], (Char)data[index + 1], (Char)data[index + 2], (Char)data[index + 3]);
+            var id = String.Format("{0}{1}{2}{3}", (Char)data[index], (Char)data[index + 1], (Char)data[index + 2], (Char)data[index + 3]);
 
             // Check for VBR header at given position
             if (id == VBRHeaderID.Xing)
@@ -354,7 +354,7 @@ namespace IdSharp.AudioInfo.Inspection
         private static UInt16 GetBitRate(FrameData Frame)
         {
             // Get bit rate
-            UInt16 result = BitrateTable[(int)Frame.VersionID][(int)Frame.LayerID - 1][Frame.BitRateID - 1];
+            var result = BitrateTable[(int)Frame.VersionID][(int)Frame.LayerID - 1][Frame.BitRateID - 1];
 
             return result;
         }
@@ -367,7 +367,7 @@ namespace IdSharp.AudioInfo.Inspection
         private static UInt16 GetSampleRate(FrameData Frame)
         {
             // Get sample rate
-            UInt16 result = MPEG_SAMPLE_RATE[(int)Frame.VersionID][(int)Frame.SampleRateID];
+            var result = MPEG_SAMPLE_RATE[(int)Frame.VersionID][(int)Frame.SampleRateID];
 
             return result;
         }
@@ -442,7 +442,7 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>VBRData structure</returns>
         private static VBRData GetFhGInfo(int index, Byte[] data)
         {
-            VBRData result = new VBRData();
+            var result = new VBRData();
 
             // Extract FhG VBR info at given position
 
@@ -470,13 +470,13 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>VendorID</returns>
         private static String FindVendorID(Byte[] data)
         {
-            String result = "";
+            var result = "";
 
             // Search for vendor ID
-            int size = data.Length;
-            for (int i = 0; i <= size - 8; i++)
+            var size = data.Length;
+            for (var i = 0; i <= size - 8; i++)
             {
-                String VendorID = String.Format("{0}{1}{2}{3}",
+                var VendorID = String.Format("{0}{1}{2}{3}",
                     (Char)data[size - i - 8],
                     (Char)data[size - i - 7],
                     (Char)data[size - i - 6],
@@ -509,7 +509,7 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>Encoder</returns>
         private MpegEncoder GetEncoderID()
         {
-            MpegEncoder result = MpegEncoder.Unknown;
+            var result = MpegEncoder.Unknown;
 
             // Get guessed encoder ID
             if (m_Frame.Found)
@@ -527,9 +527,9 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>Encoder from a VBR info tag</returns>
         private MpegEncoder GetVBREncoderID()
         {
-            MpegEncoder result = MpegEncoder.Unknown;
+            var result = MpegEncoder.Unknown;
 
-            String vbrVendor = m_VBR.VendorID.Substring(0, 4);
+            var vbrVendor = m_VBR.VendorID.Substring(0, 4);
 
             // Guess VBR encoder and get ID
             if (vbrVendor == VBRVendorID.LAME) result = MpegEncoder.LAME;
@@ -552,7 +552,7 @@ namespace IdSharp.AudioInfo.Inspection
         /// <returns>Encoder from a CBR info tag</returns>
         private MpegEncoder GetCBREncoderID()
         {
-            MpegEncoder result = MpegEncoder.FhG;
+            var result = MpegEncoder.FhG;
 
             String shortVendor;
 
@@ -599,10 +599,10 @@ namespace IdSharp.AudioInfo.Inspection
         {
             get
             {
-                String myVendorID = "";
+                var myVendorID = "";
 
                 // Get guessed encoder name and encoder version for LAME
-                String result = GetEncoderID().ToString();
+                var result = GetEncoderID().ToString();
                 if (!String.IsNullOrEmpty(m_VBR.VendorID)) myVendorID = m_VBR.VendorID;
                 if (!String.IsNullOrEmpty(m_VendorID)) myVendorID = m_VendorID;
                 if (GetEncoderID() == MpegEncoder.LAME &&

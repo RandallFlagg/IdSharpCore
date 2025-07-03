@@ -19,7 +19,7 @@ namespace IdSharp.Tagging.Harness.WinForms
         {
             InitializeComponent();
 
-            AssemblyName assemblyName = AssemblyName.GetAssemblyName("IdSharp.Tagging.dll");
+            var assemblyName = AssemblyName.GetAssemblyName("IdSharp.Tagging.dll");
             lblVersion.Text = string.Format("IdSharp library version: {0}   PLEASE TEST ON BACKUPS", assemblyName.Version);
         }
 
@@ -71,10 +71,10 @@ namespace IdSharp.Tagging.Harness.WinForms
             }
             else
             {
-                DialogResult result = MessageBox.Show(string.Format("Remove ID3v2 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format("Remove ID3v2 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    bool success = ID3v2Tag.RemoveTag(m_Filename);
+                    var success = ID3v2Tag.RemoveTag(m_Filename);
                     if (success)
                         MessageBox.Show("ID3v2 tag successfully removed", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
@@ -94,10 +94,10 @@ namespace IdSharp.Tagging.Harness.WinForms
             }
             else
             {
-                DialogResult result = MessageBox.Show(string.Format("Remove ID3v1 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show(string.Format("Remove ID3v1 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    Boolean success = ID3v1Tag.RemoveTag(m_Filename);
+                    var success = ID3v1Tag.RemoveTag(m_Filename);
                     if (success)
                         MessageBox.Show("ID3v1 tag successfully removed", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
@@ -125,20 +125,20 @@ namespace IdSharp.Tagging.Harness.WinForms
 
         private void ScanDirectory(object basePathObject)
         {
-            int totalFiles = 0;
-            BindingList<Track> trackList = new BindingList<Track>();
+            var totalFiles = 0;
+            var trackList = new BindingList<Track>();
             try
             {
-                string basePath = (string)basePathObject;
+                var basePath = (string)basePathObject;
 
-                DirectoryInfo di = new DirectoryInfo(basePath);
-                FileInfo[] fileList = di.GetFiles("*.mp3", SearchOption.AllDirectories);
+                var di = new DirectoryInfo(basePath);
+                var fileList = di.GetFiles("*.mp3", SearchOption.AllDirectories);
 
                 EnableCancelButton();
 
                 totalFiles = fileList.Length;
 
-                for (int i = 0; i < totalFiles; i++)
+                for (var i = 0; i < totalFiles; i++)
                 {
                     if (m_CancelScanning)
                     {

@@ -81,7 +81,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
 
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
             if (bytesLeft >= 4)
             {
                 TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
@@ -113,7 +113,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (_encapsulatedObject == null || _encapsulatedObject.Length == 0)
                 return new byte[0];
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 byte[] fileNameData;
                 byte[] descriptionData;

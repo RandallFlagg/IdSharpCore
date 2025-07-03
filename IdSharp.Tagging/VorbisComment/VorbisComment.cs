@@ -106,7 +106,7 @@ namespace IdSharp.Tagging.VorbisComment
         {
             get
             {
-                string value = _items.GetValue("DATE");
+                var value = _items.GetValue("DATE");
                 if (string.IsNullOrEmpty(value))
                     value = _items.GetValue("YEAR");
                 return value;
@@ -159,10 +159,10 @@ namespace IdSharp.Tagging.VorbisComment
         /// <param name="path">The path.</param>
         public void Save(string path)
         {
-            VorbisComment vorbisComment = new VorbisComment();
+            var vorbisComment = new VorbisComment();
             InternalInfo info;
 
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 info = vorbisComment.ReadTagInternal(fs);
             }
@@ -194,7 +194,7 @@ namespace IdSharp.Tagging.VorbisComment
         {
             try
             {
-                using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     Read(fs);
                 }
@@ -217,19 +217,19 @@ namespace IdSharp.Tagging.VorbisComment
         private void WriteTagFlac(string path, InternalInfo targetFile)
         {
             // This will store the metadata blocks we're actually going to write
-            List<FlacMetaDataBlock> myMetaDataBlocks = new List<FlacMetaDataBlock>();
+            var myMetaDataBlocks = new List<FlacMetaDataBlock>();
 
             // Get byte array of new vorbis comment block
             byte[] newTagArray;
-            using (MemoryStream newTag = new MemoryStream())
+            using (var newTag = new MemoryStream())
             {
                 // Write vendor
-                byte[] vendorBytes = Encoding.UTF8.GetBytes(_vendor);
+                var vendorBytes = Encoding.UTF8.GetBytes(_vendor);
                 newTag.WriteInt32LittleEndian(vendorBytes.Length);
                 newTag.Write(vendorBytes);
 
                 // Remove dead items and replace commonly misnamed items
-                foreach (NameValueItem item in new List<NameValueItem>(_items))
+                foreach (var item in new List<NameValueItem>(_items))
                 {
                     if (string.IsNullOrEmpty(item.Value))
                     {
@@ -247,12 +247,12 @@ namespace IdSharp.Tagging.VorbisComment
                 newTag.WriteInt32LittleEndian(_items.Count);
 
                 // Write items
-                foreach (NameValueItem item in _items)
+                foreach (var item in _items)
                 {
                     if (string.IsNullOrEmpty(item.Value)) continue;
 
-                    byte[] keyBytes = Encoding.ASCII.GetBytes(item.Name);
-                    byte[] valueBytes = Encoding.UTF8.GetBytes(item.Value);
+                    var keyBytes = Encoding.ASCII.GetBytes(item.Name);
+                    var valueBytes = Encoding.UTF8.GetBytes(item.Value);
 
                     newTag.WriteInt32LittleEndian(keyBytes.Length + 1 + valueBytes.Length);
                     newTag.Write(keyBytes);
@@ -271,7 +271,7 @@ namespace IdSharp.Tagging.VorbisComment
             FlacMetaDataBlock streamInfoBlock = null;
             FlacMetaDataBlock seekTableBlock = null;
             long origMetaDataSize = 0;
-            foreach (FlacMetaDataBlock metaDataBlock in targetFile.MetaDataBlockList)
+            foreach (var metaDataBlock in targetFile.MetaDataBlockList)
             {
                 origMetaDataSize += 4; // Identifier + Size
                 origMetaDataSize += metaDataBlock.Size;
@@ -306,15 +306,15 @@ namespace IdSharp.Tagging.VorbisComment
                 // TODO: This is not entirely accurate, since we may be reading from one file
                 // and writing to another.  The other blocks need to be accounted for, however for
                 // same file read/write this works.  Not high priority.
-                int adjustPadding = targetFile.OrigVorbisCommentSize - newTagArray.Length;
-                int newSize = paddingBlock.Size + adjustPadding;
+                var adjustPadding = targetFile.OrigVorbisCommentSize - newTagArray.Length;
+                var newSize = paddingBlock.Size + adjustPadding;
                 if (newSize < 10) 
                     paddingBlock.SetBlockDataZeroed(2000);
                 else paddingBlock.SetBlockDataZeroed(newSize);
             }
 
             // Set Vorbis-Comment block data
-            FlacMetaDataBlock vorbisCommentBlock = new FlacMetaDataBlock(FlacMetaDataBlockType.VorbisComment);
+            var vorbisCommentBlock = new FlacMetaDataBlock(FlacMetaDataBlockType.VorbisComment);
             vorbisCommentBlock.SetBlockData(newTagArray);
 
             // Create list of blocks to write
@@ -323,7 +323,7 @@ namespace IdSharp.Tagging.VorbisComment
                 myMetaDataBlocks.Add(seekTableBlock);
 
             // Add other blocks we read from the original file.
-            foreach (FlacMetaDataBlock metaDataBlock in _metaDataBlockList)
+            foreach (var metaDataBlock in _metaDataBlockList)
             {
                 if (metaDataBlock.BlockType == FlacMetaDataBlockType.Application ||
                     metaDataBlock.BlockType == FlacMetaDataBlockType.CueSheet ||
@@ -339,7 +339,7 @@ namespace IdSharp.Tagging.VorbisComment
 
             // Get new size of metadata blocks
             long newMetaDataSize = 0;
-            foreach (FlacMetaDataBlock metaDataBlock in myMetaDataBlocks)
+            foreach (var metaDataBlock in myMetaDataBlocks)
             {
                 newMetaDataSize += 4; // Identifier + Size
                 newMetaDataSize += metaDataBlock.Size;
@@ -348,14 +348,14 @@ namespace IdSharp.Tagging.VorbisComment
             // If the new metadata size is less than the original, increase the padding
             if (newMetaDataSize != origMetaDataSize)
             {
-                int newPaddingSize = paddingBlock.Size + (int)(origMetaDataSize - newMetaDataSize);
+                var newPaddingSize = paddingBlock.Size + (int)(origMetaDataSize - newMetaDataSize);
                 if (newPaddingSize > 0)
                 {
                     paddingBlock.SetBlockDataZeroed(newPaddingSize);
 
                     // Get new size of metadata blocks
                     newMetaDataSize = 0;
-                    foreach (FlacMetaDataBlock metaDataBlock in myMetaDataBlocks)
+                    foreach (var metaDataBlock in myMetaDataBlocks)
                     {
                         newMetaDataSize += 4; // Identifier + Size
                         newMetaDataSize += metaDataBlock.Size;
@@ -379,26 +379,26 @@ namespace IdSharp.Tagging.VorbisComment
                 File.Move(path, tempFilename);
 
                 // open for read, open for write
-                using (FileStream fsRead = File.Open(tempFilename, FileMode.Open, FileAccess.Read, FileShare.None))
-                using (FileStream fsWrite = File.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                using (var fsRead = File.Open(tempFilename, FileMode.Open, FileAccess.Read, FileShare.None))
+                using (var fsWrite = File.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None))
                 {
                     // copy ID3v2 tag.. technically there shouldn't be one, but we don't want to destroy data
-                    int tmpID3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(fsRead);
+                    var tmpID3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(fsRead);
                     if (tmpID3v2TagSize != 0)
                     {
-                        byte[] id3v2 = fsRead.Read(tmpID3v2TagSize);
+                        var id3v2 = fsRead.Read(tmpID3v2TagSize);
                         fsWrite.Write(id3v2);
                     }
 
                     fsWrite.Write(FLAC_MARKER);
                     // create blankspace
-                    byte[] blankSpace = new Byte[newMetaDataSize];
+                    var blankSpace = new Byte[newMetaDataSize];
                     fsWrite.Write(blankSpace);
 
                     fsRead.Seek(4 + origMetaDataSize, SeekOrigin.Current);
 
-                    byte[] buf = new byte[32768];
-                    int bytesRead = fsRead.Read(buf, 0, 32768);
+                    var buf = new byte[32768];
+                    var bytesRead = fsRead.Read(buf, 0, 32768);
                     while (bytesRead != 0)
                     {
                         fsWrite.Write(buf, 0, bytesRead);
@@ -412,15 +412,15 @@ namespace IdSharp.Tagging.VorbisComment
                 throw new Exception(String.Format("Internal Error: newMetaDataSize ({0}) < origMetaDataSize ({1})", newMetaDataSize, origMetaDataSize));
             }
 
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 // skip fLaC marker and ID3v2 tag size
-                int tmpID3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(fs);
+                var tmpID3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(fs);
                 fs.Position = tmpID3v2TagSize + 4;
 
                 byte blockType;
 
-                foreach (FlacMetaDataBlock metaDataBlock in myMetaDataBlocks)
+                foreach (var metaDataBlock in myMetaDataBlocks)
                 {
                     // always write padding last
                     if (metaDataBlock == paddingBlock)
@@ -692,12 +692,12 @@ namespace IdSharp.Tagging.VorbisComment
 
         private InternalInfo ReadTagInternal(Stream stream)
         {
-            InternalInfo info = new InternalInfo();
+            var info = new InternalInfo();
             info.OrigPaddingSize = 0;
             info.OrigVorbisCommentSize = 0;
 
             // Skip ID3v2 tag
-            int id3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(stream);
+            var id3v2TagSize = ID3v2.ID3v2Tag.GetTagSize(stream);
             stream.Seek(id3v2TagSize, SeekOrigin.Begin);
 
             if (IsFlac(stream))
@@ -723,22 +723,22 @@ namespace IdSharp.Tagging.VorbisComment
         {
             _items.Clear();
 
-            int size = stream.ReadInt32LittleEndian();
+            var size = stream.ReadInt32LittleEndian();
             _vendor = stream.ReadUTF8(size);
 
-            int elements = stream.ReadInt32LittleEndian();
+            var elements = stream.ReadInt32LittleEndian();
 
             for (; elements > 0; elements--)
             {
                 size = stream.ReadInt32LittleEndian();
 
-                string text = stream.ReadUTF8(size);
-                string[] nameValue = text.Split("=".ToCharArray(), 2, StringSplitOptions.RemoveEmptyEntries);
+                var text = stream.ReadUTF8(size);
+                var nameValue = text.Split("=".ToCharArray(), 2, StringSplitOptions.RemoveEmptyEntries);
 
                 if (nameValue.Length == 2)
                 {
-                    string name = nameValue[0];
-                    string value = nameValue[1];
+                    var name = nameValue[0];
+                    var value = nameValue[1];
 
                     _items.Add(new NameValueItem(name, value));
                 }
@@ -754,26 +754,26 @@ namespace IdSharp.Tagging.VorbisComment
 
             bool isLastMetaDataBlock;
 
-            List<FlacMetaDataBlock> metaDataBlockList = new List<FlacMetaDataBlock>();
+            var metaDataBlockList = new List<FlacMetaDataBlock>();
 
             do
             {
-                int c = stream.ReadByte();
+                var c = stream.ReadByte();
                 isLastMetaDataBlock = (((c >> 7) & 0x01) == 1);
 
-                int blocksize = stream.ReadInt24();
+                var blocksize = stream.ReadInt24();
 
-                FlacMetaDataBlockType blockType = (FlacMetaDataBlockType)(c & 0x07);
+                var blockType = (FlacMetaDataBlockType)(c & 0x07);
 
                 if (blockType == FlacMetaDataBlockType.VorbisComment) // Vorbis comment
                 {
                     info.OrigVorbisCommentSize = blocksize;
-                    long mvcoffset = stream.Position - 4;
+                    var mvcoffset = stream.Position - 4;
                     ReadTag_VorbisComment(stream);
                     stream.Seek(mvcoffset + 4, SeekOrigin.Begin);
                 }
 
-                FlacMetaDataBlock metaDataBlock = new FlacMetaDataBlock(blockType);
+                var metaDataBlock = new FlacMetaDataBlock(blockType);
                 metaDataBlock.SetBlockData(stream, blocksize);
                 metaDataBlockList.Add(metaDataBlock);
             } while (isLastMetaDataBlock == false);
@@ -832,7 +832,7 @@ namespace IdSharp.Tagging.VorbisComment
 
         internal static bool IsFlac(string path)
         {
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return IsFlac(fs);
             }
@@ -841,7 +841,7 @@ namespace IdSharp.Tagging.VorbisComment
         internal static bool IsFlac(Stream stream)
         {
             // Read flac marker
-            byte[] flacMarker = new byte[4];
+            var flacMarker = new byte[4];
             stream.Read(flacMarker, 0, 4);
             stream.Seek(-4, SeekOrigin.Current);
             return ByteUtils.Compare(flacMarker, FLAC_MARKER);

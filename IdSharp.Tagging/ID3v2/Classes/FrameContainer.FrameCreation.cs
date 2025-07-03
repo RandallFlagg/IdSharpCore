@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using IdSharp.Tagging.ID3v2.Frames;
@@ -323,7 +323,7 @@ namespace IdSharp.Tagging.ID3v2
         private TFrame CreateFrame<TFrame>(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
             where TFrame : IFrame, new()
         {
-            TFrame frame = new TFrame();
+            var frame = new TFrame();
             _frameBinder.Bind(frame, "TODO", property, validator);
 
             if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, frame);
@@ -335,7 +335,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private MusicCDIdentifier CreateMusicCDIdentifierFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
         {
-            MusicCDIdentifier musicCDIdentifier = new MusicCDIdentifier();
+            var musicCDIdentifier = new MusicCDIdentifier();
             _frameBinder.Bind(musicCDIdentifier, "TOC", property, validator);
 
             if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, musicCDIdentifier);
@@ -347,7 +347,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private LanguageFrame CreateLanguageFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
         {
-            LanguageFrame languageFrame = new LanguageFrame();
+            var languageFrame = new LanguageFrame();
             _frameBinder.Bind(languageFrame, "Items", property, validator); // todo: may need work, Items is a BindingList
 
             if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, languageFrame);
@@ -366,7 +366,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private TextFrame CreateTextFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
         {
-            TextFrame textFrame = new TextFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
+            var textFrame = new TextFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
             _frameBinder.Bind(textFrame, "Value", property, validator);
 
             if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, textFrame);
@@ -378,7 +378,7 @@ namespace IdSharp.Tagging.ID3v2
 
         private UrlFrame CreateUrlFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
         {
-            UrlFrame urlFrame = new UrlFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
+            var urlFrame = new UrlFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
             _frameBinder.Bind(urlFrame, "Value", property, validator);
 
             if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, urlFrame);

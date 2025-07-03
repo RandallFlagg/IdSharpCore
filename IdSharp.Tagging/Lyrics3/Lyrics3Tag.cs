@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -36,7 +36,7 @@ namespace IdSharp.Tagging.Lyrics3
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 Read(stream);
             }
@@ -97,13 +97,13 @@ namespace IdSharp.Tagging.Lyrics3
 
             stream.Seek(-128 - 9, SeekOrigin.End);
 
-            byte[] endMarker = stream.Read(9);
+            var endMarker = stream.Read(9);
 
             if (!ByteUtils.Compare(endMarker, _lyrics200))
                 return;
             stream.Seek(-9 - 6, SeekOrigin.Current);
-            byte[] lszBytes = stream.Read(6);
-            int lsz = GetLengthFromByteArray(lszBytes);
+            var lszBytes = stream.Read(6);
+            var lsz = GetLengthFromByteArray(lszBytes);
             if (lsz <= 11 + 3 + 5 + 1)
             {
                 // invalid, lsz is too small
@@ -111,20 +111,20 @@ namespace IdSharp.Tagging.Lyrics3
             }
 
             stream.Seek(-6 - lsz, SeekOrigin.Current);
-            byte[] beginMarker = stream.Read(11);
+            var beginMarker = stream.Read(11);
             if (!ByteUtils.Compare(beginMarker, _lyricsBegin))
             {
                 // invalid, no begin marker found
                 return;
             }
 
-            int totalRead = 0;
+            var totalRead = 0;
             while (totalRead < lsz)
             {
-                byte[] fieldIDBytes = stream.Read(3);
-                string fieldID = Encoding.ASCII.GetString(fieldIDBytes);
-                byte[] fszBytes = stream.Read(5);
-                int fsz = GetLengthFromByteArray(fszBytes);
+                var fieldIDBytes = stream.Read(3);
+                var fieldID = Encoding.ASCII.GetString(fieldIDBytes);
+                var fszBytes = stream.Read(5);
+                var fsz = GetLengthFromByteArray(fszBytes);
                 totalRead += 3 + 5;
                 
                 // TODO: Indicate error reading Lyrics3 tag
@@ -133,8 +133,8 @@ namespace IdSharp.Tagging.Lyrics3
                 if ((totalRead + fsz) > lsz)
                     break;
                 
-                byte[] valueBytes = stream.Read(fsz);
-                string value = Encoding.ASCII.GetString(valueBytes);
+                var valueBytes = stream.Read(fsz);
+                var value = Encoding.ASCII.GetString(valueBytes);
                 totalRead += fsz;
 
                 SetValue(fieldID, value);
@@ -214,10 +214,10 @@ namespace IdSharp.Tagging.Lyrics3
 
         private static int GetLengthFromByteArray(byte[] byteArray)
         {
-            int length = 0;
+            var length = 0;
             for (int i = byteArray.Length - 1, j = 1; i >= 0; i--, j *= 10)
             {
-                int val = byteArray[i] - '0';
+                var val = byteArray[i] - '0';
                 if (val < 0 || val > 9)
                 {
                     // invalid;

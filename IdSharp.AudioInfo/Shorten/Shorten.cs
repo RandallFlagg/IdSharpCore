@@ -13,7 +13,7 @@ namespace IdSharp.AudioInfo
         {
             uint val = 0;
             masktab[0] = val;
-            for (int i = 1; i < MASKTABSIZE; i++)
+            for (var i = 1; i < MASKTABSIZE; i++)
             {
                 val <<= 1;
                 val |= 1;
@@ -78,7 +78,7 @@ namespace IdSharp.AudioInfo
             gbuffer = 0;
             nbitget = 0;
 
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 _samples = getSamples(fs);
                 _totalSeconds = (decimal)_samples / _frequency;
@@ -96,7 +96,7 @@ namespace IdSharp.AudioInfo
 
         private uint ulong_get(Stream stream)
         {
-            int nbit = uvar_get(ULONGSIZE, stream);
+            var nbit = uvar_get(ULONGSIZE, stream);
             return (uint)uvar_get(nbit, stream);
         }
 
@@ -104,7 +104,7 @@ namespace IdSharp.AudioInfo
         {
             if (nbyteget < 4)
             {
-                int bytes = stream.Read(getbuf, 0, BUFSIZE);
+                var bytes = stream.Read(getbuf, 0, BUFSIZE);
                 getbufOffset = 0;
                 nbyteget += bytes;
                 if (nbyteget < 4)
@@ -116,7 +116,7 @@ namespace IdSharp.AudioInfo
                 }
             }
 
-            uint buffer = (((uint)getbuf[getbufOffset]) << 24) | (((uint)getbuf[getbufOffset + 1]) << 16) |
+            var buffer = (((uint)getbuf[getbufOffset]) << 24) | (((uint)getbuf[getbufOffset + 1]) << 16) |
                           (((uint)getbuf[getbufOffset + 2]) << 8) | (getbuf[getbufOffset + 3]);
 
             getbufOffset += 4;
@@ -166,7 +166,7 @@ namespace IdSharp.AudioInfo
 
         private int var_get(int nbin, Stream stream)
         {
-            uint uvar = (uint)uvar_get(nbin + 1, stream);
+            var uvar = (uint)uvar_get(nbin + 1, stream);
 
             if ((uvar & 1) == 1) return ((int)~(uvar >> 1));
             else return ((int)(uvar >> 1));
@@ -174,9 +174,9 @@ namespace IdSharp.AudioInfo
 
         private int getSamples(Stream stream)
         {
-            int SampleNumber = 0;
+            var SampleNumber = 0;
             int i;
-            int nscan = 0;
+            var nscan = 0;
 
             version = MAX_VERSION + 1;
             while (version > MAX_VERSION)
@@ -210,14 +210,14 @@ namespace IdSharp.AudioInfo
             UINT_GET(TYPESIZE, stream);
 
             int blocksize;
-            int nchan = (int)UINT_GET(CHANSIZE, stream);
+            var nchan = (int)UINT_GET(CHANSIZE, stream);
 
             if (version > 0)
             {
                 blocksize = (int)UINT_GET((int)(Math.Log(DEFAULT_BLOCK_SIZE) / M_LN2), stream);
                 UINT_GET(LPCQSIZE, stream);
                 UINT_GET(0, stream);
-                int nskip = (int)UINT_GET(NSKIPSIZE, stream);
+                var nskip = (int)UINT_GET(NSKIPSIZE, stream);
                 for (i = 0; i < nskip; i++)
                 {
                     uvar_get(XBYTESIZE, stream);
@@ -229,8 +229,8 @@ namespace IdSharp.AudioInfo
             }
 
             // get commands from file and execute them
-            int chan = 0;
-            int cmd = uvar_get(FNSIZE, stream);
+            var chan = 0;
+            var cmd = uvar_get(FNSIZE, stream);
             while (cmd != FN_QUIT)
             {
                 switch (cmd)
@@ -241,7 +241,7 @@ namespace IdSharp.AudioInfo
                     case FN_DIFF2:
                     case FN_DIFF3:
                     case FN_QLPC:
-                        int resn = 0;
+                        var resn = 0;
 
                         if (cmd != FN_ZERO)
                         {
@@ -260,13 +260,13 @@ namespace IdSharp.AudioInfo
                             case FN_DIFF3:
                                 for (i = 0; i < blocksize; i++)
                                 {
-                                    int nbin = resn + 1;
+                                    var nbin = resn + 1;
 
                                     if (nbitget == 0)
                                     {
                                         if (nbyteget < 4)
                                         {
-                                            int bytes = stream.Read(getbuf, 0, BUFSIZE);
+                                            var bytes = stream.Read(getbuf, 0, BUFSIZE);
                                             getbufOffset = 0;
                                             nbyteget += bytes;
                                         }
@@ -286,7 +286,7 @@ namespace IdSharp.AudioInfo
                                         {
                                             if (nbyteget < 4)
                                             {
-                                                int bytes = stream.Read(getbuf, 0, BUFSIZE);
+                                                var bytes = stream.Read(getbuf, 0, BUFSIZE);
                                                 getbufOffset = 0;
                                                 nbyteget += bytes;
                                             }
@@ -312,7 +312,7 @@ namespace IdSharp.AudioInfo
                                         {
                                             if (nbyteget < 4)
                                             {
-                                                int bytes = stream.Read(getbuf, 0, BUFSIZE);
+                                                var bytes = stream.Read(getbuf, 0, BUFSIZE);
                                                 getbufOffset = 0;
                                                 nbyteget += bytes;
                                             }
@@ -330,7 +330,7 @@ namespace IdSharp.AudioInfo
                                 }
                                 break;
                             case FN_QLPC:
-                                int nlpc = uvar_get(LPCQSIZE, stream);
+                                var nlpc = uvar_get(LPCQSIZE, stream);
 
                                 for (i = 0; i < nlpc; i++)
                                     var_get(LPCQUANT, stream);
@@ -350,7 +350,7 @@ namespace IdSharp.AudioInfo
                         uvar_get(BITSHIFTSIZE, stream);
                         break;
                     case FN_VERBATIM:
-                        int cklen = uvar_get(VERBATIM_CKSIZE_SIZE, stream);
+                        var cklen = uvar_get(VERBATIM_CKSIZE_SIZE, stream);
                         while (cklen-- != 0)
                         {
                             uvar_get(VERBATIM_BYTE_SIZE, stream);

@@ -72,7 +72,7 @@ namespace IdSharp.AudioInfo.Inspection
 
         public static LameTag FromBinaryReader(BinaryReader br)
         {
-            LameTag tmpLameTag = new LameTag();
+            var tmpLameTag = new LameTag();
             
             tmpLameTag.Quality = br.ReadByte();
             tmpLameTag.Encoder = br.ReadBytes(4);
@@ -108,7 +108,7 @@ namespace IdSharp.AudioInfo.Inspection
 
         public static OldLameHeader FromBinaryReader(BinaryReader br)
         {
-            OldLameHeader tmpOldLameHeader = new OldLameHeader();
+            var tmpOldLameHeader = new OldLameHeader();
             tmpOldLameHeader.UnusedByte = br.ReadByte();
             tmpOldLameHeader.Encoder = br.ReadBytes(4);
             tmpOldLameHeader.VersionString = br.ReadBytes(16);
@@ -134,7 +134,7 @@ namespace IdSharp.AudioInfo.Inspection
 
         public static StartOfFile FromBinaryReader(BinaryReader br)
         {
-            StartOfFile tmpStartOfFile = new StartOfFile();
+            var tmpStartOfFile = new StartOfFile();
             tmpStartOfFile.Misc1 = br.ReadBytes(13);
             tmpStartOfFile.Info1 = br.ReadBytes(4);
             tmpStartOfFile.Misc2 = br.ReadBytes(4);

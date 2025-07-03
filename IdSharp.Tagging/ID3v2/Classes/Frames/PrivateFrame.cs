@@ -47,7 +47,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
 
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
             if (bytesLeft > 0)
             {
                 OwnerIdentifier = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
@@ -63,7 +63,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (_privateData == null || _privateData.Length == 0)
                 return new byte[0];
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.Write(ByteUtils.ISO88591GetBytes(OwnerIdentifier));
                 frameData.WriteByte(0); // terminating byte

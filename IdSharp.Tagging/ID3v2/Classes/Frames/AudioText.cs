@@ -19,9 +19,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _scrambleTable = new byte[127];
             _scrambleTable[0] = 0xFE;
-            for (int i = 0; ; i++)
+            for (var i = 0; ; i++)
             {
-                byte n = NextByte(_scrambleTable[i]);
+                var n = NextByte(_scrambleTable[i]);
                 if (n == 0xFE)
                     break;
                 _scrambleTable[i + 1] = n;
@@ -30,7 +30,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
         private static byte[] Scramble(byte[] audioData)
         {
-            byte[] newAudioData = new byte[audioData.Length];
+            var newAudioData = new byte[audioData.Length];
             for (int i = 0, j = 0; i < audioData.Length; i++, j++)
             {
                 newAudioData[i] = (byte)(audioData[i] ^ _scrambleTable[j]);
@@ -41,16 +41,16 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
         private static byte NextByte(byte n)
         {
-            byte bit7 = (byte)((n >> 7) & 0x01);
-            byte bit6 = (byte)((n >> 6) & 0x01);
-            byte bit5 = (byte)((n >> 5) & 0x01);
-            byte bit4 = (byte)((n >> 4) & 0x01);
-            byte bit3 = (byte)((n >> 3) & 0x01);
-            byte bit2 = (byte)((n >> 2) & 0x01);
-            byte bit1 = (byte)((n >> 1) & 0x01);
-            byte bit0 = (byte)(n & 0x01);
+            var bit7 = (byte)((n >> 7) & 0x01);
+            var bit6 = (byte)((n >> 6) & 0x01);
+            var bit5 = (byte)((n >> 5) & 0x01);
+            var bit4 = (byte)((n >> 4) & 0x01);
+            var bit3 = (byte)((n >> 3) & 0x01);
+            var bit2 = (byte)((n >> 2) & 0x01);
+            var bit1 = (byte)((n >> 1) & 0x01);
+            var bit0 = (byte)(n & 0x01);
 
-            byte newByte = (byte)(((bit6 ^ bit5) << 7) +
+            var newByte = (byte)(((bit6 ^ bit5) << 7) +
               ((bit5 ^ bit4) << 6) +
               ((bit4 ^ bit3) << 5) +
               ((bit3 ^ bit2) << 4) +
@@ -152,7 +152,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override void Read(TagReadingInfo tagReadingInfo, Stream stream)
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
             if (bytesLeft > 0)
             {
@@ -162,7 +162,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     MimeType = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
                     if (bytesLeft > 1)
                     {
-                        byte flags = stream.Read1(ref bytesLeft);
+                        var flags = stream.Read1(ref bytesLeft);
                         _isMpegOrAac = ((flags & 0x01) == 0x00);
                         EquivalentText = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
                         if (bytesLeft > 0)
@@ -203,13 +203,13 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (_audioData == null || _audioData.Length == 0)
                 return new byte[0];
 
-            string frameID = GetFrameID(tagVersion);
+            var frameID = GetFrameID(tagVersion);
             if (frameID == null) 
                 return new byte[0];
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
-                byte[] mimeType = ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, MimeType, true);
+                var mimeType = ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, MimeType, true);
                 
                 byte[] equivText;
                 do

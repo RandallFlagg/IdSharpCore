@@ -13,7 +13,7 @@ namespace IdSharp.Tagging.VorbisComment
         /// <param name="key">The key.</param>
         public string GetValue(string key)
         {
-            foreach (NameValueItem item in this)
+            foreach (var item in this)
             {
                 if (string.Compare(item.Name, key, true) == 0)
                     return item.Value;
@@ -28,9 +28,9 @@ namespace IdSharp.Tagging.VorbisComment
         /// <param name="key">The key.</param>
         public string[] GetAllValues(string key)
         {
-            List<string> values = new List<string>();
+            var values = new List<string>();
 
-            foreach (NameValueItem item in this)
+            foreach (var item in this)
             {
                 if (string.Compare(item.Name, key, true) == 0)
                     values.Add(item.Value);
@@ -46,7 +46,7 @@ namespace IdSharp.Tagging.VorbisComment
         /// <param name="value">The value.</param>
         public void SetValue(string key, string value)
         {
-            foreach (NameValueItem item in new List<NameValueItem>(this))
+            foreach (var item in new List<NameValueItem>(this))
             {
                 if (string.Compare(item.Name, key, true) == 0)
                 {

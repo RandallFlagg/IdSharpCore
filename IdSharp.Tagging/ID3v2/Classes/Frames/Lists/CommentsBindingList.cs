@@ -28,7 +28,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Lists
 
         protected override void InsertItem(int index, IComments item)
         {
-            foreach (IComments comment in Items)
+            foreach (var comment in Items)
             {
             }
 

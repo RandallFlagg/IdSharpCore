@@ -27,21 +27,21 @@ namespace IdSharp.AudioInfo
         /// <param name="path">The path.</param>
         public MonkeysAudio(string path)
         {
-            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 // Skip ID3v2 tag
-                int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
-                int tmpID3v1TagSize = ID3v1.GetTagSize(stream);
-                int tmpAPEv2TagSize = APEv2.GetTagSize(stream);
+                var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+                var tmpID3v1TagSize = ID3v1.GetTagSize(stream);
+                var tmpAPEv2TagSize = APEv2.GetTagSize(stream);
                 stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
-                byte[] identifier = stream.Read(4);
+                var identifier = stream.Read(4);
                 if (ByteUtils.Compare(identifier, MAC_IDENTIFIER, 4) == false)
                 {
                     throw new InvalidDataException("Invalid Monkey's Audio file");
                 }
 
-                byte[] buf = stream.Read(4);
+                var buf = stream.Read(4);
 
                 _version = buf[0] + (buf[1] << 8);
                 int blocksPerFrame;
@@ -50,7 +50,7 @@ namespace IdSharp.AudioInfo
                 if (_version >= 3980 && _version <= 3990)
                 {
                     buf = stream.Read(4);
-                    int descriptorLength = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
+                    var descriptorLength = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
                     stream.Seek(descriptorLength - 12, SeekOrigin.Current); // skip DESCRIPTOR
 
                     buf = stream.Read(4);
@@ -97,7 +97,7 @@ namespace IdSharp.AudioInfo
 
                 long totalBlocks = ((_frames - 1) * blocksPerFrame) + finalBlocks;
 
-                long totalSize = stream.Length - stream.Position - tmpAPEv2TagSize - tmpID3v1TagSize;
+                var totalSize = stream.Length - stream.Position - tmpAPEv2TagSize - tmpID3v1TagSize;
 
                 _totalSeconds = totalBlocks / (decimal)_frequency;
                 _bitrate = totalSize / (_totalSeconds * 125.0m);

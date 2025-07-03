@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace IdSharp.Tagging.ID3v1
@@ -14,14 +14,14 @@ namespace IdSharp.Tagging.ID3v1
             if (stream == null)
                 throw new ArgumentNullException("stream");
 
-            long currentPosition = stream.Position;
+            var currentPosition = stream.Position;
             try
             {
                 if (stream.Length >= 128)
                 {
                     stream.Seek(-128, SeekOrigin.End);
 
-                    byte[] buf = new byte[3];
+                    var buf = new byte[3];
                     stream.Read(buf, 0, 3);
 
                     // Check for 'TAG'
@@ -47,7 +47,7 @@ namespace IdSharp.Tagging.ID3v1
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return GetTagSize(fileStream);
             }
@@ -87,7 +87,7 @@ namespace IdSharp.Tagging.ID3v1
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
             {
                 if (!DoesTagExist(fileStream))
                     return false;

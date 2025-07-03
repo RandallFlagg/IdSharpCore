@@ -59,14 +59,14 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 TextEncoding = (EncodingType)stream.Read1();
                 LanguageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
 
-                int tmpBytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 /*encoding*/- 3 /*language code*/;
+                var tmpBytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 /*encoding*/- 3 /*language code*/;
                 ContentDescriptor = ID3v2Utils.ReadString(TextEncoding, stream, ref tmpBytesLeft);
 
                 Text = ID3v2Utils.ReadString(_textEncoding, stream, tmpBytesLeft);
             }
             else
             {
-                string msg = string.Format("Under-sized ({0} bytes) unsynchronized text frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                var msg = string.Format("Under-sized ({0} bytes) unsynchronized text frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
                 Trace.WriteLine(msg);
 
                 LanguageCode = "eng";
@@ -93,7 +93,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 this.RequiresFix(tagVersion, Text, textData)
             );
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.WriteByte((byte)TextEncoding);
                 frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));

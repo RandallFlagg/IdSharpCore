@@ -60,8 +60,8 @@ namespace IdSharp.AudioInfo.Inspection
         {
             LamePreset Result;
 
-    	    String VersionString4 = AVersionString.Substring(0, 4);
-            String VersionString5 = AVersionString.Substring(0, 5);
+    	    var VersionString4 = AVersionString.Substring(0, 4);
+            var VersionString5 = AVersionString.Substring(0, 5);
 
     	    // Both 3.90 and 3.90.1 record the version string as '3.90', whereas later
 		    // varieties of 3.90 from 3.90.2 on record it as '3.90.'
@@ -108,13 +108,13 @@ namespace IdSharp.AudioInfo.Inspection
 	            Byte AEncodingMethod, Byte ANoiseShaping, Byte AStereoMode,
                 Byte AATHType, Byte ALowpassDiv100, out bool ANonBitrate)
         {
-            LamePreset Result = LamePreset.Unknown;
+            var Result = LamePreset.Unknown;
 
-            LamePreset NonBitrateResult = LamePreset.Unknown;
+            var NonBitrateResult = LamePreset.Unknown;
 
             ANonBitrate = false;
 
-		    foreach (PresetGuessRow row in _presetGuessTable)
+		    foreach (var row in _presetGuessTable)
             {
 			    if
                     ((row.HasVersionGroup(AVersionGroup)) &&

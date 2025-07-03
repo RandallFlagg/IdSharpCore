@@ -59,7 +59,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
 
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
             if (bytesLeft >= 1)
             {
                 TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
@@ -102,7 +102,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 valueData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, _value, false);
             } while (this.RequiresFix(tagVersion, _value, valueData));
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 frameData.WriteByte((byte)_textEncoding);
                 frameData.Write(ByteUtils.ISO88591GetBytes(_languageCode));

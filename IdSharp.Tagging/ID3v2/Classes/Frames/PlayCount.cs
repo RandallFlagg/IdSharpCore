@@ -41,7 +41,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
         {
             _frameHeader.Read(tagReadingInfo, ref stream);
 
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
             long playCount = 0;
             while (bytesLeft > 0)
@@ -58,7 +58,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (m_Value == null)
                 return new byte[0];
 
-            using (MemoryStream frameData = new MemoryStream())
+            using (var frameData = new MemoryStream())
             {
                 if (Value <= uint.MaxValue)
                     frameData.Write(ByteUtils.Get4Bytes((uint)Value.Value));

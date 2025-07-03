@@ -150,7 +150,7 @@ namespace IdSharp.AudioInfo.Inspection
         {
             get
             {
-                string tmpLameTagInfoPreset = "";
+                var tmpLameTagInfoPreset = "";
 
                 if (IsLameTagFound)
                 {

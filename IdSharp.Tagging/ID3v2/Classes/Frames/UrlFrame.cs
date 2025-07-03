@@ -54,7 +54,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             if (string.IsNullOrEmpty(_value))
                 return new byte[0];
 
-            using (MemoryStream stream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 stream.Write(ByteUtils.ISO88591GetBytes(_value));
                 return _frameHeader.GetBytes(stream, tagVersion, GetFrameID(tagVersion));

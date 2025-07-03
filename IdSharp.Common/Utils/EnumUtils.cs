@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 
 namespace IdSharp.Common.Utils
@@ -15,8 +15,8 @@ namespace IdSharp.Common.Utils
         public static string GetDescription<T>(T enumValue)
             where T : struct
         {
-            string enumString = enumValue.ToString();
-            object[] descriptions = typeof(T).GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
+            var enumString = enumValue.ToString();
+            var descriptions = typeof(T).GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
             if (descriptions.Length == 1)
                 enumString = ((DescriptionAttribute)descriptions[0]).Description;
             return enumString;

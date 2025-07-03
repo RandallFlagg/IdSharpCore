@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using IdSharp.Common.Utils;
 
 namespace IdSharp.Tagging.ID3v2
@@ -17,7 +17,7 @@ namespace IdSharp.Tagging.ID3v2
                 {
                     stream.Position = 0;
 
-                    byte[] identifier = stream.Read(3);
+                    var identifier = stream.Read(3);
 
                     // 'ID3' identifier
                     if (!(identifier[0] == 0x49 && identifier[1] == 0x44 && identifier[2] == 0x33))
@@ -26,7 +26,7 @@ namespace IdSharp.Tagging.ID3v2
                     }
 
                     IID3v2Header header = new ID3v2Header(stream, false);
-                    int tagSize = header.TagSize;
+                    var tagSize = header.TagSize;
                     if (tagSize != 0)
                     {
                         return tagSize + 10 + (header.IsFooterPresent ? 10 : 0);
@@ -50,7 +50,7 @@ namespace IdSharp.Tagging.ID3v2
         /// <param name="path">The full path of the file.</param>
         public static int GetTagSize(string path)
         {
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return GetTagSize(fileStream);
             }
@@ -81,7 +81,7 @@ namespace IdSharp.Tagging.ID3v2
         /// <returns><c>true</c> if an ID3v2 tag was removed; otherwise, <c>false</c>.</returns>
         public static bool RemoveTag(string path)
         {
-            int tagSize = GetTagSize(path);
+            var tagSize = GetTagSize(path);
             if (tagSize > 0)
             {
                 ByteUtils.ReplaceBytes(path, tagSize, new byte[0]);

@@ -19,10 +19,10 @@ namespace IdSharp.AudioInfo
         /// <param name="path">The full path of the file.</param>
         public OptimFrog(string path)
         {
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 fs.Position = 31;
-                RiffWave wav = new RiffWave(fs);
+                var wav = new RiffWave(fs);
 
                 _channels = wav.Channels;
                 _frequency = wav.Frequency;

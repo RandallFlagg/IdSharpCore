@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using IdSharp.Common.Utils;
 
 namespace IdSharp.Tagging.APEv2
@@ -11,10 +11,10 @@ namespace IdSharp.Tagging.APEv2
         /// <param name="stream">The stream.</param>
         public static int GetTagSize(Stream stream)
         {
-            long currentPosition = stream.Position;
+            var currentPosition = stream.Position;
             try
             {
-                APEv2Tag apev2 = new APEv2Tag();
+                var apev2 = new APEv2Tag();
                 apev2.Read(stream, readElements: false);
                 return apev2.TagSize;
             }
@@ -30,7 +30,7 @@ namespace IdSharp.Tagging.APEv2
         /// <param name="path">The full path of the file.</param>
         public static int GetTagSize(string path)
         {
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 return GetTagSize(fileStream);
             }
@@ -61,14 +61,14 @@ namespace IdSharp.Tagging.APEv2
         /// <returns><c>true</c> if an APEv2 tag was removed; otherwise, <c>false</c>.</returns>
         public static bool RemoveTag(string path)
         {
-            APEv2Tag apev2 = new APEv2Tag();
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            var apev2 = new APEv2Tag();
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 apev2.Read(fileStream, readElements: false);
             }
 
-            int tagSize = apev2.TagSize;
-            long tagOffset = apev2.TagOffset;
+            var tagSize = apev2.TagSize;
+            var tagOffset = apev2.TagOffset;
             if (tagSize > 0)
             {
                 ByteUtils.ReplaceBytes(path, tagSize, new byte[0], tagOffset);

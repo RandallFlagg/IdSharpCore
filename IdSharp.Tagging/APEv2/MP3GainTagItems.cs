@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 
 
@@ -162,7 +162,7 @@ namespace IdSharp.Tagging.APEv2 {
                 UndoLeftChannelAdjustment = ConvertValue(value, 0);
                 UndoRightChannelAdjustment = ConvertValue(value, 1);
                 
-                string val = ConvertValueToString(value, 2);
+                var val = ConvertValueToString(value, 2);
 
                 if (string.IsNullOrWhiteSpace(val))
                     UndoWrapFlag = null;
@@ -203,7 +203,7 @@ namespace IdSharp.Tagging.APEv2 {
             if (value == null)
                 return null;
 
-            string[] parts = value.Split(new char[] { ',' });
+            var parts = value.Split(new char[] { ',' });
 
             if (parts.Length <= position)
                 return null;
@@ -213,7 +213,7 @@ namespace IdSharp.Tagging.APEv2 {
 
         private short? ConvertValue(string value, int position) {
 
-            string part = ConvertValueToString(value, position);
+            var part = ConvertValueToString(value, position);
 
             if (string.IsNullOrWhiteSpace(part))
                 return null;
