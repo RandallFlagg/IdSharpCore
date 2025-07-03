@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+
 using IdSharp.Common.Utils;
 
 namespace IdSharp.Tagging.APEv2
@@ -122,7 +123,7 @@ namespace IdSharp.Tagging.APEv2
                     var valueBytes = Encoding.UTF8.GetBytes(item.Value);
 
                     ms.WriteInt32LittleEndian(valueBytes.Length); // size
-                    ms.Write(new byte[] { 0x00, 0x00, 0x00, 0x00}); // todo: account for encoding type
+                    ms.Write(new byte[] { 0x00, 0x00, 0x00, 0x00 }); // todo: account for encoding type
                     ms.Write(Encoding.ASCII.GetBytes(item.Key));
                     ms.WriteByte(0x00);
                     ms.Write(valueBytes);
@@ -182,7 +183,7 @@ namespace IdSharp.Tagging.APEv2
             {
                 // skip past possible ID3v1 tag
                 footerOffset = 128;
-                stream.Seek(-128-32, SeekOrigin.End);
+                stream.Seek(-128 - 32, SeekOrigin.End);
                 stream.Read(buf, 0, 32);
                 if (ByteUtils.Compare(buf, _APETAGEX, 8) == false)
                 {
@@ -272,7 +273,7 @@ namespace IdSharp.Tagging.APEv2
             stream.Read(buf, 0, 8);
             for (var i = 0; i < 4; i++)
             {
-                size += (buf[i] << (i*8));
+                size += (buf[i] << (i * 8));
             }
 
             //encoding = (buf[20] >> 1) & 0x03;
@@ -284,7 +285,7 @@ namespace IdSharp.Tagging.APEv2
 
             var itemKey = stream.ReadISO88591().ToUpper();
             var itemValue = stream.ReadUTF8(size);
-            
+
             // does the key already exist?
             if (_items.ContainsKey(itemKey))
             {
@@ -474,7 +475,8 @@ namespace IdSharp.Tagging.APEv2
         /// Gets the ReplayGain items found in the tag
         /// </summary>
         /// <value>ReplayGain items</value>
-        public ReplayGainTagItems ReplayGainItems {
+        public ReplayGainTagItems ReplayGainItems
+        {
             get { return _replayGainItems; }
         }
 
@@ -482,7 +484,8 @@ namespace IdSharp.Tagging.APEv2
         /// Gets the MP3Gain items found in the tag
         /// </summary>
         /// <value>MP3Gain items</value>
-        public MP3GainTagItems MP3GainItems {
+        public MP3GainTagItems MP3GainItems
+        {
             get { return _mp3GainItems; }
         }
 
