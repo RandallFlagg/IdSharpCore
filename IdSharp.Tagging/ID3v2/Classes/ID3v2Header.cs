@@ -76,11 +76,11 @@ namespace IdSharp.Tagging.ID3v2
                 {
                     var msg = $"Argument 'value' out of range.  Maximum tag size is {0xFFFFFFF}.";
                     Trace.WriteLine(msg);
-                    throw new ArgumentOutOfRangeException("value", value, msg);
+                    throw new ArgumentOutOfRangeException(nameof(value), value, msg);
                 }
                 else if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _tagSize = value;

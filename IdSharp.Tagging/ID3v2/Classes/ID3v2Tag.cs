@@ -84,7 +84,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             var originalTagSize = GetTagSize(path);
@@ -127,7 +127,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (string.IsNullOrEmpty(frameID))
             {
-                throw new ArgumentNullException("frameID");
+                throw new ArgumentNullException(nameof(frameID));
             }
 
             return GetAllFrames(_id3v2Header.TagVersion, frameID);
@@ -141,7 +141,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (frameIDs == null)
             {
-                throw new ArgumentNullException("frameIDs");
+                throw new ArgumentNullException(nameof(frameIDs));
             }
 
             return GetAllFrames(_id3v2Header.TagVersion, frameIDs);

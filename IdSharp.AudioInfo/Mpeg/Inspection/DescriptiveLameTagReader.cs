@@ -22,7 +22,7 @@ namespace IdSharp.AudioInfo.Inspection
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             _mpeg = new MpegAudio(path);

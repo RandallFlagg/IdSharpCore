@@ -18,7 +18,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _deviationInBytes = value;
-                RaisePropertyChanged("DeviationInBytes");
+                RaisePropertyChanged(nameof(DeviationInBytes));
             }
         }
 
@@ -31,7 +31,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _deviationInMilliseconds = value;
-                RaisePropertyChanged("DeviationInMilliseconds");
+                RaisePropertyChanged(nameof(DeviationInMilliseconds));
             }
         }
 

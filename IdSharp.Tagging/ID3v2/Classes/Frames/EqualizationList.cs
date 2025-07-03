@@ -43,7 +43,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _interpolationMethod = value;
-                RaisePropertyChanged("InterpolationMethod");
+                RaisePropertyChanged(nameof(InterpolationMethod));
             }
         }
 
@@ -53,7 +53,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _identification = value;
-                RaisePropertyChanged("Identification");
+                RaisePropertyChanged(nameof(Identification));
             }
         }
 

@@ -112,12 +112,12 @@ namespace IdSharp.WebLookup.Amazon
         {
             if (string.IsNullOrWhiteSpace(awsAccessKeyId))
             {
-                throw new ArgumentNullException("awsAccessKeyId");
+                throw new ArgumentNullException(nameof(awsAccessKeyId));
             }
 
             if (string.IsNullOrWhiteSpace(secretAccessKey))
             {
-                throw new ArgumentNullException("secretAccessKey");
+                throw new ArgumentNullException(nameof(secretAccessKey));
             }
 
             var amazonDomain = GetDomain(server);

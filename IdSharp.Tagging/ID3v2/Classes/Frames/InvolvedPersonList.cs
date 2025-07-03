@@ -24,7 +24,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _textEncoding = value;
-                RaisePropertyChanged("TextEncoding");
+                RaisePropertyChanged(nameof(TextEncoding));
             }
         }
 

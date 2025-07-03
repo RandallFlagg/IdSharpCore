@@ -13,7 +13,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             var currentPosition = stream.Position;
@@ -48,7 +48,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -65,7 +65,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             return (GetTagSize(stream) != 0);
@@ -79,7 +79,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             return (GetTagSize(path) != 0);
@@ -94,7 +94,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             using (var fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))

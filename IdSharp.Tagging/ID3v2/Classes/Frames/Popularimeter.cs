@@ -16,7 +16,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _userEmail = value;
-                RaisePropertyChanged("UserEmail");
+                RaisePropertyChanged(nameof(UserEmail));
             }
         }
 
@@ -26,7 +26,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _rating = value;
-                RaisePropertyChanged("Rating");
+                RaisePropertyChanged(nameof(Rating));
             }
         }
 
@@ -37,11 +37,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _playCount = value;
-                RaisePropertyChanged("PlayCount");
+                RaisePropertyChanged(nameof(PlayCount));
             }
         }
 

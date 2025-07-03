@@ -35,7 +35,7 @@ namespace IdSharp.Tagging.Lyrics3
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -53,7 +53,7 @@ namespace IdSharp.Tagging.Lyrics3
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             Read(stream);
@@ -67,7 +67,7 @@ namespace IdSharp.Tagging.Lyrics3
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             if (_keyValues.Count == 0)
@@ -98,7 +98,7 @@ namespace IdSharp.Tagging.Lyrics3
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             _keyValues.Clear();

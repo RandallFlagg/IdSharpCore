@@ -16,25 +16,25 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public EncodingType TextEncoding
         {
             get { return _textEncoding; }
-            set { _textEncoding = value; RaisePropertyChanged("TextEncoding"); }
+            set { _textEncoding = value; RaisePropertyChanged(nameof(TextEncoding)); }
         }
 
         public string LanguageCode
         {
             get { return _languageCode; }
-            set { _languageCode = value; RaisePropertyChanged("LanguageCode"); }
+            set { _languageCode = value; RaisePropertyChanged(nameof(LanguageCode)); }
         }
 
         public string ContentDescriptor
         {
             get { return _contentDescriptor; }
-            set { _contentDescriptor = value; RaisePropertyChanged("ContentDescriptor"); }
+            set { _contentDescriptor = value; RaisePropertyChanged(nameof(ContentDescriptor)); }
         }
 
         public string Text
         {
             get { return _text; }
-            set { _text = value; RaisePropertyChanged("Text"); }
+            set { _text = value; RaisePropertyChanged(nameof(Text)); }
         }
 
         public override string GetFrameID(ID3v2TagVersion tagVersion)

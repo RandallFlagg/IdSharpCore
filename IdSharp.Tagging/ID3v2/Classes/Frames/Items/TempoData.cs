@@ -20,11 +20,11 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _tempoCode = value;
-                RaisePropertyChanged("TempoCode");
+                RaisePropertyChanged(nameof(TempoCode));
             }
         }
 
@@ -38,11 +38,11 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _timestamp = value;
-                RaisePropertyChanged("Timestamp");
+                RaisePropertyChanged(nameof(Timestamp));
             }
         }
 

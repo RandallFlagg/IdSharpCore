@@ -16,7 +16,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _frameIdentifier = value;
-                RaisePropertyChanged("FrameIdentifier");
+                RaisePropertyChanged(nameof(FrameIdentifier));
             }
         }
 
@@ -26,7 +26,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _url = value;
-                RaisePropertyChanged("Url");
+                RaisePropertyChanged(nameof(Url));
             }
         }
 
@@ -36,7 +36,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _additionalData = ByteUtils.Clone(value);
-                RaisePropertyChanged("AdditionalData");
+                RaisePropertyChanged(nameof(AdditionalData));
             }
         }
 

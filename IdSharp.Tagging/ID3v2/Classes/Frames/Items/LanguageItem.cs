@@ -29,7 +29,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
                     LanguageDisplay = _languageCode;
                     // TODO: notify about bad data?
                 }
-                RaisePropertyChanged("LanguageCode");
+                RaisePropertyChanged(nameof(LanguageCode));
             }
         }
 
@@ -42,7 +42,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             private set             
             {
                 _languageDisplay = value;
-                RaisePropertyChanged("LanguageDisplay");
+                RaisePropertyChanged(nameof(LanguageDisplay));
             }
         }
 

@@ -23,11 +23,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _reverbLeftMilliseconds = value;
-                RaisePropertyChanged("ReverbLeftMilliseconds");
+                RaisePropertyChanged(nameof(ReverbLeftMilliseconds));
             }
         }
 
@@ -38,11 +38,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _reverbRightMilliseconds = value;
-                RaisePropertyChanged("ReverbRightMilliseconds");
+                RaisePropertyChanged(nameof(ReverbRightMilliseconds));
             }
         }
 
@@ -52,7 +52,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbBouncesLeft = value;
-                RaisePropertyChanged("ReverbBouncesLeft");
+                RaisePropertyChanged(nameof(ReverbBouncesLeft));
             }
         }
 
@@ -62,7 +62,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbBouncesRight = value;
-                RaisePropertyChanged("ReverbBouncesRight");
+                RaisePropertyChanged(nameof(ReverbBouncesRight));
             }
         }
 
@@ -72,7 +72,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbFeedbackLeftToLeft = value;
-                RaisePropertyChanged("ReverbFeedbackLeftToLeft");
+                RaisePropertyChanged(nameof(ReverbFeedbackLeftToLeft));
             }
         }
 
@@ -82,7 +82,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbFeedbackLeftToRight = value;
-                RaisePropertyChanged("ReverbFeedbackLeftToRight");
+                RaisePropertyChanged(nameof(ReverbFeedbackLeftToRight));
             }
         }
 
@@ -92,7 +92,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbFeedbackRightToRight = value;
-                RaisePropertyChanged("ReverbFeedbackRightToRight");
+                RaisePropertyChanged(nameof(ReverbFeedbackRightToRight));
             }
         }
 
@@ -102,7 +102,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _reverbFeedbackRightToLeft = value;
-                RaisePropertyChanged("ReverbFeedbackRightToLeft");
+                RaisePropertyChanged(nameof(ReverbFeedbackRightToLeft));
             }
         }
 
@@ -112,7 +112,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _premixLeftToRight = value;
-                RaisePropertyChanged("PremixLeftToRight");
+                RaisePropertyChanged(nameof(PremixLeftToRight));
             }
         }
 
@@ -122,7 +122,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _premixRightToLeft = value;
-                RaisePropertyChanged("PremixRightToLeft");
+                RaisePropertyChanged(nameof(PremixRightToLeft));
             }
         }
         

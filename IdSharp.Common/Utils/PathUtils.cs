@@ -21,7 +21,7 @@ namespace IdSharp.Common.Utils
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             if (!File.Exists(path))
@@ -56,7 +56,7 @@ namespace IdSharp.Common.Utils
 
                 if (extension.EndsWith(".", StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new ArgumentException("Parameter 'extension' cannot end with a '.'", "extension");
+                    throw new ArgumentException("Parameter 'extension' cannot end with a '.'", nameof(extension));
                 }
 
                 foreach (var c in extension)

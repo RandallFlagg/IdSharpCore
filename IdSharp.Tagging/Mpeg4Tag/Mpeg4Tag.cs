@@ -133,7 +133,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _artist = value;
-                RaisePropertyChanged("Artist");
+                RaisePropertyChanged(nameof(Artist));
             }
         }
 
@@ -150,7 +150,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _album = value;
-                RaisePropertyChanged("Album");
+                RaisePropertyChanged(nameof(Album));
             }
         }
 
@@ -167,7 +167,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _title = value;
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged(nameof(Title));
             }
         }
 
@@ -184,7 +184,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _genre = value;
-                RaisePropertyChanged("Genre");
+                RaisePropertyChanged(nameof(Genre));
             }
         }
 
@@ -201,7 +201,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _year = value;
-                RaisePropertyChanged("Year");
+                RaisePropertyChanged(nameof(Year));
             }
         }
 
@@ -218,7 +218,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _comment = value;
-                RaisePropertyChanged("Comment");
+                RaisePropertyChanged(nameof(Comment));
             }
         }
 
@@ -235,7 +235,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _tool = value;
-                RaisePropertyChanged("Tool");
+                RaisePropertyChanged(nameof(Tool));
             }
         }
 
@@ -252,7 +252,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _composer = value;
-                RaisePropertyChanged("Composer");
+                RaisePropertyChanged(nameof(Composer));
             }
         }
 
@@ -269,7 +269,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _trackNumber = value;
-                RaisePropertyChanged("TrackNumber");
+                RaisePropertyChanged(nameof(TrackNumber));
             }
         }
 
@@ -286,7 +286,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _totalTracks = value;
-                RaisePropertyChanged("TotalTracks");
+                RaisePropertyChanged(nameof(TotalTracks));
             }
         }
 
@@ -305,7 +305,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _isPartOfCompilation = value;
-                RaisePropertyChanged("IsPartOfCompilation");
+                RaisePropertyChanged(nameof(IsPartOfCompilation));
             }
         }
 
@@ -322,7 +322,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _bpm = value;
-                RaisePropertyChanged("BPM");
+                RaisePropertyChanged(nameof(BPM));
             }
         }
 
@@ -339,7 +339,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _disc = value;
-                RaisePropertyChanged("Disc");
+                RaisePropertyChanged(nameof(Disc));
             }
         }
 
@@ -356,7 +356,7 @@ namespace IdSharp.Tagging.Mpeg4
             set
             {
                 _totalDiscs = value;
-                RaisePropertyChanged("TotalDiscs");
+                RaisePropertyChanged(nameof(TotalDiscs));
             }
         }
 
@@ -375,7 +375,7 @@ namespace IdSharp.Tagging.Mpeg4
             private set
             {
                 _samples = value;
-                RaisePropertyChanged("Samples");
+                RaisePropertyChanged(nameof(Samples));
             }
         }
 
@@ -385,7 +385,7 @@ namespace IdSharp.Tagging.Mpeg4
             private set
             {
                 _channels = value;
-                RaisePropertyChanged("Channels");
+                RaisePropertyChanged(nameof(Channels));
             }
         }
 
@@ -395,7 +395,7 @@ namespace IdSharp.Tagging.Mpeg4
             private set
             {
                 _frequency = value;
-                RaisePropertyChanged("Frequency");
+                RaisePropertyChanged(nameof(Frequency));
             }
         }
 
@@ -405,7 +405,7 @@ namespace IdSharp.Tagging.Mpeg4
             private set
             {
                 _codec = value;
-                RaisePropertyChanged("Codec");
+                RaisePropertyChanged(nameof(Codec));
             }
         }
 

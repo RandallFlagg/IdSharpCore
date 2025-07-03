@@ -18,7 +18,7 @@ namespace IdSharp.AudioInfo
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             var ext = Path.GetExtension(path).ToLower();

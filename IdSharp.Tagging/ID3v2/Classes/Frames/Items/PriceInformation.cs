@@ -18,7 +18,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _currencyCode = value;
-                RaisePropertyChanged("CurrencyCode");
+                RaisePropertyChanged(nameof(CurrencyCode));
             }
         }
 
@@ -31,7 +31,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _price = value;
-                RaisePropertyChanged("Price");
+                RaisePropertyChanged(nameof(Price));
             }
         }
 

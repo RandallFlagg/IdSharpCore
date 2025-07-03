@@ -276,7 +276,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (string.IsNullOrEmpty(frameID))
             {
-                throw new ArgumentNullException("frameID");
+                throw new ArgumentNullException(nameof(frameID));
             }
 
             return GetAllFrames(tagVersion, new List<string> { frameID });
@@ -286,7 +286,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (frameIDs == null)
             {
-                throw new ArgumentNullException("frameIDs");
+                throw new ArgumentNullException(nameof(frameIDs));
             }
 
             if (frameIDs.Any() == false)

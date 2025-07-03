@@ -15,7 +15,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _ownerIdentifier = value;
-                RaisePropertyChanged("OwnerIdentifier");
+                RaisePropertyChanged(nameof(OwnerIdentifier));
             }
         }
 
@@ -25,7 +25,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _contentExplanation = value;
-                RaisePropertyChanged("ContentExplanation");
+                RaisePropertyChanged(nameof(ContentExplanation));
             }
         }
 
@@ -35,7 +35,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _encryptedData = ByteUtils.Clone(value);
-                RaisePropertyChanged("EncryptedData");
+                RaisePropertyChanged(nameof(EncryptedData));
             }
         }
 

@@ -330,7 +330,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (bytes == null)
             {
-                throw new ArgumentNullException("bytes");
+                throw new ArgumentNullException(nameof(bytes));
             }
 
             using (var memoryStream = new MemoryStream(bytes))
@@ -343,7 +343,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             string returnValue;

@@ -19,7 +19,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _eventType = value;
-                RaisePropertyChanged("EventType");
+                RaisePropertyChanged(nameof(EventType));
             }
         }
 
@@ -33,11 +33,11 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Value cannot be less than 0");
                 }
 
                 _timestamp = value;
-                RaisePropertyChanged("Timestamp");
+                RaisePropertyChanged(nameof(Timestamp));
             }
         }
 

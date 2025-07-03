@@ -14,11 +14,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _minimumOffsetToNextTag = value;
-                RaisePropertyChanged("MinimumOffsetToNextTag");
+                RaisePropertyChanged(nameof(MinimumOffsetToNextTag));
             }
         }
 

@@ -17,7 +17,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _textEncoding = value;
-                RaisePropertyChanged("TextEncoding");
+                RaisePropertyChanged(nameof(TextEncoding));
             }
         }
 
@@ -27,7 +27,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _pricePaid = value;
-                RaisePropertyChanged("PricePaid");
+                RaisePropertyChanged(nameof(PricePaid));
             }
         }
 
@@ -37,7 +37,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _currencyCode = value; // todo: validation
-                RaisePropertyChanged("CurrencyCode");
+                RaisePropertyChanged(nameof(CurrencyCode));
             }
         }
 
@@ -47,7 +47,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _dateOfPurchase = value.Date;
-                RaisePropertyChanged("DateOfPurchase");
+                RaisePropertyChanged(nameof(DateOfPurchase));
             }
         }
 
@@ -57,7 +57,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _seller = value;
-                RaisePropertyChanged("Seller");
+                RaisePropertyChanged(nameof(Seller));
             }
         }
 

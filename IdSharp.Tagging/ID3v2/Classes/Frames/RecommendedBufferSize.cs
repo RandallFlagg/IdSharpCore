@@ -16,11 +16,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _bufferSize = value;
-                RaisePropertyChanged("BufferSize");
+                RaisePropertyChanged(nameof(BufferSize));
             }
         }
 
@@ -30,7 +30,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _embeddedInfo = value;
-                RaisePropertyChanged("EmbeddedInfo");
+                RaisePropertyChanged(nameof(EmbeddedInfo));
             }
         }
 
@@ -41,11 +41,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 _offsetToNextTag = value;
-                RaisePropertyChanged("OffsetToNextTag");
+                RaisePropertyChanged(nameof(OffsetToNextTag));
             }
         }
 

@@ -39,7 +39,7 @@ namespace IdSharp.Tagging.VorbisComment
         {
             if (string.IsNullOrEmpty(path))
             {
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
             }
 
             Read(path);
@@ -53,7 +53,7 @@ namespace IdSharp.Tagging.VorbisComment
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             Read(stream);

@@ -47,7 +47,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Album's gain</value>
         public decimal? AlbumGain {
             get { return _albumGain; }
-            set { _albumGain = value; RaisePropertyChanged("AlbumGain"); }
+            set { _albumGain = value; RaisePropertyChanged(nameof(AlbumGain)); }
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Album's peak value</value>
         public decimal? AlbumPeak {
             get { return _albumPeak; }
-            set { _albumPeak = value; RaisePropertyChanged("AlbumPeak"); }
+            set { _albumPeak = value; RaisePropertyChanged(nameof(AlbumPeak)); }
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Track's gain</value>
         public decimal? TrackGain {
             get { return _trackGain; }
-            set { _trackGain = value; RaisePropertyChanged("TrackGain"); }
+            set { _trackGain = value; RaisePropertyChanged(nameof(TrackGain)); }
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Track's peak value</value>
         public decimal? TrackPeak {
             get { return _trackPeak; }
-            set { _trackPeak = value; RaisePropertyChanged("TrackPeak"); }
+            set { _trackPeak = value; RaisePropertyChanged(nameof(TrackPeak)); }
         }
 
         /// <summary>

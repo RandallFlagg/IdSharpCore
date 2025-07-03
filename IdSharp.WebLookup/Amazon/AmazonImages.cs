@@ -41,17 +41,17 @@ namespace IdSharp.WebLookup.Amazon
         {
             if (string.IsNullOrWhiteSpace(awsAccessKeyId))
             {
-                throw new ArgumentNullException("awsAccessKeyId");
+                throw new ArgumentNullException(nameof(awsAccessKeyId));
             }
 
             if (string.IsNullOrWhiteSpace(secretAccessKey))
             {
-                throw new ArgumentNullException("secretAccessKey");
+                throw new ArgumentNullException(nameof(secretAccessKey));
             }
 
             if (string.IsNullOrWhiteSpace(asin))
             {
-                throw new ArgumentNullException("asin");
+                throw new ArgumentNullException(nameof(asin));
             }
 
             _amazonServer = server;
@@ -188,7 +188,7 @@ namespace IdSharp.WebLookup.Amazon
                 if (_hasImage != value)
                 {
                     _hasImage = value;
-                    OnPropertyChanged("HasImage");
+                    OnPropertyChanged(nameof(HasImage));
                 }
             }
         }
@@ -205,7 +205,7 @@ namespace IdSharp.WebLookup.Amazon
                 if (_largestImageSize != value)
                 {
                     _largestImageSize = value;
-                    OnPropertyChanged("LargestImageSize");
+                    OnPropertyChanged(nameof(LargestImageSize));
                 }
             }
         }

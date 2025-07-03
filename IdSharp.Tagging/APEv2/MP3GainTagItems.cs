@@ -50,7 +50,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Track's minimum gain</value>
         public short? TrackMinimumGain {
             get { return _trackMin; }
-            set { _trackMin = value; RaisePropertyChanged("TrackMinimumGain"); }
+            set { _trackMin = value; RaisePropertyChanged(nameof(TrackMinimumGain)); }
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Track's maximum gain</value>
         public short? TrackMaximumGain {
             get { return _trackMax; }
-            set { _trackMax = value; RaisePropertyChanged("TrackMaximumGain"); }
+            set { _trackMax = value; RaisePropertyChanged(nameof(TrackMaximumGain)); }
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Album's minimum gain</value>
         public short? AlbumMinimumGain {
             get { return _albumMin; }
-            set { _albumMin = value; RaisePropertyChanged("AlbumMinimumGain"); }
+            set { _albumMin = value; RaisePropertyChanged(nameof(AlbumMinimumGain)); }
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Album's maximum gain</value>
         public short? AlbumMaximumGain {
             get { return _albumMax; }
-            set { _albumMax = value; RaisePropertyChanged("AlbumMaximumGain"); }
+            set { _albumMax = value; RaisePropertyChanged(nameof(AlbumMaximumGain)); }
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Left channel's undo amount</value>
         public short? UndoLeftChannelAdjustment {
             get { return _undoLeftChannel; }
-            set { _undoLeftChannel = value; RaisePropertyChanged("UndoLeftChannelAdjustment"); }
+            set { _undoLeftChannel = value; RaisePropertyChanged(nameof(UndoLeftChannelAdjustment)); }
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Right channel's undo amount</value>
         public short? UndoRightChannelAdjustment {
             get { return _undoRightChannel; }
-            set { _undoRightChannel = value; RaisePropertyChanged("UndoRightChannelAdjustment"); }
+            set { _undoRightChannel = value; RaisePropertyChanged(nameof(UndoRightChannelAdjustment)); }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace IdSharp.Tagging.APEv2 {
         /// <value>Undo wrap flag</value>
         public bool? UndoWrapFlag {
             get { return _undoWrap; }
-            set { _undoWrap = value; RaisePropertyChanged("UndoWrapFlag"); }
+            set { _undoWrap = value; RaisePropertyChanged(nameof(UndoWrapFlag)); }
         }
 
         /// <summary>

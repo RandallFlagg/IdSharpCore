@@ -15,7 +15,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _name = value;
-                RaisePropertyChanged("Name");
+                RaisePropertyChanged(nameof(Name));
             }
         }
 
@@ -25,7 +25,7 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 _involvement = value;
-                RaisePropertyChanged("Involvement");
+                RaisePropertyChanged(nameof(Involvement));
             }
         }
 

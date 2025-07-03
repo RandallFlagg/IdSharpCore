@@ -13,7 +13,7 @@ namespace IdSharp.AudioInfo
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             var currentPosition = stream.Position;

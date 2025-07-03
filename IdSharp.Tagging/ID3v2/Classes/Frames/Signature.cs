@@ -15,7 +15,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _groupSymbol = value;
-                RaisePropertyChanged("GroupSymbol");
+                RaisePropertyChanged(nameof(GroupSymbol));
             }
         }
 
@@ -25,7 +25,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             set
             {
                 _signatureData = ByteUtils.Clone(value);
-                RaisePropertyChanged("SignatureData");
+                RaisePropertyChanged(nameof(SignatureData));
             }
         }
 

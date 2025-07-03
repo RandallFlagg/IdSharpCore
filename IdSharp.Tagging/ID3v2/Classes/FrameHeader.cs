@@ -551,7 +551,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             else
             {
-                throw new ArgumentOutOfRangeException("tagVersion", tagVersion, "Unknown tag version");
+                throw new ArgumentOutOfRangeException(nameof(tagVersion), tagVersion, "Unknown tag version");
             }
 
             using (var totalFrame = new MemoryStream())

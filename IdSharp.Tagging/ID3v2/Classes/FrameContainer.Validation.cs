@@ -99,7 +99,7 @@ namespace IdSharp.Tagging.ID3v2
             {
                 if (value.Length != 12)
                 {
-                    FireWarning("ISRC", "ISRC value should be 12 characters in length");
+                    FireWarning(nameof(ISRC), "ISRC value should be 12 characters in length");
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace IdSharp.Tagging.ID3v2
                 uint tmpBPM;
                 if (!uint.TryParse(value, out tmpBPM))
                 {
-                    FireWarning("BPM", "Value should be numeric");
+                    FireWarning(nameof(BPM), "Value should be numeric");
                 }
             }
         }
@@ -122,12 +122,12 @@ namespace IdSharp.Tagging.ID3v2
         {
             // NOTE: Track Num is commonly used as a show number in the podcast world. Given where we are with podcasting as this date, 
             // many podcast shows have now exceeded 255.
-            ValidateFractionValue("TrackNumber", TrackNumber, "Value should contain either the track number or track number/total tracks in the format ## or ##/##\nExample: 1 or 1/14");
+            ValidateFractionValue(nameof(TrackNumber), TrackNumber, "Value should contain either the track number or track number/total tracks in the format ## or ##/##\nExample: 1 or 1/14");
         }
 
         private void ValidateDiscNumber()
         {
-            ValidateFractionValue("DiscNumber", DiscNumber, "Value should contain either the disc number or disc number/total discs in the format ## or ##/##\nExample: 1 or 1/2");
+            ValidateFractionValue(nameof(DiscNumber), DiscNumber, "Value should contain either the disc number or disc number/total discs in the format ## or ##/##\nExample: 1 or 1/2");
         }
 
         private void ValidateFractionValue(string propertyName, string value, string message)
@@ -213,7 +213,7 @@ namespace IdSharp.Tagging.ID3v2
 
                 if (!isValid)
                 {
-                    FireWarning("Copyright", $"The copyright field should begin with a year followed by the copyright owner{Environment.NewLine}Example: 2007 Sony Records");
+                    FireWarning(nameof(Copyright), $"The copyright field should begin with a year followed by the copyright owner{Environment.NewLine}Example: 2007 Sony Records");
                 }
             }
         }
@@ -227,7 +227,7 @@ namespace IdSharp.Tagging.ID3v2
                 int tmpYear;
                 if (!int.TryParse(value, out tmpYear) || tmpYear < 1000 || tmpYear >= 10000)
                 {
-                    FireWarning("Year", $"The year field should be a 4 digit number{Environment.NewLine}Example: 2007");
+                    FireWarning(nameof(Year), $"The year field should be a 4 digit number{Environment.NewLine}Example: 2007");
                 }
             }
         }
@@ -245,17 +245,17 @@ namespace IdSharp.Tagging.ID3v2
 
         private void ValidatePublisherUrl()
         {
-            ValidateUrl("PublisherUrl", PublisherUrl);
+            ValidateUrl(nameof(PublisherUrl), PublisherUrl);
         }
 
         private void ValidateCopyrightUrl()
         {
-            ValidateUrl("CopyrightUrl", CopyrightUrl);
+            ValidateUrl(nameof(CopyrightUrl), CopyrightUrl);
         }
 
         private void ValidatePaymentUrl()
         {
-            ValidateUrl("PaymentUrl", PaymentUrl);
+            ValidateUrl(nameof(PaymentUrl), PaymentUrl);
         }
 
         // TODO: Add to UrlBindingList
@@ -271,17 +271,17 @@ namespace IdSharp.Tagging.ID3v2
 
         private void ValidateInternetRadioStationUrl()
         {
-            ValidateUrl("InternetRadioStationUrl", InternetRadioStationUrl);
+            ValidateUrl(nameof(InternetRadioStationUrl), InternetRadioStationUrl);
         }
 
         private void ValidateAudioSourceUrl()
         {
-            ValidateUrl("AudioSourceUrl", AudioSourceUrl);
+            ValidateUrl(nameof(AudioSourceUrl), AudioSourceUrl);
         }
 
         private void ValidateAudioFileUrl()
         {
-            ValidateUrl("AudioFileUrl", AudioFileUrl);
+            ValidateUrl(nameof(AudioFileUrl), AudioFileUrl);
         }
 
         /// <summary>
