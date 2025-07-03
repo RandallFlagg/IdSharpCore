@@ -29,9 +29,13 @@ namespace IdSharp.AudioInfo
                     var header = new ID3v2Header(stream);
                     var tagSize = header.TagSize;
                     if (tagSize != 0)
+                    {
                         return tagSize + 10 + (header.IsFooterPresent ? 10 : 0);
+                    }
                     else
+                    {
                         return 0;
+                    }
                 }
                 return 0;
             }
@@ -95,9 +99,13 @@ namespace IdSharp.AudioInfo
                 get
                 {
                     if (_tagVersion == ID3v2TagVersion.ID3v24)
+                    {
                         return _isFooterPresent;
+                    }
                     else
+                    {
                         return false;
+                    }
                 }
             }
 

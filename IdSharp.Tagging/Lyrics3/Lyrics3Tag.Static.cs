@@ -13,7 +13,9 @@ namespace IdSharp.Tagging.Lyrics3
         public static int GetTagSize(Stream stream)
         {
             if (stream == null)
+            {
                 throw new ArgumentNullException("stream");
+            }
 
             return new Lyrics3Tag(stream).TotalTagSize;
         }
@@ -25,7 +27,9 @@ namespace IdSharp.Tagging.Lyrics3
         public static int GetTagSize(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -59,7 +63,9 @@ namespace IdSharp.Tagging.Lyrics3
         public static bool RemoveTag(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             var lyrics3 = new Lyrics3Tag(path);
             var tagSize = lyrics3.TotalTagSize;

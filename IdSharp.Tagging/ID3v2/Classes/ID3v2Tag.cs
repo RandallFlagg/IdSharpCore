@@ -62,8 +62,11 @@ namespace IdSharp.Tagging.ID3v2
                 // Open the file and read from the stream
                 using (Stream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    if (stream.Length < 10) 
+                    if (stream.Length < 10)
+                    {
                         return;
+                    }
+
                     Read(stream);
                 }
             }
@@ -80,7 +83,9 @@ namespace IdSharp.Tagging.ID3v2
         public void Save(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             var originalTagSize = GetTagSize(path);
 
@@ -121,7 +126,9 @@ namespace IdSharp.Tagging.ID3v2
         public List<IFrame> GetFrames(string frameID)
         {
             if (string.IsNullOrEmpty(frameID))
+            {
                 throw new ArgumentNullException("frameID");
+            }
 
             return GetAllFrames(_id3v2Header.TagVersion, frameID);
         }
@@ -133,7 +140,9 @@ namespace IdSharp.Tagging.ID3v2
         public List<IFrame> GetFrames(IEnumerable<string> frameIDs)
         {
             if (frameIDs == null)
+            {
                 throw new ArgumentNullException("frameIDs");
+            }
 
             return GetAllFrames(_id3v2Header.TagVersion, frameIDs);
         }
@@ -257,9 +266,13 @@ namespace IdSharp.Tagging.ID3v2
 
             var tagReadingInfo = new TagReadingInfo(_id3v2Header.TagVersion);
             if (_id3v2Header.UsesUnsynchronization)
+            {
                 tagReadingInfo.TagVersionOptions = TagVersionOptions.Unsynchronized;
+            }
             else
+            {
                 tagReadingInfo.TagVersionOptions = TagVersionOptions.None;
+            }
 
             if (_id3v2Header.HasExtendedHeader)
             {

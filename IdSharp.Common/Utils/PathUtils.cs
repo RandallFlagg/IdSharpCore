@@ -25,10 +25,14 @@ namespace IdSharp.Common.Utils
         public static string GetUniqueFileName(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             if (!File.Exists(path))
+            {
                 return path;
+            }
 
             var basePath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
             var ext = Path.GetExtension(path);
@@ -84,7 +88,9 @@ namespace IdSharp.Common.Utils
         public static string GetTemporaryFileNameBasedOnFileName(string baseFileName)
         {
             if (string.IsNullOrEmpty(baseFileName))
+            {
                 throw new ArgumentNullException("basefileName");
+            }
 
             string tempFile;
             var rnd = new Random();

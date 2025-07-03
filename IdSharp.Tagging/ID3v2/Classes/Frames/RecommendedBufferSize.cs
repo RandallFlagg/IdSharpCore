@@ -71,7 +71,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (BufferSize == 0)
+            {
                 return new byte[0];
+            }
 
             throw new NotImplementedException();
         }

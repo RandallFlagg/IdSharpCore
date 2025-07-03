@@ -38,7 +38,9 @@ namespace IdSharp.Tagging.VorbisComment
         public VorbisComment(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             Read(path);
         }
@@ -50,7 +52,9 @@ namespace IdSharp.Tagging.VorbisComment
         public VorbisComment(Stream stream)
         {
             if (stream == null)
+            {
                 throw new ArgumentNullException("stream");
+            }
 
             Read(stream);
         }
@@ -108,7 +112,10 @@ namespace IdSharp.Tagging.VorbisComment
             {
                 var value = _items.GetValue("DATE");
                 if (string.IsNullOrEmpty(value))
+                {
                     value = _items.GetValue("YEAR");
+                }
+
                 return value;
             }
             set { _items.SetValue("DATE", value); }
@@ -238,7 +245,10 @@ namespace IdSharp.Tagging.VorbisComment
                     else if (string.Compare(item.Name, "YEAR", true) == 0)
                     {
                         if (string.IsNullOrEmpty(_items.GetValue("DATE")))
+                        {
                             _items.SetValue("DATE", item.Value);
+                        }
+
                         _items.Remove(item);
                     }
                 }
@@ -249,7 +259,10 @@ namespace IdSharp.Tagging.VorbisComment
                 // Write items
                 foreach (var item in _items)
                 {
-                    if (string.IsNullOrEmpty(item.Value)) continue;
+                    if (string.IsNullOrEmpty(item.Value))
+                    {
+                        continue;
+                    }
 
                     var keyBytes = Encoding.ASCII.GetBytes(item.Name);
                     var valueBytes = Encoding.UTF8.GetBytes(item.Value);
@@ -282,14 +295,20 @@ namespace IdSharp.Tagging.VorbisComment
                 }
                 else if (metaDataBlock.BlockType == FlacMetaDataBlockType.StreamInfo)
                 {
-                    if (streamInfoBlock != null) 
+                    if (streamInfoBlock != null)
+                    {
                         throw new InvalidDataException("Multiple stream info blocks");
+                    }
+
                     streamInfoBlock = metaDataBlock;
                 }
                 else if (metaDataBlock.BlockType == FlacMetaDataBlockType.SeekTable)
                 {
-                    if (seekTableBlock != null) 
+                    if (seekTableBlock != null)
+                    {
                         throw new InvalidDataException("Multiple seek tables");
+                    }
+
                     seekTableBlock = metaDataBlock;
                 }
             }
@@ -308,9 +327,14 @@ namespace IdSharp.Tagging.VorbisComment
                 // same file read/write this works.  Not high priority.
                 var adjustPadding = targetFile.OrigVorbisCommentSize - newTagArray.Length;
                 var newSize = paddingBlock.Size + adjustPadding;
-                if (newSize < 10) 
+                if (newSize < 10)
+                {
                     paddingBlock.SetBlockDataZeroed(2000);
-                else paddingBlock.SetBlockDataZeroed(newSize);
+                }
+                else
+                {
+                    paddingBlock.SetBlockDataZeroed(newSize);
+                }
             }
 
             // Set Vorbis-Comment block data
@@ -319,8 +343,10 @@ namespace IdSharp.Tagging.VorbisComment
 
             // Create list of blocks to write
             myMetaDataBlocks.Add(streamInfoBlock); // StreamInfo MUST be first
-            if (seekTableBlock != null) 
+            if (seekTableBlock != null)
+            {
                 myMetaDataBlocks.Add(seekTableBlock);
+            }
 
             // Add other blocks we read from the original file.
             foreach (var metaDataBlock in _metaDataBlockList)
@@ -424,7 +450,9 @@ namespace IdSharp.Tagging.VorbisComment
                 {
                     // always write padding last
                     if (metaDataBlock == paddingBlock)
+                    {
                         continue;
+                    }
 
                     blockType = (byte)metaDataBlock.BlockType;
                     fs.WriteByte(blockType);
@@ -440,7 +468,9 @@ namespace IdSharp.Tagging.VorbisComment
             }
 
             if (!string.IsNullOrEmpty(tempFilename))
+            {
                 File.Delete(tempFilename);
+            }
         }
 
         /*else if (mAudioFileTrack == AUDIO_OGG)

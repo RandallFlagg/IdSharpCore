@@ -48,7 +48,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (TOC == null || TOC.Length == 0)
+            {
                 return new byte[0];
+            }
 
             using (var frameData = new MemoryStream())
             {

@@ -14,7 +14,9 @@ namespace IdSharp.Tagging.Tests
         public static void EncryptionMethod(ID3v2TagVersion tagVersion, bool useData)
         {
             if (tagVersion == ID3v2TagVersion.ID3v22)
+            {
                 throw new NotSupportedException();
+            }
 
             IID3v2Tag id3 = new ID3v2Tag();
             var aud = id3.EncryptionMethodList.AddNew();
@@ -36,7 +38,9 @@ namespace IdSharp.Tagging.Tests
         public static void Commercial(ID3v2TagVersion tagVersion, bool useLogo)
         {
             if (tagVersion == ID3v2TagVersion.ID3v22)
+            {
                 throw new NotSupportedException();
+            }
 
             IID3v2Tag id3 = new ID3v2Tag();
             var aud = id3.CommercialInfoList.AddNew();

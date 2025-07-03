@@ -33,7 +33,9 @@ namespace IdSharp.Tagging.SimpleTag
         public SimpleTag(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             Read(path);
         }
@@ -145,7 +147,9 @@ namespace IdSharp.Tagging.SimpleTag
         private void Read(Stream stream)
         {
             if (stream == null)
+            {
                 throw new ArgumentNullException("stream");
+            }
 
             var id3v2Found = false;
             var tagVersion = string.Empty;
@@ -162,9 +166,13 @@ namespace IdSharp.Tagging.SimpleTag
                 TrackNumber = id3v2.TrackNumber;
 
                 if (id3v2.CommentsList.Count > 0)
+                {
                     Comment = id3v2.CommentsList[0].Description;
+                }
                 else
+                {
                     Comment = null;
+                }
 
                 tagVersion = EnumUtils.GetDescription(id3v2.Header.TagVersion);
                 
@@ -177,13 +185,40 @@ namespace IdSharp.Tagging.SimpleTag
                 var id3v1 = new ID3v1Tag(stream);
 
                 // Use ID3v1 fields if ID3v2 doesn't exist or field is blank
-                if (!id3v2Found || string.IsNullOrEmpty(Title)) Title = id3v1.Title;
-                if (!id3v2Found || string.IsNullOrEmpty(Artist)) Artist = id3v1.Artist;
-                if (!id3v2Found || string.IsNullOrEmpty(Album)) Album = id3v1.Album;
-                if (!id3v2Found || string.IsNullOrEmpty(Year)) Year = id3v1.Year;
-                if (!id3v2Found || string.IsNullOrEmpty(Genre)) Genre = GenreHelper.GenreByIndex[id3v1.GenreIndex];
-                if (!id3v2Found || string.IsNullOrEmpty(TrackNumber)) TrackNumber = id3v1.TrackNumber.ToString();
-                if (!id3v2Found || string.IsNullOrEmpty(Comment)) Comment = id3v1.Comment;
+                if (!id3v2Found || string.IsNullOrEmpty(Title))
+                {
+                    Title = id3v1.Title;
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(Artist))
+                {
+                    Artist = id3v1.Artist;
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(Album))
+                {
+                    Album = id3v1.Album;
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(Year))
+                {
+                    Year = id3v1.Year;
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(Genre))
+                {
+                    Genre = GenreHelper.GenreByIndex[id3v1.GenreIndex];
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(TrackNumber))
+                {
+                    TrackNumber = id3v1.TrackNumber.ToString();
+                }
+
+                if (!id3v2Found || string.IsNullOrEmpty(Comment))
+                {
+                    Comment = id3v1.Comment;
+                }
 
                 tagVersion += (!string.IsNullOrEmpty(tagVersion) ? ", " : "") + EnumUtils.GetDescription(id3v1.TagVersion);
             }
@@ -224,7 +259,9 @@ namespace IdSharp.Tagging.SimpleTag
         private void Save(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             if (VorbisComment.VorbisComment.IsFlac(path))
             {
@@ -258,7 +295,9 @@ namespace IdSharp.Tagging.SimpleTag
                 else
                 {
                     if (!string.IsNullOrEmpty(Comment))
+                    {
                         id3v2.CommentsList.AddNew().Description = Comment;
+                    }
                 }
 
                 var id3v1 = new ID3v1Tag(path);
@@ -279,9 +318,13 @@ namespace IdSharp.Tagging.SimpleTag
                     if (TrackNumber.Contains("/"))
                     {
                         if (int.TryParse(TrackNumber.Split('/')[0], out trackNumber))
+                        {
                             id3v1.TrackNumber = trackNumber;
+                        }
                         else
+                        {
                             id3v1.TrackNumber = 0;
+                        }
                     }
                     else
                     {
@@ -301,7 +344,9 @@ namespace IdSharp.Tagging.SimpleTag
         private void Read(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {

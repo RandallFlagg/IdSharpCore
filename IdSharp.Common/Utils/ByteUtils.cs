@@ -182,7 +182,10 @@ namespace IdSharp.Common.Utils
         public static byte[] Get4Bytes(int value)
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
+            }
+
             return Get4Bytes((uint)value);
         }
 
@@ -193,7 +196,10 @@ namespace IdSharp.Common.Utils
         public static byte[] Get2Bytes(short value)
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
+            }
+
             return Get2Bytes((ushort)value);
         }
 
@@ -206,9 +212,13 @@ namespace IdSharp.Common.Utils
         public static byte[] ISO88591GetBytes(string value)
         {
             if (value == null)
+            {
                 return Array.Empty<byte>();
+            }
             else
+            {
                 return m_ISO88591.GetBytes(value);
+            }
         }
 
         /// <summary>
@@ -219,9 +229,13 @@ namespace IdSharp.Common.Utils
         public static byte[] Clone(byte[] value)
         {
             if (value == null)
+            {
                 return null;
+            }
             else
+            {
                 return (byte[])value.Clone();
+            }
         }
 
         /// <summary>
@@ -233,9 +247,13 @@ namespace IdSharp.Common.Utils
         public static string ISO88591GetString(byte[] value)
         {
             if (value == null)
+            {
                 return string.Empty;
+            }
             else
+            {
                 return m_ISO88591.GetString(value);
+            }
         }
 
         /// <summary>

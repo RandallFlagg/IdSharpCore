@@ -75,7 +75,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (Items.Count == 0)
+            {
                 return new byte[0];
+            }
 
             // Sets appropriate TextEncoding if ISO-8859-1 is insufficient
             if (TextEncoding == EncodingType.ISO88591)
@@ -83,15 +85,22 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 foreach (var involvedPerson in Items)
                 {
                     if (string.IsNullOrEmpty(involvedPerson.Involvement) && string.IsNullOrEmpty(involvedPerson.Name))
+                    {
                         continue;
+                    }
 
                     var involvementData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Involvement, true);
                     var nameData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Name, true);
 
                     if (this.RequiresFix(tagVersion, involvedPerson.Involvement, involvementData))
+                    {
                         break;
+                    }
+
                     if (this.RequiresFix(tagVersion, involvedPerson.Name, nameData))
+                    {
                         break;
+                    }
                 }
             }
 
@@ -103,7 +112,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 foreach (var involvedPerson in Items)
                 {
                     if (string.IsNullOrEmpty(involvedPerson.Involvement) && string.IsNullOrEmpty(involvedPerson.Name))
+                    {
                         continue;
+                    }
 
                     frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Involvement, true));
                     frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Name, true));
@@ -111,7 +122,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 }
 
                 if (!foundItem)
+                {
                     return new byte[0];
+                }
 
                 return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));
             }

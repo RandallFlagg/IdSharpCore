@@ -30,9 +30,14 @@ internal static class Http
     public static byte[] Get(string requestUriString, IEnumerable<PostData> postData)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         return Get(GetQueryString(requestUriString, postData));
     }
@@ -68,7 +73,9 @@ internal static class Http
     public static byte[] Get(string requestUriString, CookieContainer cookies, BasicAuthenticationCredentials credentials)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
 
         HttpWebResponse webResponse;
         return Get(requestUriString, cookies, credentials, out webResponse);
@@ -85,7 +92,9 @@ internal static class Http
     public static byte[] Get(string requestUriString, CookieContainer cookies, BasicAuthenticationCredentials credentials, out HttpWebResponse webResponse)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
 
         var webRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
         webRequest.Proxy = WebRequest.DefaultWebProxy;
@@ -125,9 +134,14 @@ internal static class Http
     public static IAsyncResult PostAsync(string requestUriString, IEnumerable<PostData> postData)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         byte[] data;
         var webRequest = GetPostRequest(requestUriString, postData, out data);
@@ -146,9 +160,14 @@ internal static class Http
     public static byte[] Post(string requestUriString, IEnumerable<PostData> postData, out CookieContainer cookies)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         var uri = new Uri(requestUriString);
         return Post(uri, postData, out cookies);
@@ -163,9 +182,14 @@ internal static class Http
     public static byte[] PostCookies(string requestUriString, IEnumerable<PostData> postData, CookieContainer cookies)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         var uri = new Uri(requestUriString);
         return PostCookies(uri, postData, cookies);
@@ -179,9 +203,14 @@ internal static class Http
     public static byte[] Post(string requestUriString, IEnumerable<PostData> postData)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         var uri = new Uri(requestUriString);
         CookieContainer cookies;
@@ -195,7 +224,9 @@ internal static class Http
     public static byte[] Post(Uri requestUri)
     {
         if (requestUri == null)
+        {
             throw new ArgumentNullException("requestUri");
+        }
 
         CookieContainer cookies;
         return Post(requestUri, null, out cookies);
@@ -288,18 +319,29 @@ internal static class Http
     public static string GetQueryString(string requestUriString, IEnumerable<PostData> postData)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         var getString = new StringBuilder();
         foreach (var item in postData)
+        {
             AddField(getString, item);
+        }
 
         if (!requestUriString.Contains("?"))
+        {
             getString.Insert(0, '?');
+        }
         else
+        {
             getString.Insert(0, '&');
+        }
 
         return string.Format("{0}{1}", requestUriString, getString);
     }
@@ -307,11 +349,19 @@ internal static class Http
     private static void AddField(StringBuilder postString, PostData postData)
     {
         if (postString == null)
+        {
             throw new ArgumentNullException("postString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
+
         if (postData.Value == null)
+        {
             throw new ArgumentNullException("postData.Item");
+        }
 
         var value = new StringBuilder();
         foreach (var c in postData.Value)
@@ -331,17 +381,26 @@ internal static class Http
 
 
         if (postString.Length == 0)
+        {
             postString.AppendFormat("{0}={1}", postData.Field, value);
+        }
         else
+        {
             postString.AppendFormat("&{0}={1}", postData.Field, value);
+        }
     }
 
     private static HttpWebRequest GetPostRequest(string requestUriString, IEnumerable<PostData> postData, out byte[] data)
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
+        {
             throw new ArgumentNullException("requestUriString");
+        }
+
         if (postData == null)
+        {
             throw new ArgumentNullException("postData");
+        }
 
         var uri = new Uri(requestUriString);
         return GetPostRequest(uri, postData, out data);
@@ -350,11 +409,15 @@ internal static class Http
     private static HttpWebRequest GetPostRequest(Uri requestUri, IEnumerable<PostData> postData, out byte[] data)
     {
         if (requestUri == null)
+        {
             throw new ArgumentNullException("requestUri");
+        }
 
         var getString = new StringBuilder();
         foreach (var item in postData)
+        {
             AddField(getString, item);
+        }
 
         data = Encoding.ASCII.GetBytes(getString.ToString());
 
@@ -391,11 +454,15 @@ internal static class Http
     public static string GetFileNameFromHeaders(WebHeaderCollection headers)
     {
         if (headers == null)
+        {
             throw new ArgumentNullException("headers");
+        }
 
         var keys = headers.AllKeys;
         if (keys == null || keys.Length == 0)
+        {
             throw new Exception("No keys found.");
+        }
 
         var keyList = new List<string>(keys);
         if (keyList.Contains("Content-disposition"))

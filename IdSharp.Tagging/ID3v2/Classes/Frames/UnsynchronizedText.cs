@@ -80,7 +80,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
             // TODO: Test
 
             if (string.IsNullOrEmpty(Text))
+            {
                 return new byte[0];
+            }
 
             byte[] contentDescriptorData;
             byte[] textData;

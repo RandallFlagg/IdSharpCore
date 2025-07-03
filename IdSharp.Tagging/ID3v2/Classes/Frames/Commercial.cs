@@ -196,7 +196,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (_priceList.Count == 0)
+            {
                 return new byte[0];
+            }
 
             using (var frameData = new MemoryStream())
             {
@@ -218,15 +220,20 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 {
                     if (priceInfo.CurrencyCode != null && priceInfo.CurrencyCode.Length == 3)
                     {
-                        if (priceString != string.Empty) 
+                        if (priceString != string.Empty)
+                        {
                             priceString += "/";
+                        }
+
                         priceString += string.Format("{0}{1:0.00}", priceInfo.CurrencyCode, priceInfo.Price);
                     }
                 }
 
                 // No valid price items
                 if (priceString == string.Empty)
+                {
                     return new byte[0];
+                }
 
                 frameData.Write(ByteUtils.ISO88591GetBytes(priceString));
                 frameData.WriteByte(0); // terminator

@@ -121,9 +121,13 @@ namespace IdSharp.Tagging.ID3v1
             set
             {
                 if (_tagVersion == ID3v1TagVersion.ID3v11)
+                {
                     _comment = GetTrimmedString(value, 28);
+                }
                 else
+                {
                     _comment = GetTrimmedString(value, 30);
+                }
 
                 RaisePropertyChanged("Comment");
             }
@@ -142,13 +146,17 @@ namespace IdSharp.Tagging.ID3v1
                 {
                     _trackNumber = null;
                     if (_tagVersion == ID3v1TagVersion.ID3v11)
+                    {
                         TagVersion = ID3v1TagVersion.ID3v10;
+                    }
                 }
                 else if (value > 0 && value <= 255)
                 {
                     _trackNumber = value;
                     if (_tagVersion == ID3v1TagVersion.ID3v10)
+                    {
                         TagVersion = ID3v1TagVersion.ID3v11;
+                    }
                 }
                 RaisePropertyChanged("TrackNumber");
             }
@@ -164,7 +172,10 @@ namespace IdSharp.Tagging.ID3v1
             set
             {
                 if (value >= 0 && value <= 147)
+                {
                     _genreIndex = value;
+                }
+
                 RaisePropertyChanged("GenreIndex");
             }
         }
@@ -237,7 +248,9 @@ namespace IdSharp.Tagging.ID3v1
 
                     int genreIndex = stream.Read1();
                     if (genreIndex < 0 || genreIndex > 147)
+                    {
                         genreIndex = 12; // "Other"
+                    }
 
                     GenreIndex = genreIndex;
                 }
@@ -349,13 +362,17 @@ namespace IdSharp.Tagging.ID3v1
         private static string GetString(byte[] byteArray)
         {
             if (byteArray == null || byteArray.Length == 0)
+            {
                 return null;
+            }
 
             int maxLength;
             for (maxLength = byteArray.Length; maxLength > 0; maxLength--)
             {
                 if (byteArray[maxLength - 1] >= 32)
+                {
                     break;
+                }
             }
 
             return ByteUtils.ISO88591.GetString(byteArray, 0, maxLength).TrimEnd('\0').TrimEnd(' ');
@@ -369,14 +386,20 @@ namespace IdSharp.Tagging.ID3v1
         private static string GetTrimmedString(string value, int maxLength)
         {
             if (value == null)
+            {
                 return null;
+            }
 
             value = value.TrimEnd('\0').Trim();
 
             if (value.Length > maxLength)
+            {
                 return value.Substring(0, maxLength).Trim();
+            }
             else
+            {
                 return value;
+            }
         }
 
         private static byte[] SafeGetBytes(string value)

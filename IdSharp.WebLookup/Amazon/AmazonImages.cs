@@ -40,11 +40,19 @@ namespace IdSharp.WebLookup.Amazon
         internal AmazonImages(AmazonServer server, string awsAccessKeyId, string secretAccessKey, string asin)
         {
             if (string.IsNullOrWhiteSpace(awsAccessKeyId))
+            {
                 throw new ArgumentNullException("awsAccessKeyId");
+            }
+
             if (string.IsNullOrWhiteSpace(secretAccessKey))
+            {
                 throw new ArgumentNullException("secretAccessKey");
+            }
+
             if (string.IsNullOrWhiteSpace(asin))
+            {
                 throw new ArgumentNullException("asin");
+            }
 
             _amazonServer = server;
             _awsAccessKeyId = awsAccessKeyId;
@@ -56,7 +64,9 @@ namespace IdSharp.WebLookup.Amazon
         {
             var handler = PropertyChanged;
             if (handler != null)
+            {
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         /// <summary>
@@ -221,7 +231,9 @@ namespace IdSharp.WebLookup.Amazon
         public static Image GetImageFromBytes(byte[] imageBytes)
         {
             if (imageBytes == null)
+            {
                 return null;
+            }
 
             return Image.Load<Rgba32>(imageBytes);
         }
@@ -229,7 +241,9 @@ namespace IdSharp.WebLookup.Amazon
         private void GetSmallImage()
         {
             if (_smallImageDownloaded)
+            {
                 return;
+            }
 
             GetImageUrls();
 
@@ -244,7 +258,9 @@ namespace IdSharp.WebLookup.Amazon
         private void GetMediumImage()
         {
             if (_mediumImageDownloaded)
+            {
                 return;
+            }
 
             GetImageUrls();
 
@@ -259,7 +275,9 @@ namespace IdSharp.WebLookup.Amazon
         private void GetLargeImage()
         {
             if (_largeImageDownloaded)
+            {
                 return;
+            }
 
             GetImageUrls();
 
@@ -276,7 +294,9 @@ namespace IdSharp.WebLookup.Amazon
             // TODO: Good candidate for System.Xml.Linq
 
             if (_imageUrlsDownloaded)
+            {
                 return;
+            }
 
             var postData = new List<PostData>();
             postData.Add(new PostData("Service", "AWSECommerceService"));
@@ -320,7 +340,9 @@ namespace IdSharp.WebLookup.Amazon
                                             foreach (XmlNode imageNode in itemDetail.ChildNodes)
                                             {
                                                 if (imageNode.Name == "URL")
+                                                {
                                                     _smallImageUrl = imageNode.InnerText;
+                                                }
                                             }
                                         }
                                         else if (itemDetail.Name == "MediumImage")
@@ -328,7 +350,9 @@ namespace IdSharp.WebLookup.Amazon
                                             foreach (XmlNode imageNode in itemDetail.ChildNodes)
                                             {
                                                 if (imageNode.Name == "URL")
+                                                {
                                                     _mediumImageUrl = imageNode.InnerText;
+                                                }
                                             }
                                         }
                                         else if (itemDetail.Name == "LargeImage")
@@ -336,7 +360,9 @@ namespace IdSharp.WebLookup.Amazon
                                             foreach (XmlNode imageNode in itemDetail.ChildNodes)
                                             {
                                                 if (imageNode.Name == "URL")
+                                                {
                                                     _largeImageUrl = imageNode.InnerText;
+                                                }
                                             }
                                         }
                                     }

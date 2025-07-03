@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using IdSharp.Tagging.ID3v2.Frames;
 
@@ -98,9 +98,13 @@ namespace IdSharp.Tagging.ID3v2
             {
                 int result;
                 if (int.TryParse(m_PlaylistDelayMilliseconds.Value, out result))
+                {
                     return result;
+                }
                 else
+                {
                     return null;
+                }
             }
             set
             {
@@ -261,14 +265,20 @@ namespace IdSharp.Tagging.ID3v2
             {
                 int result;
                 if (int.TryParse(m_LengthMilliseconds.Value, out result))
+                {
                     return result;
+                }
                 else
+                {
                     return null;
+                }
             }
             set
             {
                 if (value == null)
+                {
                     m_LengthMilliseconds.Value = null;
+                }
                 else
                 {
                     if (value < 0)
@@ -463,14 +473,20 @@ namespace IdSharp.Tagging.ID3v2
             {
                 long result;
                 if (long.TryParse(m_FileSizeExcludingTag.Value, out result))
+                {
                     return result;
+                }
                 else
+                {
                     return null;
+                }
             }
             set
             {
                 if (value == null)
+                {
                     m_FileSizeExcludingTag.Value = null;
+                }
                 else
                 {
                     if (value < 0)
@@ -888,9 +904,13 @@ namespace IdSharp.Tagging.ID3v2
             {
                 int value;
                 if (int.TryParse(m_IsPartOfCompilation.Value, out value) && value == 1)
+                {
                     return true;
+                }
                 else
+                {
                     return false;
+                }
             }
             set
             {

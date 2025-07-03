@@ -31,7 +31,14 @@ namespace IdSharp.AudioInfo.Inspection
 
         public bool HasVersionGroup(LameVersionGroup vg1)
         {
-            for (var i=0; i<3; i++) if (vg1 == VGs[i]) return true;
+            for (var i=0; i<3; i++)
+            {
+                if (vg1 == VGs[i])
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

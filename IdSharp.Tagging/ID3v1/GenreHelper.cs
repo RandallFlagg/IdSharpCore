@@ -203,7 +203,9 @@ namespace IdSharp.Tagging.ID3v1
             for (var i = 0; i <= _genreCount; i++)
             {
                 if (string.Compare(genre, _genreByIndex[i], true) == 0)
+                {
                     return i;
+                }
             }
             return Other_GenreIndex;
         }

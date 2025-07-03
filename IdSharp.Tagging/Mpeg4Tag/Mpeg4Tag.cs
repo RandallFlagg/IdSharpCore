@@ -831,7 +831,9 @@ namespace IdSharp.Tagging.Mpeg4
         private static bool MoovToEnd(Stream f, int len, long moovpos)
         {
             if (moovpos == 0)
+            {
                 return false;
+            }
 
             f.Seek(moovpos, SeekOrigin.Begin);
 

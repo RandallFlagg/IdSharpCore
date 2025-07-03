@@ -25,7 +25,9 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                }
 
                 throw new NotImplementedException();
             }
@@ -40,7 +42,9 @@ namespace IdSharp.Tagging.ID3v2.Frames.Items
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                }
 
                 throw new NotImplementedException();
             }

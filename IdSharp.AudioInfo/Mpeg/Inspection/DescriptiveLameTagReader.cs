@@ -21,7 +21,9 @@ namespace IdSharp.AudioInfo.Inspection
         public DescriptiveLameTagReader(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             _mpeg = new MpegAudio(path);
 
@@ -214,7 +216,10 @@ namespace IdSharp.AudioInfo.Inspection
             {
                 result = preset.ToString();
                 if (_basicReader.EncodingMethod == 1)
+                {
                     result = "cbr " + result;
+                }
+
                 usePresetGuess = UsePresetGuess.UseGuess;
             }
             else
@@ -412,9 +417,14 @@ namespace IdSharp.AudioInfo.Inspection
                     // Only display "unable to guess" if the preset was not recorded (ie. the
                     // field value is zero.
                     if (_basicReader.Preset == 0)
+                    {
                         usePresetGuess = UsePresetGuess.UnableToGuess;
+                    }
                     else
+                    {
                         usePresetGuess = UsePresetGuess.NotNeeded;
+                    }
+
                     break;
             }
 

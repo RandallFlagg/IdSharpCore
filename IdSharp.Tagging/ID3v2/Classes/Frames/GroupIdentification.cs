@@ -66,7 +66,10 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, _ownerIdentifier, true));
                 frameData.WriteByte(_groupSymbol);
                 if (_groupDependentData != null)
+                {
                     frameData.Write(_groupDependentData);
+                }
+
                 return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));
             }
         }

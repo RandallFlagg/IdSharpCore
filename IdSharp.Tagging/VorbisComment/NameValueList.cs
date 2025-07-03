@@ -16,7 +16,9 @@ namespace IdSharp.Tagging.VorbisComment
             foreach (var item in this)
             {
                 if (string.Compare(item.Name, key, true) == 0)
+                {
                     return item.Value;
+                }
             }
 
             return null;
@@ -33,7 +35,9 @@ namespace IdSharp.Tagging.VorbisComment
             foreach (var item in this)
             {
                 if (string.Compare(item.Name, key, true) == 0)
+                {
                     values.Add(item.Value);
+                }
             }
 
             return values.ToArray();

@@ -107,16 +107,24 @@ namespace IdSharp.Tagging.ID3v2
             get
             {
                 if (_tagVersion != ID3v2TagVersion.ID3v22)
+                {
                     return _isExperimental;
+                }
                 else
+                {
                     return false;
+                }
             }
             set
             {
                 if (_tagVersion != ID3v2TagVersion.ID3v22)
+                {
                     _isExperimental = value;
+                }
                 else
+                {
                     _isExperimental = false;
+                }
             }
         }
 
@@ -125,16 +133,24 @@ namespace IdSharp.Tagging.ID3v2
             get 
             {
                 if (_tagVersion == ID3v2TagVersion.ID3v22)
+                {
                     return _isCompressed;
+                }
                 else
+                {
                     return false;
+                }
             }
             set 
             {
                 if (_tagVersion == ID3v2TagVersion.ID3v22)
+                {
                     _isCompressed = value;
+                }
                 else
+                {
                     _isCompressed = false;
+                }
             }
         }
 
@@ -143,16 +159,24 @@ namespace IdSharp.Tagging.ID3v2
             get 
             {
                 if (_tagVersion == ID3v2TagVersion.ID3v24)
+                {
                     return _isFooterPresent;
+                }
                 else
+                {
                     return false;
+                }
             }
             set 
             {
                 if (_tagVersion == ID3v2TagVersion.ID3v24)
+                {
                     _isFooterPresent = value;
+                }
                 else
+                {
                     _isFooterPresent = false;
+                }
             }
         }
 
@@ -252,9 +276,20 @@ namespace IdSharp.Tagging.ID3v2
             // Flags
             header[5] = 0;
 
-            if (_usesUnsynchronization) header[5] += 0x80;
-            if (_hasExtendedHeader) header[5] += 0x40;
-            if (_isExperimental) header[5] += 0x20;
+            if (_usesUnsynchronization)
+            {
+                header[5] += 0x80;
+            }
+
+            if (_hasExtendedHeader)
+            {
+                header[5] += 0x40;
+            }
+
+            if (_isExperimental)
+            {
+                header[5] += 0x20;
+            }
 
             // Syncsafe size
             header[6] = (byte)((_tagSize >> 21) & 0x7F);

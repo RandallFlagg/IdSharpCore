@@ -38,10 +38,13 @@ namespace IdSharp.AudioInfo
 
                 var byteArray = stream.Read(32);
                 var integerArray = new int[8];
-                for (var i = 0; i < 8; i++) integerArray[i] = (byteArray[i * 4]) +
+                for (var i = 0; i < 8; i++)
+                {
+                    integerArray[i] = (byteArray[i * 4]) +
                                                           (byteArray[i * 4 + 1] << 8) +
                                                           (byteArray[i * 4 + 2] << 16) +
                                                           (byteArray[i * 4 + 3] << 24);
+                }
 
                 // Size TODO - ignore Lyrics3
                 var audioDataLength = stream.Length - tmpID3v2TagSize - tmpID3v1TagSize - tmpAPEv2TagSize;
@@ -82,20 +85,36 @@ namespace IdSharp.AudioInfo
                 // Channels
                 if (_streamVersion == 7 || _streamVersion == 7.1m)
                 {
-                    if ((byteArray[11] % 128) < 64) _mode = "Stereo";
-                    else _mode = "Joint Stereo";
+                    if ((byteArray[11] % 128) < 64)
+                    {
+                        _mode = "Stereo";
+                    }
+                    else
+                    {
+                        _mode = "Joint Stereo";
+                    }
                 }
                 else
                 {
-                    if ((byteArray[2] % 128) == 0) _mode = "Stereo";
-                    else _mode = "Joint Stereo";
+                    if ((byteArray[2] % 128) == 0)
+                    {
+                        _mode = "Stereo";
+                    }
+                    else
+                    {
+                        _mode = "Joint Stereo";
+                    }
                 }
 
                 // Frames
                 if (_streamVersion == 4)
+                {
                     _frames = integerArray[1] >> 16;
+                }
                 else
+                {
                     _frames = integerArray[1];
+                }
 
                 _totalSeconds = _frames * 1152 / (decimal)_frequency;
                 _bitrate = (audioDataLength / _totalSeconds) / 125.0m;

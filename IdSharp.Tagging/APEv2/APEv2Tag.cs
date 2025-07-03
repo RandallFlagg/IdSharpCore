@@ -168,7 +168,9 @@ namespace IdSharp.Tagging.APEv2
             _tagOffset = 0;
 
             if (readElements)
+            {
                 _items.Clear();
+            }
 
             var footerOffset = 0;
 
@@ -339,10 +341,13 @@ namespace IdSharp.Tagging.APEv2
             }
 
             if (itemKey.StartsWith(ReplayGainTagItems.TAG_PREFIX))
+            {
                 _replayGainItems.SetField(itemKey, itemValue);
+            }
             else if (itemKey.StartsWith(MP3GainTagItems.TAG_PREFIX))
+            {
                 _mp3GainItems.SetField(itemKey, itemValue);
-
+            }
         }
 
         /// <summary>

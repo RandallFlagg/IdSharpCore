@@ -23,7 +23,10 @@ namespace IdSharp.Tagging.ID3v2.Frames
             {
                 var n = NextByte(_scrambleTable[i]);
                 if (n == 0xFE)
+                {
                     break;
+                }
+
                 _scrambleTable[i + 1] = n;
             }
         }
@@ -34,7 +37,10 @@ namespace IdSharp.Tagging.ID3v2.Frames
             for (int i = 0, j = 0; i < audioData.Length; i++, j++)
             {
                 newAudioData[i] = (byte)(audioData[i] ^ _scrambleTable[j]);
-                if (j == 126) j = -1;
+                if (j == 126)
+                {
+                    j = -1;
+                }
             }
             return newAudioData;
         }
@@ -103,9 +109,13 @@ namespace IdSharp.Tagging.ID3v2.Frames
             else
             {
                 if (_isMpegOrAac)
+                {
                     _audioData = ID3v2Utils.ConvertToUnsynchronized(_audioData);
+                }
                 else
+                {
                     _audioData = Scramble(_audioData);
+                }
             }
             RaisePropertyChanged("AudioData");
         }
@@ -113,7 +123,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public byte[] GetAudioData(AudioScramblingMode audioScramblingMode)
         {
             if (audioScramblingMode == AudioScramblingMode.Default)
+            {
                 audioScramblingMode = (_isMpegOrAac ? AudioScramblingMode.Unsynchronization : AudioScramblingMode.Scrambling);
+            }
 
             switch (audioScramblingMode)
             {
@@ -201,11 +213,15 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (_audioData == null || _audioData.Length == 0)
+            {
                 return new byte[0];
+            }
 
             var frameID = GetFrameID(tagVersion);
-            if (frameID == null) 
+            if (frameID == null)
+            {
                 return new byte[0];
+            }
 
             using (var frameData = new MemoryStream())
             {

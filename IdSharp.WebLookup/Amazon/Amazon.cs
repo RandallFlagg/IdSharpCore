@@ -33,7 +33,9 @@ namespace IdSharp.WebLookup.Amazon
             // remove everything after parentheses
             var parenIndex = value.IndexOf('(');
             if (parenIndex > 0)
+            {
                 value = value.Substring(0, parenIndex);
+            }
 
             // remove all characters that are not letters, digits, or spaces
             for (var i = 0; i < value.Length; i++)
@@ -89,7 +91,9 @@ namespace IdSharp.WebLookup.Amazon
             value = value.Trim();
 
             if (value == "various")
+            {
                 value = string.Empty;
+            }
 
             //value = value.Replace(' ', '+');
         }
@@ -107,9 +111,14 @@ namespace IdSharp.WebLookup.Amazon
         public static AmazonSearchResponse Search(AmazonServer server, string awsAccessKeyId, string secretAccessKey, string artist, string album, string keywords, int page)
         {
             if (string.IsNullOrWhiteSpace(awsAccessKeyId))
+            {
                 throw new ArgumentNullException("awsAccessKeyId");
+            }
+
             if (string.IsNullOrWhiteSpace(secretAccessKey))
+            {
                 throw new ArgumentNullException("secretAccessKey");
+            }
 
             var amazonDomain = GetDomain(server);
 
@@ -147,7 +156,10 @@ namespace IdSharp.WebLookup.Amazon
             requestUri = Http.GetQueryString(requestUri, postData);
             var byteResponse = Http.Get(requestUri);
             if (byteResponse == null)
+            {
                 throw new WebException(string.Format("Response from {0} was null", amazonDomain));
+            }
+
             var response = Encoding.UTF8.GetString(byteResponse);
 
             var result = new AmazonSearchResponse();
@@ -190,9 +202,15 @@ namespace IdSharp.WebLookup.Amazon
                                             if (errorMessage != "" || errorCode != "")
                                             {
                                                 if (errorCode != "")
+                                                {
                                                     errorMessage = string.Format("{0} ({1})", errorMessage, errorCode);
+                                                }
+
                                                 if (fullErrorMessage != "")
+                                                {
                                                     fullErrorMessage += "\n\n";
+                                                }
+
                                                 fullErrorMessage += errorMessage;
                                             }
                                         }
@@ -213,13 +231,17 @@ namespace IdSharp.WebLookup.Amazon
                                 {
                                     int totalResults;
                                     if (int.TryParse(itemNode.InnerText, out totalResults))
+                                    {
                                         result.TotalResults = totalResults;
+                                    }
                                 }
                                 else if (itemNode.Name == "TotalPages")
                                 {
                                     int totalPages;
                                     if (int.TryParse(itemNode.InnerText, out totalPages))
+                                    {
                                         result.TotalPages = totalPages;
+                                    }
                                 }
                                 else if (itemNode.Name == "Item")
                                 {

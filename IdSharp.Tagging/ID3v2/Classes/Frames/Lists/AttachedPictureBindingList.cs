@@ -50,8 +50,10 @@ namespace IdSharp.Tagging.ID3v2.Frames.Lists
 
         private void AttachedPicture_DescriptionChanging(object sender, CancelDataEventArgs<string> e)
         {
-            if (string.IsNullOrEmpty(e.Data)) 
+            if (string.IsNullOrEmpty(e.Data))
+            {
                 return;
+            }
 
             foreach (var attachedPicture in Items)
             {

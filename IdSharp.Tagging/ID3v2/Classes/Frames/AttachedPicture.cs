@@ -351,7 +351,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (_pictureData == null || _pictureData.Length == 0)
+            {
                 return new byte[0];
+            }
 
             // iTunes doesn't like Unicode in APIC descriptions - fixed in iTunes 7.1.0.59
             //TextEncoding = EncodingType.ISO88591;

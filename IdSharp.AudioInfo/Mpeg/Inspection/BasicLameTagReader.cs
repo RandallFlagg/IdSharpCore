@@ -31,7 +31,9 @@ namespace IdSharp.AudioInfo.Inspection
         public BasicLameTagReader(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             // Initialize
             _isLameTagFound = true;
@@ -87,8 +89,11 @@ namespace IdSharp.AudioInfo.Inspection
             {
                 var versionString = new byte[6];
                 int i;
-                for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++) 
+                for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++)
+                {
                     versionString[i] = _tag.VersionString[i];
+                }
+
                 Array.Resize(ref versionString, i);
                 _versionString = Encoding.ASCII.GetString(versionString);
             }

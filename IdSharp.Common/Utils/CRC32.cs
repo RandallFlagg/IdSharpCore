@@ -26,9 +26,13 @@ namespace IdSharp.Common.Utils
                     for (uint j = 8; j > 0; j--)
                     {
                         if ((dwCrc & 1) == 1)
+                        {
                             dwCrc = (dwCrc >> 1) ^ dwPolynomial;
+                        }
                         else
+                        {
                             dwCrc >>= 1;
+                        }
                     }
                     crc32Table[i] = dwCrc;
                 }

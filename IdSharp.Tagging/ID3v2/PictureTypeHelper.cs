@@ -39,9 +39,13 @@ namespace IdSharp.Tagging.ID3v2
         {
             PictureType pictureType;
             if (m_PictureTypeDictionary.TryGetValue(pictureTypeString, out pictureType))
+            {
                 return pictureType;
+            }
             else
+            {
                 return PictureType.Other;
+            }
         }
 
         /// <summary>
@@ -53,7 +57,9 @@ namespace IdSharp.Tagging.ID3v2
             foreach (var pictureTypeKVP in m_PictureTypeDictionary)
             {
                 if (pictureTypeKVP.Value == pictureType)
+                {
                     return pictureTypeKVP.Key;
+                }
             }
 
             return "Other";

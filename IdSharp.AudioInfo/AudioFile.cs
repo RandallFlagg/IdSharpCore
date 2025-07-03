@@ -17,7 +17,9 @@ namespace IdSharp.AudioInfo
         public static IAudioFile Create(string path, bool throwExceptionIfUnknown)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             var ext = Path.GetExtension(path).ToLower();
             IAudioFile audioFile = null;
@@ -100,7 +102,9 @@ namespace IdSharp.AudioInfo
             {
                 var audioFile = Create(path, throwExceptionIfUnknown);
                 if (audioFile != null)
+                {
                     audioFileList.Add(audioFile);
+                }
             }
 
             return audioFileList;
@@ -131,7 +135,11 @@ namespace IdSharp.AudioInfo
                 var allExtensions = "";
                 foreach (var extension in GetExtensions())
                 {
-                    if (allExtensions != "") allExtensions += ";";
+                    if (allExtensions != "")
+                    {
+                        allExtensions += ";";
+                    }
+
                     allExtensions += "*" + extension;
                 }
 

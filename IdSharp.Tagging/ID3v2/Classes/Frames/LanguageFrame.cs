@@ -99,7 +99,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (Items.Count == 0)
+            {
                 return new byte[0];
+            }
 
             // Set TextEncoding to Unicode/UTF8 if required
             if (TextEncoding == EncodingType.ISO88591)
@@ -118,8 +120,11 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 for (var i = 0; i < Items.Count; i++)
                 {
                     var languageItem = Items[i];
-                    if (i == Items.Count - 1) 
+                    if (i == Items.Count - 1)
+                    {
                         isTerminated = false;
+                    }
+
                     frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, languageItem.LanguageCode, isTerminated));
                 }
                 return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));

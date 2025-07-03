@@ -89,9 +89,13 @@ namespace IdSharp.AudioInfo
         private uint UINT_GET(int nbit, Stream file)
         {
             if (version == 0)
+            {
                 return (uint)uvar_get(nbit, file);
+            }
             else
+            {
                 return ulong_get(file);
+            }
         }
 
         private uint ulong_get(Stream stream)
@@ -168,8 +172,14 @@ namespace IdSharp.AudioInfo
         {
             var uvar = (uint)uvar_get(nbin + 1, stream);
 
-            if ((uvar & 1) == 1) return ((int)~(uvar >> 1));
-            else return ((int)(uvar >> 1));
+            if ((uvar & 1) == 1)
+            {
+                return ((int)~(uvar >> 1));
+            }
+            else
+            {
+                return ((int)(uvar >> 1));
+            }
         }
 
         private int getSamples(Stream stream)
@@ -206,7 +216,10 @@ namespace IdSharp.AudioInfo
 
             // check version number
             if (version > MAX_SUPPORTED_VERSION)
+            {
                 return 0;
+            }
+
             UINT_GET(TYPESIZE, stream);
 
             int blocksize;
@@ -247,7 +260,10 @@ namespace IdSharp.AudioInfo
                         {
                             resn = uvar_get(ENERGYSIZE, stream);
                             // this is a hack as version 0 differed in definition of var_get
-                            if (version == 0) resn--;
+                            if (version == 0)
+                            {
+                                resn--;
+                            }
                         }
 
                         switch (cmd)
@@ -333,7 +349,10 @@ namespace IdSharp.AudioInfo
                                 var nlpc = uvar_get(LPCQSIZE, stream);
 
                                 for (i = 0; i < nlpc; i++)
+                                {
                                     var_get(LPCQUANT, stream);
+                                }
+
                                 break;
                         }
 

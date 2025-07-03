@@ -12,7 +12,9 @@ namespace IdSharp.AudioInfo
         public static int GetTagSize(Stream stream)
         {
             if (stream == null)
+            {
                 throw new ArgumentNullException("stream");
+            }
 
             var currentPosition = stream.Position;
             try

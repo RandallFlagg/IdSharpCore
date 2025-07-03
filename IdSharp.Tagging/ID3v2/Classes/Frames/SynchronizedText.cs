@@ -170,7 +170,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
         public override byte[] GetBytes(ID3v2TagVersion tagVersion)
         {
             if (Items.Count == 0)
+            {
                 return new byte[0];
+            }
 
             if (TextEncoding == EncodingType.ISO88591)
             {
@@ -178,7 +180,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 {
                     var textData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, item.Text, true);
                     if (this.RequiresFix(tagVersion, item.Text, textData))
+                    {
                         break;
+                    }
                 }
             }
 
