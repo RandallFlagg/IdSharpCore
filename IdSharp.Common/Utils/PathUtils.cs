@@ -87,10 +87,7 @@ namespace IdSharp.Common.Utils
         /// <returns>A new temporary file name with the same prefix as <paramref name="baseFileName"/>.</returns>
         public static string GetTemporaryFileNameBasedOnFileName(string baseFileName)
         {
-            if (string.IsNullOrEmpty(baseFileName))
-            {
-                throw new ArgumentNullException("basefileName");
-            }
+            ArgumentException.ThrowIfNullOrEmpty(baseFileName, nameof(baseFileName));
 
             string tempFile;
             var rnd = new Random();
