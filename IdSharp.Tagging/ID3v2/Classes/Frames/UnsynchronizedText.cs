@@ -66,7 +66,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
             else
             {
-                var msg = string.Format("Under-sized ({0} bytes) unsynchronized text frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) unsynchronized text frame at position {stream.Position}";
                 Trace.WriteLine(msg);
 
                 LanguageCode = "eng";

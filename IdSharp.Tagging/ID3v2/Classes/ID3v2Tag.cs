@@ -72,7 +72,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error reading '{0}'", path), ex);
+                throw new Exception($"Error reading '{path}'", ex);
             }
         }
 

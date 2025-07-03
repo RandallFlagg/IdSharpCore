@@ -399,7 +399,7 @@ namespace IdSharp.Tagging.ID3v2
             {
                 if (frameIDBytes.Length != 3)
                 {
-                    throw new ArgumentException(String.Format("FrameID must be 3 bytes from ID3v2.2 ({0} bytes passed)", frameIDBytes.Length));
+                    throw new ArgumentException($"FrameID must be 3 bytes from ID3v2.2 ({frameIDBytes.Length} bytes passed)");
                 }
 
                 tmpRawData = new byte[6];
@@ -443,7 +443,7 @@ namespace IdSharp.Tagging.ID3v2
 
                 if (frameIDBytes.Length != 4)
                 {
-                    throw new ArgumentException(string.Format("FrameID must be 4 bytes ({0} bytes passed)", frameIDBytes.Length));
+                    throw new ArgumentException($"FrameID must be 4 bytes ({frameIDBytes.Length} bytes passed)");
                 }
 
                 tmpRawData[0] = frameIDBytes[0];
@@ -513,7 +513,7 @@ namespace IdSharp.Tagging.ID3v2
 
                 if (frameIDBytes.Length != 4)
                 {
-                    throw new ArgumentException(string.Format("FrameID must be 4 bytes ({0} bytes passed)", frameIDBytes.Length));
+                    throw new ArgumentException($"FrameID must be 4 bytes ({frameIDBytes.Length} bytes passed)");
                 }
 
                 // Note: ID3v2.4 uses sync safe frame sizes

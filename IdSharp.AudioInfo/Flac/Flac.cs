@@ -89,7 +89,7 @@ namespace IdSharp.AudioInfo
             }
             catch (InvalidDataException ex)
             {
-                throw new InvalidDataException(String.Format("Cannot read FLAC file '{0}'", path), ex);
+                throw new InvalidDataException($"Cannot read FLAC file '{path}'", ex);
             }
         }
 

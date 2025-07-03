@@ -74,7 +74,7 @@ namespace IdSharp.Tagging.ID3v2
             {
                 if (value > 0xFFFFFFF)
                 {
-                    var msg = string.Format("Argument 'value' out of range.  Maximum tag size is {0}.", 0xFFFFFFF);
+                    var msg = $"Argument 'value' out of range.  Maximum tag size is {0xFFFFFFF}.";
                     Trace.WriteLine(msg);
                     throw new ArgumentOutOfRangeException("value", value, msg);
                 }
@@ -195,7 +195,7 @@ namespace IdSharp.Tagging.ID3v2
                 // Version
                 if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
                 {
-                    var msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
+                    var msg = $"ID3 Version '{tmpHeader[0]}' not recognized (valid versions are 2, 3, and 4)";
                     Trace.WriteLine(msg);
                     throw new InvalidDataException(msg);
                 }

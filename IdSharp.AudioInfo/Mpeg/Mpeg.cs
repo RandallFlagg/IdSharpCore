@@ -89,7 +89,7 @@ namespace IdSharp.AudioInfo
                     {
                         if (acceptNullSamples)
                         {
-                            throw new InvalidDataException(string.Format("'{0}': Can't find frame sync", path));
+                            throw new InvalidDataException($"'{path}': Can't find frame sync");
                         }
                         stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
                         acceptNullSamples = true;
@@ -101,7 +101,7 @@ namespace IdSharp.AudioInfo
                     // Get frame header
                     if (stream.Read(tmpFrameHeader, 1, 3) != 3)
                     {
-                        throw new InvalidDataException(string.Format("'{0}': Invalid MPEG file; end of stream reached", path));
+                        throw new InvalidDataException($"'{path}': Invalid MPEG file; end of stream reached");
                     }
 
                     // No sync
@@ -206,7 +206,7 @@ namespace IdSharp.AudioInfo
                 _frequency = GetFrequency(_mpegVersion, (tmpFrameHeader[2] >> 2) & 0x03);
                 if (_frequency == 0)
                 {
-                    throw new InvalidDataException(String.Format("'{0}'; cannot determine frequency", path));
+                    throw new InvalidDataException($"'{path}'; cannot determine frequency");
                 }
 
                 _isPrivate = ((tmpFrameHeader[2] & 0x01) == 0x01);
@@ -401,7 +401,7 @@ namespace IdSharp.AudioInfo
 
                 if (frameCount == 0)
                 {
-                    throw new InvalidDataException(String.Format("No frames found in {0}", _fileName));
+                    throw new InvalidDataException($"No frames found in {_fileName}");
                 }
 
                 _frames = frameCount;
@@ -417,14 +417,14 @@ namespace IdSharp.AudioInfo
 
                 if (_bitrate == 0)
                 {
-                    throw new InvalidDataException(String.Format("Error determining bitrate: {0}", _fileName));
+                    throw new InvalidDataException($"Error determining bitrate: {_fileName}");
                 }
 
                 _totalSeconds = (audioLength / 125.0m) / _bitrate;
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("Error calculating bitrate; {0}", step), ex);
+                throw new Exception($"Error calculating bitrate; {step}", ex);
             }
         }
 

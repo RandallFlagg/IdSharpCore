@@ -304,16 +304,16 @@ namespace IdSharp.WebLookup.Amazon
             postData.Add(new PostData("Operation", "ItemLookup"));
             postData.Add(new PostData("ItemId", _asin));
             postData.Add(new PostData("ResponseGroup", "Images"));
-            postData.Add(new PostData("Timestamp", string.Format("{0:yyyy-MM-dd}T{0:HH:mm:ss}Z", DateTime.UtcNow)));
+            postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));
 
             var amazonDomain = Amazon.GetDomain(_amazonServer);
-            var hostHeader = string.Format("ecs.{0}", amazonDomain);
+            var hostHeader = $"ecs.{amazonDomain}";
             var signature = Amazon.GetSignature(postData, hostHeader, _secretAccessKey);
             postData.Add(new PostData("Signature", signature));
 
             //postData = GetOrderedPostData(postData);
 
-            var requestUri = String.Format("http://{0}{1}", hostHeader, Amazon.HttpRequestUri);
+            var requestUri = $"http://{hostHeader}{Amazon.HttpRequestUri}";
             requestUri = Http.GetQueryString(requestUri, postData);
 
             var byteResponse = Http.Get(requestUri);

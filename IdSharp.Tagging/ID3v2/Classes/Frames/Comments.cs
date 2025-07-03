@@ -39,7 +39,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                     // Language code must be 3 characters
                     if (_languageCode.Length != 3)
                     {
-                        var msg = string.Format("Invalid language code '{0}' in COMM frame", value);
+                        var msg = $"Invalid language code '{value}' in COMM frame";
                         Trace.WriteLine(msg);
 
                         // TODO: Should this fire a warning?
@@ -164,7 +164,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
                 }
                 else
                 {
-                    var msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                    var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
                     Trace.WriteLine(msg);
 
                     LanguageCode = "eng";
@@ -173,7 +173,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
             else
             {
-                var msg = string.Format("Under-sized ({0} bytes) COMM frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+                var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
                 Trace.WriteLine(msg);
 
                 LanguageCode = "eng";

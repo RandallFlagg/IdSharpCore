@@ -319,7 +319,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
                 Trace.WriteLine(msg);
             }
 
@@ -443,7 +443,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
                 Trace.WriteLine(msg);
                 return "";
             }
@@ -621,7 +621,7 @@ namespace IdSharp.Tagging.ID3v2
             else
             {
                 // Most likely bad data
-                var msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+                var msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
                 Trace.WriteLine(msg);
                 return "";
             }

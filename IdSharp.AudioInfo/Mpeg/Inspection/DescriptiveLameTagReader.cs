@@ -195,7 +195,7 @@ namespace IdSharp.AudioInfo.Inspection
 
                 if (_basicReader.IsPresetGuessNonBitrate)
                 {
-                    _presetGuess += string.Format(" -b {0}", _basicReader.Bitrate);
+                    _presetGuess += $" -b {_basicReader.Bitrate}";
                 }
             }
         }
@@ -312,7 +312,7 @@ namespace IdSharp.AudioInfo.Inspection
                         break;
 
                     default:
-                        result = string.Format("<unrecognised value {0}>", preset);
+                        result = $"<unrecognised value {preset}>";
                         usePresetGuess = UsePresetGuess.UseGuess;
                         break;
                 }

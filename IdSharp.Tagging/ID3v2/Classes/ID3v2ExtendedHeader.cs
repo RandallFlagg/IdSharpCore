@@ -113,7 +113,7 @@ namespace IdSharp.Tagging.ID3v2
             // to its original position and return.
             if (size >= 0x41000000)
             {
-                var msg = string.Format("FrameID found when expected extended header at position {0}", stream.Position - 4);
+                var msg = $"FrameID found when expected extended header at position {stream.Position - 4}";
                 Trace.WriteLine(msg);
 
                 stream.Seek(-4, SeekOrigin.Current);

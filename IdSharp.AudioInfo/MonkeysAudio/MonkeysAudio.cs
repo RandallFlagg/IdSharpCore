@@ -98,7 +98,7 @@ namespace IdSharp.AudioInfo
                 }
                 else
                 {
-                    throw new NotImplementedException(string.Format("MAC {0:0.00} not supported", _version / 1000.0));
+                    throw new NotImplementedException($"MAC {_version / 1000.0:0.00} not supported");
                 }
 
                 long totalBlocks = ((_frames - 1) * blocksPerFrame) + finalBlocks;

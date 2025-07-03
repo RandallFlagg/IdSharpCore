@@ -146,18 +146,18 @@ namespace IdSharp.WebLookup.Amazon
             }
             postData.Add(new PostData("ItemPage", page.ToString()));
             postData.Add(new PostData("Sort", sort));
-            postData.Add(new PostData("Timestamp", string.Format("{0:yyyy-MM-dd}T{0:HH:mm:ss}Z", DateTime.UtcNow)));
+            postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));
 
-            var hostHeader = string.Format("ecs.{0}", amazonDomain);
+            var hostHeader = $"ecs.{amazonDomain}";
             var signature = GetSignature(postData, hostHeader, secretAccessKey);
             postData.Add(new PostData("Signature", signature));
 
-            var requestUri = string.Format("http://{0}{1}", hostHeader, HttpRequestUri);
+            var requestUri = $"http://{hostHeader}{HttpRequestUri}";
             requestUri = Http.GetQueryString(requestUri, postData);
             var byteResponse = Http.Get(requestUri);
             if (byteResponse == null)
             {
-                throw new WebException(string.Format("Response from {0} was null", amazonDomain));
+                throw new WebException($"Response from {amazonDomain} was null");
             }
 
             var response = Encoding.UTF8.GetString(byteResponse);
@@ -203,7 +203,7 @@ namespace IdSharp.WebLookup.Amazon
                                             {
                                                 if (errorCode != "")
                                                 {
-                                                    errorMessage = string.Format("{0} ({1})", errorMessage, errorCode);
+                                                    errorMessage = $"{errorMessage} ({errorCode})";
                                                 }
 
                                                 if (fullErrorMessage != "")
@@ -309,7 +309,7 @@ namespace IdSharp.WebLookup.Amazon
                         }
                         else
                         {
-                            getString.Append(string.Format("%{0:X2}", (int)c));
+                            getString.Append($"%{(int)c:X2}");
                         }
                     }
                 }

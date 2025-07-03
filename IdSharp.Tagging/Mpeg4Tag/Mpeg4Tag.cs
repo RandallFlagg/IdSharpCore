@@ -557,7 +557,7 @@ namespace IdSharp.Tagging.Mpeg4
 
                 if ((offset + atomsize) > end)
                 {
-                    throw new InvalidDataException(string.Format("atom at {0} claims {1} bytes, end = {2}", offset, atomsize, end));
+                    throw new InvalidDataException($"atom at {offset} claims {atomsize} bytes, end = {end}");
                 }
 
                 var atom = new Atom();
