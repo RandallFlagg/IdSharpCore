@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+
 using IdSharp.Common.Utils;
 
 namespace IdSharp.AudioInfo
@@ -10,39 +11,31 @@ namespace IdSharp.AudioInfo
     /// </summary>
     public class Mpeg : IAudioFile
     {
-        static Mpeg()
-        {
-            BitrateTable = new[]
-            {
-                new[]
-                { 
-                    // MPEG-2.5
-                    new[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-3
-                    new[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-2
-                    new[] { 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256 }  // Layer-1
-                },
-                new int[3][],
-                new[]
-                {
-                    // MPEG-2
-                    new[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-3
-                    new[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-2
-                    new[] { 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256 }  // Layer-1
-                },
-                new[]
-                {
-                    // MPEG-1
-                    new[] { 32, 40, 48, 56, 64, 80,  96, 112, 128, 160, 192, 224, 256, 320 },   // Layer-3
-                    new[] { 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384 },   // Layer-2
-                    new[] { 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448 } // Layer-1
-                }
-            };
-        }
-
         // References:
         // http://www.mp3-tech.org/programmer/frame_header.html
 
-        private static readonly int[][][] BitrateTable;
+        private static readonly int[][][] BitrateTable =
+            [
+                [ 
+                    // MPEG-2.5
+                    [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-3
+                    [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-2
+                    [32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256]  // Layer-1
+                ],
+                new int[3][],
+                [
+                    // MPEG-2
+                    [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-3
+                    [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-2
+                    [32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256]  // Layer-1
+                ],
+                [
+                    // MPEG-1
+                    [32, 40, 48, 56, 64, 80,  96, 112, 128, 160, 192, 224, 256, 320],   // Layer-3
+                    [32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384],   // Layer-2
+                    [32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448] // Layer-1
+                ]
+            ];
         private static readonly byte[] INFO_MARKER = Encoding.ASCII.GetBytes("Info");
         private static readonly byte[] XING_MARKER = Encoding.ASCII.GetBytes("Xing");
 
@@ -96,7 +89,7 @@ namespace IdSharp.AudioInfo
                     {
                         if (acceptNullSamples)
                         {
-							throw new InvalidDataException(string.Format("'{0}': Can't find frame sync", path));
+                            throw new InvalidDataException(string.Format("'{0}': Can't find frame sync", path));
                         }
                         stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
                         acceptNullSamples = true;

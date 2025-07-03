@@ -161,19 +161,13 @@ namespace IdSharp.Tagging.ID3v1
             "Synthpop"};
         #endregion <<< Genre by index >>>
 
-        private static readonly string[] _sortedGenreList;
-        private static readonly int _genreCount;
+        private static readonly string[] _sortedGenreList = _genreByIndex.OrderBy(p => p).ToArray();
+        private static readonly int _genreCount = _genreByIndex.Length;
 
         /// <summary>
         /// The genre index of 'Other' (12).
         /// </summary>
         public const int Other_GenreIndex = 12;
-
-        static GenreHelper()
-        {
-            _genreCount = _genreByIndex.Length;
-            _sortedGenreList = _genreByIndex.OrderBy(p => p).ToArray();
-        }
 
         /// <summary>
         /// Gets a string array of ID3v1 genres sorted by index.

@@ -10,12 +10,7 @@ namespace IdSharp.Common.Utils
     /// </summary>
     public static class PathUtils
     {
-        private static readonly List<char> _invalidFileNameChars;
-
-        static PathUtils()
-        {
-            _invalidFileNameChars = new List<char>(Path.GetInvalidFileNameChars());
-        }
+        private static readonly List<char> _invalidFileNameChars = [.. Path.GetInvalidFileNameChars()];
 
         /// <summary>
         /// Gets a unique file name which does not exist based on the specified path.
