@@ -59,7 +59,7 @@ public static class PathUtils
                 extension = "." + extension;
             }
 
-            if (extension.EndsWith("."))
+                if (extension.EndsWith(".", StringComparison.OrdinalIgnoreCase))
             {
                 throw new ArgumentException("Parameter 'extension' cannot end with a '.'", nameof(extension));
             }
