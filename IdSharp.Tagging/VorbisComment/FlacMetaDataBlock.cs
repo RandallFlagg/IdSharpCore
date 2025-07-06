@@ -9,7 +9,7 @@ internal class FlacMetaDataBlock
     {
         if ((int)blockType > 6 || (int)blockType < 0)
         {
-            throw new Exception(string.Format("BlockType ({0}) out of range", (int)blockType));
+            throw new Exception($"BlockType ({(int)blockType}) out of range");
         }
 
         BlockType = blockType;

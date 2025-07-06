@@ -39,7 +39,7 @@ public static class StreamUtils
         }
         else
         {
-            string msg = string.Format("Attempted to read past the end of the frame at position {0}", stream.Position);
+            string msg = $"Attempted to read past the end of the frame at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
     }
@@ -54,7 +54,7 @@ public static class StreamUtils
         byte[] buffer = new byte[count];
         if (stream.Read(buffer, 0, count) != count)
         {
-            string msg = string.Format("Attempted to read past the end of the stream when requesting {0} bytes at position {1}", count, stream.Position);
+            string msg = $"Attempted to read past the end of the stream when requesting {count} bytes at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
         return buffer;
@@ -70,7 +70,7 @@ public static class StreamUtils
     {
         if (bytesLeft < count)
         {
-            string msg = string.Format("Attempted to read past the end of the frame at position {0}", stream.Position);
+            string msg = $"Attempted to read past the end of the frame at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
         bytesLeft -= count;
@@ -181,7 +181,7 @@ public static class StreamUtils
     {
         if (bytesLeft < 2)
         {
-            string msg = string.Format("Attempted to read past the end of the stream at position {0}", stream.Position);
+            string msg = $"Attempted to read past the end of the stream at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
 

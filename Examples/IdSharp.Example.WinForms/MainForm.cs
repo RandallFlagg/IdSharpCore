@@ -20,7 +20,7 @@ public partial class MainForm : Form
         InitializeComponent();
 
         AssemblyName assemblyName = AssemblyName.GetAssemblyName("IdSharp.Tagging.dll");
-        lblVersion.Text = string.Format("IdSharp library version: {0}   PLEASE TEST ON BACKUPS", assemblyName.Version);
+        lblVersion.Text = $"IdSharp library version: {assemblyName.Version}   PLEASE TEST ON BACKUPS";
     }
 
     private void btnClose_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ public partial class MainForm : Form
         }
         else
         {
-            DialogResult result = MessageBox.Show(string.Format("Remove ID3v2 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Remove ID3v2 tag from '{Path.GetFileName(m_Filename)}'?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 bool success = ID3v2Tag.RemoveTag(m_Filename);
@@ -102,7 +102,7 @@ public partial class MainForm : Form
         }
         else
         {
-            DialogResult result = MessageBox.Show(string.Format("Remove ID3v1 tag from '{0}'?", Path.GetFileName(m_Filename)), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show($"Remove ID3v1 tag from '{Path.GetFileName(m_Filename)}'?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 Boolean success = ID3v1Tag.RemoveTag(m_Filename);

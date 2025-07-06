@@ -170,7 +170,7 @@ public class VorbisComment : IVorbisComment
         }*/
         else
         {
-            throw new InvalidDataException(String.Format("File '{0}' is not a valid FLAC or Ogg-Vorbis file", path));
+            throw new InvalidDataException($"File '{path}' is not a valid FLAC or Ogg-Vorbis file");
         }
     }
 
@@ -189,7 +189,7 @@ public class VorbisComment : IVorbisComment
         }
         catch (InvalidDataException ex)
         {
-            throw new InvalidDataException(String.Format("Cannot read '{0}'", path), ex);
+            throw new InvalidDataException($"Cannot read '{path}'", ex);
         }
     }
 
@@ -416,7 +416,7 @@ public class VorbisComment : IVorbisComment
         // newMetaDataSize < origMetaDataSize is an error
         else
         {
-            throw new Exception(String.Format("Internal Error: newMetaDataSize ({0}) < origMetaDataSize ({1})", newMetaDataSize, origMetaDataSize));
+            throw new Exception($"Internal Error: newMetaDataSize ({newMetaDataSize}) < origMetaDataSize ({origMetaDataSize})");
         }
 
         using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))

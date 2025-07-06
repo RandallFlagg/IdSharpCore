@@ -82,7 +82,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         }
         else
         {
-            string msg = string.Format("Under-sized ({0} bytes) unsynchronized text frame at position {1}", _frameHeader.FrameSizeExcludingAdditions, stream.Position);
+            string msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) unsynchronized text frame at position {stream.Position}";
             Trace.WriteLine(msg);
 
             LanguageCode = "eng";

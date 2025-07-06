@@ -187,7 +187,7 @@ public sealed class DescriptiveLameTagReader
 
             if (_basicReader.IsPresetGuessNonBitrate)
             {
-                PresetGuess += string.Format(" -b {0}", _basicReader.Bitrate);
+                PresetGuess += $" -b {_basicReader.Bitrate}";
             }
         }
     }
@@ -304,7 +304,7 @@ public sealed class DescriptiveLameTagReader
                     break;
 
                 default:
-                    result = string.Format("<unrecognised value {0}>", preset);
+                    result = $"<unrecognised value {preset}>";
                     usePresetGuess = UsePresetGuess.UseGuess;
                     break;
             }

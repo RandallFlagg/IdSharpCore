@@ -48,8 +48,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     // TODO: Try to keep reading and look for a valid frame
                     if (frameIDBytes[0] != 0 && frameIDBytes[0] != 0xFF)
                     {
-                        string msg = string.Format("Out of range FrameID - 0x{0:X}|0x{1:X}|0x{2:X}|0x{3:X}",
-                            frameIDBytes[0], frameIDBytes[1], frameIDBytes[2], frameIDBytes[3]);
+                        string msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}|0x{frameIDBytes[3]:X}";
                         if (ByteUtils.ISO88591GetString(frameIDBytes) != "MP3e")
                         {
                             string tmpBadFrameID = ByteUtils.ISO88591GetString(frameIDBytes).TrimEnd('\0');
@@ -69,8 +68,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     // TODO: Try to keep reading and look for a valid frame
                     if (frameIDBytes[0] != 0 && frameIDBytes[0] != 0xFF)
                     {
-                        string msg = string.Format("Out of range FrameID - 0x{0:X}|0x{1:X}|0x{2:X}",
-                            frameIDBytes[0], frameIDBytes[1], frameIDBytes[2]);
+                        string msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}";
                         Trace.WriteLine(msg);
                         Trace.WriteLine(ByteUtils.ISO88591GetString(frameIDBytes));
                     }

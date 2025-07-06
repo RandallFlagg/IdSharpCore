@@ -77,7 +77,7 @@ public class RiffWave : IAudioFile
 					// Supporting othe sample depths will require conversion
 					if (bits != 16)
                 {
-                    throw new InvalidDataException(string.Format("Only 16-bit audio is supported (bits={0})", bits));
+                    throw new InvalidDataException($"Only 16-bit audio is supported (bits={bits})");
                 }
 
                 // Skip past extra bytes, if any
