@@ -13,7 +13,7 @@ public partial class ID3v1Tag
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         long currentPosition = stream.Position;
@@ -48,7 +48,7 @@ public partial class ID3v1Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -65,7 +65,7 @@ public partial class ID3v1Tag
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         return (GetTagSize(stream) != 0);
@@ -79,7 +79,7 @@ public partial class ID3v1Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         return (GetTagSize(path) != 0);
@@ -94,7 +94,7 @@ public partial class ID3v1Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))

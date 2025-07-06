@@ -278,7 +278,7 @@ public abstract partial class FrameContainer : IFrameContainer
     {
         if (string.IsNullOrEmpty(frameID))
         {
-            throw new ArgumentNullException("frameID");
+            throw new ArgumentNullException(nameof(frameID));
         }
 
         return GetAllFrames(tagVersion, new List<string> { frameID });
@@ -288,7 +288,7 @@ public abstract partial class FrameContainer : IFrameContainer
     {
         if (frameIDs == null)
         {
-            throw new ArgumentNullException("frameIDs");
+            throw new ArgumentNullException(nameof(frameIDs));
         }
 
         if (frameIDs.Any() == false)

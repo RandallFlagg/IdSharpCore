@@ -16,7 +16,7 @@ internal sealed class EventTimingItem : IEventTimingItem
         set
         {
             _eventType = value;
-            RaisePropertyChanged("EventType");
+            RaisePropertyChanged(nameof(EventType));
         }
     }
 
@@ -27,11 +27,11 @@ internal sealed class EventTimingItem : IEventTimingItem
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), "Value cannot be less than 0");
             }
 
             _timestamp = value;
-            RaisePropertyChanged("Timestamp");
+            RaisePropertyChanged(nameof(Timestamp));
         }
     }
 

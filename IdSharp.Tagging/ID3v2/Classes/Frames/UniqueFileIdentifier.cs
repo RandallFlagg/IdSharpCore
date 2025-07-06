@@ -15,7 +15,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
         set
         {
             _ownerIdentifier = value;
-            RaisePropertyChanged("OwnerIdentifier");
+            RaisePropertyChanged(nameof(OwnerIdentifier));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
         set
         {
             _identifier = ByteUtils.Clone(value);
-            RaisePropertyChanged("Identifier");
+            RaisePropertyChanged(nameof(Identifier));
         }
     }
 

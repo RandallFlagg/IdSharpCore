@@ -17,7 +17,7 @@ internal sealed class WXXXFrame : Frame, IWXXXFrame
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -27,7 +27,7 @@ internal sealed class WXXXFrame : Frame, IWXXXFrame
         set
         {
             _description = value;
-            RaisePropertyChanged("Description");
+            RaisePropertyChanged(nameof(Description));
         }
     }
 
@@ -37,7 +37,7 @@ internal sealed class WXXXFrame : Frame, IWXXXFrame
         set
         {
             _value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

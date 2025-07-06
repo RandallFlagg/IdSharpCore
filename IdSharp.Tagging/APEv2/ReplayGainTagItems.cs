@@ -51,7 +51,7 @@ public class ReplayGainTagItems {
         set
         {
             _albumGain = value;
-            RaisePropertyChanged("AlbumGain");
+            RaisePropertyChanged(nameof(AlbumGain));
         }
     }
 
@@ -65,7 +65,7 @@ public class ReplayGainTagItems {
         set
         {
             _albumPeak = value;
-            RaisePropertyChanged("AlbumPeak");
+            RaisePropertyChanged(nameof(AlbumPeak));
         }
     }
 
@@ -79,7 +79,7 @@ public class ReplayGainTagItems {
         set
         {
             _trackGain = value;
-            RaisePropertyChanged("TrackGain");
+            RaisePropertyChanged(nameof(TrackGain));
         }
     }
 
@@ -93,7 +93,7 @@ public class ReplayGainTagItems {
         set
         {
             _trackPeak = value;
-            RaisePropertyChanged("TrackPeak");
+            RaisePropertyChanged(nameof(TrackPeak));
         }
     }
 

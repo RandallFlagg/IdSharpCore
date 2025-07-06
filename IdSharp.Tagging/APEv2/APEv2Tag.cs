@@ -349,7 +349,8 @@ public partial class APEv2Tag : IAPEv2Tag
         get => _title;
         set
         {
-            _title = value;            RaisePropertyChanged("Title");
+            _title = value;
+            RaisePropertyChanged(nameof(Title));
         }
     }
 
@@ -363,7 +364,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _artist = value;
-            RaisePropertyChanged("Artist");
+            RaisePropertyChanged(nameof(Artist));
         }
     }
 
@@ -377,7 +378,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _album = value;
-            RaisePropertyChanged("Album");
+            RaisePropertyChanged(nameof(Album));
         }
     }
 
@@ -391,7 +392,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _publisher = value;
-            RaisePropertyChanged("Publisher");
+            RaisePropertyChanged(nameof(Publisher));
         }
     }
 
@@ -405,7 +406,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _trackNumber = value;
-            RaisePropertyChanged("TrackNumber");
+            RaisePropertyChanged(nameof(TrackNumber));
         }
     }
 
@@ -419,7 +420,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _comment = value;
-            RaisePropertyChanged("Comment");
+            RaisePropertyChanged(nameof(Comment));
         }
     }
 
@@ -433,7 +434,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _catalog = value;
-            RaisePropertyChanged("Catalog");
+            RaisePropertyChanged(nameof(Catalog));
         }
     }
 
@@ -447,7 +448,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _year = value;
-            RaisePropertyChanged("Year");
+            RaisePropertyChanged(nameof(Year));
         }
     }
 
@@ -461,7 +462,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _recordDate = value;
-            RaisePropertyChanged("RecordDate");
+            RaisePropertyChanged(nameof(RecordDate));
         }
     }
 
@@ -475,7 +476,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _genre = value;
-            RaisePropertyChanged("Genre");
+            RaisePropertyChanged(nameof(Genre));
         }
     }
 
@@ -489,7 +490,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _media = value;
-            RaisePropertyChanged("Media");
+            RaisePropertyChanged(nameof(Media));
         }
     }
 
@@ -503,7 +504,7 @@ public partial class APEv2Tag : IAPEv2Tag
         set
         {
             _language = value;
-            RaisePropertyChanged("Language");
+            RaisePropertyChanged(nameof(Language));
         }
     }
 

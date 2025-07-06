@@ -128,7 +128,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _artist = value;
-            RaisePropertyChanged("Artist");
+            RaisePropertyChanged(nameof(Artist));
         }
     }
 
@@ -142,7 +142,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _album = value;
-            RaisePropertyChanged("Album");
+            RaisePropertyChanged(nameof(Album));
         }
     }
 
@@ -156,7 +156,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _title = value;
-            RaisePropertyChanged("Title");
+            RaisePropertyChanged(nameof(Title));
         }
     }
 
@@ -170,7 +170,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _genre = value;
-            RaisePropertyChanged("Genre");
+            RaisePropertyChanged(nameof(Genre));
         }
     }
 
@@ -184,7 +184,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _year = value;
-            RaisePropertyChanged("Year");
+            RaisePropertyChanged(nameof(Year));
         }
     }
 
@@ -198,7 +198,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _comment = value;
-            RaisePropertyChanged("Comment");
+            RaisePropertyChanged(nameof(Comment));
         }
     }
 
@@ -212,7 +212,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _tool = value;
-            RaisePropertyChanged("Tool");
+            RaisePropertyChanged(nameof(Tool));
         }
     }
 
@@ -226,7 +226,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _composer = value;
-            RaisePropertyChanged("Composer");
+            RaisePropertyChanged(nameof(Composer));
         }
     }
 
@@ -240,7 +240,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _trackNumber = value;
-            RaisePropertyChanged("TrackNumber");
+            RaisePropertyChanged(nameof(TrackNumber));
         }
     }
 
@@ -254,7 +254,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _totalTracks = value;
-            RaisePropertyChanged("TotalTracks");
+            RaisePropertyChanged(nameof(TotalTracks));
         }
     }
 
@@ -270,7 +270,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _isPartOfCompilation = value;
-            RaisePropertyChanged("IsPartOfCompilation");
+            RaisePropertyChanged(nameof(IsPartOfCompilation));
         }
     }
 
@@ -284,7 +284,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _bpm = value;
-            RaisePropertyChanged("BPM");
+            RaisePropertyChanged(nameof(BPM));
         }
     }
 
@@ -298,7 +298,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _disc = value;
-            RaisePropertyChanged("Disc");
+            RaisePropertyChanged(nameof(Disc));
         }
     }
 
@@ -312,7 +312,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         set
         {
             _totalDiscs = value;
-            RaisePropertyChanged("TotalDiscs");
+            RaisePropertyChanged(nameof(TotalDiscs));
         }
     }
 
@@ -328,7 +328,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         private set
         {
             _samples = value;
-            RaisePropertyChanged("Samples");
+            RaisePropertyChanged(nameof(Samples));
         }
     }
 
@@ -338,7 +338,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         private set
         {
             _channels = value;
-            RaisePropertyChanged("Channels");
+            RaisePropertyChanged(nameof(Channels));
         }
     }
 
@@ -348,7 +348,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         private set
         {
             _frequency = value;
-            RaisePropertyChanged("Frequency");
+            RaisePropertyChanged(nameof(Frequency));
         }
     }
 
@@ -358,7 +358,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
         private set
         {
             _codec = value;
-            RaisePropertyChanged("Codec");
+            RaisePropertyChanged(nameof(Codec));
         }
     }
 

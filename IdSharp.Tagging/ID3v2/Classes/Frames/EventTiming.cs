@@ -22,7 +22,7 @@ internal sealed class EventTiming : Frame, IEventTiming
         set
         {
             _timestampFormat = value;
-            RaisePropertyChanged("TimestampFormat");
+            RaisePropertyChanged(nameof(TimestampFormat));
         }
     }
 

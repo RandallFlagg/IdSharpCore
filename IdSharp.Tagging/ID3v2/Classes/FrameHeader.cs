@@ -532,7 +532,7 @@ internal sealed class FrameHeader : IFrameHeader
         }
         else
         {
-            throw new ArgumentOutOfRangeException("tagVersion", tagVersion, "Unknown tag version");
+            throw new ArgumentOutOfRangeException(nameof(tagVersion), tagVersion, "Unknown tag version");
         }
 
         using (MemoryStream totalFrame = new MemoryStream())

@@ -14,7 +14,7 @@ internal sealed class MusicCDIdentifier : Frame, IMusicCDIdentifier
         set
         {
             _toc = ByteUtils.Clone(value);
-            RaisePropertyChanged("TOC");
+            RaisePropertyChanged(nameof(TOC));
         }
     }
 

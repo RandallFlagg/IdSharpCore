@@ -35,7 +35,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _identification = value;
-            RaisePropertyChanged("Identification");
+            RaisePropertyChanged(nameof(Identification));
         }
     }
 
@@ -45,7 +45,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontRightAdjustment = value;
-            RaisePropertyChanged("FrontRightAdjustment");
+            RaisePropertyChanged(nameof(FrontRightAdjustment));
         }
     }
 
@@ -55,7 +55,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontLeftAdjustment = value;
-            RaisePropertyChanged("FrontLeftAdjustment");
+            RaisePropertyChanged(nameof(FrontLeftAdjustment));
         }
     }
 
@@ -65,7 +65,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backRightAdjustment = value;
-            RaisePropertyChanged("BackRightAdjustment");
+            RaisePropertyChanged(nameof(BackRightAdjustment));
         }
     }
 
@@ -75,7 +75,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backLeftAdjustment = value;
-            RaisePropertyChanged("BackLeftAdjustment");
+            RaisePropertyChanged(nameof(BackLeftAdjustment));
         }
     }
 
@@ -85,7 +85,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontCenterAdjustment = value;
-            RaisePropertyChanged("FrontCenterAdjustment");
+            RaisePropertyChanged(nameof(FrontCenterAdjustment));
         }
     }
 
@@ -95,7 +95,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _subwooferAdjustment = value;
-            RaisePropertyChanged("SubwooferAdjustment");
+            RaisePropertyChanged(nameof(SubwooferAdjustment));
         }
     }
 
@@ -105,7 +105,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backCenterAdjustment = value;
-            RaisePropertyChanged("BackCenterAdjustment");
+            RaisePropertyChanged(nameof(BackCenterAdjustment));
         }
     }
 
@@ -115,7 +115,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _otherAdjustment = value;
-            RaisePropertyChanged("OtherAdjustment");
+            RaisePropertyChanged(nameof(OtherAdjustment));
         }
     }
 
@@ -125,7 +125,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _masterAdjustment = value;
-            RaisePropertyChanged("MasterAdjustment");
+            RaisePropertyChanged(nameof(MasterAdjustment));
         }
     }
 
@@ -135,7 +135,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontRightPeak = value;
-            RaisePropertyChanged("FrontRightPeak");
+            RaisePropertyChanged(nameof(FrontRightPeak));
         }
     }
 
@@ -145,7 +145,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontLeftPeak = value;
-            RaisePropertyChanged("FrontLeftPeak");
+            RaisePropertyChanged(nameof(FrontLeftPeak));
         }
     }
 
@@ -155,7 +155,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backRightPeak = value;
-            RaisePropertyChanged("BackRightPeak");
+            RaisePropertyChanged(nameof(BackRightPeak));
         }
     }
 
@@ -165,7 +165,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backLeftPeak = value;
-            RaisePropertyChanged("BackLeftPeak");
+            RaisePropertyChanged(nameof(BackLeftPeak));
         }
     }
 
@@ -175,7 +175,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _frontCenterPeak = value;
-            RaisePropertyChanged("FrontCenterPeak");
+            RaisePropertyChanged(nameof(FrontCenterPeak));
         }
     }
 
@@ -185,7 +185,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _subwooferPeak = value;
-            RaisePropertyChanged("SubwooferPeak");
+            RaisePropertyChanged(nameof(SubwooferPeak));
         }
     }
 
@@ -195,7 +195,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _backCenterPeak = value;
-            RaisePropertyChanged("BackCenterPeak");
+            RaisePropertyChanged(nameof(BackCenterPeak));
         }
     }
 
@@ -205,7 +205,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _otherPeak = value;
-            RaisePropertyChanged("OtherPeak");
+            RaisePropertyChanged(nameof(OtherPeak));
         }
     }
 
@@ -215,7 +215,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
         set
         {
             _masterPeak = value;
-            RaisePropertyChanged("MasterPeak");
+            RaisePropertyChanged(nameof(MasterPeak));
         }
     }
 

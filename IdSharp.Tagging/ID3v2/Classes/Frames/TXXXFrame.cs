@@ -17,7 +17,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
         set
         {
             _description = value;
-            RaisePropertyChanged("Description");
+            RaisePropertyChanged(nameof(Description));
         }
     }
 
@@ -27,7 +27,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -37,7 +37,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
         set
         {
             _value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

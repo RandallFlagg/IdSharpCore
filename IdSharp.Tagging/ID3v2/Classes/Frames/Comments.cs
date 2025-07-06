@@ -19,7 +19,7 @@ internal sealed class Comments : Frame, IComments
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -54,7 +54,7 @@ internal sealed class Comments : Frame, IComments
                 }
             }
 
-            RaisePropertyChanged("LanguageCode");
+            RaisePropertyChanged(nameof(LanguageCode));
         }
     }
 
@@ -64,7 +64,7 @@ internal sealed class Comments : Frame, IComments
         set
         {
             _description = value;
-            RaisePropertyChanged("Description");
+            RaisePropertyChanged(nameof(Description));
         }
     }
 
@@ -74,7 +74,7 @@ internal sealed class Comments : Frame, IComments
         set
         {
             _value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

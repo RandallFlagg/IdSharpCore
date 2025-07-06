@@ -31,12 +31,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         return Get(GetQueryString(requestUriString, postData));
@@ -74,7 +74,7 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         HttpWebResponse webResponse;
@@ -93,7 +93,7 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         var webRequest = (HttpWebRequest)WebRequest.Create(requestUriString);
@@ -135,12 +135,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         byte[] data;
@@ -161,12 +161,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         var uri = new Uri(requestUriString);
@@ -183,12 +183,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         var uri = new Uri(requestUriString);
@@ -204,12 +204,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         var uri = new Uri(requestUriString);
@@ -225,7 +225,7 @@ internal static class Http
     {
         if (requestUri == null)
         {
-            throw new ArgumentNullException("requestUri");
+            throw new ArgumentNullException(nameof(requestUri));
         }
 
         CookieContainer cookies;
@@ -320,12 +320,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         var getString = new StringBuilder();
@@ -350,12 +350,12 @@ internal static class Http
     {
         if (postString == null)
         {
-            throw new ArgumentNullException("postString");
+            throw new ArgumentNullException(nameof(postString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         if (postData.Value == null)
@@ -394,12 +394,12 @@ internal static class Http
     {
         if (string.IsNullOrWhiteSpace(requestUriString))
         {
-            throw new ArgumentNullException("requestUriString");
+            throw new ArgumentNullException(nameof(requestUriString));
         }
 
         if (postData == null)
         {
-            throw new ArgumentNullException("postData");
+            throw new ArgumentNullException(nameof(postData));
         }
 
         var uri = new Uri(requestUriString);
@@ -410,7 +410,7 @@ internal static class Http
     {
         if (requestUri == null)
         {
-            throw new ArgumentNullException("requestUri");
+            throw new ArgumentNullException(nameof(requestUri));
         }
 
         var getString = new StringBuilder();
@@ -455,7 +455,7 @@ internal static class Http
     {
         if (headers == null)
         {
-            throw new ArgumentNullException("headers");
+            throw new ArgumentNullException(nameof(headers));
         }
 
         var keys = headers.AllKeys;

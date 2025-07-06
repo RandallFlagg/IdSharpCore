@@ -15,7 +15,7 @@ internal sealed class Signature : Frame, ISignature
         set
         {
             _groupSymbol = value;
-            RaisePropertyChanged("GroupSymbol");
+            RaisePropertyChanged(nameof(GroupSymbol));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class Signature : Frame, ISignature
         set
         {
             _signatureData = ByteUtils.Clone(value);
-            RaisePropertyChanged("SignatureData");
+            RaisePropertyChanged(nameof(SignatureData));
         }
     }
 

@@ -16,7 +16,7 @@ internal sealed class EqualizationItem : IEqualizationItem
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), "Value cannot be less than 0");
             }
 
             throw new NotImplementedException();
@@ -30,7 +30,7 @@ internal sealed class EqualizationItem : IEqualizationItem
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), "Value cannot be less than 0");
             }
 
             throw new NotImplementedException();

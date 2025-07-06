@@ -104,7 +104,7 @@ public abstract partial class FrameContainer : IFrameContainer
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 m_PlaylistDelayMilliseconds.Value = value.Value.ToString();
@@ -251,7 +251,7 @@ public abstract partial class FrameContainer : IFrameContainer
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 m_LengthMilliseconds.Value = value.Value.ToString();
@@ -429,7 +429,7 @@ public abstract partial class FrameContainer : IFrameContainer
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
                 }
 
                 m_FileSizeExcludingTag.Value = value.Value.ToString();

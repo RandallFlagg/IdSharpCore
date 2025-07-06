@@ -16,7 +16,7 @@ internal sealed class MusicianCreditsItem : IMusicianCreditsItem
         set
         {
             _instrument = value;
-            RaisePropertyChanged("Instrument");
+            RaisePropertyChanged(nameof(Instrument));
         }
     }
 
@@ -26,7 +26,7 @@ internal sealed class MusicianCreditsItem : IMusicianCreditsItem
         set
         {
             _artists = value;
-            RaisePropertyChanged("Artists");
+            RaisePropertyChanged(nameof(Artists));
         }
     }
 

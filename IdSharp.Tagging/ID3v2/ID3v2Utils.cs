@@ -330,7 +330,7 @@ internal static class ID3v2Utils
     {
         if (bytes == null)
         {
-            throw new ArgumentNullException("bytes");
+            throw new ArgumentNullException(nameof(bytes));
         }
 
         using (MemoryStream memoryStream = new MemoryStream(bytes))
@@ -343,7 +343,7 @@ internal static class ID3v2Utils
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         string returnValue;

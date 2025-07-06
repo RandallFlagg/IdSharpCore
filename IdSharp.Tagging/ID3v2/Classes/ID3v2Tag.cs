@@ -84,7 +84,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         int originalTagSize = GetTagSize(path);
@@ -127,7 +127,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     {
         if (string.IsNullOrEmpty(frameID))
         {
-            throw new ArgumentNullException("frameID");
+            throw new ArgumentNullException(nameof(frameID));
         }
 
         return GetAllFrames(_id3v2Header.TagVersion, frameID);
@@ -141,7 +141,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     {
         if (frameIDs == null)
         {
-            throw new ArgumentNullException("frameIDs");
+            throw new ArgumentNullException(nameof(frameIDs));
         }
 
         return GetAllFrames(_id3v2Header.TagVersion, frameIDs);

@@ -15,7 +15,7 @@ public class MathUtils
     {
         if (array == null || array.Length == 0)
         {
-            throw new ArgumentNullException("array");
+            throw new ArgumentNullException(nameof(array));
         }
 
         int max = array[0];
@@ -38,7 +38,7 @@ public class MathUtils
     {
         if (array == null || array.Length == 0)
         {
-            throw new ArgumentNullException("array");
+            throw new ArgumentNullException(nameof(array));
         }
 
         int min = array[0];
@@ -73,7 +73,7 @@ public class MathUtils
     {
         if (type == null)
         {
-            throw new ArgumentNullException("type");
+            throw new ArgumentNullException(nameof(type));
         }
 
         return (type == typeof(int) ||

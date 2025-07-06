@@ -24,7 +24,7 @@ internal sealed class InvolvedPersonList : Frame, IInvolvedPersonList
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 

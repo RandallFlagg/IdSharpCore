@@ -17,7 +17,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         set
         {
             _ownerIdentifier = value;
-            RaisePropertyChanged("OwnerIdentifier");
+            RaisePropertyChanged(nameof(OwnerIdentifier));
         }
     }
 
@@ -28,11 +28,11 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _previewStart = value;
-            RaisePropertyChanged("PreviewStart");
+            RaisePropertyChanged(nameof(PreviewStart));
         }
     }
 
@@ -43,11 +43,11 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _previewLength = value;
-            RaisePropertyChanged("PreviewLength");
+            RaisePropertyChanged(nameof(PreviewLength));
         }
     }
 
@@ -57,7 +57,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         set
         {
             _encryptionInfo = ByteUtils.Clone(value);
-            RaisePropertyChanged("EncryptionInfo");
+            RaisePropertyChanged(nameof(EncryptionInfo));
         }
     }
 

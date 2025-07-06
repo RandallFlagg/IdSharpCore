@@ -54,7 +54,7 @@ public class MP3GainTagItems {
         set
         {
             _trackMin = value;
-            RaisePropertyChanged("TrackMinimumGain");
+            RaisePropertyChanged(nameof(TrackMinimumGain));
         }
     }
 
@@ -68,7 +68,7 @@ public class MP3GainTagItems {
         set
         {
             _trackMax = value;
-            RaisePropertyChanged("TrackMaximumGain");
+            RaisePropertyChanged(nameof(TrackMaximumGain));
         }
     }
 
@@ -82,7 +82,7 @@ public class MP3GainTagItems {
         set
         {
             _albumMin = value;
-            RaisePropertyChanged("AlbumMinimumGain");
+            RaisePropertyChanged(nameof(AlbumMinimumGain));
         }
     }
 
@@ -96,7 +96,7 @@ public class MP3GainTagItems {
         set
         {
             _albumMax = value;
-            RaisePropertyChanged("AlbumMaximumGain");
+            RaisePropertyChanged(nameof(AlbumMaximumGain));
         }
     }
 
@@ -110,7 +110,7 @@ public class MP3GainTagItems {
         set
         {
             _undoLeftChannel = value;
-            RaisePropertyChanged("UndoLeftChannelAdjustment");
+            RaisePropertyChanged(nameof(UndoLeftChannelAdjustment));
         }
     }
 
@@ -124,7 +124,7 @@ public class MP3GainTagItems {
         set
         {
             _undoRightChannel = value;
-            RaisePropertyChanged("UndoRightChannelAdjustment");
+            RaisePropertyChanged(nameof(UndoRightChannelAdjustment));
         }
     }
 
@@ -138,7 +138,7 @@ public class MP3GainTagItems {
         set
         {
             _undoWrap = value;
-            RaisePropertyChanged("UndoWrapFlag");
+            RaisePropertyChanged(nameof(UndoWrapFlag));
         }
     }
 
