@@ -7,11 +7,7 @@ namespace IdSharp.Tagging.ID3v2
 {
     internal sealed class ID3v2Header : IID3v2Header
     {
-        private ID3v2TagVersion _tagVersion;
-        private byte _tagVersionRevision;
         private int _tagSize;
-        private bool _usesUnsynchronization;
-        private bool _hasExtendedHeader;
         private bool _isExperimental;
         private bool _isCompressed;
         private bool _isFooterPresent;
@@ -28,41 +24,19 @@ namespace IdSharp.Tagging.ID3v2
 
         private void Clear()
         {
-            _tagVersion = ID3v2TagVersion.ID3v23;
-            _tagVersionRevision = 0;
+            TagVersion = ID3v2TagVersion.ID3v23;
+            TagVersionRevision = 0;
             _tagSize = 0;
-            _usesUnsynchronization = false;
-            _hasExtendedHeader = false;
+            UsesUnsynchronization = false;
+            HasExtendedHeader = false;
             _isExperimental = false;
         }
 
         #region IID3v2Header Members
 
-        public ID3v2TagVersion TagVersion
-        {
-            get
-            {
-                return _tagVersion;
-            }
-            set
-            {
-                //Guard.ArgumentEnumDefined(typeof(TagVersion), value, "value");
-                _tagVersion = value;
-            }
-        }
+        public ID3v2TagVersion TagVersion { get; set; }
 
-        public byte TagVersionRevision
-        {
-            get
-            {
-                return _tagVersionRevision;
-            }
-            set
-            {
-                // TODO: Logic check here?
-                _tagVersionRevision = value;
-            }
-        }
+        public byte TagVersionRevision { get; set; }
 
         public int TagSize
         {
@@ -87,33 +61,22 @@ namespace IdSharp.Tagging.ID3v2
             }
         }
 
-        public bool UsesUnsynchronization
-        {
-            get { return _usesUnsynchronization; }
-            set 
-            { 
-                _usesUnsynchronization = value; 
-            }
-        }
+        public bool UsesUnsynchronization { get; set; }
 
-        public bool HasExtendedHeader
-        {
-            get { return _hasExtendedHeader; }
-            set { _hasExtendedHeader = value; }
-        }
+        public bool HasExtendedHeader { get; set; }
 
         public bool IsExperimental
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                     return _isExperimental;
                 else
                     return false;
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                     _isExperimental = value;
                 else
                     _isExperimental = false;
@@ -124,14 +87,14 @@ namespace IdSharp.Tagging.ID3v2
         {
             get 
             {
-                if (_tagVersion == ID3v2TagVersion.ID3v22)
+                if (TagVersion == ID3v2TagVersion.ID3v22)
                     return _isCompressed;
                 else
                     return false;
             }
             set 
             {
-                if (_tagVersion == ID3v2TagVersion.ID3v22)
+                if (TagVersion == ID3v2TagVersion.ID3v22)
                     _isCompressed = value;
                 else
                     _isCompressed = false;
@@ -142,14 +105,14 @@ namespace IdSharp.Tagging.ID3v2
         {
             get 
             {
-                if (_tagVersion == ID3v2TagVersion.ID3v24)
+                if (TagVersion == ID3v2TagVersion.ID3v24)
                     return _isFooterPresent;
                 else
                     return false;
             }
             set 
             {
-                if (_tagVersion == ID3v2TagVersion.ID3v24)
+                if (TagVersion == ID3v2TagVersion.ID3v24)
                     _isFooterPresent = value;
                 else
                     _isFooterPresent = false;
@@ -176,13 +139,13 @@ namespace IdSharp.Tagging.ID3v2
                     throw new InvalidDataException(msg);
                 }
 
-                _tagVersion = (ID3v2TagVersion)tmpHeader[0];
+                TagVersion = (ID3v2TagVersion)tmpHeader[0];
 
                 // Version revision
-                _tagVersionRevision = tmpHeader[1];
+                TagVersionRevision = tmpHeader[1];
 
                 // Flags
-                switch (_tagVersion)
+                switch (TagVersion)
                 {
                     case ID3v2TagVersion.ID3v23:
                         UsesUnsynchronization = ((tmpHeader[2] & 0x80) == 0x80);
@@ -190,19 +153,19 @@ namespace IdSharp.Tagging.ID3v2
                         {
                             Console.WriteLine(((FileStream)stream).Name);
                         }*/
-                        _hasExtendedHeader = ((tmpHeader[2] & 0x40) == 0x40);
+                        HasExtendedHeader = ((tmpHeader[2] & 0x40) == 0x40);
                         _isExperimental = ((tmpHeader[2] & 0x20) == 0x20);
                         _isFooterPresent = false;
                         _isCompressed = false;
                         break;
                     case ID3v2TagVersion.ID3v22:
-                        _usesUnsynchronization = ((tmpHeader[2] & 0x80) == 0x80);
+                        UsesUnsynchronization = ((tmpHeader[2] & 0x80) == 0x80);
                         _isFooterPresent = false;
                         _isCompressed = ((tmpHeader[2] & 0x40) == 0x40);
                         break;
                     case ID3v2TagVersion.ID3v24:
-                        _usesUnsynchronization = ((tmpHeader[2] & 0x80) == 0x80);
-                        _hasExtendedHeader = ((tmpHeader[2] & 0x40) == 0x40);
+                        UsesUnsynchronization = ((tmpHeader[2] & 0x80) == 0x80);
+                        HasExtendedHeader = ((tmpHeader[2] & 0x40) == 0x40);
                         _isExperimental = ((tmpHeader[2] & 0x20) == 0x20);
                         _isFooterPresent = ((tmpHeader[2] & 0x10) == 0x10);
                         _isCompressed = false;
@@ -246,14 +209,14 @@ namespace IdSharp.Tagging.ID3v2
             header[2] = 0x33; // '3'
 
             // Tag version/revision
-            header[3] = (byte)_tagVersion;
-            header[4] = _tagVersionRevision;
+            header[3] = (byte)TagVersion;
+            header[4] = TagVersionRevision;
 
             // Flags
             header[5] = 0;
 
-            if (_usesUnsynchronization) header[5] += 0x80;
-            if (_hasExtendedHeader) header[5] += 0x40;
+            if (UsesUnsynchronization) header[5] += 0x80;
+            if (HasExtendedHeader) header[5] += 0x40;
             if (_isExperimental) header[5] += 0x20;
 
             // Syncsafe size

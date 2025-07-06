@@ -16,13 +16,7 @@ namespace IdSharp.AudioInfo.Inspection
         private const byte LAMETagOffset = 0x77;
 
         private LameTag _tag;
-        
-        private readonly LamePreset _presetGuess;
         private readonly bool _isPresetGuessNonBitrate;
-        private readonly bool _isLameTagFound;
-        private readonly ushort _preset;
-        private readonly string _versionString;
-        private readonly string _versionStringNonLameTag;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicLameTagReader"/> class.
@@ -34,7 +28,7 @@ namespace IdSharp.AudioInfo.Inspection
                 throw new ArgumentNullException("path");
 
             // Initialize
-            _isLameTagFound = true;
+            IsLameTagFound = true;
 
             _tag = new LameTag();
 
@@ -69,7 +63,7 @@ namespace IdSharp.AudioInfo.Inspection
                 }
 		        else
                 {
-                    _isLameTagFound = true;
+                    IsLameTagFound = true;
                 }
 
                 // Read LAME tag structure
@@ -79,7 +73,7 @@ namespace IdSharp.AudioInfo.Inspection
                 // Read old LAME header
                 br.BaseStream.Seek(0 - Marshal.SizeOf(typeof(LameTag)), SeekOrigin.Current);
                 OldLameHeader oldLameHeader = OldLameHeader.FromBinaryReader(br);
-                _versionStringNonLameTag = Encoding.ASCII.GetString(oldLameHeader.VersionString);
+                VersionStringNonLameTag = Encoding.ASCII.GetString(oldLameHeader.VersionString);
             }
 
             // Set version string
@@ -90,25 +84,25 @@ namespace IdSharp.AudioInfo.Inspection
                 for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++) 
                     versionString[i] = _tag.VersionString[i];
                 Array.Resize(ref versionString, i);
-                _versionString = Encoding.ASCII.GetString(versionString);
+                VersionString = Encoding.ASCII.GetString(versionString);
             }
             else
             {
-                _versionString = "";
+                VersionString = "";
             }
 
             // If encoder is not LAME, set IsLameTagFound to false
             // TODO : How about other encoders that use the LAME tag?
 		    if (Encoding.ASCII.GetString(_tag.Encoder) != "LAME")
             {
-                _isLameTagFound = false;
+                IsLameTagFound = false;
             }
 
             // Set preset WORD
-            _preset = (ushort)(((_tag.Surround_Preset[0] << 8) + _tag.Surround_Preset[1]) & 0x07FF);
+            Preset = (ushort)(((_tag.Surround_Preset[0] << 8) + _tag.Surround_Preset[1]) & 0x07FF);
 
             // Guess preset
-            _presetGuess = (new PresetGuesser()).GuessPreset(
+            PresetGuess = (new PresetGuesser()).GuessPreset(
                 VersionStringNonLameTag, /*m_Tag.VersionString*/
                 _tag.Bitrate,
                 _tag.Quality,
@@ -124,27 +118,12 @@ namespace IdSharp.AudioInfo.Inspection
         /// <summary>
         /// Returns the version string from the LAME tag
         /// </summary>
-        public string VersionString
-        {
-            get
-            {
-                return _versionString;
-            }
-        }
+        public string VersionString { get; }
 
         /// <summary>
         /// Returns the version string from the old LAME header (pre-3.90)
         /// </summary>
-        public string VersionStringNonLameTag
-        {
-            get
-            {
-                // In versions of LAME before the LAME tag was introduced, a 16 byte version
-                // string was written into the LAME header, starting at the same position as
-                // the current version string.
-                return _versionStringNonLameTag;
-            }
-        }
+        public string VersionStringNonLameTag { get; }
 
         /// <summary>
         /// Returns Encoding Method Byte
@@ -157,18 +136,12 @@ namespace IdSharp.AudioInfo.Inspection
         /// <summary>
         /// Returns Preset WORD
         /// </summary>
-        public ushort Preset 
-        { 
-            get { return _preset; } 
-        }
+        public ushort Preset { get; }
 
         /// <summary>
         /// Returns guessed preset enum
         /// </summary>
-        public LamePreset PresetGuess 
-        { 
-            get { return _presetGuess; } 
-        }
+        public LamePreset PresetGuess { get; }
 
         /// <summary>
         /// Returns bitrate from the LAME tag (not the actual bitrate for VBR files)
@@ -190,9 +163,6 @@ namespace IdSharp.AudioInfo.Inspection
         /// <summary>
         /// Returns true if a LAME tag is present
         /// </summary>
-        public bool IsLameTagFound 
-        { 
-            get { return _isLameTagFound; } 
-        }
+        public bool IsLameTagFound { get; }
     }
 }

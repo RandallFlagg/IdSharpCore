@@ -9,26 +9,18 @@ namespace IdSharp.Tagging.ID3v2
     public static class PictureTypeHelper
     {
         private static readonly SortedDictionary<string, PictureType> m_PictureTypeDictionary;
-        private static readonly string[] m_PictureTypeStrings;
-        private static readonly PictureType[] m_PictureTypes;
 
         /// <summary>
         /// Gets the picture type strings.
         /// </summary>
         /// <value>The picture type strings.</value>
-        public static string[] PictureTypeStrings
-        {
-            get { return m_PictureTypeStrings; }
-        }
+        public static string[] PictureTypeStrings { get; private set; }
 
         /// <summary>
         /// Gets the picture types.
         /// </summary>
         /// <value>The picture types.</value>
-        public static PictureType[] PictureTypes
-        {
-            get { return m_PictureTypes; }
-        }
+        public static PictureType[] PictureTypes { get; private set; }
 
         /// <summary>
         /// Gets the picture type from a string.
@@ -84,14 +76,14 @@ namespace IdSharp.Tagging.ID3v2
             AddToPictureTypeDictionary(PictureType.BandArtistLogo);
             AddToPictureTypeDictionary(PictureType.PublisherStudioLogo);
 
-            m_PictureTypeStrings = new string[m_PictureTypeDictionary.Count];
-            m_PictureTypes = new PictureType[m_PictureTypeDictionary.Count];
+            PictureTypeStrings = new string[m_PictureTypeDictionary.Count];
+            PictureTypes = new PictureType[m_PictureTypeDictionary.Count];
             
             int i = 0;
             foreach (KeyValuePair<string, PictureType> kvp in m_PictureTypeDictionary)
             {
-                m_PictureTypeStrings[i] = kvp.Key;
-                m_PictureTypes[i] = kvp.Value;
+                PictureTypeStrings[i] = kvp.Key;
+                PictureTypes[i] = kvp.Value;
 
                 i++;
             }

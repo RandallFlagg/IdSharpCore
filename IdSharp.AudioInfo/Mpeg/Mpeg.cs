@@ -45,19 +45,14 @@ namespace IdSharp.AudioInfo
         private static readonly int[][][] BitrateTable;
         private static readonly byte[] INFO_MARKER = Encoding.ASCII.GetBytes("Info");
         private static readonly byte[] XING_MARKER = Encoding.ASCII.GetBytes("Xing");
-
-        private readonly int _frequency;
         private decimal _totalSeconds;
-        private readonly int _channels;
+
         //private readonly long _samples = 0;
         private readonly int _samplesPerFrame;
         private readonly byte fh1;
         private readonly byte fh2;
         private readonly MpegVersion _mpegVersion;
         private readonly MpegLayer _mpegLayer;
-        private readonly bool _isPrivate;
-        private readonly bool _isCopyright;
-        private readonly bool _isOriginal;
         private readonly double _frameSizeConst;
         private readonly int _paddingSizeConst;
         private readonly long _headerOffset;
@@ -207,23 +202,23 @@ namespace IdSharp.AudioInfo
 
                 _mpegVersion = (MpegVersion)((tmpFrameHeader[1] >> 3) & 0x03);
                 _mpegLayer = (MpegLayer)((tmpFrameHeader[1] >> 1) & 0x03);
-                _frequency = GetFrequency(_mpegVersion, (tmpFrameHeader[2] >> 2) & 0x03);
-                if (_frequency == 0)
+                Frequency = GetFrequency(_mpegVersion, (tmpFrameHeader[2] >> 2) & 0x03);
+                if (Frequency == 0)
                 {
                     throw new InvalidDataException(String.Format("'{0}'; cannot determine frequency", path));
                 }
 
-                _isPrivate = ((tmpFrameHeader[2] & 0x01) == 0x01);
+                IsPrivate = ((tmpFrameHeader[2] & 0x01) == 0x01);
                 _samplesPerFrame = GetSamplesPerFrame(_mpegVersion, _mpegLayer);
-                _frameSizeConst = 125.0 * _samplesPerFrame / _frequency;
+                _frameSizeConst = 125.0 * _samplesPerFrame / Frequency;
                 _paddingSizeConst = (_mpegLayer == MpegLayer.Layer1 ? 4 : 1);
-                _isCopyright = (((tmpFrameHeader[3] >> 3) & 0x01) == 0x01);
-                _isOriginal = (((tmpFrameHeader[3] >> 2) & 0x01) == 0x01);
+                IsCopyright = (((tmpFrameHeader[3] >> 3) & 0x01) == 0x01);
+                IsOriginal = (((tmpFrameHeader[3] >> 2) & 0x01) == 0x01);
                 //tmpModeExtension = (FH[3] >> 4) & 0x03; // not interested, only used in joint-stereo
                 //_mpegEmphasis = (MpegEmphasis)(tmpFrameHeader[3] & 0x03);
 
-                if ((tmpFrameHeader[3] >> 6) == 3) _channels = 1; // Single Channel
-                else _channels = 2;
+                if ((tmpFrameHeader[3] >> 6) == 3) Channels = 1; // Single Channel
+                else Channels = 2;
 
                 // Read LAME Info Tag
                 bool tmpHasLameInfoTag = false;
@@ -250,7 +245,7 @@ namespace IdSharp.AudioInfo
 
                     if (tmpFrames > 256 && tmpBytes > 50000)
                     {
-                        decimal tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)_frequency);
+                        decimal tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)Frequency);
                         if (tmpBitrate <= 320 && tmpBitrate >= 32)
                         {
                             _frames = tmpFrames;
@@ -628,10 +623,7 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; }
 
         private void CalculateBitrate()
         {
@@ -682,10 +674,7 @@ namespace IdSharp.AudioInfo
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; }
 
         /// <summary>
         /// Gets the type of the audio file.
@@ -728,10 +717,7 @@ namespace IdSharp.AudioInfo
         /// <value>
         /// 	<c>true</c> if the 'private' bit is set in the frame header; otherwise, <c>false</c>.
         /// </value>
-        public bool IsPrivate
-        {
-            get { return _isPrivate; }
-        }
+        public bool IsPrivate { get; }
 
         /// <summary>
         /// Gets a value indicating whether the 'copyright' bit is set in the frame header.
@@ -739,10 +725,7 @@ namespace IdSharp.AudioInfo
         /// <value>
         /// 	<c>true</c> if the 'copyright' bit is set in the frame header; otherwise, <c>false</c>.
         /// </value>
-        public bool IsCopyright
-        {
-            get { return _isCopyright; }
-        }
+        public bool IsCopyright { get; }
 
         /// <summary>
         /// Gets a value indicating whether the 'original' bit is set in the frame header.
@@ -750,9 +733,6 @@ namespace IdSharp.AudioInfo
         /// <value>
         /// 	<c>true</c> if the 'original' bit is set in the frame header; otherwise, <c>false</c>.
         /// </value>
-        public bool IsOriginal
-        {
-            get { return _isOriginal; }
-        }
+        public bool IsOriginal { get; }
     }
 }

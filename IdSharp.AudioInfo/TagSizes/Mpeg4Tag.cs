@@ -17,7 +17,6 @@ namespace IdSharp.AudioInfo
         private readonly List<Atom> _atoms = new List<Atom>();
 
         private int _freesize;
-        private int _mdatsize;
 
         internal Mpeg4Tag(string path)
         {
@@ -32,10 +31,7 @@ namespace IdSharp.AudioInfo
 
         #region <<< Internal Properties >>>
 
-        internal int MdatAtomSize
-        {
-            get { return _mdatsize; }
-        }
+        internal int MdatAtomSize { get; private set; }
 
         internal int Samples { get; private set; }
 
@@ -119,7 +115,7 @@ namespace IdSharp.AudioInfo
 
                 if (string.Compare(atomname, "mdat", true) == 0)
                 {
-                    _mdatsize = atomsize;
+                    MdatAtomSize = atomsize;
                 }
                 /*else if (String.Compare(atomname, "moov", true) == 0)
                 {
@@ -243,7 +239,7 @@ namespace IdSharp.AudioInfo
         {
             _atoms.Clear();
             _freesize = 0;
-            _mdatsize = 0;
+            MdatAtomSize = 0;
 
             long end = stream.Length;
             ParseAtom(stream, 0, end, 0);

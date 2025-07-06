@@ -7,8 +7,6 @@ namespace IdSharp.WebLookup.Amazon
     /// </summary>
     public class AmazonSearchResponse
     {
-        private readonly List<AmazonAlbum> _amazonAlbumList = new List<AmazonAlbum>();
-
         internal AmazonSearchResponse()
         {
         }
@@ -29,12 +27,6 @@ namespace IdSharp.WebLookup.Amazon
         /// Gets the items.
         /// </summary>
         /// <value>The items.</value>
-        public List<AmazonAlbum> Items
-        {
-            get
-            {
-                return _amazonAlbumList;
-            }
-        }
+        public List<AmazonAlbum> Items { get; } = new List<AmazonAlbum>();
     }
 }

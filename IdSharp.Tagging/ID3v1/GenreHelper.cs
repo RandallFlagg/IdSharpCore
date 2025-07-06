@@ -10,7 +10,27 @@ namespace IdSharp.Tagging.ID3v1
     {
         #region <<< Genre by ID3v1 index >>>
 
-        private static readonly string[] _genreByIndex = new[] {
+        #endregion <<< Genre by index >>>
+
+        private static readonly string[] _sortedGenreList;
+        private static readonly int _genreCount;
+
+        /// <summary>
+        /// The genre index of 'Other' (12).
+        /// </summary>
+        public const int Other_GenreIndex = 12;
+
+        static GenreHelper()
+        {
+            _genreCount = GenreByIndex.Length;
+            _sortedGenreList = GenreByIndex.OrderBy(p => p).ToArray();
+        }
+
+        /// <summary>
+        /// Gets a string array of ID3v1 genres sorted by index.
+        /// </summary>
+        /// <value>A string array of ID3v1 genres sorted by index.</value>
+        public static string[] GenreByIndex { get; } = new[] {
             "Blues",
             "Classic Rock",
             "Country",
@@ -159,30 +179,6 @@ namespace IdSharp.Tagging.ID3v1
             "Anime",
             "Jpop",
             "Synthpop"};
-        #endregion <<< Genre by index >>>
-
-        private static readonly string[] _sortedGenreList;
-        private static readonly int _genreCount;
-
-        /// <summary>
-        /// The genre index of 'Other' (12).
-        /// </summary>
-        public const int Other_GenreIndex = 12;
-
-        static GenreHelper()
-        {
-            _genreCount = _genreByIndex.Length;
-            _sortedGenreList = _genreByIndex.OrderBy(p => p).ToArray();
-        }
-
-        /// <summary>
-        /// Gets a string array of ID3v1 genres sorted by index.
-        /// </summary>
-        /// <value>A string array of ID3v1 genres sorted by index.</value>
-        public static string[] GenreByIndex
-        {
-            get { return _genreByIndex; }
-        }
 
         /// <summary>
         /// Gets a sorted list of ID3v1 genres.
@@ -202,7 +198,7 @@ namespace IdSharp.Tagging.ID3v1
         {
             for (int i = 0; i <= _genreCount; i++)
             {
-                if (string.Compare(genre, _genreByIndex[i], true) == 0)
+                if (string.Compare(genre, GenreByIndex[i], true) == 0)
                     return i;
             }
             return Other_GenreIndex;

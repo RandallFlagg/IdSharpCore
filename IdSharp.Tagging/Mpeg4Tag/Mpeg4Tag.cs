@@ -65,8 +65,6 @@ namespace IdSharp.Tagging.Mpeg4
         private int _udtasize;
         private long _freepos;
         private int _freesize;
-        private int _mdatsize;
-
         private string _artist;
         private string _album;
         private string _title;
@@ -364,10 +362,7 @@ namespace IdSharp.Tagging.Mpeg4
 
         #region <<< Internal Properties >>>
 
-        internal int MdatAtomSize
-        {
-            get { return _mdatsize; }
-        }
+        internal int MdatAtomSize { get; private set; }
 
         internal int Samples
         {
@@ -570,7 +565,7 @@ namespace IdSharp.Tagging.Mpeg4
 
                 if (string.Compare(atomname, "mdat", true) == 0)
                 {
-                    _mdatsize = atomsize;
+                    MdatAtomSize = atomsize;
                 }
                 else if (string.Compare(atomname, "moov", true) == 0)
                 {
@@ -976,7 +971,7 @@ namespace IdSharp.Tagging.Mpeg4
             _udtasize = 0;
             _freepos = 0;
             _freesize = 0;
-            _mdatsize = 0;
+            MdatAtomSize = 0;
 
             long end = stream.Length;
             ParseAtom(stream, 0, end, 0);

@@ -12,14 +12,6 @@ namespace IdSharp.AudioInfo
         private const uint STREAM_VERSION_71_ID = 0x172B504D;
         private static readonly int[] _sampleRates = new[] { 44100, 48000, 37800, 32000 };
 
-        private readonly int _frequency;
-        private readonly int _frames;
-        private readonly decimal _streamVersion;
-        private readonly decimal _totalSeconds;
-        private readonly decimal _bitrate;
-        private readonly string _mode;
-        private readonly int _channels = 2; // TODO
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Musepack"/> class.
         /// </summary>
@@ -34,7 +26,7 @@ namespace IdSharp.AudioInfo
                 int tmpAPEv2TagSize = APEv2.GetTagSize(stream);
                 stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
-                _streamVersion = 0;
+                StreamVersion = 0;
 
                 byte[] byteArray = stream.Read(32);
                 int[] integerArray = new int[8];
@@ -49,56 +41,56 @@ namespace IdSharp.AudioInfo
                 // Stream version
                 if (integerArray[0] == STREAM_VERSION_70_ID)
                 {
-                    _streamVersion = 7;
+                    StreamVersion = 7;
                 }
                 else if (integerArray[0] == STREAM_VERSION_71_ID)
                 {
-                    _streamVersion = 7.1m;
+                    StreamVersion = 7.1m;
                 }
                 else
                 {
                     switch ((byteArray[1] % 32) / 2)
                     {
                         case 3: 
-                            _streamVersion = 4; 
+                            StreamVersion = 4; 
                             break;
                         case 7: 
-                            _streamVersion = 5; 
+                            StreamVersion = 5; 
                             break;
                         case 11: 
-                            _streamVersion = 6; 
+                            StreamVersion = 6; 
                             break;
                     }
                 }
 
-                if (_streamVersion == 0)
+                if (StreamVersion == 0)
                 {
                     throw new InvalidDataException("Unrecognized MPC stream");
                 }
 
                 // Sample rate
-                _frequency = _sampleRates[byteArray[10] & 0x03];
+                Frequency = _sampleRates[byteArray[10] & 0x03];
 
                 // Channels
-                if (_streamVersion == 7 || _streamVersion == 7.1m)
+                if (StreamVersion == 7 || StreamVersion == 7.1m)
                 {
-                    if ((byteArray[11] % 128) < 64) _mode = "Stereo";
-                    else _mode = "Joint Stereo";
+                    if ((byteArray[11] % 128) < 64) Mode = "Stereo";
+                    else Mode = "Joint Stereo";
                 }
                 else
                 {
-                    if ((byteArray[2] % 128) == 0) _mode = "Stereo";
-                    else _mode = "Joint Stereo";
+                    if ((byteArray[2] % 128) == 0) Mode = "Stereo";
+                    else Mode = "Joint Stereo";
                 }
 
                 // Frames
-                if (_streamVersion == 4)
-                    _frames = integerArray[1] >> 16;
+                if (StreamVersion == 4)
+                    Frames = integerArray[1] >> 16;
                 else
-                    _frames = integerArray[1];
+                    Frames = integerArray[1];
 
-                _totalSeconds = _frames * 1152 / (decimal)_frequency;
-                _bitrate = (audioDataLength / _totalSeconds) / 125.0m;
+                TotalSeconds = Frames * 1152 / (decimal)Frequency;
+                Bitrate = (audioDataLength / TotalSeconds) / 125.0m;
             }
         }
 
@@ -106,64 +98,43 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; }
 
         /// <summary>
         /// Gets the frame count.
         /// </summary>
         /// <value>The frame count.</value>
-        public int Frames
-        {
-            get { return _frames; }
-        }
+        public int Frames { get; }
 
         /// <summary>
         /// Gets the stream version.
         /// </summary>
         /// <value>The stream version.</value>
-        public decimal StreamVersion
-        {
-            get { return _streamVersion; }
-        }
+        public decimal StreamVersion { get; }
 
         /// <summary>
         /// Gets the total seconds.
         /// </summary>
         /// <value>The total seconds.</value>
-        public decimal TotalSeconds
-        {
-            get { return _totalSeconds; }
-        }
+        public decimal TotalSeconds { get; }
 
         /// <summary>
         /// Gets the bitrate.
         /// </summary>
         /// <value>The bitrate.</value>
-        public decimal Bitrate
-        {
-            get { return _bitrate; }
-        }
+        public decimal Bitrate { get; }
 
         /// <summary>
         /// Gets the mode.
         /// </summary>
         /// <value>The mode.</value>
-        public string Mode
-        {
-            get { return _mode; }
-        }
+        public string Mode { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; } = 2;
 
         /// <summary>
         /// Gets the type of the audio file.
