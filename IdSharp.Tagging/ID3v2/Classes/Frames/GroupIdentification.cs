@@ -12,7 +12,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -22,7 +22,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
 
     public byte GroupSymbol
     {
-        get { return _groupSymbol; }
+        get => _groupSymbol;
         set
         {
             _groupSymbol = value;
@@ -32,7 +32,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
 
     public byte[] GroupDependentData
     {
-        get { return ByteUtils.Clone(_groupDependentData); }
+        get => ByteUtils.Clone(_groupDependentData);
         set
         {
             _groupDependentData = ByteUtils.Clone(value);

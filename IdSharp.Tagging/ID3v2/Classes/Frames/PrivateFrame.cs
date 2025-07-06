@@ -11,7 +11,7 @@ internal sealed class PrivateFrame : Frame, IPrivateFrame
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -21,7 +21,7 @@ internal sealed class PrivateFrame : Frame, IPrivateFrame
 
     public byte[] PrivateData
     {
-        get { return ByteUtils.Clone(_privateData); }
+        get => ByteUtils.Clone(_privateData);
         set
         {
             _privateData = ByteUtils.Clone(value);

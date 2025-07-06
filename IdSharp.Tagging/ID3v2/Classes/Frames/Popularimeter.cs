@@ -12,7 +12,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
 
     public string UserEmail
     {
-        get { return _userEmail; }
+        get => _userEmail;
         set
         {
             _userEmail = value;
@@ -22,7 +22,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
 
     public byte Rating
     {
-        get { return _rating; }
+        get => _rating;
         set
         {
             _rating = value;
@@ -32,7 +32,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
 
     public long PlayCount
     {
-        get { return _playCount; }
+        get => _playCount;
         set
         {
             if (value < 0)

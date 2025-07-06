@@ -21,7 +21,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;

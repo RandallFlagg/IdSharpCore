@@ -124,10 +124,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The artist.</value>
     public string Artist
     {
-        get
-        {
-            return _artist;
-        }
+        get => _artist;
         set
         {
             _artist = value;
@@ -141,10 +138,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The album.</value>
     public string Album
     {
-        get
-        {
-            return _album;
-        }
+        get => _album;
         set
         {
             _album = value;
@@ -158,10 +152,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The title.</value>
     public string Title
     {
-        get
-        {
-            return _title;
-        }
+        get => _title;
         set
         {
             _title = value;
@@ -175,10 +166,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The genre.</value>
     public string Genre
     {
-        get
-        {
-            return _genre;
-        }
+        get => _genre;
         set
         {
             _genre = value;
@@ -192,10 +180,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The year.</value>
     public string Year
     {
-        get
-        {
-            return _year;
-        }
+        get => _year;
         set
         {
             _year = value;
@@ -209,10 +194,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The comment.</value>
     public string Comment
     {
-        get
-        {
-            return _comment;
-        }
+        get => _comment;
         set
         {
             _comment = value;
@@ -226,10 +208,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The tool.</value>
     public string Tool
     {
-        get
-        {
-            return _tool;
-        }
+        get => _tool;
         set
         {
             _tool = value;
@@ -243,10 +222,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The composer.</value>
     public string Composer
     {
-        get
-        {
-            return _composer;
-        }
+        get => _composer;
         set
         {
             _composer = value;
@@ -260,10 +236,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The track number.</value>
     public int TrackNumber
     {
-        get
-        {
-            return _trackNumber;
-        }
+        get => _trackNumber;
         set
         {
             _trackNumber = value;
@@ -277,10 +250,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The total tracks.</value>
     public int TotalTracks
     {
-        get
-        {
-            return _totalTracks;
-        }
+        get => _totalTracks;
         set
         {
             _totalTracks = value;
@@ -296,10 +266,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// </value>
     public bool IsPartOfCompilation
     {
-        get
-        {
-            return _isPartOfCompilation;
-        }
+        get => _isPartOfCompilation;
         set
         {
             _isPartOfCompilation = value;
@@ -313,10 +280,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The BPM.</value>
     public int BPM
     {
-        get
-        {
-            return _bpm;
-        }
+        get => _bpm;
         set
         {
             _bpm = value;
@@ -330,10 +294,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The disc.</value>
     public int Disc
     {
-        get
-        {
-            return _disc;
-        }
+        get => _disc;
         set
         {
             _disc = value;
@@ -347,10 +308,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     /// <value>The total discs.</value>
     public int TotalDiscs
     {
-        get
-        {
-            return _totalDiscs;
-        }
+        get => _totalDiscs;
         set
         {
             _totalDiscs = value;
@@ -366,7 +324,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
 
     internal int Samples
     {
-        get { return _samples; }
+        get => _samples;
         private set
         {
             _samples = value;
@@ -376,7 +334,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
 
     internal int Channels
     {
-        get { return _channels; }
+        get => _channels;
         private set
         {
             _channels = value;
@@ -386,7 +344,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
 
     internal int Frequency
     {
-        get { return _frequency; }
+        get => _frequency;
         private set
         {
             _frequency = value;
@@ -396,7 +354,7 @@ internal class Mpeg4Tag : INotifyPropertyChanged
 
     internal string Codec
     {
-        get { return _codec; }
+        get => _codec;
         private set
         {
             _codec = value;

@@ -70,7 +70,7 @@ internal sealed class AudioText : Frame, IAudioText
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -80,7 +80,7 @@ internal sealed class AudioText : Frame, IAudioText
 
     public string MimeType
     {
-        get { return _mimeType; }
+        get => _mimeType;
         set
         {
             _mimeType = value;
@@ -90,7 +90,7 @@ internal sealed class AudioText : Frame, IAudioText
 
     public string EquivalentText
     {
-        get { return _equivalentText; }
+        get => _equivalentText;
         set
         {
             _equivalentText = value;

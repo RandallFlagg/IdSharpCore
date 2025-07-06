@@ -48,8 +48,9 @@ public class MP3GainTagItems {
     /// Gets or sets the track's minimum gain
     /// </summary>
     /// <value>Track's minimum gain</value>
-    public short? TrackMinimumGain {
-        get { return _trackMin; }
+    public short? TrackMinimumGain
+    {
+        get => _trackMin;
         set { _trackMin = value; RaisePropertyChanged("TrackMinimumGain"); }
     }
 
@@ -57,8 +58,9 @@ public class MP3GainTagItems {
     /// Gets or sets the track's maximum gain
     /// </summary>
     /// <value>Track's maximum gain</value>
-    public short? TrackMaximumGain {
-        get { return _trackMax; }
+    public short? TrackMaximumGain
+    {
+        get => _trackMax;
         set { _trackMax = value; RaisePropertyChanged("TrackMaximumGain"); }
     }
 
@@ -66,8 +68,9 @@ public class MP3GainTagItems {
     /// Gets or sets the track's minimum gain in the context of the album
     /// </summary>
     /// <value>Album's minimum gain</value>
-    public short? AlbumMinimumGain {
-        get { return _albumMin; }
+    public short? AlbumMinimumGain
+    {
+        get => _albumMin;
         set { _albumMin = value; RaisePropertyChanged("AlbumMinimumGain"); }
     }
 
@@ -75,8 +78,9 @@ public class MP3GainTagItems {
     /// Gets or sets the track's maximum gain in the context of the album
     /// </summary>
     /// <value>Album's maximum gain</value>
-    public short? AlbumMaximumGain {
-        get { return _albumMax; }
+    public short? AlbumMaximumGain
+    {
+        get => _albumMax;
         set { _albumMax = value; RaisePropertyChanged("AlbumMaximumGain"); }
     }
 
@@ -84,8 +88,9 @@ public class MP3GainTagItems {
     /// Gets or sets the number of steps necessary to undo the gain adjustment of the track's left channel
     /// </summary>
     /// <value>Left channel's undo amount</value>
-    public short? UndoLeftChannelAdjustment {
-        get { return _undoLeftChannel; }
+    public short? UndoLeftChannelAdjustment
+    {
+        get => _undoLeftChannel;
         set { _undoLeftChannel = value; RaisePropertyChanged("UndoLeftChannelAdjustment"); }
     }
 
@@ -93,8 +98,9 @@ public class MP3GainTagItems {
     /// Gets or sets the number of steps necessary to undo the gain adjustment of the track's right channel
     /// </summary>
     /// <value>Right channel's undo amount</value>
-    public short? UndoRightChannelAdjustment {
-        get { return _undoRightChannel; }
+    public short? UndoRightChannelAdjustment
+    {
+        get => _undoRightChannel;
         set { _undoRightChannel = value; RaisePropertyChanged("UndoRightChannelAdjustment"); }
     }
 
@@ -102,8 +108,9 @@ public class MP3GainTagItems {
     /// Gets or sets the flag indicating if wrapping occurred during the gain adjustment on the track
     /// </summary>
     /// <value>Undo wrap flag</value>
-    public bool? UndoWrapFlag {
-        get { return _undoWrap; }
+    public bool? UndoWrapFlag
+    {
+        get => _undoWrap;
         set { _undoWrap = value; RaisePropertyChanged("UndoWrapFlag"); }
     }
 

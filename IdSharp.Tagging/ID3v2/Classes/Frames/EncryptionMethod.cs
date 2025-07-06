@@ -12,7 +12,7 @@ internal sealed class EncryptionMethod : Frame, IEncryptionMethod
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -22,7 +22,7 @@ internal sealed class EncryptionMethod : Frame, IEncryptionMethod
 
     public byte MethodSymbol
     {
-        get { return _methodSymbol; }
+        get => _methodSymbol;
         set
         {
             _methodSymbol = value;
@@ -32,7 +32,7 @@ internal sealed class EncryptionMethod : Frame, IEncryptionMethod
 
     public byte[] EncryptionData
     {
-        get { return ByteUtils.Clone(_encryptionData); }
+        get => ByteUtils.Clone(_encryptionData);
         set
         {
             _encryptionData = ByteUtils.Clone(value);

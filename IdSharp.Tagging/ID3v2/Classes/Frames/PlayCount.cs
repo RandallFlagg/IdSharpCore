@@ -10,7 +10,7 @@ internal sealed class PlayCount : Frame, IPlayCount
 
     public long? Value
     {
-        get { return m_Value; }
+        get => m_Value;
         set
         {
             if (value < 0)

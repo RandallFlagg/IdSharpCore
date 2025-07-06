@@ -15,7 +15,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -25,7 +25,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
 
     public string MimeType
     {
-        get { return _mimeType; }
+        get => _mimeType;
         set
         {
             _mimeType = value;
@@ -35,7 +35,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
 
     public string FileName
     {
-        get { return _fileName; }
+        get => _fileName;
         set
         {
             _fileName = value;
@@ -45,7 +45,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
 
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             _description = value;
@@ -55,7 +55,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
 
     public byte[] EncapsulatedObject
     {
-        get { return ByteUtils.Clone(_encapsulatedObject); }
+        get => ByteUtils.Clone(_encapsulatedObject);
         set
         {
             _encapsulatedObject = ByteUtils.Clone(value);

@@ -212,14 +212,7 @@ internal sealed class FrameHeader : IFrameHeader
 
     public bool UsesUnsynchronization
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException(); set => throw new NotImplementedException();
     }
 
     #endregion

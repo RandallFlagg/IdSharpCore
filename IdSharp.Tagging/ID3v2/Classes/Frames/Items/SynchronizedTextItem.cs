@@ -12,10 +12,7 @@ internal sealed class SynchronizedTextItem : ISynchronizedTextItem
 
     public string Text
     {
-        get
-        {
-            return _text;
-        }
+        get => _text;
         set
         {
             _text = value;
@@ -25,10 +22,7 @@ internal sealed class SynchronizedTextItem : ISynchronizedTextItem
 
     public int Timestamp
     {
-        get
-        {
-            return _timestamp;
-        }
+        get => _timestamp;
         set
         {
             if (value < 0)

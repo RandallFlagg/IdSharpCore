@@ -18,7 +18,7 @@ internal sealed class EventTiming : Frame, IEventTiming
 
     public TimestampFormat TimestampFormat
     {
-        get { return _timestampFormat; }
+        get => _timestampFormat;
         set
         {
             _timestampFormat = value;

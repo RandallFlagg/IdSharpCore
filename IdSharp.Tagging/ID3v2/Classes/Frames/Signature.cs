@@ -11,7 +11,7 @@ internal sealed class Signature : Frame, ISignature
 
     public byte GroupSymbol
     {
-        get { return _groupSymbol; }
+        get => _groupSymbol;
         set
         {
             _groupSymbol = value;
@@ -21,7 +21,7 @@ internal sealed class Signature : Frame, ISignature
 
     public byte[] SignatureData
     {
-        get { return ByteUtils.Clone(_signatureData); }
+        get => ByteUtils.Clone(_signatureData);
         set
         {
             _signatureData = ByteUtils.Clone(value);

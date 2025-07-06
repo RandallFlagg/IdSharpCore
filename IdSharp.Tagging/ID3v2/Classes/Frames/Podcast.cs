@@ -10,7 +10,7 @@ internal sealed class Podcast : Frame, IPodcast
 
     public bool Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             if (_value != value)

@@ -11,7 +11,7 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
 
     public int BufferSize
     {
-        get { return _bufferSize; }
+        get => _bufferSize;
         set
         {
             if (value < 0)
@@ -26,7 +26,7 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
 
     public bool EmbeddedInfo
     {
-        get { return _embeddedInfo; }
+        get => _embeddedInfo;
         set
         {
             _embeddedInfo = value;
@@ -36,7 +36,7 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
 
     public int? OffsetToNextTag
     {
-        get { return _offsetToNextTag; }
+        get => _offsetToNextTag;
         set
         {
             if (value < 0)

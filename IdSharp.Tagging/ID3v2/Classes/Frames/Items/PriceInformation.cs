@@ -11,10 +11,7 @@ internal sealed class PriceInformation : IPriceInformation
 
     public string CurrencyCode
     {
-        get
-        {
-            return _currencyCode;
-        }
+        get => _currencyCode;
         set
         {
             _currencyCode = value;
@@ -24,10 +21,7 @@ internal sealed class PriceInformation : IPriceInformation
 
     public decimal Price
     {
-        get
-        {
-            return _price;
-        }
+        get => _price;
         set
         {
             _price = value;

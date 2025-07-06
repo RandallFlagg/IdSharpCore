@@ -40,10 +40,7 @@ internal sealed class ID3v2Header : IID3v2Header
 
     public int TagSize
     {
-        get 
-        { 
-            return _tagSize; 
-        }
+        get => _tagSize;
         set
         {
             if (value > 0xFFFFFFF)

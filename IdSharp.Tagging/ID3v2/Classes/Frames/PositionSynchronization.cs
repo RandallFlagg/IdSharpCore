@@ -15,7 +15,7 @@ internal sealed class PositionSynchronization : Frame, IPositionSynchronization
 
     public TimestampFormat TimestampFormat
     {
-        get { return m_TimestampFormat; }
+        get => m_TimestampFormat;
         set
         {
             m_TimestampFormat = value;
@@ -25,7 +25,7 @@ internal sealed class PositionSynchronization : Frame, IPositionSynchronization
 
     public int Position
     {
-        get { return m_Position; }
+        get => m_Position;
         set
         {
             if (value < 0)

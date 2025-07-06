@@ -182,7 +182,7 @@ public class AmazonImages : INotifyPropertyChanged
     /// <value>A value indicating where this instance contains images. Returns <c>null</c> if unchecked.</value>
     public bool? HasImage
     {
-        get { return _hasImage; }
+        get => _hasImage;
         private set
         {
             if (_hasImage != value)
@@ -199,7 +199,7 @@ public class AmazonImages : INotifyPropertyChanged
     /// <value>The largest image size. Returns <c>null</c> if unchecked.</value>
     public Size? LargestImageSize
     {
-        get { return _largestImageSize; }
+        get => _largestImageSize;
         set
         {
             if (_largestImageSize != value)

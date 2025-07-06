@@ -27,7 +27,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -42,7 +42,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public DateTime ValidUntil
     {
-        get { return _validUntil.Date; }
+        get => _validUntil.Date;
         set
         {
             _validUntil = value.Date;
@@ -52,7 +52,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public string ContactUrl
     {
-        get { return _contactUrl; }
+        get => _contactUrl;
         set
         {
             _contactUrl = value;
@@ -62,7 +62,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public ReceivedAs ReceivedAs
     {
-        get { return _receivedAs; }
+        get => _receivedAs;
         set
         {
             _receivedAs = value;
@@ -72,7 +72,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public string NameOfSeller
     {
-        get { return _nameOfSeller; }
+        get => _nameOfSeller;
         set
         {
             _nameOfSeller = value;
@@ -82,7 +82,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             _description = value;
@@ -92,7 +92,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public string SellerLogoMimeType
     {
-        get { return _sellerLogoMimeType; }
+        get => _sellerLogoMimeType;
         set
         {
             _sellerLogoMimeType = value;
@@ -102,7 +102,7 @@ internal sealed class Commercial : Frame, ICommercial
 
     public byte[] SellerLogo
     {
-        get { return ByteUtils.Clone(_sellerLogo); }
+        get => ByteUtils.Clone(_sellerLogo);
         set
         {
             _sellerLogo = ByteUtils.Clone(value);

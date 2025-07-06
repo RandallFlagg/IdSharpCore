@@ -20,7 +20,7 @@ internal sealed class InvolvedPersonList : Frame, IInvolvedPersonList
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;

@@ -72,9 +72,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The artist.</value>
     public string Artist
-    {
-        get { return Items.GetValue("ARTIST"); }
-        set { Items.SetValue("ARTIST", value); }
+    { get => Items.GetValue("ARTIST"); set => Items.SetValue("ARTIST", value);
     }
 
     /// <summary>
@@ -82,9 +80,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The album.</value>
     public string Album
-    {
-        get { return Items.GetValue("ALBUM"); }
-        set { Items.SetValue("ALBUM", value); }
+    { get => Items.GetValue("ALBUM"); set => Items.SetValue("ALBUM", value);
     }
 
     /// <summary>
@@ -92,9 +88,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The title.</value>
     public string Title
-    {
-        get { return Items.GetValue("TITLE"); }
-        set { Items.SetValue("TITLE", value); }
+    { get => Items.GetValue("TITLE"); set => Items.SetValue("TITLE", value);
     }
 
     /// <summary>
@@ -113,7 +107,8 @@ public class VorbisComment : IVorbisComment
 
             return value;
         }
-        set { Items.SetValue("DATE", value); }
+
+        set => Items.SetValue("DATE", value);
     }
 
     /// <summary>
@@ -121,9 +116,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The genre.</value>
     public string Genre
-    {
-        get { return Items.GetValue("GENRE"); }
-        set { Items.SetValue("GENRE", value); }
+    { get => Items.GetValue("GENRE"); set => Items.SetValue("GENRE", value);
     }
 
     /// <summary>
@@ -131,9 +124,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The track number.</value>
     public string TrackNumber
-    {
-        get { return Items.GetValue("TRACKNUMBER"); }
-        set { Items.SetValue("TRACKNUMBER", value); }
+    { get => Items.GetValue("TRACKNUMBER"); set => Items.SetValue("TRACKNUMBER", value);
     }
 
     /// <summary>
@@ -141,9 +132,7 @@ public class VorbisComment : IVorbisComment
     /// </summary>
     /// <value>The comment.</value>
     public string Comment
-    {
-        get { return Items.GetValue("COMMENT"); }
-        set { Items.SetValue("COMMENT", value); }
+    { get => Items.GetValue("COMMENT"); set => Items.SetValue("COMMENT", value);
     }
 
     /// <summary>

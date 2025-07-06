@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+
 using IdSharp.Common.Utils;
 
 namespace IdSharp.Tagging.APEv2;
@@ -111,7 +112,7 @@ public partial class APEv2Tag : IAPEv2Tag
                 byte[] valueBytes = Encoding.UTF8.GetBytes(item.Value);
 
                 ms.WriteInt32LittleEndian(valueBytes.Length); // size
-                ms.Write(new byte[] { 0x00, 0x00, 0x00, 0x00}); // todo: account for encoding type
+                ms.Write(new byte[] { 0x00, 0x00, 0x00, 0x00 }); // todo: account for encoding type
                 ms.Write(Encoding.ASCII.GetBytes(item.Key));
                 ms.WriteByte(0x00);
                 ms.Write(valueBytes);
@@ -171,7 +172,7 @@ public partial class APEv2Tag : IAPEv2Tag
         {
             // skip past possible ID3v1 tag
             footerOffset = 128;
-            stream.Seek(-128-32, SeekOrigin.End);
+            stream.Seek(-128 - 32, SeekOrigin.End);
             stream.Read(buf, 0, 32);
             if (ByteUtils.Compare(buf, _APETAGEX, 8) == false)
             {
@@ -261,7 +262,7 @@ public partial class APEv2Tag : IAPEv2Tag
         stream.Read(buf, 0, 8);
         for (int i = 0; i < 4; i++)
         {
-            size += (buf[i] << (i*8));
+            size += (buf[i] << (i * 8));
         }
 
         //encoding = (buf[20] >> 1) & 0x03;
@@ -273,7 +274,7 @@ public partial class APEv2Tag : IAPEv2Tag
 
         string itemKey = stream.ReadISO88591().ToUpper();
         string itemValue = stream.ReadUTF8(size);
-        
+
         // does the key already exist?
         if (_items.ContainsKey(itemKey))
         {
@@ -345,7 +346,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The title.</value>
     public string Title
     {
-        get { return _title; }
+        get => _title;
         set { _title = value; RaisePropertyChanged("Title"); }
     }
 
@@ -355,7 +356,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The artist.</value>
     public string Artist
     {
-        get { return _artist; }
+        get => _artist;
         set { _artist = value; RaisePropertyChanged("Artist"); }
     }
 
@@ -365,7 +366,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The album.</value>
     public string Album
     {
-        get { return _album; }
+        get => _album;
         set { _album = value; RaisePropertyChanged("Album"); }
     }
 
@@ -375,7 +376,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The publisher.</value>
     public string Publisher
     {
-        get { return _publisher; }
+        get => _publisher;
         set { _publisher = value; RaisePropertyChanged("Publisher"); }
     }
 
@@ -385,7 +386,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The track.</value>
     public string TrackNumber
     {
-        get { return _trackNumber; }
+        get => _trackNumber;
         set { _trackNumber = value; RaisePropertyChanged("TrackNumber"); }
     }
 
@@ -395,7 +396,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The comment.</value>
     public string Comment
     {
-        get { return _comment; }
+        get => _comment;
         set { _comment = value; RaisePropertyChanged("Comment"); }
     }
 
@@ -405,7 +406,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The catalog.</value>
     public string Catalog
     {
-        get { return _catalog; }
+        get => _catalog;
         set { _catalog = value; RaisePropertyChanged("Catalog"); }
     }
 
@@ -415,7 +416,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The year.</value>
     public string Year
     {
-        get { return _year; }
+        get => _year;
         set { _year = value; RaisePropertyChanged("Year"); }
     }
 
@@ -425,7 +426,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The record date.</value>
     public string RecordDate
     {
-        get { return _recordDate; }
+        get => _recordDate;
         set { _recordDate = value; RaisePropertyChanged("RecordDate"); }
     }
 
@@ -435,7 +436,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The genre.</value>
     public string Genre
     {
-        get { return _genre; }
+        get => _genre;
         set { _genre = value; RaisePropertyChanged("Genre"); }
     }
 
@@ -445,8 +446,12 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The media.</value>
     public string Media
     {
-        get { return _media; }
-        set { _media = value; RaisePropertyChanged("Media"); }
+        get => _media;
+        set
+        {
+            _media = value;
+            RaisePropertyChanged("Media");
+        }
     }
 
     /// <summary>
@@ -455,8 +460,12 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <value>The language.</value>
     public string Language
     {
-        get { return _language; }
-        set { _language = value; RaisePropertyChanged("Language"); }
+        get => _language;
+        set
+        {
+            _language = value;
+            RaisePropertyChanged("Language");
+        }
     }
 
     /// <summary>

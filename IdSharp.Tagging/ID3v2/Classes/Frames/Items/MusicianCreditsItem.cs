@@ -12,10 +12,7 @@ internal sealed class MusicianCreditsItem : IMusicianCreditsItem
 
     public string Instrument
     {
-        get
-        {
-            return _instrument;
-        }
+        get => _instrument;
         set
         {
             _instrument = value;
@@ -25,10 +22,7 @@ internal sealed class MusicianCreditsItem : IMusicianCreditsItem
 
     public string Artists
     {
-        get
-        {
-            return _artists;
-        }
+        get => _artists;
         set
         {
             _artists = value;

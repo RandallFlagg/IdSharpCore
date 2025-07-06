@@ -11,10 +11,7 @@ internal sealed class MpegLookupTableItem : IMpegLookupTableItem
 
     public long DeviationInBytes
     {
-        get
-        {
-            return _deviationInBytes;
-        }
+        get => _deviationInBytes;
         set
         {
             _deviationInBytes = value;
@@ -24,10 +21,7 @@ internal sealed class MpegLookupTableItem : IMpegLookupTableItem
 
     public long DeviationInMilliseconds
     {
-        get
-        {
-            return _deviationInMilliseconds;
-        }
+        get => _deviationInMilliseconds;
         set
         {
             _deviationInMilliseconds = value;

@@ -20,7 +20,7 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
 
     public int FramesBetweenReference
     {
-        get { return _framesBetweenReference; }
+        get => _framesBetweenReference;
         set
         {
             if (value < 0)
@@ -39,10 +39,7 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
 
     public int BytesBetweenReference
     {
-        get
-        {
-            return _bytesBetweenReference;
-        }
+        get => _bytesBetweenReference;
         set
         {
             if (value < 0)
@@ -61,10 +58,7 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
 
     public int MillisecondsBetweenReference
     {
-        get
-        {
-            return _millisecondsBetweenReference;
-        }
+        get => _millisecondsBetweenReference;
         set
         {
             if (value < 0)

@@ -11,7 +11,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -21,7 +21,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
 
     public string ContentExplanation
     {
-        get { return _contentExplanation; }
+        get => _contentExplanation;
         set
         {
             _contentExplanation = value;
@@ -31,7 +31,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
 
     public byte[] EncryptedData
     {
-        get { return ByteUtils.Clone(_encryptedData); }
+        get => ByteUtils.Clone(_encryptedData);
         set
         {
             _encryptedData = ByteUtils.Clone(value);

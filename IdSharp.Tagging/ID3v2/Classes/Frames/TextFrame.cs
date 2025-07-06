@@ -22,7 +22,7 @@ internal sealed class TextFrame : Frame, ITextFrame
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -32,7 +32,7 @@ internal sealed class TextFrame : Frame, ITextFrame
 
     public string Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             if (string.IsNullOrEmpty(value))

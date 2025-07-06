@@ -13,7 +13,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -23,7 +23,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
 
     public short PreviewStart
     {
-        get { return _previewStart; }
+        get => _previewStart;
         set
         {
             if (value < 0)
@@ -38,7 +38,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
 
     public short PreviewLength
     {
-        get { return _previewLength; }
+        get => _previewLength;
         set
         {
             if (value < 0)
@@ -53,7 +53,7 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
 
     public byte[] EncryptionInfo
     {
-        get { return ByteUtils.Clone(_encryptionInfo); }
+        get => ByteUtils.Clone(_encryptionInfo);
         set
         {
             _encryptionInfo = ByteUtils.Clone(value);

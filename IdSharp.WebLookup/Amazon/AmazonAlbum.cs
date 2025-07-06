@@ -35,10 +35,7 @@ public class AmazonAlbum
     /// <value>The ASIN.</value>
     public string Asin
     {
-        get
-        {
-            return _asin;
-        }
+        get => _asin;
         internal set
         {
             _asin = value;

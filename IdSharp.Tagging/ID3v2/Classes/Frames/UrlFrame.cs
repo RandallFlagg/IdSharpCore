@@ -20,7 +20,7 @@ internal sealed class UrlFrame : Frame, IUrlFrame
 
     public string Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             _value = value;

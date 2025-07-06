@@ -31,7 +31,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public string Identification
     {
-        get { return _identification; }
+        get => _identification;
         set
         {
             _identification = value;
@@ -41,7 +41,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontRightAdjustment
     {
-        get { return _frontRightAdjustment; }
+        get => _frontRightAdjustment;
         set
         {
             _frontRightAdjustment = value;
@@ -51,7 +51,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontLeftAdjustment
     {
-        get { return _frontLeftAdjustment; }
+        get => _frontLeftAdjustment;
         set
         {
             _frontLeftAdjustment = value;
@@ -61,7 +61,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackRightAdjustment
     {
-        get { return _backRightAdjustment; }
+        get => _backRightAdjustment;
         set
         {
             _backRightAdjustment = value;
@@ -71,7 +71,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackLeftAdjustment
     {
-        get { return _backLeftAdjustment; }
+        get => _backLeftAdjustment;
         set
         {
             _backLeftAdjustment = value;
@@ -81,7 +81,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontCenterAdjustment
     {
-        get { return _frontCenterAdjustment; }
+        get => _frontCenterAdjustment;
         set
         {
             _frontCenterAdjustment = value;
@@ -91,7 +91,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal SubwooferAdjustment
     {
-        get { return _subwooferAdjustment; }
+        get => _subwooferAdjustment;
         set
         {
             _subwooferAdjustment = value;
@@ -101,7 +101,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackCenterAdjustment
     {
-        get { return _backCenterAdjustment; }
+        get => _backCenterAdjustment;
         set
         {
             _backCenterAdjustment = value;
@@ -111,7 +111,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal OtherAdjustment
     {
-        get { return _otherAdjustment; }
+        get => _otherAdjustment;
         set
         {
             _otherAdjustment = value;
@@ -121,7 +121,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal MasterAdjustment
     {
-        get { return _masterAdjustment; }
+        get => _masterAdjustment;
         set
         {
             _masterAdjustment = value;
@@ -131,7 +131,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontRightPeak
     {
-        get { return _frontRightPeak; }
+        get => _frontRightPeak;
         set
         {
             _frontRightPeak = value;
@@ -141,7 +141,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontLeftPeak
     {
-        get { return _frontLeftPeak; }
+        get => _frontLeftPeak;
         set
         {
             _frontLeftPeak = value;
@@ -151,7 +151,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackRightPeak
     {
-        get { return _backRightPeak; }
+        get => _backRightPeak;
         set
         {
             _backRightPeak = value;
@@ -161,7 +161,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackLeftPeak
     {
-        get { return _backLeftPeak; }
+        get => _backLeftPeak;
         set
         {
             _backLeftPeak = value;
@@ -171,7 +171,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal FrontCenterPeak
     {
-        get { return _frontCenterPeak; }
+        get => _frontCenterPeak;
         set
         {
             _frontCenterPeak = value;
@@ -181,7 +181,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal SubwooferPeak
     {
-        get { return _subwooferPeak; }
+        get => _subwooferPeak;
         set
         {
             _subwooferPeak = value;
@@ -191,7 +191,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal BackCenterPeak
     {
-        get { return _backCenterPeak; }
+        get => _backCenterPeak;
         set
         {
             _backCenterPeak = value;
@@ -201,7 +201,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal OtherPeak
     {
-        get { return _otherPeak; }
+        get => _otherPeak;
         set
         {
             _otherPeak = value;
@@ -211,7 +211,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
     public decimal MasterPeak
     {
-        get { return _masterPeak; }
+        get => _masterPeak;
         set
         {
             _masterPeak = value;

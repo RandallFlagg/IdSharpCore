@@ -15,25 +15,25 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set { _textEncoding = value; RaisePropertyChanged("TextEncoding"); }
     }
 
     public string LanguageCode
     {
-        get { return _languageCode; }
+        get => _languageCode;
         set { _languageCode = value; RaisePropertyChanged("LanguageCode"); }
     }
 
     public string ContentDescriptor
     {
-        get { return _contentDescriptor; }
+        get => _contentDescriptor;
         set { _contentDescriptor = value; RaisePropertyChanged("ContentDescriptor"); }
     }
 
     public string Text
     {
-        get { return _text; }
+        get => _text;
         set { _text = value; RaisePropertyChanged("Text"); }
     }
 
