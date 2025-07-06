@@ -16,7 +16,7 @@ internal sealed class Podcast : Frame, IPodcast
             if (_value != value)
             {
                 _value = value;
-                RaisePropertyChanged("Value");
+                RaisePropertyChanged(nameof(Value));
             }
         }
     }

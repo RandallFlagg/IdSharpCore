@@ -35,7 +35,7 @@ public partial class Lyrics3Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -53,7 +53,7 @@ public partial class Lyrics3Tag
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         Read(stream);
@@ -67,7 +67,7 @@ public partial class Lyrics3Tag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         if (_keyValues.Count == 0)
@@ -98,7 +98,7 @@ public partial class Lyrics3Tag
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         _keyValues.Clear();

@@ -24,7 +24,7 @@ internal sealed class UrlFrame : Frame, IUrlFrame
         set
         {
             _value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

@@ -19,7 +19,7 @@ internal sealed class PositionSynchronization : Frame, IPositionSynchronization
         set
         {
             m_TimestampFormat = value;
-            RaisePropertyChanged("TimestampFormat");
+            RaisePropertyChanged(nameof(TimestampFormat));
         }
     }
 
@@ -30,11 +30,11 @@ internal sealed class PositionSynchronization : Frame, IPositionSynchronization
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             m_Position = value;
-            RaisePropertyChanged("Position");
+            RaisePropertyChanged(nameof(Position));
         }
     }
 

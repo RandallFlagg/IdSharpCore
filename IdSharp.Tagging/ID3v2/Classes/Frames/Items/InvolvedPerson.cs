@@ -15,7 +15,7 @@ internal sealed class InvolvedPerson : IInvolvedPerson
         set
         {
             _name = value;
-            RaisePropertyChanged("Name");
+            RaisePropertyChanged(nameof(Name));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class InvolvedPerson : IInvolvedPerson
         set
         {
             _involvement = value;
-            RaisePropertyChanged("Involvement");
+            RaisePropertyChanged(nameof(Involvement));
         }
     }
 

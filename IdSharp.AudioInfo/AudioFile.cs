@@ -18,7 +18,7 @@ public static class AudioFile
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         string ext = Path.GetExtension(path).ToLower();

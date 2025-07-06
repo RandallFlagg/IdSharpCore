@@ -34,7 +34,7 @@ public class SimpleTag : ISimpleTag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         Read(path);
@@ -48,7 +48,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _title = value;
-            RaisePropertyChanged("Title");
+            RaisePropertyChanged(nameof(Title));
         }
     }
 
@@ -60,7 +60,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _artist = value;
-            RaisePropertyChanged("Artist");
+            RaisePropertyChanged(nameof(Artist));
         }
     }
 
@@ -72,7 +72,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _album = value;
-            RaisePropertyChanged("Album");
+            RaisePropertyChanged(nameof(Album));
         }
     }
 
@@ -84,7 +84,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _year = value;
-            RaisePropertyChanged("Year");
+            RaisePropertyChanged(nameof(Year));
         }
     }
 
@@ -96,7 +96,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _comment = value;
-            RaisePropertyChanged("Comment");
+            RaisePropertyChanged(nameof(Comment));
         }
     }
 
@@ -108,7 +108,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _trackNumber = value;
-            RaisePropertyChanged("TrackNumber");
+            RaisePropertyChanged(nameof(TrackNumber));
         }
     }
 
@@ -120,7 +120,7 @@ public class SimpleTag : ISimpleTag
         set
         {
             _genre = value;
-            RaisePropertyChanged("Genre");
+            RaisePropertyChanged(nameof(Genre));
         }
     }
 
@@ -132,7 +132,7 @@ public class SimpleTag : ISimpleTag
         private set
         {
             _tagVersion = value;
-            RaisePropertyChanged("TagVersion");
+            RaisePropertyChanged(nameof(TagVersion));
         }
     }
 
@@ -148,7 +148,7 @@ public class SimpleTag : ISimpleTag
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         bool id3v2Found = false;
@@ -260,7 +260,7 @@ public class SimpleTag : ISimpleTag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         if (VorbisComment.VorbisComment.IsFlac(path))
@@ -345,7 +345,7 @@ public class SimpleTag : ISimpleTag
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))

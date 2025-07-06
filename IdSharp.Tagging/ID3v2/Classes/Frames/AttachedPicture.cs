@@ -45,7 +45,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
                 // iTunes will recognize it.
 
                 _textEncoding = value;
-                RaisePropertyChanged("TextEncoding");
+                RaisePropertyChanged(nameof(TextEncoding));
             }
         }
     }
@@ -58,7 +58,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             if (_mimeType != value)
             {
                 _mimeType = value;
-                RaisePropertyChanged("MimeType");
+                RaisePropertyChanged(nameof(MimeType));
             }
         }
     }
@@ -73,7 +73,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             if (_pictureType != value)
             {
                 _pictureType = value;
-                RaisePropertyChanged("PictureType");
+                RaisePropertyChanged(nameof(PictureType));
             }
         }
     }
@@ -86,7 +86,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             if (_description != value)
             {
                 _description = value;
-                RaisePropertyChanged("Description");
+                RaisePropertyChanged(nameof(Description));
             }
         }
     }
@@ -104,7 +104,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
                 {
                     LoadPicture();
                 }
-                RaisePropertyChanged("PictureData");
+                RaisePropertyChanged(nameof(PictureData));
             }
         }
     }

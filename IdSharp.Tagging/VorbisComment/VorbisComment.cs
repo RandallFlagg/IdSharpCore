@@ -37,7 +37,7 @@ public class VorbisComment : IVorbisComment
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         Read(path);
@@ -51,7 +51,7 @@ public class VorbisComment : IVorbisComment
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         Read(stream);

@@ -25,7 +25,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 

@@ -16,7 +16,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
         set
         {
             _userEmail = value;
-            RaisePropertyChanged("UserEmail");
+            RaisePropertyChanged(nameof(UserEmail));
         }
     }
 
@@ -26,7 +26,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
         set
         {
             _rating = value;
-            RaisePropertyChanged("Rating");
+            RaisePropertyChanged(nameof(Rating));
         }
     }
 
@@ -37,11 +37,11 @@ internal sealed class Popularimeter : Frame, IPopularimeter
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _playCount = value;
-            RaisePropertyChanged("PlayCount");
+            RaisePropertyChanged(nameof(PlayCount));
         }
     }
 

@@ -74,7 +74,7 @@ internal sealed class AudioText : Frame, IAudioText
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -84,7 +84,7 @@ internal sealed class AudioText : Frame, IAudioText
         set
         {
             _mimeType = value;
-            RaisePropertyChanged("MimeType");
+            RaisePropertyChanged(nameof(MimeType));
         }
     }
 
@@ -94,7 +94,7 @@ internal sealed class AudioText : Frame, IAudioText
         set
         {
             _equivalentText = value;
-            RaisePropertyChanged("EquivalentText");
+            RaisePropertyChanged(nameof(EquivalentText));
         }
     }
 

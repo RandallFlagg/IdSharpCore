@@ -13,7 +13,7 @@ internal static class ID3v1
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
 
         long currentPosition = stream.Position;

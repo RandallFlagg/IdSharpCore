@@ -16,7 +16,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
         set
         {
             _frameIdentifier = value;
-            RaisePropertyChanged("FrameIdentifier");
+            RaisePropertyChanged(nameof(FrameIdentifier));
         }
     }
 
@@ -26,7 +26,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
         set
         {
             _url = value;
-            RaisePropertyChanged("Url");
+            RaisePropertyChanged(nameof(Url));
         }
     }
 
@@ -36,7 +36,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
         set
         {
             _additionalData = ByteUtils.Clone(value);
-            RaisePropertyChanged("AdditionalData");
+            RaisePropertyChanged(nameof(AdditionalData));
         }
     }
 

@@ -22,11 +22,11 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _indexedDataStart = value;
-            RaisePropertyChanged("IndexedDataStart");
+            RaisePropertyChanged(nameof(IndexedDataStart));
         }
     }
 
@@ -37,11 +37,11 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _indexedDataLength = value;
-            RaisePropertyChanged("IndexedDataLength");
+            RaisePropertyChanged(nameof(IndexedDataLength));
         }
     }
 
@@ -51,7 +51,7 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
         set
         {
             _bitsPerIndexPoint = value;
-            RaisePropertyChanged("BitsPerIndexPoint");
+            RaisePropertyChanged(nameof(BitsPerIndexPoint));
         }
     }
 

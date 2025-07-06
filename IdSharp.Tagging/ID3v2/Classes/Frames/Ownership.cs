@@ -17,7 +17,7 @@ internal sealed class Ownership : Frame, IOwnership
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -27,7 +27,7 @@ internal sealed class Ownership : Frame, IOwnership
         set
         {
             _pricePaid = value;
-            RaisePropertyChanged("PricePaid");
+            RaisePropertyChanged(nameof(PricePaid));
         }
     }
 
@@ -37,7 +37,7 @@ internal sealed class Ownership : Frame, IOwnership
         set
         {
             _currencyCode = value; // todo: validation
-            RaisePropertyChanged("CurrencyCode");
+            RaisePropertyChanged(nameof(CurrencyCode));
         }
     }
 
@@ -47,7 +47,7 @@ internal sealed class Ownership : Frame, IOwnership
         set
         {
             _dateOfPurchase = value.Date;
-            RaisePropertyChanged("DateOfPurchase");
+            RaisePropertyChanged(nameof(DateOfPurchase));
         }
     }
 
@@ -57,7 +57,7 @@ internal sealed class Ownership : Frame, IOwnership
         set
         {
             _seller = value;
-            RaisePropertyChanged("Seller");
+            RaisePropertyChanged(nameof(Seller));
         }
     }
 

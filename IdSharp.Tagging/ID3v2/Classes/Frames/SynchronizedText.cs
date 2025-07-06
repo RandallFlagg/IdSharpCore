@@ -28,7 +28,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -39,7 +39,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
         {
             // todo: lang code validation
             _languageCode = value;
-            RaisePropertyChanged("LanguageCode");
+            RaisePropertyChanged(nameof(LanguageCode));
         }
     }
 
@@ -49,7 +49,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
         set
         {
             _timestampFormat = value;
-            RaisePropertyChanged("TimestampFormat");
+            RaisePropertyChanged(nameof(TimestampFormat));
         }
     }
 
@@ -59,7 +59,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
         set
         {
             _contentType = value;
-            RaisePropertyChanged("ContentType");
+            RaisePropertyChanged(nameof(ContentType));
         }
     }
 
@@ -69,7 +69,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
         set
         {
             _contentDescriptor = value;
-            RaisePropertyChanged("ContentDescriptor");
+            RaisePropertyChanged(nameof(ContentDescriptor));
         }
     }
 

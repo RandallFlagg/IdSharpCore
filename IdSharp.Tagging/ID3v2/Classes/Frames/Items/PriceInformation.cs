@@ -15,7 +15,7 @@ internal sealed class PriceInformation : IPriceInformation
         set
         {
             _currencyCode = value;
-            RaisePropertyChanged("CurrencyCode");
+            RaisePropertyChanged(nameof(CurrencyCode));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class PriceInformation : IPriceInformation
         set
         {
             _price = value;
-            RaisePropertyChanged("Price");
+            RaisePropertyChanged(nameof(Price));
         }
     }
 

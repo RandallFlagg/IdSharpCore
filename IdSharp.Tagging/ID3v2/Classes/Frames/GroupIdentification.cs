@@ -16,7 +16,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
         set
         {
             _ownerIdentifier = value;
-            RaisePropertyChanged("OwnerIdentifier");
+            RaisePropertyChanged(nameof(OwnerIdentifier));
         }
     }
 
@@ -26,7 +26,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
         set
         {
             _groupSymbol = value;
-            RaisePropertyChanged("GroupSymbol");
+            RaisePropertyChanged(nameof(GroupSymbol));
         }
     }
 
@@ -36,7 +36,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
         set
         {
             _groupDependentData = ByteUtils.Clone(value);
-            RaisePropertyChanged("GroupDependentData");
+            RaisePropertyChanged(nameof(GroupDependentData));
         }
     }
 

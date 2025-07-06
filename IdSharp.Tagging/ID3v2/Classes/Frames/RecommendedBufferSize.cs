@@ -16,11 +16,11 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _bufferSize = value;
-            RaisePropertyChanged("BufferSize");
+            RaisePropertyChanged(nameof(BufferSize));
         }
     }
 
@@ -30,7 +30,7 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
         set
         {
             _embeddedInfo = value;
-            RaisePropertyChanged("EmbeddedInfo");
+            RaisePropertyChanged(nameof(EmbeddedInfo));
         }
     }
 
@@ -41,11 +41,11 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
             }
 
             _offsetToNextTag = value;
-            RaisePropertyChanged("OffsetToNextTag");
+            RaisePropertyChanged(nameof(OffsetToNextTag));
         }
     }
 

@@ -15,11 +15,11 @@ internal sealed class PlayCount : Frame, IPlayCount
         {
             if (value < 0)
             {
-                throw new ArgumentOutOfRangeException("value", value, "'value' cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "'value' cannot be less than 0");
             }
 
             m_Value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

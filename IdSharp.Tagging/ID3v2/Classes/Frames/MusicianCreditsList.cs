@@ -22,7 +22,7 @@ internal sealed class MusicianCreditsList : Frame, IMusicianCreditsList
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 

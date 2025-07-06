@@ -15,7 +15,7 @@ internal sealed class PrivateFrame : Frame, IPrivateFrame
         set
         {
             _ownerIdentifier = value;
-            RaisePropertyChanged("OwnerIdentifier");
+            RaisePropertyChanged(nameof(OwnerIdentifier));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class PrivateFrame : Frame, IPrivateFrame
         set
         {
             _privateData = ByteUtils.Clone(value);
-            RaisePropertyChanged("PrivateData");
+            RaisePropertyChanged(nameof(PrivateData));
         }
     }
 

@@ -15,7 +15,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
         set
         {
             _ownerIdentifier = value;
-            RaisePropertyChanged("OwnerIdentifier");
+            RaisePropertyChanged(nameof(OwnerIdentifier));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
         set
         {
             _contentExplanation = value;
-            RaisePropertyChanged("ContentExplanation");
+            RaisePropertyChanged(nameof(ContentExplanation));
         }
     }
 
@@ -35,7 +35,7 @@ internal sealed class EncryptedMetaFrame : Frame, IEncryptedMetaFrame
         set
         {
             _encryptedData = ByteUtils.Clone(value);
-            RaisePropertyChanged("EncryptedData");
+            RaisePropertyChanged(nameof(EncryptedData));
         }
     }
 

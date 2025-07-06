@@ -26,7 +26,7 @@ public static class PathUtils
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentNullException("path");
+            throw new ArgumentNullException(nameof(path));
         }
 
         if (!File.Exists(path))
@@ -61,14 +61,14 @@ public static class PathUtils
 
             if (extension.EndsWith("."))
             {
-                throw new ArgumentException("Parameter 'extension' cannot end with a '.'", "extension");
+                throw new ArgumentException("Parameter 'extension' cannot end with a '.'", nameof(extension));
             }
 
             foreach (char c in extension)
             {
                 if (_invalidFileNameChars.Contains(c))
                 {
-                    throw new ArgumentException(string.Format("Parameter 'extension' cannot contain '{0}'", c), "extension");
+                    throw new ArgumentException(string.Format("Parameter 'extension' cannot contain '{0}'", c), nameof(extension));
                 }
             }
         }

@@ -15,7 +15,7 @@ internal sealed class MpegLookupTableItem : IMpegLookupTableItem
         set
         {
             _deviationInBytes = value;
-            RaisePropertyChanged("DeviationInBytes");
+            RaisePropertyChanged(nameof(DeviationInBytes));
         }
     }
 
@@ -25,7 +25,7 @@ internal sealed class MpegLookupTableItem : IMpegLookupTableItem
         set
         {
             _deviationInMilliseconds = value;
-            RaisePropertyChanged("DeviationInMilliseconds");
+            RaisePropertyChanged(nameof(DeviationInMilliseconds));
         }
     }
 

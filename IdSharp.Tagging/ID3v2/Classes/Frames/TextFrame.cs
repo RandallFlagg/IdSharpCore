@@ -26,7 +26,7 @@ internal sealed class TextFrame : Frame, ITextFrame
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -44,7 +44,7 @@ internal sealed class TextFrame : Frame, ITextFrame
                 _value = value.Trim();
             }
 
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

@@ -19,7 +19,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -29,7 +29,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         set
         {
             _languageCode = value;
-            RaisePropertyChanged("LanguageCode");
+            RaisePropertyChanged(nameof(LanguageCode));
         }
     }
 
@@ -39,7 +39,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         set
         {
             _contentDescriptor = value;
-            RaisePropertyChanged("ContentDescriptor");
+            RaisePropertyChanged(nameof(ContentDescriptor));
         }
     }
 
@@ -49,7 +49,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         set
         {
             _text = value;
-            RaisePropertyChanged("Text");
+            RaisePropertyChanged(nameof(Text));
         }
     }
 

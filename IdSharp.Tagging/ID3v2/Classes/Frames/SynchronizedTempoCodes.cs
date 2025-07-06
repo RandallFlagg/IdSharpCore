@@ -22,7 +22,7 @@ internal sealed class SynchronizedTempoCodes : Frame, ISynchronizedTempoCodes
         set
         {
             _timestampFormat = value;
-            RaisePropertyChanged("TimestampFormat");
+            RaisePropertyChanged(nameof(TimestampFormat));
         }
     }
 

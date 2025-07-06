@@ -17,7 +17,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -27,7 +27,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
         set
         {
             _languageCode = value;
-            RaisePropertyChanged("LanguageCode");
+            RaisePropertyChanged(nameof(LanguageCode));
         }
     }
 
@@ -37,7 +37,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
         set
         {
             _value = value;
-            RaisePropertyChanged("Value");
+            RaisePropertyChanged(nameof(Value));
         }
     }
 

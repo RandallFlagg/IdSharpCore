@@ -65,7 +65,7 @@ public partial class ID3v1Tag : IID3v1Tag
         set
         {
             _title = GetTrimmedString(value, 30);
-            RaisePropertyChanged("Title");
+            RaisePropertyChanged(nameof(Title));
         }
     }
 
@@ -79,7 +79,7 @@ public partial class ID3v1Tag : IID3v1Tag
         set
         {
             _artist = GetTrimmedString(value, 30);
-            RaisePropertyChanged("Artist");
+            RaisePropertyChanged(nameof(Artist));
         }
     }
 
@@ -93,7 +93,7 @@ public partial class ID3v1Tag : IID3v1Tag
         set
         {
             _album = GetTrimmedString(value, 30);
-            RaisePropertyChanged("Album");
+            RaisePropertyChanged(nameof(Album));
         }
     }
 
@@ -107,7 +107,7 @@ public partial class ID3v1Tag : IID3v1Tag
         set
         {
             _year = GetTrimmedString(value, 4);
-            RaisePropertyChanged("Year");
+            RaisePropertyChanged(nameof(Year));
         }
     }
 
@@ -129,7 +129,7 @@ public partial class ID3v1Tag : IID3v1Tag
                 _comment = GetTrimmedString(value, 30);
             }
 
-            RaisePropertyChanged("Comment");
+            RaisePropertyChanged(nameof(Comment));
         }
     }
 
@@ -158,7 +158,7 @@ public partial class ID3v1Tag : IID3v1Tag
                     TagVersion = ID3v1TagVersion.ID3v11;
                 }
             }
-            RaisePropertyChanged("TrackNumber");
+            RaisePropertyChanged(nameof(TrackNumber));
         }
     }
 
@@ -176,7 +176,7 @@ public partial class ID3v1Tag : IID3v1Tag
                 _genreIndex = value;
             }
 
-            RaisePropertyChanged("GenreIndex");
+            RaisePropertyChanged(nameof(GenreIndex));
         }
     }
 
@@ -190,7 +190,7 @@ public partial class ID3v1Tag : IID3v1Tag
         set
         {
             _tagVersion = value;
-            RaisePropertyChanged("TagVersion");
+            RaisePropertyChanged(nameof(TagVersion));
             if (value == ID3v1TagVersion.ID3v11)
             {
                 Comment = _comment;

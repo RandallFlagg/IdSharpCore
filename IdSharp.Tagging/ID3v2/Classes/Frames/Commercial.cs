@@ -31,7 +31,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _textEncoding = value;
-            RaisePropertyChanged("TextEncoding");
+            RaisePropertyChanged(nameof(TextEncoding));
         }
     }
 
@@ -46,7 +46,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _validUntil = value.Date;
-            RaisePropertyChanged("ValidUntil");
+            RaisePropertyChanged(nameof(ValidUntil));
         }
     }
 
@@ -56,7 +56,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _contactUrl = value;
-            RaisePropertyChanged("ContactUrl");
+            RaisePropertyChanged(nameof(ContactUrl));
         }
     }
 
@@ -66,7 +66,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _receivedAs = value;
-            RaisePropertyChanged("ReceivedAs");
+            RaisePropertyChanged(nameof(ReceivedAs));
         }
     }
 
@@ -76,7 +76,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _nameOfSeller = value;
-            RaisePropertyChanged("NameOfSeller");
+            RaisePropertyChanged(nameof(NameOfSeller));
         }
     }
 
@@ -86,7 +86,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _description = value;
-            RaisePropertyChanged("Description");
+            RaisePropertyChanged(nameof(Description));
         }
     }
 
@@ -96,7 +96,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _sellerLogoMimeType = value;
-            RaisePropertyChanged("SellerLogoMimeType");
+            RaisePropertyChanged(nameof(SellerLogoMimeType));
         }
     }
 
@@ -106,7 +106,7 @@ internal sealed class Commercial : Frame, ICommercial
         set
         {
             _sellerLogo = ByteUtils.Clone(value);
-            RaisePropertyChanged("SellerLogo");
+            RaisePropertyChanged(nameof(SellerLogo));
         }
     }
 

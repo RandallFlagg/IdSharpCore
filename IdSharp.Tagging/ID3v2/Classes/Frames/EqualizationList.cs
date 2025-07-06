@@ -42,7 +42,7 @@ internal sealed class EqualizationList : Frame, IEqualizationList
         set
         {
             _interpolationMethod = value;
-            RaisePropertyChanged("InterpolationMethod");
+            RaisePropertyChanged(nameof(InterpolationMethod));
         }
     }
 
@@ -52,7 +52,7 @@ internal sealed class EqualizationList : Frame, IEqualizationList
         set
         {
             _identification = value;
-            RaisePropertyChanged("Identification");
+            RaisePropertyChanged(nameof(Identification));
         }
     }
 
