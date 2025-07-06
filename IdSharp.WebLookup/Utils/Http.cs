@@ -34,10 +34,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         return Get(GetQueryString(requestUriString, postData));
     }
@@ -138,10 +135,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         byte[] data;
         var webRequest = GetPostRequest(requestUriString, postData, out data);
@@ -164,10 +158,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         var uri = new Uri(requestUriString);
         return Post(uri, postData, out cookies);
@@ -186,10 +177,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         var uri = new Uri(requestUriString);
         return PostCookies(uri, postData, cookies);
@@ -207,10 +195,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         var uri = new Uri(requestUriString);
         CookieContainer cookies;
@@ -223,10 +208,7 @@ internal static class Http
     /// <param name="requestUri">The request URI.</param>
     public static byte[] Post(Uri requestUri)
     {
-        if (requestUri == null)
-        {
-            throw new ArgumentNullException(nameof(requestUri));
-        }
+        ArgumentNullException.ThrowIfNull(requestUri);
 
         CookieContainer cookies;
         return Post(requestUri, null, out cookies);
@@ -323,10 +305,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         var getString = new StringBuilder();
         foreach (var item in postData)
@@ -348,15 +327,9 @@ internal static class Http
 
     private static void AddField(StringBuilder postString, PostData postData)
     {
-        if (postString == null)
-        {
-            throw new ArgumentNullException(nameof(postString));
-        }
+        ArgumentNullException.ThrowIfNull(postString);
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         if (postData.Value == null)
         {
@@ -397,10 +370,7 @@ internal static class Http
             throw new ArgumentNullException(nameof(requestUriString));
         }
 
-        if (postData == null)
-        {
-            throw new ArgumentNullException(nameof(postData));
-        }
+        ArgumentNullException.ThrowIfNull(postData);
 
         var uri = new Uri(requestUriString);
         return GetPostRequest(uri, postData, out data);
@@ -408,10 +378,7 @@ internal static class Http
 
     private static HttpWebRequest GetPostRequest(Uri requestUri, IEnumerable<PostData> postData, out byte[] data)
     {
-        if (requestUri == null)
-        {
-            throw new ArgumentNullException(nameof(requestUri));
-        }
+        ArgumentNullException.ThrowIfNull(requestUri);
 
         var getString = new StringBuilder();
         foreach (var item in postData)
@@ -453,10 +420,7 @@ internal static class Http
     /// <returns>The file name.</returns>
     public static string GetFileNameFromHeaders(WebHeaderCollection headers)
     {
-        if (headers == null)
-        {
-            throw new ArgumentNullException(nameof(headers));
-        }
+        ArgumentNullException.ThrowIfNull(headers);
 
         var keys = headers.AllKeys;
         if (keys == null || keys.Length == 0)

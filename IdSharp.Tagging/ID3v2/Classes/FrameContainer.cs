@@ -284,10 +284,7 @@ public abstract partial class FrameContainer : IFrameContainer
 
     internal List<IFrame> GetAllFrames(ID3v2TagVersion tagVersion, IEnumerable<string> frameIDs)
     {
-        if (frameIDs == null)
-        {
-            throw new ArgumentNullException(nameof(frameIDs));
-        }
+        ArgumentNullException.ThrowIfNull(frameIDs);
 
         if (frameIDs.Any() == false)
         {

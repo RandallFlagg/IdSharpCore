@@ -11,10 +11,7 @@ public partial class ID3v1Tag
     /// <param name="stream">The stream.</param>
     public static int GetTagSize(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         long currentPosition = stream.Position;
         try
@@ -63,10 +60,7 @@ public partial class ID3v1Tag
     /// <param name="stream">The stream.</param>
     public static bool DoesTagExist(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         return (GetTagSize(stream) != 0);
     }

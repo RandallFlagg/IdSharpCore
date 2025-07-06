@@ -49,10 +49,7 @@ public class VorbisComment : IVorbisComment
     /// <param name="stream">The stream.</param>
     public VorbisComment(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         Read(stream);
     }

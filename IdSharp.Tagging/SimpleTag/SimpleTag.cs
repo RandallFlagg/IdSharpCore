@@ -146,10 +146,7 @@ public class SimpleTag : ISimpleTag
     /// <param name="stream">The stream.</param>
     private void Read(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         bool id3v2Found = false;
         string tagVersion = string.Empty;

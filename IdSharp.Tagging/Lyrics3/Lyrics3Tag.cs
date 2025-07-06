@@ -51,10 +51,7 @@ public partial class Lyrics3Tag
     public Lyrics3Tag(Stream stream)
         : this()
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         Read(stream);
     }
@@ -96,10 +93,7 @@ public partial class Lyrics3Tag
 
     private void Read(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         _keyValues.Clear();
         TotalTagSize = 0;
