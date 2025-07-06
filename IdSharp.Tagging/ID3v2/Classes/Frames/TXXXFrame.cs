@@ -13,7 +13,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
 
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             _description = value;
@@ -23,7 +23,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -33,7 +33,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
 
     public string Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             _value = value;

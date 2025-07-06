@@ -10,7 +10,7 @@ internal sealed class MusicCDIdentifier : Frame, IMusicCDIdentifier
 
     public byte[] TOC
     {
-        get { return ByteUtils.Clone(_toc); }
+        get => ByteUtils.Clone(_toc);
         set
         {
             _toc = ByteUtils.Clone(value);

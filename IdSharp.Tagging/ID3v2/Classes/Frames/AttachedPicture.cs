@@ -34,7 +34,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             if (_textEncoding != value)
@@ -52,7 +52,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
 
     public string MimeType
     {
-        get { return _mimeType; }
+        get => _mimeType;
         set
         {
             if (_mimeType != value)
@@ -65,7 +65,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
 
     public PictureType PictureType
     {
-        get { return _pictureType; }
+        get => _pictureType;
         set
         {
             // TODO: Validate enum
@@ -80,7 +80,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
 
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             if (_description != value)
@@ -93,7 +93,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
 
     public byte[] PictureData
     {
-        get { return ByteUtils.Clone(_pictureData); }
+        get => ByteUtils.Clone(_pictureData);
         set
         {
             if (!ByteUtils.Compare(_pictureData, value))

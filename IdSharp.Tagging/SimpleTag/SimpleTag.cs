@@ -44,7 +44,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The title.</value>
     public string Title
     {
-        get { return _title; }
+        get => _title;
         set
         {
             _title = value;
@@ -56,7 +56,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The artist.</value>
     public string Artist
     {
-        get { return _artist; }
+        get => _artist;
         set
         {
             _artist = value;
@@ -68,7 +68,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The album.</value>
     public string Album
     {
-        get { return _album; }
+        get => _album;
         set
         {
             _album = value;
@@ -80,7 +80,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The year.</value>
     public string Year
     {
-        get { return _year; }
+        get => _year;
         set
         {
             _year = value;
@@ -92,7 +92,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The comment.</value>
     public string Comment
     {
-        get { return _comment; }
+        get => _comment;
         set
         {
             _comment = value;
@@ -104,7 +104,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The track number.</value>
     public string TrackNumber
     {
-        get { return _trackNumber; }
+        get => _trackNumber;
         set
         {
             _trackNumber = value;
@@ -116,7 +116,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The genre.</value>
     public string Genre
     {
-        get { return _genre; }
+        get => _genre;
         set
         {
             _genre = value;
@@ -128,7 +128,7 @@ public class SimpleTag : ISimpleTag
     /// <value>The tag type and version.</value>
     public string TagVersion
     {
-        get { return _tagVersion; }
+        get => _tagVersion;
         private set
         {
             _tagVersion = value;

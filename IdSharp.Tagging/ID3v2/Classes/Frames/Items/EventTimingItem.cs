@@ -12,10 +12,7 @@ internal sealed class EventTimingItem : IEventTimingItem
 
     public MusicEvent EventType
     {
-        get
-        {
-            return _eventType;
-        }
+        get => _eventType;
         set
         {
             _eventType = value;
@@ -25,10 +22,7 @@ internal sealed class EventTimingItem : IEventTimingItem
 
     public int Timestamp
     {
-        get
-        {
-            return _timestamp;
-        }
+        get => _timestamp;
         set
         {
             if (value < 0)

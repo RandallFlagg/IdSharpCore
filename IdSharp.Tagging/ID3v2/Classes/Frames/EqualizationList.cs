@@ -38,7 +38,7 @@ internal sealed class EqualizationList : Frame, IEqualizationList
 
     public InterpolationMethod InterpolationMethod
     {
-        get { return _interpolationMethod; }
+        get => _interpolationMethod;
         set
         {
             _interpolationMethod = value;
@@ -48,7 +48,7 @@ internal sealed class EqualizationList : Frame, IEqualizationList
 
     public string Identification
     {
-        get { return _identification; }
+        get => _identification;
         set
         {
             _identification = value;

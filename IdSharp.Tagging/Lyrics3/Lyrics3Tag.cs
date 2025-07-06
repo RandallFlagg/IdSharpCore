@@ -167,9 +167,7 @@ public partial class Lyrics3Tag
     /// </summary>
     /// <value>The artist.</value>
     public string Artist
-    {
-        get { return GetValue("EAR"); }
-        set { SetValue("EAR", value); }
+    { get => GetValue("EAR"); set => SetValue("EAR", value);
     }
 
     /// <summary>
@@ -177,9 +175,7 @@ public partial class Lyrics3Tag
     /// </summary>
     /// <value>The album.</value>
     public string Album
-    {
-        get { return GetValue("EAL"); }
-        set { SetValue("EAL", value); }
+    { get => GetValue("EAL"); set => SetValue("EAL", value);
     }
 
     /// <summary>
@@ -187,9 +183,7 @@ public partial class Lyrics3Tag
     /// </summary>
     /// <value>The title.</value>
     public string Title
-    {
-        get { return GetValue("ETT"); }
-        set { SetValue("ETT", value); }
+    { get => GetValue("ETT"); set => SetValue("ETT", value);
     }
 
     /// <summary>
@@ -197,9 +191,7 @@ public partial class Lyrics3Tag
     /// </summary>
     /// <value>The genre.</value>
     public string Genre
-    {
-        get { return GetValue("GRE"); }
-        set { SetValue("GRE", value); }
+    { get => GetValue("GRE"); set => SetValue("GRE", value);
     }
 
     /// <summary>

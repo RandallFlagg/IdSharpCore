@@ -50,10 +50,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
 
     public bool IsCRCDataPresent
     {
-        get
-        {
-            return _isCRCDataPresent;
-        }
+        get => _isCRCDataPresent;
         set
         {
             if (_isCRCDataPresent != value)
@@ -69,10 +66,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
 
     public int PaddingSize
     {
-        get
-        {
-            return _paddingSize;
-        }
+        get => _paddingSize;
         set
         {
             if (_paddingSize != value)
@@ -84,10 +78,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
 
     public uint CRC32
     {
-        get
-        {
-            return _totalFrameCRC;
-        }
+        get => _totalFrameCRC;
         set
         {
             if (_totalFrameCRC != value)
@@ -172,26 +163,12 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
 
     public bool IsTagAnUpdate
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException(); set => throw new NotImplementedException();
     }
 
     public bool IsTagRestricted
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException(); set => throw new NotImplementedException();
     }
 
     public ITagRestrictions TagRestrictions

@@ -9,7 +9,7 @@ internal sealed class SeekNextTag : Frame, ISeekNextTag
 
     public int MinimumOffsetToNextTag
     {
-        get { return _minimumOffsetToNextTag; }
+        get => _minimumOffsetToNextTag;
         set
         {
             if (value < 0)

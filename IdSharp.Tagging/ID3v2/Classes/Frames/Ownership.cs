@@ -13,7 +13,7 @@ internal sealed class Ownership : Frame, IOwnership
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -23,7 +23,7 @@ internal sealed class Ownership : Frame, IOwnership
 
     public decimal PricePaid
     {
-        get { return _pricePaid; }
+        get => _pricePaid;
         set
         {
             _pricePaid = value;
@@ -33,7 +33,7 @@ internal sealed class Ownership : Frame, IOwnership
 
     public string CurrencyCode
     {
-        get { return _currencyCode; }
+        get => _currencyCode;
         set
         {
             _currencyCode = value; // todo: validation
@@ -43,7 +43,7 @@ internal sealed class Ownership : Frame, IOwnership
 
     public DateTime DateOfPurchase
     {
-        get { return _dateOfPurchase.Date; }
+        get => _dateOfPurchase.Date;
         set
         {
             _dateOfPurchase = value.Date;
@@ -53,7 +53,7 @@ internal sealed class Ownership : Frame, IOwnership
 
     public string Seller
     {
-        get { return _seller; }
+        get => _seller;
         set
         {
             _seller = value;

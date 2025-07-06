@@ -17,7 +17,7 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
 
     public int IndexedDataStart
     {
-        get { return _indexedDataStart; }
+        get => _indexedDataStart;
         set
         {
             if (value < 0)
@@ -32,7 +32,7 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
 
     public int IndexedDataLength
     {
-        get { return _indexedDataLength; }
+        get => _indexedDataLength;
         set
         {
             if (value < 0)
@@ -47,7 +47,7 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
 
     public byte BitsPerIndexPoint
     {
-        get { return _bitsPerIndexPoint; }
+        get => _bitsPerIndexPoint;
         set
         {
             _bitsPerIndexPoint = value;

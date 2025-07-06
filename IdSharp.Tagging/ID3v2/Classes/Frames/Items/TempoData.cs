@@ -12,10 +12,7 @@ internal sealed class TempoData : ITempoData
 
     public short TempoCode
     {
-        get
-        {
-            return _tempoCode;
-        }
+        get => _tempoCode;
         set
         {
             if (value < 0)
@@ -30,10 +27,7 @@ internal sealed class TempoData : ITempoData
 
     public int Timestamp
     {
-        get
-        {
-            return _timestamp;
-        }
+        get => _timestamp;
         set
         {
             if (value < 0)

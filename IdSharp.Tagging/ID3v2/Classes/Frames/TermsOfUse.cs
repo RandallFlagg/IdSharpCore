@@ -13,7 +13,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -23,7 +23,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
 
     public string LanguageCode
     {
-        get { return _languageCode; }
+        get => _languageCode;
         set
         {
             _languageCode = value;
@@ -33,7 +33,7 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
 
     public string Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             _value = value;

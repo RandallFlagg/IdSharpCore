@@ -18,7 +18,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public short ReverbLeftMilliseconds
     {
-        get { return _reverbLeftMilliseconds; }
+        get => _reverbLeftMilliseconds;
         set
         {
             if (value < 0)
@@ -33,7 +33,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public short ReverbRightMilliseconds
     {
-        get { return _reverbRightMilliseconds; }
+        get => _reverbRightMilliseconds;
         set
         {
             if (value < 0)
@@ -48,7 +48,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbBouncesLeft
     {
-        get { return _reverbBouncesLeft; }
+        get => _reverbBouncesLeft;
         set
         {
             _reverbBouncesLeft = value;
@@ -58,7 +58,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbBouncesRight
     {
-        get { return _reverbBouncesRight; }
+        get => _reverbBouncesRight;
         set
         {
             _reverbBouncesRight = value;
@@ -68,7 +68,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbFeedbackLeftToLeft
     {
-        get { return _reverbFeedbackLeftToLeft; }
+        get => _reverbFeedbackLeftToLeft;
         set
         {
             _reverbFeedbackLeftToLeft = value;
@@ -78,7 +78,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbFeedbackLeftToRight
     {
-        get { return _reverbFeedbackLeftToRight; }
+        get => _reverbFeedbackLeftToRight;
         set
         {
             _reverbFeedbackLeftToRight = value;
@@ -88,7 +88,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbFeedbackRightToRight
     {
-        get { return _reverbFeedbackRightToRight; }
+        get => _reverbFeedbackRightToRight;
         set
         {
             _reverbFeedbackRightToRight = value;
@@ -98,7 +98,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte ReverbFeedbackRightToLeft
     {
-        get { return _reverbFeedbackRightToLeft; }
+        get => _reverbFeedbackRightToLeft;
         set
         {
             _reverbFeedbackRightToLeft = value;
@@ -108,7 +108,7 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte PremixLeftToRight
     {
-        get { return _premixLeftToRight; }
+        get => _premixLeftToRight;
         set
         {
             _premixLeftToRight = value;
@@ -118,14 +118,14 @@ internal sealed class Reverb : Frame, IReverb
 
     public byte PremixRightToLeft
     {
-        get { return _premixRightToLeft; }
+        get => _premixRightToLeft;
         set
         {
             _premixRightToLeft = value;
             RaisePropertyChanged("PremixRightToLeft");
         }
     }
-    
+
     public override string GetFrameID(ID3v2TagVersion tagVersion)
     {
         switch (tagVersion)

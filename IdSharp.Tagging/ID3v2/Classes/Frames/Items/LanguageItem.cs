@@ -11,10 +11,7 @@ internal sealed class LanguageItem : ILanguageItem
 
     public string LanguageCode
     {
-        get
-        {
-            return _languageCode;
-        }
+        get => _languageCode;
         set
         {
             _languageCode = value;
@@ -35,11 +32,8 @@ internal sealed class LanguageItem : ILanguageItem
 
     public string LanguageDisplay
     {
-        get 
-        {
-            return _languageDisplay;
-        }
-        private set             
+        get => _languageDisplay;
+        private set
         {
             _languageDisplay = value;
             RaisePropertyChanged("LanguageDisplay");

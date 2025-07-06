@@ -24,7 +24,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -34,7 +34,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
     public string LanguageCode
     {
-        get { return _languageCode; }
+        get => _languageCode;
         set
         {
             // todo: lang code validation
@@ -45,7 +45,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
     public TimestampFormat TimestampFormat
     {
-        get { return _timestampFormat; }
+        get => _timestampFormat;
         set
         {
             _timestampFormat = value;
@@ -55,7 +55,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
     public TextContentType ContentType
     {
-        get { return _contentType; }
+        get => _contentType;
         set
         {
             _contentType = value;
@@ -65,8 +65,8 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
     public string ContentDescriptor
     {
-        get { return _contentDescriptor; }
-        set 
+        get => _contentDescriptor;
+        set
         {
             _contentDescriptor = value;
             RaisePropertyChanged("ContentDescriptor");

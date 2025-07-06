@@ -6,22 +6,12 @@ internal sealed class EqualizationItem : IEqualizationItem
 {
     public VolumeAdjustmentDirection VolumeAdjustment
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException(); set => throw new NotImplementedException();
     }
 
     public short Frequency
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException();
         set
         {
             if (value < 0)
@@ -35,10 +25,7 @@ internal sealed class EqualizationItem : IEqualizationItem
 
     public int Adjustment
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get => throw new NotImplementedException();
         set
         {
             if (value < 0)

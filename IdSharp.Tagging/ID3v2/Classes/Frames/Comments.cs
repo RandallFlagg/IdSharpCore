@@ -15,7 +15,7 @@ internal sealed class Comments : Frame, IComments
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;
@@ -25,7 +25,7 @@ internal sealed class Comments : Frame, IComments
 
     public string LanguageCode
     {
-        get { return _languageCode; }
+        get => _languageCode;
         set
         {
             if (string.IsNullOrEmpty(value))
@@ -60,7 +60,7 @@ internal sealed class Comments : Frame, IComments
 
     public string Description
     {
-        get { return _description; }
+        get => _description;
         set
         {
             _description = value;
@@ -70,7 +70,7 @@ internal sealed class Comments : Frame, IComments
 
     public string Value
     {
-        get { return _value; }
+        get => _value;
         set
         {
             _value = value;

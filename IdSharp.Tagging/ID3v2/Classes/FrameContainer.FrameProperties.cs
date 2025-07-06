@@ -26,9 +26,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// recording/source of sound which the audio in the file is taken from.  TALB/TAL.
     /// </value>
     public string Album
-    {
-        get { return m_Album.Value; }
-        set { m_Album.Value = value; }
+    { get => m_Album.Value; set => m_Album.Value = value;
     }
 
     /// <summary>
@@ -38,9 +36,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The the number of beats per minute in the mainpart of the audio.  TBPM/TBP.
     /// </value>
     public string BPM
-    {
-        get { return m_BPM.Value; }
-        set { m_BPM.Value = value; }
+    { get => m_BPM.Value; set => m_BPM.Value = value;
     }
 
     /// <summary>
@@ -48,9 +44,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The composer.  TCOM/TCM.</value>
     public string Composer
-    {
-        get { return m_Composer.Value; }
-        set { m_Composer.Value = value; }
+    { get => m_Composer.Value; set => m_Composer.Value = value;
     }
 
     /// <summary>
@@ -58,9 +52,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The genre.  TCON/TCO.</value>
     public string Genre
-    {
-        get { return m_Genre.Value; }
-        set { m_Genre.Value = value; }
+    { get => m_Genre.Value; set => m_Genre.Value = value;
     }
 
     /// <summary>
@@ -71,9 +63,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The copyright message.  TCOP/TCR.</value>
     public string Copyright
-    {
-        get { return m_Copyright.Value; }
-        set { m_Copyright.Value = value; }
+    { get => m_Copyright.Value; set => m_Copyright.Value = value;
     }
 
     /// <summary>
@@ -83,9 +73,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The date recorded in MMDD format.  TDAT in ID3v2.3, TRD in ID3v2.2  Replaced by TDRL and TDRC in ID3v2.4.  Setting this field affects <see cref="RecordingTimestamp"/> (TDRC).
     /// </value>
     public string DateRecorded
-    {
-        get { return m_DateRecorded.Value; }
-        set { m_DateRecorded.Value = value; }
+    { get => m_DateRecorded.Value; set => m_DateRecorded.Value = value;
     }
 
     /// <summary>
@@ -131,9 +119,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The name of the person or organisation that encoded the audio file.  TENC/TEN.
     /// </value>
     public string EncodedByWho
-    {
-        get { return m_EncodedByWho.Value; }
-        set { m_EncodedByWho.Value = value; }
+    { get => m_EncodedByWho.Value; set => m_EncodedByWho.Value = value;
     }
 
     /// <summary>
@@ -141,9 +127,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The lyricist.  TEXT/TXT.</value>
     public string Lyricist
-    {
-        get { return m_Lyricist.Value; }
-        set { m_Lyricist.Value = value; }
+    { get => m_Lyricist.Value; set => m_Lyricist.Value = value;
     }
 
     /// <summary>
@@ -151,9 +135,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The type of the file.  TFLT/TFT.</value>
     public string FileType
-    {
-        get { return m_FileType.Value; }
-        set { m_FileType.Value = value; }
+    { get => m_FileType.Value; set => m_FileType.Value = value;
     }
 
     /// <summary>
@@ -163,9 +145,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The time recorded in HHMM format.  TIME in ID3v2.3, TIM in ID3v2.2.  Replaced by TDRL and TDRC in ID3v2.4.  Setting this field affects <see cref="RecordingTimestamp"/> (TDRC).
     /// </value>
     public string TimeRecorded
-    {
-        get { return m_TimeRecorded.Value; }
-        set { m_TimeRecorded.Value = value; }
+    { get => m_TimeRecorded.Value; set => m_TimeRecorded.Value = value;
     }
 
     /// <summary>
@@ -183,9 +163,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// "Weather - Hurricane").  TIT1/TT1.
     /// </value>
     public string ContentGroup
-    {
-        get { return m_ContentGroup.Value; }
-        set { m_ContentGroup.Value = value; }
+    { get => m_ContentGroup.Value; set => m_ContentGroup.Value = value;
     }
 
     /// <summary>
@@ -193,9 +171,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The title/song name/content description.  TIT2/TT2.</value>
     public string Title
-    {
-        get { return m_Title.Value; }
-        set { m_Title.Value = value; }
+    { get => m_Title.Value; set => m_Title.Value = value;
     }
 
     /// <summary>
@@ -203,9 +179,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The artist. TPE1/TP1.</value>
     public string Artist
-    {
-        get { return m_Artist.Value; }
-        set { m_Artist.Value = value; }
+    { get => m_Artist.Value; set => m_Artist.Value = value;
     }
 
     /// <summary>
@@ -213,9 +187,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The album artist. TPE2/TP2.</value>
     public string AlbumArtist
-    {
-        get { return m_AlbumArtist.Value; }
-        set { m_AlbumArtist.Value = value; }
+    { get => m_AlbumArtist.Value; set => m_AlbumArtist.Value = value;
     }
 
     /// <summary>
@@ -223,9 +195,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The subtitle/description refinement.  TIT3/TT3.</value>
     public string Subtitle
-    {
-        get { return m_Subtitle.Value; }
-        set { m_Subtitle.Value = value; }
+    { get => m_Subtitle.Value; set => m_Subtitle.Value = value;
     }
 
     /// <summary>
@@ -237,9 +207,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The initial key.</value>
     public string InitialKey
-    {
-        get { return m_InitialKey.Value; }
-        set { m_InitialKey.Value = value; }
+    { get => m_InitialKey.Value; set => m_InitialKey.Value = value;
     }
 
     /// <summary>
@@ -296,9 +264,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The type of the media.  TMED/TMT.</value>
     public string MediaType
-    {
-        get { return m_MediaType.Value; }
-        set { m_MediaType.Value = value; }
+    { get => m_MediaType.Value; set => m_MediaType.Value = value;
     }
 
     /// <summary>
@@ -306,9 +272,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The original album/movie/show/source of sound title.  TOAL/TOT.</value>
     public string OriginalSourceTitle
-    {
-        get { return m_OriginalSourceTitle.Value; }
-        set { m_OriginalSourceTitle.Value = value; }
+    { get => m_OriginalSourceTitle.Value; set => m_OriginalSourceTitle.Value = value;
     }
 
     /// <summary>
@@ -322,9 +286,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// filename. The filename is case sensitive and includes its suffix.  TOFN/TOF.
     /// </value>
     public string OriginalFileName
-    {
-        get { return m_OriginalFileName.Value; }
-        set { m_OriginalFileName.Value = value; }
+    { get => m_OriginalFileName.Value; set => m_OriginalFileName.Value = value;
     }
 
     /// <summary>
@@ -332,9 +294,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The original lyricist.  TOLY/TOL.</value>
     public string OriginalLyricist
-    {
-        get { return m_OriginalLyricist.Value; }
-        set { m_OriginalLyricist.Value = value; }
+    { get => m_OriginalLyricist.Value; set => m_OriginalLyricist.Value = value;
     }
 
     /// <summary>
@@ -342,9 +302,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The original artist.  TOPE/TOA.</value>
     public string OriginalArtist
-    {
-        get { return m_OriginalArtist.Value; }
-        set { m_OriginalArtist.Value = value; }
+    { get => m_OriginalArtist.Value; set => m_OriginalArtist.Value = value;
     }
 
     /// <summary>
@@ -352,9 +310,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The original release year.</value>
     public string OriginalReleaseYear
-    {
-        get { return m_OriginalReleaseYear.Value; }
-        set { m_OriginalReleaseYear.Value = value; }
+    { get => m_OriginalReleaseYear.Value; set => m_OriginalReleaseYear.Value = value;
     }
 
     /// <summary>
@@ -362,9 +318,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The name of the file owner.</value>
     public string FileOwnerName
-    {
-        get { return m_FileOwnerName.Value; }
-        set { m_FileOwnerName.Value = value; }
+    { get => m_FileOwnerName.Value; set => m_FileOwnerName.Value = value;
     }
 
     /*/// <summary>
@@ -382,9 +336,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The conductor.  TPE3/TP3.</value>
     public string Conductor
-    {
-        get { return m_Conductor.Value; }
-        set { m_Conductor.Value = value; }
+    { get => m_Conductor.Value; set => m_Conductor.Value = value;
     }
 
     /// <summary>
@@ -392,9 +344,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>Who remixed the audio.  TPE4/TP4.</value>
     public string RemixedBy
-    {
-        get { return m_RemixedBy.Value; }
-        set { m_RemixedBy.Value = value; }
+    { get => m_RemixedBy.Value; set => m_RemixedBy.Value = value;
     }
 
     /// <summary>
@@ -402,9 +352,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The disc number.  TPOS/TPA.</value>
     public string DiscNumber
-    {
-        get { return m_DiscNumber.Value; }
-        set { m_DiscNumber.Value = value; }
+    { get => m_DiscNumber.Value; set => m_DiscNumber.Value = value;
     }
 
     /// <summary>
@@ -412,9 +360,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The publisher/record label.  TPUB/TPB.</value>
     public string Publisher
-    {
-        get { return m_Publisher.Value; }
-        set { m_Publisher.Value = value; }
+    { get => m_Publisher.Value; set => m_Publisher.Value = value;
     }
 
     /// <summary>
@@ -422,9 +368,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The track number.  TRCK/TRK.</value>
     public string TrackNumber
-    {
-        get { return m_TrackNumber.Value; }
-        set { m_TrackNumber.Value = value; }
+    { get => m_TrackNumber.Value; set => m_TrackNumber.Value = value;
     }
 
     /// <summary>
@@ -432,9 +376,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The recording dates.  TRDA/TRD.</value>
     public string RecordingDates
-    {
-        get { return m_RecordingDates.Value; }
-        set { m_RecordingDates.Value = value; }
+    { get => m_RecordingDates.Value; set => m_RecordingDates.Value = value;
     }
 
     /// <summary>
@@ -444,9 +386,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The name of the internet radio station.  TRSN.  Only valid in ID3v2.3 and higher.
     /// </value>
     public string InternetRadioStationName
-    {
-        get { return m_InternetRadioStationName.Value; }
-        set { m_InternetRadioStationName.Value = value; }
+    { get => m_InternetRadioStationName.Value; set => m_InternetRadioStationName.Value = value;
     }
 
     /// <summary>
@@ -456,9 +396,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The internet radio station owner.  TRSO.  Only valid in ID3v2.3 and higher.
     /// </value>
     public string InternetRadioStationOwner
-    {
-        get { return m_InternetRadioStationOwner.Value; }
-        set { m_InternetRadioStationOwner.Value = value; }
+    { get => m_InternetRadioStationOwner.Value; set => m_InternetRadioStationOwner.Value = value;
     }
 
     /// <summary>
@@ -506,9 +444,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The ISRC code.  Value should be 12 characters in length.  TSRC/TRC.
     /// </value>
     public string ISRC
-    {
-        get { return m_ISRC.Value; }
-        set { m_ISRC.Value = value; }
+    { get => m_ISRC.Value; set => m_ISRC.Value = value;
     }
 
     /// <summary>
@@ -516,9 +452,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The encoder settings.  TSSE/TSS.</value>
     public string EncoderSettings
-    {
-        get { return m_EncoderSettings.Value; }
-        set { m_EncoderSettings.Value = value; }
+    { get => m_EncoderSettings.Value; set => m_EncoderSettings.Value = value;
     }
 
     /// <summary>
@@ -528,9 +462,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The year.  TYER in ID3v2.3, TYR in ID3v2.2.  Replaced by TDRL and TDRC in ID3v2.4.  Setting this field affects <see cref="ReleaseTimestamp"/> (TDRL).
     /// </value>
     public string Year
-    {
-        get { return m_Year.Value; }
-        set { m_Year.Value = value; }
+    { get => m_Year.Value; set => m_Year.Value = value;
     }
 
     /// <summary>
@@ -566,9 +498,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The copyright URL.  WCOP/WCP.</value>
     public string CopyrightUrl
-    {
-        get { return m_CopyrightUrl.Value; }
-        set { m_CopyrightUrl.Value = value; }
+    { get => m_CopyrightUrl.Value; set => m_CopyrightUrl.Value = value;
     }
 
     /// <summary>
@@ -576,9 +506,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The audio file URL.</value>
     public string AudioFileUrl
-    {
-        get { return m_AudioFileUrl.Value; }
-        set { m_AudioFileUrl.Value = value; }
+    { get => m_AudioFileUrl.Value; set => m_AudioFileUrl.Value = value;
     }
 
     /// <summary>
@@ -595,9 +523,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The audio source URL, e.g. a movie page.  WOAS/WAS.</value>
     public string AudioSourceUrl
-    {
-        get { return m_AudioSourceUrl.Value; }
-        set { m_AudioSourceUrl.Value = value; }
+    { get => m_AudioSourceUrl.Value; set => m_AudioSourceUrl.Value = value;
     }
 
     /// <summary>
@@ -607,9 +533,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The internet radio station URL.  WORS.  Only valid in ID3v2.3 and higher.
     /// </value>
     public string InternetRadioStationUrl
-    {
-        get { return m_InternetRadioStationUrl.Value; }
-        set { m_InternetRadioStationUrl.Value = value; }
+    { get => m_InternetRadioStationUrl.Value; set => m_InternetRadioStationUrl.Value = value;
     }
 
     /// <summary>
@@ -617,9 +541,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The payment URL.  WPAY.  Only valid in ID3v2.3 and higher.</value>
     public string PaymentUrl
-    {
-        get { return m_PaymentUrl.Value; }
-        set { m_PaymentUrl.Value = value; }
+    { get => m_PaymentUrl.Value; set => m_PaymentUrl.Value = value;
     }
 
     /// <summary>
@@ -627,9 +549,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The publisher/record label URL.  WPUB/WPB.</value>
     public string PublisherUrl
-    {
-        get { return m_PublisherUrl.Value; }
-        set { m_PublisherUrl.Value = value; }
+    { get => m_PublisherUrl.Value; set => m_PublisherUrl.Value = value;
     }
 
     /// <summary>
@@ -781,9 +701,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value><c>true</c> if the file is a podcast; otherwise, <c>false</c>.</value>
     public bool IsPodcast
-    {
-        get { return m_IsPodcast.Value; }
-        set { m_IsPodcast.Value = value; }
+    { get => m_IsPodcast.Value; set => m_IsPodcast.Value = value;
     }
 
     /// <summary>
@@ -912,10 +830,8 @@ public abstract partial class FrameContainer : IFrameContainer
                 return false;
             }
         }
-        set
-        {
-            m_IsPartOfCompilation.Value = (value ? "1" : "");
-        }
+
+        set => m_IsPartOfCompilation.Value = (value ? "1" : "");
     }
 
     /// <summary>
@@ -933,9 +849,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The release timestamp.  TDRL in ID3v2.4.</value>
     public string ReleaseTimestamp
-    {
-        get { return m_ReleaseTimestamp.Value; }
-        set { m_ReleaseTimestamp.Value = value; }
+    { get => m_ReleaseTimestamp.Value; set => m_ReleaseTimestamp.Value = value;
     }
 
     /// <summary>
@@ -953,9 +867,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The original release timestamp.  TDOR in ID3v2.4.</value>
     public string OriginalReleaseTimestamp
-    {
-        get { return m_OriginalReleaseTimestamp.Value; }
-        set { m_OriginalReleaseTimestamp.Value = value; }
+    { get => m_OriginalReleaseTimestamp.Value; set => m_OriginalReleaseTimestamp.Value = value;
     }
 
     /// <summary>
@@ -975,9 +887,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The recording timestamp.  TDRC in ID3v2.4.</value>
     public string RecordingTimestamp
-    {
-        get { return m_RecordingTimestamp.Value; }
-        set { m_RecordingTimestamp.Value = value; }
+    { get => m_RecordingTimestamp.Value; set => m_RecordingTimestamp.Value = value;
     }
 
     /// <summary>
@@ -987,9 +897,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The date and time the audio was encoded.  Only valid in ID3v2.4.  TDEN in ID3v2.4.
     /// </value>
     public string EncodingTimestamp
-    {
-        get { return m_EncodingTimestamp.Value; }
-        set { m_EncodingTimestamp.Value = value; }
+    { get => m_EncodingTimestamp.Value; set => m_EncodingTimestamp.Value = value;
     }
 
     /// <summary>
@@ -999,9 +907,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The date and time the audio was tagged.  Only valid in ID3v2.4.  TDTG in ID3v2.4.
     /// </value>
     public string TaggingTimestamp
-    {
-        get { return m_TaggingTimestamp.Value; }
-        set { m_TaggingTimestamp.Value = value; }
+    { get => m_TaggingTimestamp.Value; set => m_TaggingTimestamp.Value = value;
     }
 
     /// <summary>
@@ -1009,9 +915,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The mood.  Only valid in ID3v2.4.  TMOO in ID3v2.4.</value>
     public string Mood
-    {
-        get { return m_Mood.Value; }
-        set { m_Mood.Value = value; }
+    { get => m_Mood.Value; set => m_Mood.Value = value;
     }
 
     /// <summary>
@@ -1023,9 +927,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// instead of the album name for sorting purposes.  Only supported in ID3v2.4.  TSOA in ID3v2.4.
     /// </value>
     public string AlbumSortOrder
-    {
-        get { return m_AlbumSortOrder.Value; }
-        set { m_AlbumSortOrder.Value = value; }
+    { get => m_AlbumSortOrder.Value; set => m_AlbumSortOrder.Value = value;
     }
 
     /// <summary>
@@ -1039,9 +941,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// Only supported in ID3v2.4.  TSOP in ID3v2.4.
     /// </value>
     public string ArtistSortOrder
-    {
-        get { return m_ArtistSortOrder.Value; }
-        set { m_ArtistSortOrder.Value = value; }
+    { get => m_ArtistSortOrder.Value; set => m_ArtistSortOrder.Value = value;
     }
 
     /// <summary>
@@ -1050,9 +950,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The title sort order.</value>
     public string TitleSortOrder
-    {
-        get { return m_TitleSortOrder.Value; }
-        set { m_TitleSortOrder.Value = value; }
+    { get => m_TitleSortOrder.Value; set => m_TitleSortOrder.Value = value;
     }
 
     /// <summary>
@@ -1063,9 +961,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The produced notice.</value>
     public string ProducedNotice
-    {
-        get { return m_ProducedNotice.Value; }
-        set { m_ProducedNotice.Value = value; }
+    { get => m_ProducedNotice.Value; set => m_ProducedNotice.Value = value;
     }
 
     /// <summary>
@@ -1079,9 +975,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// Only supported in ID3v2.4. TSST in ID3v2.4.
     /// </value>
     public string SetSubtitle
-    {
-        get { return m_SetSubtitle.Value; }
-        set { m_SetSubtitle.Value = value; }
+    { get => m_SetSubtitle.Value; set => m_SetSubtitle.Value = value;
     }
 
     /// <summary>
@@ -1090,9 +984,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The series category. TCAT</value>
     public string PodcastSeriesCategory
-    {
-        get { return m_PodcastSeriesCategory.Value; }
-        set { m_PodcastSeriesCategory.Value = value; }
+    { get => m_PodcastSeriesCategory.Value; set => m_PodcastSeriesCategory.Value = value;
     }
 
     /// <summary>
@@ -1101,9 +993,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The episode description. TDES</value>
     public string PodcastEpisodeDescription
-    {
-        get { return m_PodcastEpisodeDescription.Value; }
-        set { m_PodcastEpisodeDescription.Value = value; }
+    { get => m_PodcastEpisodeDescription.Value; set => m_PodcastEpisodeDescription.Value = value;
     }
 
     /// <summary>
@@ -1114,9 +1004,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// The episode description. TGID
     /// </value>
     public string PodcastEpisodeUrl
-    {
-        get { return m_PodcastEpisodeUrl.Value; }
-        set { m_PodcastEpisodeUrl.Value = value; }
+    { get => m_PodcastEpisodeUrl.Value; set => m_PodcastEpisodeUrl.Value = value;
     }
 
     /// <summary>
@@ -1124,9 +1012,7 @@ public abstract partial class FrameContainer : IFrameContainer
     /// </summary>
     /// <value>The podcast feed URL. WFED.</value>
     public string PodcastFeedUrl
-    {
-        get { return m_PodcastFeedUrl.Value; }
-        set { m_PodcastFeedUrl.Value = value; }
+    { get => m_PodcastFeedUrl.Value; set => m_PodcastFeedUrl.Value = value;
     }
 
     /// <summary>

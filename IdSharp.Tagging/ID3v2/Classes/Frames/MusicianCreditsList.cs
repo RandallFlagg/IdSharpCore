@@ -18,7 +18,7 @@ internal sealed class MusicianCreditsList : Frame, IMusicianCreditsList
 
     public EncodingType TextEncoding
     {
-        get { return _textEncoding; }
+        get => _textEncoding;
         set
         {
             _textEncoding = value;

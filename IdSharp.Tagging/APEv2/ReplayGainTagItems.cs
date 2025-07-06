@@ -45,8 +45,9 @@ public class ReplayGainTagItems {
     /// Gets or sets the gain to be applied to the track for normalization in the context of the album
     /// </summary>
     /// <value>Album's gain</value>
-    public decimal? AlbumGain {
-        get { return _albumGain; }
+    public decimal? AlbumGain
+    {
+        get => _albumGain;
         set { _albumGain = value; RaisePropertyChanged("AlbumGain"); }
     }
 
@@ -54,8 +55,9 @@ public class ReplayGainTagItems {
     /// Gets or sets the track's "linear" peak value in the context of the album
     /// </summary>
     /// <value>Album's peak value</value>
-    public decimal? AlbumPeak {
-        get { return _albumPeak; }
+    public decimal? AlbumPeak
+    {
+        get => _albumPeak;
         set { _albumPeak = value; RaisePropertyChanged("AlbumPeak"); }
     }
 
@@ -63,8 +65,9 @@ public class ReplayGainTagItems {
     /// Gets or sets the gain to be applied to the track for normalization
     /// </summary>
     /// <value>Track's gain</value>
-    public decimal? TrackGain {
-        get { return _trackGain; }
+    public decimal? TrackGain
+    {
+        get => _trackGain;
         set { _trackGain = value; RaisePropertyChanged("TrackGain"); }
     }
 
@@ -72,8 +75,9 @@ public class ReplayGainTagItems {
     /// Gets or sets the track's "linear" peak value
     /// </summary>
     /// <value>Track's peak value</value>
-    public decimal? TrackPeak {
-        get { return _trackPeak; }
+    public decimal? TrackPeak
+    {
+        get => _trackPeak;
         set { _trackPeak = value; RaisePropertyChanged("TrackPeak"); }
     }
 
@@ -94,24 +98,16 @@ public class ReplayGainTagItems {
     }
 
 
-    internal string AlbumGainText {
-        get { return ConvertValue(_albumGain, " dB"); }
-        set { AlbumGain = ConvertValue(value, " dB"); }
+    internal string AlbumGainText { get => ConvertValue(_albumGain, " dB"); set => AlbumGain = ConvertValue(value, " dB");
     }
 
-    internal string AlbumPeakText {
-        get { return ConvertValue(_albumPeak); }
-        set { AlbumPeak = ConvertValue(value); }
+    internal string AlbumPeakText { get => ConvertValue(_albumPeak); set => AlbumPeak = ConvertValue(value);
     }
 
-    internal string TrackGainText {
-        get { return ConvertValue(_trackGain, " dB"); }
-        set { TrackGain = ConvertValue(value, " dB"); }
+    internal string TrackGainText { get => ConvertValue(_trackGain, " dB"); set => TrackGain = ConvertValue(value, " dB");
     }
 
-    internal string TrackPeakText {
-        get { return ConvertValue(_trackPeak); }
-        set { TrackPeak = ConvertValue(value); }
+    internal string TrackPeakText { get => ConvertValue(_trackPeak); set => TrackPeak = ConvertValue(value);
     }
 
     #endregion Exposed properties

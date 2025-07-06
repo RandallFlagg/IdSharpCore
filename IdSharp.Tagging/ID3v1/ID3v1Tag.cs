@@ -61,7 +61,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The title.</value>
     public string Title
     {
-        get { return _title; }
+        get => _title;
         set
         {
             _title = GetTrimmedString(value, 30);
@@ -75,7 +75,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The artist.</value>
     public string Artist
     {
-        get { return _artist; }
+        get => _artist;
         set
         {
             _artist = GetTrimmedString(value, 30);
@@ -89,7 +89,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The album.</value>
     public string Album
     {
-        get { return _album; }
+        get => _album;
         set
         {
             _album = GetTrimmedString(value, 30);
@@ -103,7 +103,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The year.</value>
     public string Year
     {
-        get { return _year; }
+        get => _year;
         set
         {
             _year = GetTrimmedString(value, 4);
@@ -117,7 +117,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The comment.</value>
     public string Comment
     {
-        get { return _comment; }
+        get => _comment;
         set
         {
             if (_tagVersion == ID3v1TagVersion.ID3v11)
@@ -139,7 +139,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The track number.</value>
     public int? TrackNumber
     {
-        get { return _trackNumber; }
+        get => _trackNumber;
         set
         {
             if (value == null || value == 0)
@@ -168,7 +168,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The index of the genre.</value>
     public int GenreIndex
     {
-        get { return _genreIndex; }
+        get => _genreIndex;
         set
         {
             if (value >= 0 && value <= 147)
@@ -186,7 +186,7 @@ public partial class ID3v1Tag : IID3v1Tag
     /// <value>The ID3v1 tag version.</value>
     public ID3v1TagVersion TagVersion
     {
-        get { return _tagVersion; }
+        get => _tagVersion;
         set
         {
             _tagVersion = value;

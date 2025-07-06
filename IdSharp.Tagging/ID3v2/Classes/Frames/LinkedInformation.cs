@@ -12,7 +12,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
 
     public string FrameIdentifier
     {
-        get { return _frameIdentifier; }
+        get => _frameIdentifier;
         set
         {
             _frameIdentifier = value;
@@ -22,7 +22,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
 
     public string Url
     {
-        get { return _url; }
+        get => _url;
         set
         {
             _url = value;
@@ -32,7 +32,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
 
     public byte[] AdditionalData
     {
-        get { return ByteUtils.Clone(_additionalData); }
+        get => ByteUtils.Clone(_additionalData);
         set
         {
             _additionalData = ByteUtils.Clone(value);

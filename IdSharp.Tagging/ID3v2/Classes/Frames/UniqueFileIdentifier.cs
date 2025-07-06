@@ -11,7 +11,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
 
     public string OwnerIdentifier
     {
-        get { return _ownerIdentifier; }
+        get => _ownerIdentifier;
         set
         {
             _ownerIdentifier = value;
@@ -21,7 +21,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
 
     public byte[] Identifier
     {
-        get { return ByteUtils.Clone(_identifier); }
+        get => ByteUtils.Clone(_identifier);
         set
         {
             _identifier = ByteUtils.Clone(value);
