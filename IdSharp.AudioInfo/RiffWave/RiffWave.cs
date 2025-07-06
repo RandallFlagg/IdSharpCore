@@ -2,35 +2,35 @@ using System;
 using System.IO;
 using IdSharp.Common.Utils;
 
-namespace IdSharp.AudioInfo
+namespace IdSharp.AudioInfo;
+
+/// <summary>
+/// RIFF WAVE
+/// </summary>
+public class RiffWave : IAudioFile
 {
+
     /// <summary>
-    /// RIFF WAVE
+    /// Initializes a new instance of the <see cref="RiffWave"/> class.
     /// </summary>
-    public class RiffWave : IAudioFile
+    /// <param name="stream">The stream.</param>
+    public RiffWave(Stream stream)
     {
+        ReadStream(stream);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RiffWave"/> class.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        public RiffWave(Stream stream)
-        {
-            ReadStream(stream);
-        }
-
-        private void ReadStream(Stream stream)
-        {
-            byte[] header = stream.Read(12);
+    private void ReadStream(Stream stream)
+    {
+        byte[] header = stream.Read(12);
 			if (header[0] != 'R' || header[1] != 'I' || header[2] != 'F' || header[3] != 'F')
-            {
-                throw new InvalidDataException("'RIFF' identifier not found");
-            }
-            // Note: bytes 4 thru 7 contain the file size - 8 bytes
+        {
+            throw new InvalidDataException("'RIFF' identifier not found");
+        }
+        // Note: bytes 4 thru 7 contain the file size - 8 bytes
 			if (header[8] != 'W' || header[9] != 'A' || header[10] != 'V' || header[11] != 'E')
-            {
-                throw new InvalidDataException("'WAVE' identifier not found");
-            }
+        {
+            throw new InvalidDataException("'WAVE' identifier not found");
+        }
 
 			bool fmtBlockFound = false;
 			int dataSize;
@@ -81,75 +81,74 @@ namespace IdSharp.AudioInfo
 			if (!fmtBlockFound)
 				throw new InvalidDataException("'fmt ' identifier not found");
 
-        	// Start reading the next frame.  Only supported frame is the data block
-            //byte[] b = stream.Read(8);
+    	// Start reading the next frame.  Only supported frame is the data block
+        //byte[] b = stream.Read(8);
 
-            // Do we have a fact block?
-            /*if (b[0] == 'f' && b[1] == 'a' && b[2] == 'c' && b[3] == 't')
-            {
-                // TODO: problem here - code just rewinds and rereads
-                // Skip the fact block
-                stream.Seek(36 + extraBytes, SeekOrigin.Begin);
-                // Read the next frame
-                b = stream.Read(8);
-            }*/
+        // Do we have a fact block?
+        /*if (b[0] == 'f' && b[1] == 'a' && b[2] == 'c' && b[3] == 't')
+        {
+            // TODO: problem here - code just rewinds and rereads
+            // Skip the fact block
+            stream.Seek(36 + extraBytes, SeekOrigin.Begin);
+            // Read the next frame
+            b = stream.Read(8);
+        }*/
 
 			int bytes = dataSize;
 
-            AudioDataOffset = stream.Position;
-            TotalSeconds = bytes / (Channels * 2.0m * Frequency);
-            Bitrate = bytes / TotalSeconds / 125.0m;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RiffWave"/> class.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        public RiffWave(string path)
-        {
-            using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                ReadStream(fs);
-            }
-        }
-
-        /// <summary>
-        /// Gets the frequency.
-        /// </summary>
-        /// <value>The frequency.</value>
-        public int Frequency { get; private set; }
-
-        /// <summary>
-        /// Gets the total seconds.
-        /// </summary>
-        /// <value>The total seconds.</value>
-        public decimal TotalSeconds { get; private set; }
-
-        /// <summary>
-        /// Gets the bitrate.
-        /// </summary>
-        /// <value>The bitrate.</value>
-        public decimal Bitrate { get; private set; }
-
-        /// <summary>
-        /// Gets the number of channels.
-        /// </summary>
-        /// <value>The number of channels.</value>
-        public int Channels { get; private set; }
-
-        /// <summary>
-        /// Gets the type of the audio file.
-        /// </summary>
-        /// <value>The type of the audio file.</value>
-        public AudioFileType FileType
-        {
-            get { return AudioFileType.RiffWave; }
-        }
-
-        /// <summary>
-        /// Gets the audio data offset.
-        /// </summary>
-        /// <value>The audio data offset.</value>
-        public long AudioDataOffset { get; private set; }
+        AudioDataOffset = stream.Position;
+        TotalSeconds = bytes / (Channels * 2.0m * Frequency);
+        Bitrate = bytes / TotalSeconds / 125.0m;
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RiffWave"/> class.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    public RiffWave(string path)
+    {
+        using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            ReadStream(fs);
+        }
+    }
+
+    /// <summary>
+    /// Gets the frequency.
+    /// </summary>
+    /// <value>The frequency.</value>
+    public int Frequency { get; private set; }
+
+    /// <summary>
+    /// Gets the total seconds.
+    /// </summary>
+    /// <value>The total seconds.</value>
+    public decimal TotalSeconds { get; private set; }
+
+    /// <summary>
+    /// Gets the bitrate.
+    /// </summary>
+    /// <value>The bitrate.</value>
+    public decimal Bitrate { get; private set; }
+
+    /// <summary>
+    /// Gets the number of channels.
+    /// </summary>
+    /// <value>The number of channels.</value>
+    public int Channels { get; private set; }
+
+    /// <summary>
+    /// Gets the type of the audio file.
+    /// </summary>
+    /// <value>The type of the audio file.</value>
+    public AudioFileType FileType
+    {
+        get { return AudioFileType.RiffWave; }
+    }
+
+    /// <summary>
+    /// Gets the audio data offset.
+    /// </summary>
+    /// <value>The audio data offset.</value>
+    public long AudioDataOffset { get; private set; }
 }

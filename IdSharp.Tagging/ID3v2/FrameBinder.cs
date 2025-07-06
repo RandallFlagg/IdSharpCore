@@ -1,37 +1,36 @@
 using System;
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2
+namespace IdSharp.Tagging.ID3v2;
+
+internal sealed class FrameBinder
 {
-    internal sealed class FrameBinder
+    private readonly FrameContainer m_FrameContainer;
+
+    public FrameBinder(FrameContainer frameContainer)
     {
-        private readonly FrameContainer m_FrameContainer;
+        m_FrameContainer = frameContainer;
+    }
 
-        public FrameBinder(FrameContainer frameContainer)
+    public void Bind(INotifyPropertyChanged frame, string frameProperty, string tagProperty, Action validator)
+    {
+        /*bool found = false;
+        foreach (System.Reflection.PropertyInfo pi in typeof(FrameContainer).GetProperties())
         {
-            m_FrameContainer = frameContainer;
-        }
-
-        public void Bind(INotifyPropertyChanged frame, string frameProperty, string tagProperty, Action validator)
-        {
-            /*bool found = false;
-            foreach (System.Reflection.PropertyInfo pi in typeof(FrameContainer).GetProperties())
+            if (pi.Name == tagProperty)
             {
-                if (pi.Name == tagProperty)
-                {
-                    found = true;
-                    break;
-                }
+                found = true;
+                break;
             }
-            if (found == false)
-            {
-            }*/
-
-            frame.PropertyChanged += delegate
-            {
-                m_FrameContainer.RaisePropertyChanged(tagProperty);
-                validator?.Invoke();
-            };
         }
+        if (found == false)
+        {
+        }*/
+
+        frame.PropertyChanged += delegate
+        {
+            m_FrameContainer.RaisePropertyChanged(tagProperty);
+            validator?.Invoke();
+        };
     }
 }

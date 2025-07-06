@@ -1,37 +1,36 @@
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Items
+namespace IdSharp.Tagging.ID3v2.Frames.Items;
+
+internal sealed class InvolvedPerson : IInvolvedPerson
 {
-    internal sealed class InvolvedPerson : IInvolvedPerson
+    private string _name;
+    private string _involvement;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public string Name
     {
-        private string _name;
-        private string _involvement;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name
+        get { return _name; }
+        set
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                RaisePropertyChanged("Name");
-            }
+            _name = value;
+            RaisePropertyChanged("Name");
         }
+    }
 
-        public string Involvement
+    public string Involvement
+    {
+        get { return _involvement; }
+        set
         {
-            get { return _involvement; }
-            set
-            {
-                _involvement = value;
-                RaisePropertyChanged("Involvement");
-            }
+            _involvement = value;
+            RaisePropertyChanged("Involvement");
         }
+    }
 
-        private void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    private void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
