@@ -5,6 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>IdSharp.AudioInfo</AssemblyName>
     <Description>.NET Core ID3 Audio Info Library</Description>
+    <RootNamespace>IdSharp.AudioInfo</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="nuget">

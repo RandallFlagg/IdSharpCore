@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>IdSharp.WebLookup</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" />
