@@ -12,10 +12,7 @@ public partial class Lyrics3Tag
     /// <param name="stream">The stream.</param>
     public static int GetTagSize(Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         return new Lyrics3Tag(stream).TotalTagSize;
     }

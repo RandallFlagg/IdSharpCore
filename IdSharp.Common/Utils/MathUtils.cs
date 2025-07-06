@@ -71,10 +71,7 @@ public class MathUtils
     /// <returns><c>true</c> if the type is a numeric type; otherwise, <c>false</c>.</returns>
     public static bool IsNumericType(Type type)
     {
-        if (type == null)
-        {
-            throw new ArgumentNullException(nameof(type));
-        }
+        ArgumentNullException.ThrowIfNull(type);
 
         return (type == typeof(int) ||
                 type == typeof(int?) ||

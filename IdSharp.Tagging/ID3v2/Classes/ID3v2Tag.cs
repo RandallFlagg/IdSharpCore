@@ -139,10 +139,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     /// <returns>All frames in the ID3v2 tag with the specified <paramref name="frameIDs"/> as a collection of IFrames.</returns>
     public List<IFrame> GetFrames(IEnumerable<string> frameIDs)
     {
-        if (frameIDs == null)
-        {
-            throw new ArgumentNullException(nameof(frameIDs));
-        }
+        ArgumentNullException.ThrowIfNull(frameIDs);
 
         return GetAllFrames(_id3v2Header.TagVersion, frameIDs);
     }

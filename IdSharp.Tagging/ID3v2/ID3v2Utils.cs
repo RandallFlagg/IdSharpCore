@@ -328,10 +328,7 @@ internal static class ID3v2Utils
 
     public static string ReadString(EncodingType textEncoding, byte[] bytes)
     {
-        if (bytes == null)
-        {
-            throw new ArgumentNullException(nameof(bytes));
-        }
+        ArgumentNullException.ThrowIfNull(bytes);
 
         using (MemoryStream memoryStream = new MemoryStream(bytes))
         {
@@ -341,10 +338,7 @@ internal static class ID3v2Utils
 
     public static string ReadString(EncodingType textEncoding, Stream stream)
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         string returnValue;
         List<byte> byteList = new List<byte>();
