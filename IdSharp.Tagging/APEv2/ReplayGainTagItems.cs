@@ -122,16 +122,26 @@ public class ReplayGainTagItems {
     internal void SetField(string key, string value) {
 
         if (!key.StartsWith("REPLAYGAIN_"))
+        {
             return;
+        }
 
         if (key == "REPLAYGAIN_ALBUM_GAIN")
+        {
             AlbumGainText = value;
+        }
         else if (key == "REPLAYGAIN_ALBUM_PEAK")
+        {
             AlbumPeakText = value;
+        }
         else if (key == "REPLAYGAIN_TRACK_GAIN")
+        {
             TrackGainText = value;
+        }
         else if (key == "REPLAYGAIN_TRACK_PEAK")
+        {
             TrackPeakText = value;
+        }
     }
 
     #endregion Exposed methods
@@ -142,15 +152,21 @@ public class ReplayGainTagItems {
     private decimal? ConvertValue(string value, string textToRemove) {
 
         if (value == null)
+        {
             return null;
+        }
 
         if (!string.IsNullOrEmpty(textToRemove))
+        {
             value = value.Replace(textToRemove, "");
+        }
 
         decimal result;
 
         if (decimal.TryParse(value, out result))
+        {
             return result;
+        }
 
         return null;
     }
@@ -163,7 +179,9 @@ public class ReplayGainTagItems {
     private string ConvertValue(decimal? value, string textToAdd) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
 
         return value.Value.ToString("#0.000000") + (textToAdd != null ? textToAdd : "");
     }
@@ -176,24 +194,34 @@ public class ReplayGainTagItems {
     private decimal? ConvertToDecibels(decimal? value) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
         else
+        {
             return 20 * (decimal) Math.Log10((double) value);
+        }
     }
 
     private decimal? ConvertFromDecibels(decimal? value) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
         else
+        {
             return (decimal) Math.Pow(10, (double) (value / 20));
+        }
     }
 
 
     private void RaisePropertyChanged(string propertyName) {
 
         if (PropertyChanged != null)
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     #endregion Private methods

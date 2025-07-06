@@ -44,7 +44,9 @@ internal sealed class SeekNextTag : Frame, ISeekNextTag
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_minimumOffsetToNextTag == 0)
+        {
             return new byte[0];
+        }
 
         throw new NotImplementedException();
     }

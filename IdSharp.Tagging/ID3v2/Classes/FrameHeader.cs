@@ -236,9 +236,13 @@ internal sealed class FrameHeader : IFrameHeader
         if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v23)
         {
             if (!usesUnsynchronization)
+            {
                 FrameSize = stream.ReadInt32();
+            }
             else
+            {
                 FrameSize = ID3v2Utils.ReadInt32Unsynchronized(stream);
+            }
 
             FrameSizeExcludingAdditions = FrameSize;
 
@@ -298,9 +302,13 @@ internal sealed class FrameHeader : IFrameHeader
         else if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22)
         {
             if (!usesUnsynchronization)
+            {
                 FrameSize = stream.ReadInt24();
+            }
             else
+            {
                 FrameSize = ID3v2Utils.ReadInt24Unsynchronized(stream);
+            }
 
             if ((tagReadingInfo.TagVersionOptions & TagVersionOptions.AddOneByteToSize) == TagVersionOptions.AddOneByteToSize)
             {
@@ -325,10 +333,14 @@ internal sealed class FrameHeader : IFrameHeader
         else if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v24)
         {
             if ((tagReadingInfo.TagVersionOptions & TagVersionOptions.UseNonSyncSafeFrameSizeID3v24) == TagVersionOptions.UseNonSyncSafeFrameSizeID3v24)
+            {
                 FrameSize = stream.ReadInt32();
+            }
             else
+            {
                 FrameSize = ID3v2Utils.ReadInt32SyncSafe(stream);
-            
+            }
+
             FrameSizeExcludingAdditions = FrameSize;
 
             byte byte0 = stream.Read1();
@@ -364,7 +376,9 @@ internal sealed class FrameHeader : IFrameHeader
         FrameSizeExcludingAdditions = (int)frameData.Length;
 
         if (frameID == null)
+        {
             return new byte[0];
+        }
 
         byte[] frameIDBytes = ByteUtils.ISO88591GetBytes(frameID);
         byte[] tmpRawData;
@@ -372,7 +386,9 @@ internal sealed class FrameHeader : IFrameHeader
         if (tagVersion == ID3v2TagVersion.ID3v22)
         {
             if (frameIDBytes.Length != 3)
+            {
                 throw new ArgumentException(String.Format("FrameID must be 3 bytes from ID3v2.2 ({0} bytes passed)", frameIDBytes.Length));
+            }
 
             tmpRawData = new byte[6];
             tmpRawData[0] = frameIDBytes[0];
@@ -394,16 +410,29 @@ internal sealed class FrameHeader : IFrameHeader
                                (_encryptionMethod != null ? 0x40 : 0) +
                                (_groupingIdentity != null ? 0x20 : 0));
 
-            if (_isCompressed) tmpRawDataSize += 4;
-            if (_encryptionMethod != null) tmpRawDataSize++;
-            if (_groupingIdentity != null) tmpRawDataSize++;
+            if (_isCompressed)
+            {
+                tmpRawDataSize += 4;
+            }
+
+            if (_encryptionMethod != null)
+            {
+                tmpRawDataSize++;
+            }
+
+            if (_groupingIdentity != null)
+            {
+                tmpRawDataSize++;
+            }
 
             int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
 
             tmpRawData = new byte[tmpRawDataSize];
 
             if (frameIDBytes.Length != 4)
+            {
                 throw new ArgumentException(string.Format("FrameID must be 4 bytes ({0} bytes passed)", frameIDBytes.Length));
+            }
 
             tmpRawData[0] = frameIDBytes[0];
             tmpRawData[1] = frameIDBytes[1];
@@ -425,8 +454,15 @@ internal sealed class FrameHeader : IFrameHeader
                 tmpRawData[tmpCurrentPosition++] = (byte)(DecompressedSize >> 8);
                 tmpRawData[tmpCurrentPosition++] = (byte)DecompressedSize;
             }
-            if (_encryptionMethod != null) tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;
-            if (_groupingIdentity != null) tmpRawData[tmpCurrentPosition] = _groupingIdentity.Value;
+            if (_encryptionMethod != null)
+            {
+                tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;
+            }
+
+            if (_groupingIdentity != null)
+            {
+                tmpRawData[tmpCurrentPosition] = _groupingIdentity.Value;
+            }
         }
         else if (tagVersion == ID3v2TagVersion.ID3v24)
         {
@@ -443,9 +479,20 @@ internal sealed class FrameHeader : IFrameHeader
                               (false Data length indicator ? 0x01 : 0)*/
                                                                         );
 
-            if (_isCompressed) tmpRawDataSize += 4;
-            if (_encryptionMethod != null) tmpRawDataSize++;
-            if (_groupingIdentity != null) tmpRawDataSize++;
+            if (_isCompressed)
+            {
+                tmpRawDataSize += 4;
+            }
+
+            if (_encryptionMethod != null)
+            {
+                tmpRawDataSize++;
+            }
+
+            if (_groupingIdentity != null)
+            {
+                tmpRawDataSize++;
+            }
             /*TODO: unsync,DLI*/
 
             int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
@@ -453,7 +500,9 @@ internal sealed class FrameHeader : IFrameHeader
             tmpRawData = new byte[tmpRawDataSize];
 
             if (frameIDBytes.Length != 4)
+            {
                 throw new ArgumentException(string.Format("FrameID must be 4 bytes ({0} bytes passed)", frameIDBytes.Length));
+            }
 
             // Note: ID3v2.4 uses sync safe frame sizes
 
@@ -470,7 +519,11 @@ internal sealed class FrameHeader : IFrameHeader
 
             int tmpCurrentPosition = 10;
 
-            if (_groupingIdentity != null) tmpRawData[tmpCurrentPosition++] = _groupingIdentity.Value;
+            if (_groupingIdentity != null)
+            {
+                tmpRawData[tmpCurrentPosition++] = _groupingIdentity.Value;
+            }
+
             if (_isCompressed)
             {
                 tmpRawData[tmpCurrentPosition++] = (byte)(DecompressedSize >> 24);
@@ -478,7 +531,10 @@ internal sealed class FrameHeader : IFrameHeader
                 tmpRawData[tmpCurrentPosition++] = (byte)(DecompressedSize >> 8);
                 tmpRawData[tmpCurrentPosition++] = (byte)DecompressedSize;
             }
-            if (_encryptionMethod != null) tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;
+            if (_encryptionMethod != null)
+            {
+                tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;
+            }
             /*TODO: unsync,DLI*/
         }
         else

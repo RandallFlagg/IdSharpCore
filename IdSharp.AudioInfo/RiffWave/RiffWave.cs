@@ -41,9 +41,11 @@ public class RiffWave : IAudioFile
 
 				// the data block starts WAV data
 				if (identifierHeader[0] == 'd' && identifierHeader[1] == 'a' && identifierHeader[2] == 't' && identifierHeader[3] == 'a')
-					break;
+            {
+                break;
+            }
 
-				byte[] data = stream.Read(dataSize);
+            byte[] data = stream.Read(dataSize);
 
 				if (identifierHeader[0] == 'f' && identifierHeader[1] == 'm' && identifierHeader[2] == 't' && identifierHeader[3] == ' ')
 				{
@@ -55,33 +57,41 @@ public class RiffWave : IAudioFile
 					int compression = data[0] + (data[1] << 8);
 					// Type 1 is PCM/Uncompressed
 					if (compression != 1)
-						throw new NotSupportedException("Only PCM/Uncompressed is supported");
+                {
+                    throw new NotSupportedException("Only PCM/Uncompressed is supported");
+                }
 
-					Channels = data[2] + (data[3] << 8);
+                Channels = data[2] + (data[3] << 8);
 					// Only mono or stereo PCM is supported in this example
 					if (Channels < 1 || Channels > 2)
-						throw new NotSupportedException("Only mono or stereo PCM is supported");
+                {
+                    throw new NotSupportedException("Only mono or stereo PCM is supported");
+                }
 
-					// Samples per second, independent of number of channels
-					Frequency = data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24);
+                // Samples per second, independent of number of channels
+                Frequency = data[4] + (data[5] << 8) + (data[6] << 16) + (data[7] << 24);
 					// Bytes 8-11 contain the "average bytes per second", unneeded here
 					// Bytes 12-13 contain the number of bytes per sample (includes channels)
 					// Bytes 14-15 contain the number of bits per single sample
 					int bits = data[14] + (data[15] << 8);
 					// Supporting othe sample depths will require conversion
 					if (bits != 16)
-						throw new InvalidDataException(string.Format("Only 16-bit audio is supported (bits={0})", bits));
+                {
+                    throw new InvalidDataException(string.Format("Only 16-bit audio is supported (bits={0})", bits));
+                }
 
-					// Skip past extra bytes, if any
-					//if (extraBytes != 0)
-					//	stream.Seek(extraBytes, SeekOrigin.Current);
-				}
+                // Skip past extra bytes, if any
+                //if (extraBytes != 0)
+                //	stream.Seek(extraBytes, SeekOrigin.Current);
+            }
 			}
 
 			if (!fmtBlockFound)
-				throw new InvalidDataException("'fmt ' identifier not found");
+        {
+            throw new InvalidDataException("'fmt ' identifier not found");
+        }
 
-    	// Start reading the next frame.  Only supported frame is the data block
+        // Start reading the next frame.  Only supported frame is the data block
         //byte[] b = stream.Read(8);
 
         // Do we have a fact block?
@@ -94,7 +104,7 @@ public class RiffWave : IAudioFile
             b = stream.Read(8);
         }*/
 
-			int bytes = dataSize;
+        int bytes = dataSize;
 
         AudioDataOffset = stream.Position;
         TotalSeconds = bytes / (Channels * 2.0m * Frequency);

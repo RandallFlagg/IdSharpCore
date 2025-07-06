@@ -36,7 +36,9 @@ public class VorbisComment : IVorbisComment
     public VorbisComment(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         Read(path);
     }
@@ -48,7 +50,9 @@ public class VorbisComment : IVorbisComment
     public VorbisComment(Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         Read(stream);
     }
@@ -103,7 +107,10 @@ public class VorbisComment : IVorbisComment
         {
             string value = Items.GetValue("DATE");
             if (string.IsNullOrEmpty(value))
+            {
                 value = Items.GetValue("YEAR");
+            }
+
             return value;
         }
         set { Items.SetValue("DATE", value); }
@@ -230,7 +237,10 @@ public class VorbisComment : IVorbisComment
                 else if (string.Compare(item.Name, "YEAR", true) == 0)
                 {
                     if (string.IsNullOrEmpty(Items.GetValue("DATE")))
+                    {
                         Items.SetValue("DATE", item.Value);
+                    }
+
                     Items.Remove(item);
                 }
             }
@@ -241,7 +251,10 @@ public class VorbisComment : IVorbisComment
             // Write items
             foreach (NameValueItem item in Items)
             {
-                if (string.IsNullOrEmpty(item.Value)) continue;
+                if (string.IsNullOrEmpty(item.Value))
+                {
+                    continue;
+                }
 
                 byte[] keyBytes = Encoding.ASCII.GetBytes(item.Name);
                 byte[] valueBytes = Encoding.UTF8.GetBytes(item.Value);
@@ -274,14 +287,20 @@ public class VorbisComment : IVorbisComment
             }
             else if (metaDataBlock.BlockType == FlacMetaDataBlockType.StreamInfo)
             {
-                if (streamInfoBlock != null) 
+                if (streamInfoBlock != null)
+                {
                     throw new InvalidDataException("Multiple stream info blocks");
+                }
+
                 streamInfoBlock = metaDataBlock;
             }
             else if (metaDataBlock.BlockType == FlacMetaDataBlockType.SeekTable)
             {
-                if (seekTableBlock != null) 
+                if (seekTableBlock != null)
+                {
                     throw new InvalidDataException("Multiple seek tables");
+                }
+
                 seekTableBlock = metaDataBlock;
             }
         }
@@ -300,9 +319,14 @@ public class VorbisComment : IVorbisComment
             // same file read/write this works.  Not high priority.
             int adjustPadding = targetFile.OrigVorbisCommentSize - newTagArray.Length;
             int newSize = paddingBlock.Size + adjustPadding;
-            if (newSize < 10) 
+            if (newSize < 10)
+            {
                 paddingBlock.SetBlockDataZeroed(2000);
-            else paddingBlock.SetBlockDataZeroed(newSize);
+            }
+            else
+            {
+                paddingBlock.SetBlockDataZeroed(newSize);
+            }
         }
 
         // Set Vorbis-Comment block data
@@ -311,8 +335,10 @@ public class VorbisComment : IVorbisComment
 
         // Create list of blocks to write
         myMetaDataBlocks.Add(streamInfoBlock); // StreamInfo MUST be first
-        if (seekTableBlock != null) 
+        if (seekTableBlock != null)
+        {
             myMetaDataBlocks.Add(seekTableBlock);
+        }
 
         // Add other blocks we read from the original file.
         foreach (FlacMetaDataBlock metaDataBlock in _metaDataBlockList)
@@ -416,7 +442,9 @@ public class VorbisComment : IVorbisComment
             {
                 // always write padding last
                 if (metaDataBlock == paddingBlock)
+                {
                     continue;
+                }
 
                 blockType = (byte)metaDataBlock.BlockType;
                 fs.WriteByte(blockType);
@@ -432,7 +460,9 @@ public class VorbisComment : IVorbisComment
         }
 
         if (!string.IsNullOrEmpty(tempFilename))
+        {
             File.Delete(tempFilename);
+        }
     }
 
     /*else if (mAudioFileTrack == AUDIO_OGG)

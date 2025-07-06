@@ -18,7 +18,10 @@ public static class EnumUtils
         string enumString = enumValue.ToString();
         object[] descriptions = typeof(T).GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
         if (descriptions.Length == 1)
+        {
             enumString = ((DescriptionAttribute)descriptions[0]).Description;
+        }
+
         return enumString;
     }
 }

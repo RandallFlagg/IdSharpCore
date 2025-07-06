@@ -30,10 +30,13 @@ public class Musepack : IAudioFile
 
             byte[] byteArray = stream.Read(32);
             int[] integerArray = new int[8];
-            for (int i = 0; i < 8; i++) integerArray[i] = (byteArray[i * 4]) +
+            for (int i = 0; i < 8; i++)
+            {
+                integerArray[i] = (byteArray[i * 4]) +
                                                       (byteArray[i * 4 + 1] << 8) +
                                                       (byteArray[i * 4 + 2] << 16) +
                                                       (byteArray[i * 4 + 3] << 24);
+            }
 
             // Size TODO - ignore Lyrics3
             long audioDataLength = stream.Length - tmpID3v2TagSize - tmpID3v1TagSize - tmpAPEv2TagSize;
@@ -74,20 +77,36 @@ public class Musepack : IAudioFile
             // Channels
             if (StreamVersion == 7 || StreamVersion == 7.1m)
             {
-                if ((byteArray[11] % 128) < 64) Mode = "Stereo";
-                else Mode = "Joint Stereo";
+                if ((byteArray[11] % 128) < 64)
+                {
+                    Mode = "Stereo";
+                }
+                else
+                {
+                    Mode = "Joint Stereo";
+                }
             }
             else
             {
-                if ((byteArray[2] % 128) == 0) Mode = "Stereo";
-                else Mode = "Joint Stereo";
+                if ((byteArray[2] % 128) == 0)
+                {
+                    Mode = "Stereo";
+                }
+                else
+                {
+                    Mode = "Joint Stereo";
+                }
             }
 
             // Frames
             if (StreamVersion == 4)
+            {
                 Frames = integerArray[1] >> 16;
+            }
             else
+            {
                 Frames = integerArray[1];
+            }
 
             TotalSeconds = Frames * 1152 / (decimal)Frequency;
             Bitrate = (audioDataLength / TotalSeconds) / 125.0m;

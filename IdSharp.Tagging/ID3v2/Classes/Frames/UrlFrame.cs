@@ -52,7 +52,9 @@ internal sealed class UrlFrame : Frame, IUrlFrame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (string.IsNullOrEmpty(_value))
+        {
             return new byte[0];
+        }
 
         using (MemoryStream stream = new MemoryStream())
         {

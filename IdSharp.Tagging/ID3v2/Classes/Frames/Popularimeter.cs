@@ -97,7 +97,9 @@ internal sealed class Popularimeter : Frame, IPopularimeter
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_rating == 0 && _playCount == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {

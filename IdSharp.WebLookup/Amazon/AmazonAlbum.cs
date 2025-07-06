@@ -15,9 +15,14 @@ public class AmazonAlbum
     internal AmazonAlbum(AmazonServer server, string awsAccessKeyId, string secretAccessKey)
     {
         if (string.IsNullOrWhiteSpace(awsAccessKeyId))
+        {
             throw new ArgumentNullException("awsAccessKeyId");
+        }
+
         if (string.IsNullOrWhiteSpace(secretAccessKey))
+        {
             throw new ArgumentNullException("secretAccessKey");
+        }
 
         _amazonServer = server;
         _awsAccessKeyId = awsAccessKeyId;

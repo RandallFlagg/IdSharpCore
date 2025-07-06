@@ -44,9 +44,13 @@ internal sealed class Comments : Frame, IComments
 
                     // TODO: Should this fire a warning?
                     if (_languageCode.Length > 3)
+                    {
                         _languageCode = _languageCode.Substring(0, 3);
+                    }
                     else
+                    {
                         _languageCode = _languageCode.PadRight(3, ' ');
+                    }
                 }
             }
 
@@ -190,10 +194,14 @@ internal sealed class Comments : Frame, IComments
     /// <returns>The byte array representation of the frame</returns>
     public byte[] GetBytes(ID3v2TagVersion tagVersion, bool appendNullTerminator) {
         if (string.IsNullOrEmpty(Value))
+        {
             return new byte[0];
+        }
 
         if (LanguageCode == null || LanguageCode.Length != 3)
+        {
             LanguageCode = "eng";
+        }
 
         byte[] descriptionData;
         byte[] valueData;
@@ -203,7 +211,9 @@ internal sealed class Comments : Frame, IComments
             valueData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Value, false);
 
             if (appendNullTerminator)
+            {
                 Array.Resize<byte>(ref valueData, valueData.Length + 1);
+            }
         } while (
             this.RequiresFix(tagVersion, Description, descriptionData) ||
             this.RequiresFix(tagVersion, Value, valueData)

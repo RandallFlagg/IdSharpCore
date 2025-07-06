@@ -40,11 +40,19 @@ if (_verbosity >= Verbosity.Default)
 
     string options = "Options: Convert to " + _newTagVersion;
     if (_isTest)
+    {
         options += ", test";
+    }
+
     if (_isRecursive)
+    {
         options += ", recurisve";
+    }
+
     if (_upgradeOnly)
+    {
         options += ", upgrade only";
+    }
 
     WriteLine(options);
 }
@@ -174,7 +182,9 @@ bool ParseArguments(string[] args)
         string arg = args[i];
 
         if (arg.StartsWith("--"))
+        {
             arg = arg.Substring(1);
+        }
 
         if (arg == "-2.3" || arg == "-23")
         {
@@ -191,7 +201,9 @@ bool ParseArguments(string[] args)
         else if (arg == "-v" || arg == "-verbose" || arg == "-verbosity")
         {
             if (i + 1 >= args.Length)
+            {
                 throw new ArgumentException("Missing verbosity level after -v.");
+            }
 
             string level = args[++i];
 

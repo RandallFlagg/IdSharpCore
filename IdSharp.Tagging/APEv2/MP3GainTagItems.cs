@@ -127,9 +127,13 @@ public class MP3GainTagItems {
     internal string TrackMinMaxText {
         get {
             if (_trackMin.HasValue && _trackMax.HasValue)
+            {
                 return ConvertValue(_trackMin.Value) + "," + ConvertValue(_trackMax.Value);
+            }
             else
+            {
                 return null;
+            }
         }
         set {
             TrackMinimumGain = ConvertValue(value, 0);
@@ -140,9 +144,13 @@ public class MP3GainTagItems {
     internal string AlbumMinMaxText {
         get {
             if (_albumMin.HasValue && _albumMax.HasValue)
+            {
                 return ConvertValue(_albumMin.Value) + "," + ConvertValue(_albumMax.Value);
+            }
             else
+            {
                 return null;
+            }
         }
         set {
             AlbumMinimumGain = ConvertValue(value, 0);
@@ -153,10 +161,14 @@ public class MP3GainTagItems {
     internal string UndoText {
         get {
             if (_undoLeftChannel.HasValue && _undoRightChannel.HasValue && _undoWrap.HasValue)
+            {
                 return ConvertValue(_undoLeftChannel.Value, true) + "," +
                     ConvertValue(_undoRightChannel.Value, true) + "," + (_undoWrap.Value ? "W" : "N");
+            }
             else
+            {
                 return null;
+            }
         }
         set {
             UndoLeftChannelAdjustment = ConvertValue(value, 0);
@@ -165,13 +177,21 @@ public class MP3GainTagItems {
             string val = ConvertValueToString(value, 2);
 
             if (string.IsNullOrWhiteSpace(val))
+            {
                 UndoWrapFlag = null;
+            }
             else if (val.ToUpper() == "N")
+            {
                 UndoWrapFlag = false;
+            }
             else if (val.ToUpper() == "W")
+            {
                 UndoWrapFlag = true;
+            }
             else
+            {
                 UndoWrapFlag = null;
+            }
         }
     }
 
@@ -183,14 +203,22 @@ public class MP3GainTagItems {
     internal void SetField(string key, string value) {
 
         if (!key.StartsWith(TAG_PREFIX))
+        {
             return;
+        }
 
         if (key == "MP3GAIN_MINMAX")
+        {
             TrackMinMaxText = value;
+        }
         else if (key == "MP3GAIN_ALBUM_MINMAX")
+        {
             AlbumMinMaxText = value;
+        }
         else if (key == "MP3GAIN_UNDO")
+        {
             UndoText = value;
+        }
     }
 
     #endregion Exposed methods
@@ -201,12 +229,16 @@ public class MP3GainTagItems {
     private string ConvertValueToString(string value, int position) {
 
         if (value == null)
+        {
             return null;
+        }
 
         string[] parts = value.Split(new char[] { ',' });
 
         if (parts.Length <= position)
+        {
             return null;
+        }
 
         return parts[position];
     }
@@ -216,12 +248,16 @@ public class MP3GainTagItems {
         string part = ConvertValueToString(value, position);
 
         if (string.IsNullOrWhiteSpace(part))
+        {
             return null;
+        }
 
         short result;
 
         if (short.TryParse(part, out result))
+        {
             return result;
+        }
 
         return null;
     }
@@ -229,7 +265,9 @@ public class MP3GainTagItems {
     private string ConvertValue(short? value, bool includeSign) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
 
         return value.Value.ToString((includeSign ? "+" : "") + "000;-000;");
     }
@@ -242,24 +280,34 @@ public class MP3GainTagItems {
     private decimal? ConvertToDecibels(short? value) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
         else
+        {
             return value.Value * (decimal) 1.5;
+        }
     }
 
     private short? ConvertFromDecibels(decimal? value) {
 
         if (!value.HasValue)
+        {
             return null;
+        }
         else
+        {
             return (short) (value.Value / (decimal) 1.5);
+        }
     }
 
 
     private void RaisePropertyChanged(string propertyName) {
 
         if (PropertyChanged != null)
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     #endregion Private methods

@@ -826,7 +826,9 @@ internal class Mpeg4Tag : INotifyPropertyChanged
     private static bool MoovToEnd(Stream f, int len, long moovpos)
     {
         if (moovpos == 0)
+        {
             return false;
+        }
 
         f.Seek(moovpos, SeekOrigin.Begin);
 

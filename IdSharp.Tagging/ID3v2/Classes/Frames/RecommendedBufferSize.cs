@@ -71,7 +71,9 @@ internal sealed class RecommendedBufferSize : Frame, IRecommendedBufferSize
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (BufferSize == 0)
+        {
             return new byte[0];
+        }
 
         throw new NotImplementedException();
     }

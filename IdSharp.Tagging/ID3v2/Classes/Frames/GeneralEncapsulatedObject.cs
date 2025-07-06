@@ -111,7 +111,9 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_encapsulatedObject == null || _encapsulatedObject.Length == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {

@@ -14,7 +14,9 @@ internal static class Frames
     public static void EncryptionMethod(ID3v2TagVersion tagVersion, bool useData)
     {
         if (tagVersion == ID3v2TagVersion.ID3v22)
+        {
             throw new NotSupportedException();
+        }
 
         IID3v2Tag id3 = new ID3v2Tag();
         IEncryptionMethod aud = id3.EncryptionMethodList.AddNew();
@@ -36,7 +38,9 @@ internal static class Frames
     public static void Commercial(ID3v2TagVersion tagVersion, bool useLogo)
     {
         if (tagVersion == ID3v2TagVersion.ID3v22)
+        {
             throw new NotSupportedException();
+        }
 
         IID3v2Tag id3 = new ID3v2Tag();
         ICommercial aud = id3.CommercialInfoList.AddNew();

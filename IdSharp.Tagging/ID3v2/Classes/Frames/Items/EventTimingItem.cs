@@ -32,7 +32,9 @@ internal sealed class EventTimingItem : IEventTimingItem
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", "Value cannot be less than 0");
+            }
 
             _timestamp = value;
             RaisePropertyChanged("Timestamp");

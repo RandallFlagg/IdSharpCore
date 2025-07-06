@@ -177,7 +177,10 @@ public static class ByteUtils
     public static byte[] Get4Bytes(int value)
     {
         if (value < 0)
+        {
             throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
+        }
+
         return Get4Bytes((uint)value);
     }
 
@@ -188,7 +191,10 @@ public static class ByteUtils
     public static byte[] Get2Bytes(short value)
     {
         if (value < 0)
+        {
             throw new ArgumentOutOfRangeException(nameof(value), value, "Value cannot be less than 0");
+        }
+
         return Get2Bytes((ushort)value);
     }
 
@@ -201,9 +207,13 @@ public static class ByteUtils
     public static byte[] ISO88591GetBytes(string value)
     {
         if (value == null)
+        {
             return Array.Empty<byte>();
+        }
         else
+        {
             return ISO88591.GetBytes(value);
+        }
     }
 
     /// <summary>
@@ -214,9 +224,13 @@ public static class ByteUtils
     public static byte[] Clone(byte[] value)
     {
         if (value == null)
+        {
             return null;
+        }
         else
+        {
             return (byte[])value.Clone();
+        }
     }
 
     /// <summary>
@@ -228,9 +242,13 @@ public static class ByteUtils
     public static string ISO88591GetString(byte[] value)
     {
         if (value == null)
+        {
             return string.Empty;
+        }
         else
+        {
             return ISO88591.GetString(value);
+        }
     }
 
     /// <summary>

@@ -12,7 +12,9 @@ internal static class ID3v1
     public static int GetTagSize(Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         long currentPosition = stream.Position;
         try

@@ -17,7 +17,9 @@ public static class AudioFile
     public static IAudioFile Create(string path, bool throwExceptionIfUnknown)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         string ext = Path.GetExtension(path).ToLower();
         IAudioFile audioFile = null;
@@ -100,7 +102,9 @@ public static class AudioFile
         {
             IAudioFile audioFile = Create(path, throwExceptionIfUnknown);
             if (audioFile != null)
+            {
                 audioFileList.Add(audioFile);
+            }
         }
 
         return audioFileList;
@@ -131,7 +135,11 @@ public static class AudioFile
             string allExtensions = "";
             foreach (string extension in GetExtensions())
             {
-                if (allExtensions != "") allExtensions += ";";
+                if (allExtensions != "")
+                {
+                    allExtensions += ";";
+                }
+
                 allExtensions += "*" + extension;
             }
 

@@ -65,14 +65,18 @@ public partial class ID3v2UserControl : UserControl
     {
         IAttachedPicture attachedPicture = GetCurrentPictureFrame();
         if (attachedPicture != null)
+        {
             attachedPicture.PictureType = PictureTypeHelper.GetPictureTypeFromString(cmbImageType.Text);
+        }
     }
 
     private void txtImageDescription_Validated(object sender, EventArgs e)
     {
         IAttachedPicture attachedPicture = GetCurrentPictureFrame();
         if (attachedPicture != null)
+        {
             attachedPicture.Description = txtImageDescription.Text;
+        }
     }
 
     private void LoadImageData(IAttachedPicture attachedPicture)
@@ -125,7 +129,10 @@ public partial class ID3v2UserControl : UserControl
     private IAttachedPicture GetCurrentPictureFrame()
     {
         if (imageBindingNavigator.BindingSource == null)
+        {
             return null;
+        }
+
         return imageBindingNavigator.BindingSource.Current as IAttachedPicture;
     }
 
@@ -196,13 +203,21 @@ public partial class ID3v2UserControl : UserControl
         }
 
         if (cmbID3v2.SelectedIndex == cmbID3v2.Items.IndexOf("ID3v2.2"))
+        {
             _id3v2.Header.TagVersion = ID3v2TagVersion.ID3v22;
+        }
         else if (cmbID3v2.SelectedIndex == cmbID3v2.Items.IndexOf("ID3v2.3"))
+        {
             _id3v2.Header.TagVersion = ID3v2TagVersion.ID3v23;
+        }
         else if (cmbID3v2.SelectedIndex == cmbID3v2.Items.IndexOf("ID3v2.4"))
+        {
             _id3v2.Header.TagVersion = ID3v2TagVersion.ID3v24;
+        }
         else
+        {
             throw new Exception("Unknown tag version");
+        }
 
         _id3v2.Artist = txtArtist.Text;
         _id3v2.Title = txtTitle.Text;

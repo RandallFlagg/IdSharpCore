@@ -12,7 +12,9 @@ public partial class ID3v1Tag
     public static int GetTagSize(Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         long currentPosition = stream.Position;
         try
@@ -45,7 +47,9 @@ public partial class ID3v1Tag
     public static int GetTagSize(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
@@ -60,7 +64,9 @@ public partial class ID3v1Tag
     public static bool DoesTagExist(Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         return (GetTagSize(stream) != 0);
     }
@@ -72,7 +78,9 @@ public partial class ID3v1Tag
     public static bool DoesTagExist(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         return (GetTagSize(path) != 0);
     }
@@ -85,12 +93,16 @@ public partial class ID3v1Tag
     public static bool RemoveTag(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
         {
             if (!DoesTagExist(fileStream))
+            {
                 return false;
+            }
 
             fileStream.SetLength(fileStream.Length - 128);
         }

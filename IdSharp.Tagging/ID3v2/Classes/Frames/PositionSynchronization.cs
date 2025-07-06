@@ -60,7 +60,9 @@ internal sealed class PositionSynchronization : Frame, IPositionSynchronization
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (Position == 0)
+        {
             return new byte[0];
+        }
 
         throw new NotImplementedException();
     }

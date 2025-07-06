@@ -70,16 +70,24 @@ internal sealed class ID3v2Header : IID3v2Header
         get
         {
             if (TagVersion != ID3v2TagVersion.ID3v22)
+            {
                 return _isExperimental;
+            }
             else
+            {
                 return false;
+            }
         }
         set
         {
             if (TagVersion != ID3v2TagVersion.ID3v22)
+            {
                 _isExperimental = value;
+            }
             else
+            {
                 _isExperimental = false;
+            }
         }
     }
 
@@ -88,16 +96,24 @@ internal sealed class ID3v2Header : IID3v2Header
         get 
         {
             if (TagVersion == ID3v2TagVersion.ID3v22)
+            {
                 return _isCompressed;
+            }
             else
+            {
                 return false;
+            }
         }
         set 
         {
             if (TagVersion == ID3v2TagVersion.ID3v22)
+            {
                 _isCompressed = value;
+            }
             else
+            {
                 _isCompressed = false;
+            }
         }
     }
 
@@ -106,16 +122,24 @@ internal sealed class ID3v2Header : IID3v2Header
         get 
         {
             if (TagVersion == ID3v2TagVersion.ID3v24)
+            {
                 return _isFooterPresent;
+            }
             else
+            {
                 return false;
+            }
         }
         set 
         {
             if (TagVersion == ID3v2TagVersion.ID3v24)
+            {
                 _isFooterPresent = value;
+            }
             else
+            {
                 _isFooterPresent = false;
+            }
         }
     }
 
@@ -215,9 +239,20 @@ internal sealed class ID3v2Header : IID3v2Header
         // Flags
         header[5] = 0;
 
-        if (UsesUnsynchronization) header[5] += 0x80;
-        if (HasExtendedHeader) header[5] += 0x40;
-        if (_isExperimental) header[5] += 0x20;
+        if (UsesUnsynchronization)
+        {
+            header[5] += 0x80;
+        }
+
+        if (HasExtendedHeader)
+        {
+            header[5] += 0x40;
+        }
+
+        if (_isExperimental)
+        {
+            header[5] += 0x20;
+        }
 
         // Syncsafe size
         header[6] = (byte)((_tagSize >> 21) & 0x7F);

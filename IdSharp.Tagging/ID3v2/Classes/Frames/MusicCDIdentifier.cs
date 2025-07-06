@@ -48,7 +48,9 @@ internal sealed class MusicCDIdentifier : Frame, IMusicCDIdentifier
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (TOC == null || TOC.Length == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {

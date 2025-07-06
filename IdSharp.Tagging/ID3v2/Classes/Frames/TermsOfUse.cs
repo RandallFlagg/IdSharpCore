@@ -94,7 +94,9 @@ internal sealed class TermsOfUse : Frame, ITermsOfUse
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (string.IsNullOrEmpty(_value))
+        {
             return new byte[0];
+        }
 
         byte[] valueData;
         do

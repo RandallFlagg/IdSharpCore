@@ -76,17 +76,23 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_additionalData == null || _additionalData.Length == 0)
+        {
             return new byte[0];
+        }
 
         if (tagVersion == ID3v2TagVersion.ID3v22)
         {
             if (_frameIdentifier == null || _frameIdentifier.Length != 3)
+            {
                 return new byte[0];
+            }
         }
         else
         {
             if (_frameIdentifier == null || _frameIdentifier.Length != 4)
+            {
                 return new byte[0];
+            }
         }
 
         using (MemoryStream frameData = new MemoryStream())

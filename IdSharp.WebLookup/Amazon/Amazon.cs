@@ -33,7 +33,9 @@ public static class Amazon
         // remove everything after parentheses
         int parenIndex = value.IndexOf('(');
         if (parenIndex > 0)
+        {
             value = value.Substring(0, parenIndex);
+        }
 
         // remove all characters that are not letters, digits, or spaces
         for (int i = 0; i < value.Length; i++)
@@ -89,7 +91,9 @@ public static class Amazon
         value = value.Trim();
 
         if (value == "various")
+        {
             value = string.Empty;
+        }
 
         //value = value.Replace(' ', '+');
     }
@@ -107,9 +111,14 @@ public static class Amazon
     public static AmazonSearchResponse Search(AmazonServer server, string awsAccessKeyId, string secretAccessKey, string artist, string album, string keywords, int page)
     {
         if (string.IsNullOrWhiteSpace(awsAccessKeyId))
+        {
             throw new ArgumentNullException("awsAccessKeyId");
+        }
+
         if (string.IsNullOrWhiteSpace(secretAccessKey))
+        {
             throw new ArgumentNullException("secretAccessKey");
+        }
 
         String amazonDomain = GetDomain(server);
 
@@ -147,7 +156,10 @@ public static class Amazon
         requestUri = Http.GetQueryString(requestUri, postData);
         byte[] byteResponse = Http.Get(requestUri);
         if (byteResponse == null)
+        {
             throw new WebException(string.Format("Response from {0} was null", amazonDomain));
+        }
+
         string response = Encoding.UTF8.GetString(byteResponse);
 
         AmazonSearchResponse result = new AmazonSearchResponse();
@@ -190,9 +202,15 @@ public static class Amazon
                                         if (errorMessage != "" || errorCode != "")
                                         {
                                             if (errorCode != "")
+                                            {
                                                 errorMessage = string.Format("{0} ({1})", errorMessage, errorCode);
+                                            }
+
                                             if (fullErrorMessage != "")
+                                            {
                                                 fullErrorMessage += "\n\n";
+                                            }
+
                                             fullErrorMessage += errorMessage;
                                         }
                                     }
@@ -213,13 +231,17 @@ public static class Amazon
                             {
                                 int totalResults;
                                 if (int.TryParse(itemNode.InnerText, out totalResults))
+                                {
                                     result.TotalResults = totalResults;
+                                }
                             }
                             else if (itemNode.Name == "TotalPages")
                             {
                                 int totalPages;
                                 if (int.TryParse(itemNode.InnerText, out totalPages))
+                                {
                                     result.TotalPages = totalPages;
+                                }
                             }
                             else if (itemNode.Name == "Item")
                             {

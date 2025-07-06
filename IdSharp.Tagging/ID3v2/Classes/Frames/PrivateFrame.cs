@@ -61,7 +61,9 @@ internal sealed class PrivateFrame : Frame, IPrivateFrame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_privateData == null || _privateData.Length == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {

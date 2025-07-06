@@ -14,12 +14,17 @@ public class MathUtils
     public static int Max(params int[] array)
     {
         if (array == null || array.Length == 0)
+        {
             throw new ArgumentNullException("array");
+        }
 
         int max = array[0];
         foreach (int val in array)
         {
-            if (val > max) max = val;
+            if (val > max)
+            {
+                max = val;
+            }
         }
 
         return max;
@@ -32,12 +37,17 @@ public class MathUtils
     public static int Min(params int[] array)
     {
         if (array == null || array.Length == 0)
+        {
             throw new ArgumentNullException("array");
+        }
 
         int min = array[0];
         foreach (int val in array)
         {
-            if (val < min) min = val;
+            if (val < min)
+            {
+                min = val;
+            }
         }
 
         return min;
@@ -62,7 +72,9 @@ public class MathUtils
     public static bool IsNumericType(Type type)
     {
         if (type == null)
+        {
             throw new ArgumentNullException("type");
+        }
 
         return (type == typeof(int) ||
                 type == typeof(int?) ||

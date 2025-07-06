@@ -167,8 +167,11 @@ public class Mpeg : IAudioFile
                             // 7/31/05
                             // may be a valid frame - skip its contents to prevent false sync
                             long tmpNewPosition = _headerOffset + tmpFrameSize;
-                            if (tmpFrameSize == 0) 
+                            if (tmpFrameSize == 0)
+                            {
                                 tmpNewPosition++;
+                            }
+
                             stream.Seek(tmpNewPosition, SeekOrigin.Begin);
                             continue;
                         }
@@ -217,8 +220,14 @@ public class Mpeg : IAudioFile
             //tmpModeExtension = (FH[3] >> 4) & 0x03; // not interested, only used in joint-stereo
             //_mpegEmphasis = (MpegEmphasis)(tmpFrameHeader[3] & 0x03);
 
-            if ((tmpFrameHeader[3] >> 6) == 3) Channels = 1; // Single Channel
-            else Channels = 2;
+            if ((tmpFrameHeader[3] >> 6) == 3)
+            {
+                Channels = 1; // Single Channel
+            }
+            else
+            {
+                Channels = 2;
+            }
 
             // Read LAME Info Tag
             bool tmpHasLameInfoTag = false;
@@ -514,7 +523,11 @@ public class Mpeg : IAudioFile
             // No sync
             if ((FH[1] >> 5) != 0x07 || ((FH[1] >> 1) & 0x03) == 0) // 2/18/05 ignore reserved layer
             {
-                if (((FH[1] >> 1) & 0x03) == 0) reservedlayer = true;
+                if (((FH[1] >> 1) & 0x03) == 0)
+                {
+                    reservedlayer = true;
+                }
+
                 FrameOffset = 0;
                 offset -= 3;
                 mPerfect = false;
@@ -544,17 +557,34 @@ public class Mpeg : IAudioFile
         {
             // MPEG-1
             case MpegVersion.Mpeg1:
-                if (mpegLayer == MpegLayer.Layer1) tmpSamplesPerFrame = 384;
+                if (mpegLayer == MpegLayer.Layer1)
+                {
+                    tmpSamplesPerFrame = 384;
+                }
                 else if (mpegLayer == MpegLayer.Layer2 ||
-                         mpegLayer == MpegLayer.Layer3) tmpSamplesPerFrame = 1152;
+                         mpegLayer == MpegLayer.Layer3)
+                {
+                    tmpSamplesPerFrame = 1152;
+                }
+
                 break;
 
             // MPEG-2/2.5
             case MpegVersion.Mpeg2:
             case MpegVersion.Mpeg25:
-                if (mpegLayer == MpegLayer.Layer1) tmpSamplesPerFrame = 384;
-                else if (mpegLayer == MpegLayer.Layer2) tmpSamplesPerFrame = 1152;
-                else if (mpegLayer == MpegLayer.Layer3) tmpSamplesPerFrame = 576;
+                if (mpegLayer == MpegLayer.Layer1)
+                {
+                    tmpSamplesPerFrame = 384;
+                }
+                else if (mpegLayer == MpegLayer.Layer2)
+                {
+                    tmpSamplesPerFrame = 1152;
+                }
+                else if (mpegLayer == MpegLayer.Layer3)
+                {
+                    tmpSamplesPerFrame = 576;
+                }
+
                 break;
         } // end switch (ID)
 
@@ -641,7 +671,11 @@ public class Mpeg : IAudioFile
     {
         get
         {
-            if (_totalSeconds == 0) CalculateBitrate();
+            if (_totalSeconds == 0)
+            {
+                CalculateBitrate();
+            }
+
             return _totalSeconds;
         }
     }
@@ -654,7 +688,11 @@ public class Mpeg : IAudioFile
     {
         get
         {
-            if (_bitrate == 0) CalculateBitrate();
+            if (_bitrate == 0)
+            {
+                CalculateBitrate();
+            }
+
             return _bitrate;
         }
     }
@@ -706,7 +744,11 @@ public class Mpeg : IAudioFile
     {
         get
         {
-            if (_isVBR == null) CalculateBitrate();
+            if (_isVBR == null)
+            {
+                CalculateBitrate();
+            }
+
             return _isVBR.Value;
         }
     }

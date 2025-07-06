@@ -199,7 +199,9 @@ public static class GenreHelper
         for (int i = 0; i <= _genreCount; i++)
         {
             if (string.Compare(genre, GenreByIndex[i], true) == 0)
+            {
                 return i;
+            }
         }
         return Other_GenreIndex;
     }

@@ -80,7 +80,9 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
         // TODO: Test
 
         if (string.IsNullOrEmpty(Text))
+        {
             return new byte[0];
+        }
 
         byte[] contentDescriptorData;
         byte[] textData;
