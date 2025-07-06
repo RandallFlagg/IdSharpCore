@@ -51,7 +51,11 @@ public class MP3GainTagItems {
     public short? TrackMinimumGain
     {
         get => _trackMin;
-        set { _trackMin = value; RaisePropertyChanged("TrackMinimumGain"); }
+        set
+        {
+            _trackMin = value;
+            RaisePropertyChanged("TrackMinimumGain");
+        }
     }
 
     /// <summary>
@@ -61,7 +65,11 @@ public class MP3GainTagItems {
     public short? TrackMaximumGain
     {
         get => _trackMax;
-        set { _trackMax = value; RaisePropertyChanged("TrackMaximumGain"); }
+        set
+        {
+            _trackMax = value;
+            RaisePropertyChanged("TrackMaximumGain");
+        }
     }
 
     /// <summary>
@@ -71,7 +79,11 @@ public class MP3GainTagItems {
     public short? AlbumMinimumGain
     {
         get => _albumMin;
-        set { _albumMin = value; RaisePropertyChanged("AlbumMinimumGain"); }
+        set
+        {
+            _albumMin = value;
+            RaisePropertyChanged("AlbumMinimumGain");
+        }
     }
 
     /// <summary>
@@ -81,7 +93,11 @@ public class MP3GainTagItems {
     public short? AlbumMaximumGain
     {
         get => _albumMax;
-        set { _albumMax = value; RaisePropertyChanged("AlbumMaximumGain"); }
+        set
+        {
+            _albumMax = value;
+            RaisePropertyChanged("AlbumMaximumGain");
+        }
     }
 
     /// <summary>
@@ -91,7 +107,11 @@ public class MP3GainTagItems {
     public short? UndoLeftChannelAdjustment
     {
         get => _undoLeftChannel;
-        set { _undoLeftChannel = value; RaisePropertyChanged("UndoLeftChannelAdjustment"); }
+        set
+        {
+            _undoLeftChannel = value;
+            RaisePropertyChanged("UndoLeftChannelAdjustment");
+        }
     }
 
     /// <summary>
@@ -101,7 +121,11 @@ public class MP3GainTagItems {
     public short? UndoRightChannelAdjustment
     {
         get => _undoRightChannel;
-        set { _undoRightChannel = value; RaisePropertyChanged("UndoRightChannelAdjustment"); }
+        set
+        {
+            _undoRightChannel = value;
+            RaisePropertyChanged("UndoRightChannelAdjustment");
+        }
     }
 
     /// <summary>
@@ -111,7 +135,11 @@ public class MP3GainTagItems {
     public bool? UndoWrapFlag
     {
         get => _undoWrap;
-        set { _undoWrap = value; RaisePropertyChanged("UndoWrapFlag"); }
+        set
+        {
+            _undoWrap = value;
+            RaisePropertyChanged("UndoWrapFlag");
+        }
     }
 
     /// <summary>
