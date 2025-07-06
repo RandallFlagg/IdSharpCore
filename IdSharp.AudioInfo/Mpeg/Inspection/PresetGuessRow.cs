@@ -46,8 +46,16 @@ internal sealed class PresetGuessRow
         Byte tv1, Byte tv2, Byte tv3, Byte tv4, Byte tv5, Byte tv6, Byte tv7,
         LamePreset result)
     {
-        VGs[0] = vg1; VGs[1] = vg2; VGs[2] = vg3;
-        TVs[0] = tv1; TVs[1] = tv2; TVs[2] = tv3; TVs[3] = tv4; TVs[4] = tv5; TVs[5] = tv6; TVs[6] = tv7;
+        VGs[0] = vg1;
+        VGs[1] = vg2;
+        VGs[2] = vg3;
+        TVs[0] = tv1;
+        TVs[1] = tv2;
+        TVs[2] = tv3;
+        TVs[3] = tv4;
+        TVs[4] = tv5;
+        TVs[5] = tv6;
+        TVs[6] = tv7;
         Res = result;
     }
 }

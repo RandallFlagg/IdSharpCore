@@ -48,7 +48,11 @@ public class ReplayGainTagItems {
     public decimal? AlbumGain
     {
         get => _albumGain;
-        set { _albumGain = value; RaisePropertyChanged("AlbumGain"); }
+        set
+        {
+            _albumGain = value;
+            RaisePropertyChanged("AlbumGain");
+        }
     }
 
     /// <summary>
@@ -58,7 +62,11 @@ public class ReplayGainTagItems {
     public decimal? AlbumPeak
     {
         get => _albumPeak;
-        set { _albumPeak = value; RaisePropertyChanged("AlbumPeak"); }
+        set
+        {
+            _albumPeak = value;
+            RaisePropertyChanged("AlbumPeak");
+        }
     }
 
     /// <summary>
@@ -68,7 +76,11 @@ public class ReplayGainTagItems {
     public decimal? TrackGain
     {
         get => _trackGain;
-        set { _trackGain = value; RaisePropertyChanged("TrackGain"); }
+        set
+        {
+            _trackGain = value;
+            RaisePropertyChanged("TrackGain");
+        }
     }
 
     /// <summary>
@@ -78,7 +90,11 @@ public class ReplayGainTagItems {
     public decimal? TrackPeak
     {
         get => _trackPeak;
-        set { _trackPeak = value; RaisePropertyChanged("TrackPeak"); }
+        set
+        {
+            _trackPeak = value;
+            RaisePropertyChanged("TrackPeak");
+        }
     }
 
     /// <summary>

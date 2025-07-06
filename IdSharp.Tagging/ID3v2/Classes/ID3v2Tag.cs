@@ -321,9 +321,21 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                 int frameSize = stream.ReadInt32();
                 if (frameSize > 0xFF)
                 {
-                    if ((frameSize & 0x80) == 0x80) { isID3v24SyncSafe = false; break; }
-                    if ((frameSize & 0x8000) == 0x8000) { isID3v24SyncSafe = false; break; }
-                    if ((frameSize & 0x800000) == 0x800000) { isID3v24SyncSafe = false; break; }
+                    if ((frameSize & 0x80) == 0x80)
+                    {
+                        isID3v24SyncSafe = false;
+                        break;
+                    }
+                    if ((frameSize & 0x8000) == 0x8000)
+                    {
+                        isID3v24SyncSafe = false;
+                        break;
+                    }
+                    if ((frameSize & 0x800000) == 0x800000)
+                    {
+                        isID3v24SyncSafe = false;
+                        break;
+                    }
 
                     if (bytesRead + frameSize + 10 == _id3v2Header.TagSize)
                     {
@@ -346,7 +358,11 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
 
                         // If non sync-safe reads past the end of the tag, then it's sync safe
                         // Testing non-sync safe since it will always be bigger than the sync safe integer
-                        if (currentPosition + frameSize + 2 >= readUntil) { isID3v24SyncSafe = true; break; }
+                        if (currentPosition + frameSize + 2 >= readUntil)
+                        {
+                            isID3v24SyncSafe = true;
+                            break;
+                        }
 
                         // Test non-sync safe
                         stream.Seek(currentPosition + frameSize + 2, SeekOrigin.Begin);

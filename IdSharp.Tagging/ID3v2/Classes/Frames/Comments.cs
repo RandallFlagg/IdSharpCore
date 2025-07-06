@@ -192,7 +192,8 @@ internal sealed class Comments : Frame, IComments
     /// <param name="tagVersion">The tag version</param>
     /// <param name="appendNullTerminator">Should a null terminator be appended</param>
     /// <returns>The byte array representation of the frame</returns>
-    public byte[] GetBytes(ID3v2TagVersion tagVersion, bool appendNullTerminator) {
+    public byte[] GetBytes(ID3v2TagVersion tagVersion, bool appendNullTerminator)
+    {
         if (string.IsNullOrEmpty(Value))
         {
             return new byte[0];
@@ -206,7 +207,8 @@ internal sealed class Comments : Frame, IComments
         byte[] descriptionData;
         byte[] valueData;
 
-        do {
+        do
+        {
             descriptionData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Description, true);
             valueData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Value, false);
 
@@ -219,7 +221,8 @@ internal sealed class Comments : Frame, IComments
             this.RequiresFix(tagVersion, Value, valueData)
         );
 
-        using (MemoryStream frameData = new MemoryStream()) {
+        using (MemoryStream frameData = new MemoryStream())
+        {
             frameData.WriteByte((byte) TextEncoding);
             frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));
             frameData.Write(descriptionData);

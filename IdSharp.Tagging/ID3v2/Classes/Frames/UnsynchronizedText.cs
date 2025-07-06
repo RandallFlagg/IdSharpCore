@@ -16,25 +16,41 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
     public EncodingType TextEncoding
     {
         get => _textEncoding;
-        set { _textEncoding = value; RaisePropertyChanged("TextEncoding"); }
+        set
+        {
+            _textEncoding = value;
+            RaisePropertyChanged("TextEncoding");
+        }
     }
 
     public string LanguageCode
     {
         get => _languageCode;
-        set { _languageCode = value; RaisePropertyChanged("LanguageCode"); }
+        set
+        {
+            _languageCode = value;
+            RaisePropertyChanged("LanguageCode");
+        }
     }
 
     public string ContentDescriptor
     {
         get => _contentDescriptor;
-        set { _contentDescriptor = value; RaisePropertyChanged("ContentDescriptor"); }
+        set
+        {
+            _contentDescriptor = value;
+            RaisePropertyChanged("ContentDescriptor");
+        }
     }
 
     public string Text
     {
         get => _text;
-        set { _text = value; RaisePropertyChanged("Text"); }
+        set
+        {
+            _text = value;
+            RaisePropertyChanged("Text");
+        }
     }
 
     public override string GetFrameID(ID3v2TagVersion tagVersion)

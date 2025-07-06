@@ -347,7 +347,10 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Title
     {
         get => _title;
-        set { _title = value; RaisePropertyChanged("Title"); }
+        set
+        {
+            _title = value;            RaisePropertyChanged("Title");
+        }
     }
 
     /// <summary>
@@ -357,7 +360,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Artist
     {
         get => _artist;
-        set { _artist = value; RaisePropertyChanged("Artist"); }
+        set
+        {
+            _artist = value;
+            RaisePropertyChanged("Artist");
+        }
     }
 
     /// <summary>
@@ -367,7 +374,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Album
     {
         get => _album;
-        set { _album = value; RaisePropertyChanged("Album"); }
+        set
+        {
+            _album = value;
+            RaisePropertyChanged("Album");
+        }
     }
 
     /// <summary>
@@ -377,7 +388,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Publisher
     {
         get => _publisher;
-        set { _publisher = value; RaisePropertyChanged("Publisher"); }
+        set
+        {
+            _publisher = value;
+            RaisePropertyChanged("Publisher");
+        }
     }
 
     /// <summary>
@@ -387,7 +402,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string TrackNumber
     {
         get => _trackNumber;
-        set { _trackNumber = value; RaisePropertyChanged("TrackNumber"); }
+        set
+        {
+            _trackNumber = value;
+            RaisePropertyChanged("TrackNumber");
+        }
     }
 
     /// <summary>
@@ -397,7 +416,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Comment
     {
         get => _comment;
-        set { _comment = value; RaisePropertyChanged("Comment"); }
+        set
+        {
+            _comment = value;
+            RaisePropertyChanged("Comment");
+        }
     }
 
     /// <summary>
@@ -407,7 +430,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Catalog
     {
         get => _catalog;
-        set { _catalog = value; RaisePropertyChanged("Catalog"); }
+        set
+        {
+            _catalog = value;
+            RaisePropertyChanged("Catalog");
+        }
     }
 
     /// <summary>
@@ -417,7 +444,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Year
     {
         get => _year;
-        set { _year = value; RaisePropertyChanged("Year"); }
+        set
+        {
+            _year = value;
+            RaisePropertyChanged("Year");
+        }
     }
 
     /// <summary>
@@ -427,7 +458,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string RecordDate
     {
         get => _recordDate;
-        set { _recordDate = value; RaisePropertyChanged("RecordDate"); }
+        set
+        {
+            _recordDate = value;
+            RaisePropertyChanged("RecordDate");
+        }
     }
 
     /// <summary>
@@ -437,7 +472,11 @@ public partial class APEv2Tag : IAPEv2Tag
     public string Genre
     {
         get => _genre;
-        set { _genre = value; RaisePropertyChanged("Genre"); }
+        set
+        {
+            _genre = value;
+            RaisePropertyChanged("Genre");
+        }
     }
 
     /// <summary>
