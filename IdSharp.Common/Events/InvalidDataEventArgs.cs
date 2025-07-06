@@ -7,9 +7,6 @@ namespace IdSharp.Common.Events
     /// </summary>
     public sealed class InvalidDataEventArgs : EventArgs
     {
-        private readonly string _propertyName;
-        private readonly string _message;
-        private readonly ErrorType _errorType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidDataEventArgs"/> class.
@@ -39,45 +36,27 @@ namespace IdSharp.Common.Events
         /// <param name="errorType">Type of the error.</param>
         public InvalidDataEventArgs(string propertyName, string message, ErrorType errorType)
         {
-            _propertyName = propertyName;
-            _message = message;
-            _errorType = errorType;
+            Property = propertyName;
+            Message = message;
+            ErrorType = errorType;
         }
 
         /// <summary>
         /// Gets the property name.
         /// </summary>
         /// <value>The property name.</value>
-        public string Property
-        {
-            get
-            {
-                return _propertyName;
-            }
-        }
+        public string Property { get; }
 
         /// <summary>
         /// Gets the error or warning message.
         /// </summary>
         /// <value>The error or warning message.</value>
-        public string Message
-        {
-            get
-            {
-                return _message;
-            }
-        }
+        public string Message { get; }
 
         /// <summary>
         /// Gets the type of the error.
         /// </summary>
         /// <value>The type of the error.</value>
-        public ErrorType ErrorType
-        {
-            get
-            {
-                return _errorType;
-            }
-        }
+        public ErrorType ErrorType { get; }
     }
 }

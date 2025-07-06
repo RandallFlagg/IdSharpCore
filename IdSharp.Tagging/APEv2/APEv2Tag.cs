@@ -24,13 +24,8 @@ namespace IdSharp.Tagging.APEv2
         public event PropertyChangedEventHandler PropertyChanged;
 
         private static readonly byte[] _APETAGEX = Encoding.ASCII.GetBytes("APETAGEX");
-        private long _tagOffset;
-        private int _tagSize;
         private int _version;
         private readonly Dictionary<string, string> _items = new Dictionary<string, string>();
-        private readonly ReplayGainTagItems _replayGainItems = new ReplayGainTagItems();
-        private readonly MP3GainTagItems _mp3GainItems = new MP3GainTagItems();
-
         private string _title;
         private string _artist;
         private string _album;
@@ -71,15 +66,9 @@ namespace IdSharp.Tagging.APEv2
             Read(stream);
         }
 
-        internal long TagOffset
-        {
-            get { return _tagOffset; }
-        }
+        internal long TagOffset { get; private set; }
 
-        internal int TagSize
-        {
-            get { return _tagSize; }
-        }
+        internal int TagSize { get; private set; }
 
         /// <summary>
         /// Gets the bytes of the current APEv2 tag.
@@ -164,8 +153,8 @@ namespace IdSharp.Tagging.APEv2
 
         internal void Read(Stream stream, bool readElements)
         {
-            _tagSize = 0;
-            _tagOffset = 0;
+            TagSize = 0;
+            TagOffset = 0;
 
             if (readElements)
                 _items.Clear();
@@ -248,8 +237,8 @@ namespace IdSharp.Tagging.APEv2
             // - Item Encoding
             // - Is Read Only
 
-            _tagSize = tagSize + (containsHeader ? 32 : 0);
-            _tagOffset = stream.Length - (footerOffset + _tagSize);
+            TagSize = tagSize + (containsHeader ? 32 : 0);
+            TagOffset = stream.Length - (footerOffset + TagSize);
 
             if (readElements)
             {
@@ -339,9 +328,9 @@ namespace IdSharp.Tagging.APEv2
             }
 
             if (itemKey.StartsWith(ReplayGainTagItems.TAG_PREFIX))
-                _replayGainItems.SetField(itemKey, itemValue);
+                ReplayGainItems.SetField(itemKey, itemValue);
             else if (itemKey.StartsWith(MP3GainTagItems.TAG_PREFIX))
-                _mp3GainItems.SetField(itemKey, itemValue);
+                MP3GainItems.SetField(itemKey, itemValue);
 
         }
 
@@ -469,17 +458,13 @@ namespace IdSharp.Tagging.APEv2
         /// Gets the ReplayGain items found in the tag
         /// </summary>
         /// <value>ReplayGain items</value>
-        public ReplayGainTagItems ReplayGainItems {
-            get { return _replayGainItems; }
-        }
+        public ReplayGainTagItems ReplayGainItems { get; } = new ReplayGainTagItems();
 
         /// <summary>
         /// Gets the MP3Gain items found in the tag
         /// </summary>
         /// <value>MP3Gain items</value>
-        public MP3GainTagItems MP3GainItems {
-            get { return _mp3GainItems; }
-        }
+        public MP3GainTagItems MP3GainItems { get; } = new MP3GainTagItems();
 
         private void RaisePropertyChanged(string propertyName)
         {

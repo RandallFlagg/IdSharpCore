@@ -14,11 +14,6 @@ namespace IdSharp.AudioInfo
         // http://flac.sourceforge.net/format.html
 
         internal static readonly byte[] FLAC_MARKER = Encoding.ASCII.GetBytes("fLaC");
-        private readonly int _frequency;
-        private readonly decimal _totalSeconds;
-        private readonly decimal _bitrate;
-        private readonly int _channels;
-        private readonly long _samples;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Flac"/> class.
@@ -49,12 +44,12 @@ namespace IdSharp.AudioInfo
 
                     byte[] buf = stream.Read(8);
 
-                    _frequency = (buf[0] << 12) + (buf[1] << 4) + (buf[2] >> 4);
-                    _channels = ((buf[2] >> 1) & 0x03) + 1;
-                    _samples = ((buf[3] & 0x0F) << 32) + (buf[4] << 24) +
+                    Frequency = (buf[0] << 12) + (buf[1] << 4) + (buf[2] >> 4);
+                    Channels = ((buf[2] >> 1) & 0x03) + 1;
+                    Samples = ((buf[3] & 0x0F) << 32) + (buf[4] << 24) +
                                 (buf[5] << 16) + (buf[6] << 8) + buf[7];
 
-                    _totalSeconds = _samples / (decimal)_frequency;
+                    TotalSeconds = Samples / (decimal)Frequency;
 
                     // Find first sync
                     // TODO: There's probably a better way to do this.. also an embedded PICTURE might
@@ -84,7 +79,7 @@ namespace IdSharp.AudioInfo
 
                     long startaudio = stream.Position;
                     long totalsize = stream.Length - startaudio - tmpAPEv2TagSize - tmpID3v1TagSize;
-                    _bitrate = totalsize / (_totalSeconds * 125);
+                    Bitrate = totalsize / (TotalSeconds * 125);
                 }
             }
             catch (InvalidDataException ex)
@@ -97,37 +92,25 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; }
 
         /// <summary>
         /// Gets the total seconds.
         /// </summary>
         /// <value>The total seconds.</value>
-        public decimal TotalSeconds
-        {
-            get { return _totalSeconds; }
-        }
+        public decimal TotalSeconds { get; }
 
         /// <summary>
         /// Gets the bitrate.
         /// </summary>
         /// <value>The bitrate.</value>
-        public decimal Bitrate
-        {
-            get { return _bitrate; }
-        }
+        public decimal Bitrate { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; }
 
         /// <summary>
         /// Gets the type of the audio file.
@@ -142,9 +125,6 @@ namespace IdSharp.AudioInfo
         /// Gets the number of samples.
         /// </summary>
         /// <value>The number of samples.</value>
-        public long Samples
-        {
-            get { return _samples; }
-        } 
+        public long Samples { get; }
     }
 }

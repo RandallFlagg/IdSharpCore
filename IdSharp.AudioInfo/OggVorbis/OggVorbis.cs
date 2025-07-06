@@ -16,11 +16,6 @@ namespace IdSharp.AudioInfo
 
         private static readonly byte[] OGG_MARKER = Encoding.ASCII.GetBytes("OggS");
         private static readonly byte[] VORBIS_MARKER = Encoding.ASCII.GetBytes("vorbis");
-        private readonly int _frequency;
-        private readonly decimal _totalSeconds;
-        private readonly decimal _bitrate;
-        private readonly int _channels;
-        private readonly long _samples;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OggVorbis"/> class.
@@ -64,15 +59,15 @@ namespace IdSharp.AudioInfo
                     // Skip vorbis_version
                     stream.Seek(4, SeekOrigin.Current);
 
-                    _channels = stream.Read1();
-                    _frequency = stream.ReadInt32LittleEndian();
+                    Channels = stream.Read1();
+                    Frequency = stream.ReadInt32LittleEndian();
 
                     byte[] buf = new byte[251];
                     long size = stream.Length;
 
                     // Get total number of samples
-                    _samples = 0;
-                    for (int index = 1; index <= 50 && _samples == 0; index++)
+                    Samples = 0;
+                    for (int index = 1; index <= 50 && Samples == 0; index++)
                     {
                         long dataIndex = size - ((251 - 10) * index) - 10;
                         stream.Seek(dataIndex, SeekOrigin.Begin);
@@ -97,20 +92,20 @@ namespace IdSharp.AudioInfo
                                 stream.Read(buf, 0, 8);
                                 for (i = 0; i < 8; i++)
                                 {
-                                    _samples += buf[i] << (8 * i);
+                                    Samples += buf[i] << (8 * i);
                                 }
                                 break;
                             }
                         }
                     }
 
-                    if (_samples == 0)
+                    if (Samples == 0)
                     {
                         throw new InvalidDataException("Could not position to last frame");
                     }
 
-                    _totalSeconds = _samples / (decimal)_frequency;
-                    _bitrate = (size - tmpID3v2Size) / _totalSeconds / 125.0m;
+                    TotalSeconds = Samples / (decimal)Frequency;
+                    Bitrate = (size - tmpID3v2Size) / TotalSeconds / 125.0m;
                 }
                 catch (Exception ex)
                 {
@@ -132,37 +127,25 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; }
 
         /// <summary>
         /// Gets the total seconds.
         /// </summary>
         /// <value>The total seconds.</value>
-        public decimal TotalSeconds
-        {
-            get { return _totalSeconds; }
-        }
+        public decimal TotalSeconds { get; }
 
         /// <summary>
         /// Gets the bitrate.
         /// </summary>
         /// <value>The bitrate.</value>
-        public decimal Bitrate
-        {
-            get { return _bitrate; }
-        }
+        public decimal Bitrate { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; }
 
         /// <summary>
         /// Gets the type of the audio file.
@@ -177,9 +160,6 @@ namespace IdSharp.AudioInfo
         /// Gets the number of samples.
         /// </summary>
         /// <value>The number of samples.</value>
-        public long Samples
-        {
-            get { return _samples; }
-        }
+        public long Samples { get; }
     }
 }

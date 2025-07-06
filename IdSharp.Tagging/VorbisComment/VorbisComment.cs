@@ -12,8 +12,6 @@ namespace IdSharp.Tagging.VorbisComment
     public class VorbisComment : IVorbisComment
     {
         private static readonly byte[] FLAC_MARKER = Encoding.ASCII.GetBytes("fLaC");
-        private readonly NameValueList _items = new NameValueList();
-        private string _vendor = string.Empty;
         private List<FlacMetaDataBlock> _metaDataBlockList;
 
         private class InternalInfo
@@ -63,10 +61,7 @@ namespace IdSharp.Tagging.VorbisComment
         /// Gets the vendor specified in the Vorbis Comment header.
         /// </summary>
         /// <value>The vendor specified in the Vorbis Comment header..</value>
-        public string Vendor
-        {
-            get { return _vendor; }
-        }
+        public string Vendor { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the artist.
@@ -74,8 +69,8 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The artist.</value>
         public string Artist
         {
-            get { return _items.GetValue("ARTIST"); }
-            set { _items.SetValue("ARTIST", value); }
+            get { return Items.GetValue("ARTIST"); }
+            set { Items.SetValue("ARTIST", value); }
         }
 
         /// <summary>
@@ -84,8 +79,8 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The album.</value>
         public string Album
         {
-            get { return _items.GetValue("ALBUM"); }
-            set { _items.SetValue("ALBUM", value); }
+            get { return Items.GetValue("ALBUM"); }
+            set { Items.SetValue("ALBUM", value); }
         }
 
         /// <summary>
@@ -94,8 +89,8 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The title.</value>
         public string Title
         {
-            get { return _items.GetValue("TITLE"); }
-            set { _items.SetValue("TITLE", value); }
+            get { return Items.GetValue("TITLE"); }
+            set { Items.SetValue("TITLE", value); }
         }
 
         /// <summary>
@@ -106,12 +101,12 @@ namespace IdSharp.Tagging.VorbisComment
         {
             get
             {
-                string value = _items.GetValue("DATE");
+                string value = Items.GetValue("DATE");
                 if (string.IsNullOrEmpty(value))
-                    value = _items.GetValue("YEAR");
+                    value = Items.GetValue("YEAR");
                 return value;
             }
-            set { _items.SetValue("DATE", value); }
+            set { Items.SetValue("DATE", value); }
         }
 
         /// <summary>
@@ -120,8 +115,8 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The genre.</value>
         public string Genre
         {
-            get { return _items.GetValue("GENRE"); }
-            set { _items.SetValue("GENRE", value); }
+            get { return Items.GetValue("GENRE"); }
+            set { Items.SetValue("GENRE", value); }
         }
 
         /// <summary>
@@ -130,8 +125,8 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The track number.</value>
         public string TrackNumber
         {
-            get { return _items.GetValue("TRACKNUMBER"); }
-            set { _items.SetValue("TRACKNUMBER", value); }
+            get { return Items.GetValue("TRACKNUMBER"); }
+            set { Items.SetValue("TRACKNUMBER", value); }
         }
 
         /// <summary>
@@ -140,18 +135,15 @@ namespace IdSharp.Tagging.VorbisComment
         /// <value>The comment.</value>
         public string Comment
         {
-            get { return _items.GetValue("COMMENT"); }
-            set { _items.SetValue("COMMENT", value); }
+            get { return Items.GetValue("COMMENT"); }
+            set { Items.SetValue("COMMENT", value); }
         }
 
         /// <summary>
         /// Gets the Name/Value item list.
         /// </summary>
         /// <value>The Name/Value item list.</value>
-        public NameValueList Items
-        {
-            get { return _items; }
-        }
+        public NameValueList Items { get; } = new NameValueList();
 
         /// <summary>
         /// Writes the tag.
@@ -167,10 +159,10 @@ namespace IdSharp.Tagging.VorbisComment
                 info = vorbisComment.ReadTagInternal(fs);
             }
 
-            _vendor = info.Vendor; // keep the vendor of the original file, don't copy it from another source
-            if (string.IsNullOrEmpty(_vendor))
+            Vendor = info.Vendor; // keep the vendor of the original file, don't copy it from another source
+            if (string.IsNullOrEmpty(Vendor))
             {
-                _vendor = "idsharp library";
+                Vendor = "idsharp library";
             }
 
             if (info.FileType == FileType.Flac)
@@ -224,30 +216,30 @@ namespace IdSharp.Tagging.VorbisComment
             using (MemoryStream newTag = new MemoryStream())
             {
                 // Write vendor
-                byte[] vendorBytes = Encoding.UTF8.GetBytes(_vendor);
+                byte[] vendorBytes = Encoding.UTF8.GetBytes(Vendor);
                 newTag.WriteInt32LittleEndian(vendorBytes.Length);
                 newTag.Write(vendorBytes);
 
                 // Remove dead items and replace commonly misnamed items
-                foreach (NameValueItem item in new List<NameValueItem>(_items))
+                foreach (NameValueItem item in new List<NameValueItem>(Items))
                 {
                     if (string.IsNullOrEmpty(item.Value))
                     {
-                        _items.Remove(item);
+                        Items.Remove(item);
                     }
                     else if (string.Compare(item.Name, "YEAR", true) == 0)
                     {
-                        if (string.IsNullOrEmpty(_items.GetValue("DATE")))
-                            _items.SetValue("DATE", item.Value);
-                        _items.Remove(item);
+                        if (string.IsNullOrEmpty(Items.GetValue("DATE")))
+                            Items.SetValue("DATE", item.Value);
+                        Items.Remove(item);
                     }
                 }
 
                 // Write item count
-                newTag.WriteInt32LittleEndian(_items.Count);
+                newTag.WriteInt32LittleEndian(Items.Count);
 
                 // Write items
-                foreach (NameValueItem item in _items)
+                foreach (NameValueItem item in Items)
                 {
                     if (string.IsNullOrEmpty(item.Value)) continue;
 
@@ -714,17 +706,17 @@ namespace IdSharp.Tagging.VorbisComment
                 //throw new InvalidDataException(String.Format("File '{0}' is not a valid FLAC or Ogg-Vorbis file", path));
             }
 
-            info.Vendor = _vendor;
+            info.Vendor = Vendor;
 
             return info;
         }
 
         private void ReadTag_VorbisComment(Stream stream)
         {
-            _items.Clear();
+            Items.Clear();
 
             int size = stream.ReadInt32LittleEndian();
-            _vendor = stream.ReadUTF8(size);
+            Vendor = stream.ReadUTF8(size);
 
             int elements = stream.ReadInt32LittleEndian();
 
@@ -740,7 +732,7 @@ namespace IdSharp.Tagging.VorbisComment
                     string name = nameValue[0];
                     string value = nameValue[1];
 
-                    _items.Add(new NameValueItem(name, value));
+                    Items.Add(new NameValueItem(name, value));
                 }
             }
         }

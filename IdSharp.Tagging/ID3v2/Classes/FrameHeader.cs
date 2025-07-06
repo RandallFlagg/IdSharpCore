@@ -6,8 +6,6 @@ namespace IdSharp.Tagging.ID3v2
 {
     internal sealed class FrameHeader : IFrameHeader
     {
-        private int _frameSize;
-        private int _frameSizeExcludingAdditions;
         private bool _isTagAlterPreservation;
         private bool _isFileAlterPreservation;
         private bool _isReadOnly;
@@ -15,35 +13,25 @@ namespace IdSharp.Tagging.ID3v2
         private byte? _encryptionMethod;
         private byte? _groupingIdentity;
         private int _decompressedSize;
-        private ID3v2TagVersion _tagVersion;
 
-        public ID3v2TagVersion TagVersion
-        {
-            get { return _tagVersion; }
-        }
+        public ID3v2TagVersion TagVersion { get; private set; }
 
         #region IFrameHeader Members
 
-        public int FrameSize
-        {
-            get { return _frameSize; }
-        }
+        public int FrameSize { get; private set; }
 
         public int FrameSizeTotal
         {
-            get { return _frameSize + (_tagVersion == ID3v2TagVersion.ID3v22 ? 6 : 10); }
+            get { return FrameSize + (TagVersion == ID3v2TagVersion.ID3v22 ? 6 : 10); }
         }
 
-        public int FrameSizeExcludingAdditions
-        {
-            get { return _frameSizeExcludingAdditions; }
-        }
+        public int FrameSizeExcludingAdditions { get; private set; }
 
         public bool IsTagAlterPreservation
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _isTagAlterPreservation;
                 }
@@ -54,7 +42,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _isTagAlterPreservation = value;
                 }
@@ -69,7 +57,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _isFileAlterPreservation;
                 }
@@ -80,7 +68,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _isFileAlterPreservation = value;
                 }
@@ -95,7 +83,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _isReadOnly;
                 }
@@ -106,7 +94,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _isReadOnly = value;
                 }
@@ -121,7 +109,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _isCompressed;
                 }
@@ -132,7 +120,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _isCompressed = value;
                 }
@@ -147,7 +135,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _encryptionMethod;
                 }
@@ -159,7 +147,7 @@ namespace IdSharp.Tagging.ID3v2
             set
             {
                 // TODO
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _encryptionMethod = value;
                 }
@@ -174,7 +162,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _groupingIdentity;
                 }
@@ -185,7 +173,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _groupingIdentity = value;
                 }
@@ -200,7 +188,7 @@ namespace IdSharp.Tagging.ID3v2
         {
             get 
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     return _decompressedSize;
                 }
@@ -211,7 +199,7 @@ namespace IdSharp.Tagging.ID3v2
             }
             set
             {
-                if (_tagVersion != ID3v2TagVersion.ID3v22)
+                if (TagVersion != ID3v2TagVersion.ID3v22)
                 {
                     _decompressedSize = value;
                 }
@@ -241,18 +229,18 @@ namespace IdSharp.Tagging.ID3v2
             // TODO: Some tags have the length INCLUDE the extra ten bytes of the tag header.  
             // Handle this (don't corrupt MP3 on rewrite)
 
-            _tagVersion = tagReadingInfo.TagVersion;
+            TagVersion = tagReadingInfo.TagVersion;
 
             bool usesUnsynchronization = ((tagReadingInfo.TagVersionOptions & TagVersionOptions.Unsynchronized) == TagVersionOptions.Unsynchronized);
 
             if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v23)
             {
                 if (!usesUnsynchronization)
-                    _frameSize = stream.ReadInt32();
+                    FrameSize = stream.ReadInt32();
                 else
-                    _frameSize = ID3v2Utils.ReadInt32Unsynchronized(stream);
+                    FrameSize = ID3v2Utils.ReadInt32Unsynchronized(stream);
 
-                _frameSizeExcludingAdditions = _frameSize;
+                FrameSizeExcludingAdditions = FrameSize;
 
                 byte byte0 = stream.Read1();
                 byte byte1 = stream.Read1();
@@ -273,7 +261,7 @@ namespace IdSharp.Tagging.ID3v2
                 if (IsCompressed)
                 {
                     DecompressedSize = stream.ReadInt32();
-                    _frameSizeExcludingAdditions -= 4;
+                    FrameSizeExcludingAdditions -= 4;
                 }
                 else
                 {
@@ -284,7 +272,7 @@ namespace IdSharp.Tagging.ID3v2
                 if (tmpIsEncrypted)
                 {
                     EncryptionMethod = stream.Read1();
-                    _frameSizeExcludingAdditions -= 1;
+                    FrameSizeExcludingAdditions -= 1;
                 }
                 else
                 {
@@ -295,7 +283,7 @@ namespace IdSharp.Tagging.ID3v2
                 if (tmpIsGroupingIdentity)
                 {
                     GroupingIdentity = stream.Read1();
-                    _frameSizeExcludingAdditions -= 1;
+                    FrameSizeExcludingAdditions -= 1;
                 }
                 else
                 {
@@ -304,21 +292,21 @@ namespace IdSharp.Tagging.ID3v2
 
                 if (usesUnsynchronization)
                 {
-                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, _frameSize);
+                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, FrameSize);
                 }
             }
             else if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22)
             {
                 if (!usesUnsynchronization)
-                    _frameSize = stream.ReadInt24();
+                    FrameSize = stream.ReadInt24();
                 else
-                    _frameSize = ID3v2Utils.ReadInt24Unsynchronized(stream);
+                    FrameSize = ID3v2Utils.ReadInt24Unsynchronized(stream);
 
                 if ((tagReadingInfo.TagVersionOptions & TagVersionOptions.AddOneByteToSize) == TagVersionOptions.AddOneByteToSize)
                 {
-                    _frameSize++;
+                    FrameSize++;
                 }
-                _frameSizeExcludingAdditions = _frameSize;
+                FrameSizeExcludingAdditions = FrameSize;
 
                 // These fields are not supported in ID3v2.2
                 IsTagAlterPreservation = false;
@@ -331,17 +319,17 @@ namespace IdSharp.Tagging.ID3v2
 
                 if (usesUnsynchronization)
                 {
-                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, _frameSize);
+                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, FrameSize);
                 }
             }
             else if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v24)
             {
                 if ((tagReadingInfo.TagVersionOptions & TagVersionOptions.UseNonSyncSafeFrameSizeID3v24) == TagVersionOptions.UseNonSyncSafeFrameSizeID3v24)
-                    _frameSize = stream.ReadInt32();
+                    FrameSize = stream.ReadInt32();
                 else
-                    _frameSize = ID3v2Utils.ReadInt32SyncSafe(stream);
+                    FrameSize = ID3v2Utils.ReadInt32SyncSafe(stream);
                 
-                _frameSizeExcludingAdditions = _frameSize;
+                FrameSizeExcludingAdditions = FrameSize;
 
                 byte byte0 = stream.Read1();
                 byte byte1 = stream.Read1();
@@ -350,13 +338,13 @@ namespace IdSharp.Tagging.ID3v2
                 usesUnsynchronization = ((byte1 & 0x03) == 0x03);
                 if (hasDataLengthIndicator)
                 {
-                    _frameSizeExcludingAdditions -= 4;
+                    FrameSizeExcludingAdditions -= 4;
                     stream.Seek(4, SeekOrigin.Current); // skip data length indicator
                 }
 
                 if (usesUnsynchronization)
                 {
-                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, _frameSize);
+                    stream = ID3v2Utils.ReadUnsynchronizedStream(stream, FrameSize);
                 }
 
                 // TODO - finish parsing
@@ -367,13 +355,13 @@ namespace IdSharp.Tagging.ID3v2
                 stream = ID3v2Utils.DecompressFrame(stream, FrameSizeExcludingAdditions);
                 IsCompressed = false;
                 DecompressedSize = 0;
-                _frameSizeExcludingAdditions = (int)stream.Length;
+                FrameSizeExcludingAdditions = (int)stream.Length;
             }
         }
 
         public byte[] GetBytes(MemoryStream frameData, ID3v2TagVersion tagVersion, string frameID)
         {
-            _frameSizeExcludingAdditions = (int)frameData.Length;
+            FrameSizeExcludingAdditions = (int)frameData.Length;
 
             if (frameID == null)
                 return new byte[0];
@@ -390,9 +378,9 @@ namespace IdSharp.Tagging.ID3v2
                 tmpRawData[0] = frameIDBytes[0];
                 tmpRawData[1] = frameIDBytes[1];
                 tmpRawData[2] = frameIDBytes[2];
-                tmpRawData[3] = (byte)((_frameSizeExcludingAdditions >> 16) & 0xFF);
-                tmpRawData[4] = (byte)((_frameSizeExcludingAdditions >> 8) & 0xFF);
-                tmpRawData[5] = (byte)(_frameSizeExcludingAdditions & 0xFF);
+                tmpRawData[3] = (byte)((FrameSizeExcludingAdditions >> 16) & 0xFF);
+                tmpRawData[4] = (byte)((FrameSizeExcludingAdditions >> 8) & 0xFF);
+                tmpRawData[5] = (byte)(FrameSizeExcludingAdditions & 0xFF);
             }
             else if (tagVersion == ID3v2TagVersion.ID3v23)
             {
@@ -410,7 +398,7 @@ namespace IdSharp.Tagging.ID3v2
                 if (_encryptionMethod != null) tmpRawDataSize++;
                 if (_groupingIdentity != null) tmpRawDataSize++;
 
-                int tmpFrameSize = _frameSizeExcludingAdditions + (tmpRawDataSize - 10);
+                int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
 
                 tmpRawData = new byte[tmpRawDataSize];
 
@@ -460,7 +448,7 @@ namespace IdSharp.Tagging.ID3v2
                 if (_groupingIdentity != null) tmpRawDataSize++;
                 /*TODO: unsync,DLI*/
 
-                int tmpFrameSize = _frameSizeExcludingAdditions + (tmpRawDataSize - 10);
+                int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
 
                 tmpRawData = new byte[tmpRawDataSize];
 

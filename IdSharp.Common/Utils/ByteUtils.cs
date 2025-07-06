@@ -10,15 +10,10 @@ namespace IdSharp.Common.Utils
     /// </summary>
     public static class ByteUtils
     {
-        private static readonly Encoding m_ISO88591 = Encoding.GetEncoding(28591);
-
         /// <summary>
         /// Gets the ISO-8859-1 encoding.
         /// </summary>
-        public static Encoding ISO88591
-        {
-            get { return m_ISO88591; }
-        }
+        public static Encoding ISO88591 { get; } = Encoding.GetEncoding(28591);
 
         /// <summary>
         /// Converts a byte array to a 64-bit integer using Big Endian.
@@ -208,7 +203,7 @@ namespace IdSharp.Common.Utils
             if (value == null)
                 return Array.Empty<byte>();
             else
-                return m_ISO88591.GetBytes(value);
+                return ISO88591.GetBytes(value);
         }
 
         /// <summary>
@@ -235,7 +230,7 @@ namespace IdSharp.Common.Utils
             if (value == null)
                 return string.Empty;
             else
-                return m_ISO88591.GetString(value);
+                return ISO88591.GetString(value);
         }
 
         /// <summary>

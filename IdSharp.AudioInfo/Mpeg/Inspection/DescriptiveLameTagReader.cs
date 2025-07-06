@@ -11,8 +11,6 @@ namespace IdSharp.AudioInfo.Inspection
         private readonly BasicLameTagReader _basicReader;
 
         private UsePresetGuess _usePresetGuess;
-        private string _preset;
-        private string _presetGuess;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DescriptiveLameTagReader"/> class.
@@ -77,18 +75,12 @@ namespace IdSharp.AudioInfo.Inspection
         /// <summary>
         /// Returns the actual encoder preset (not guessed)
         /// </summary>
-        public string Preset 
-        { 
-            get { return _preset; } 
-        }
+        public string Preset { get; private set; }
 
         /// <summary>
         /// Returns the guessed encoder preset
         /// </summary>
-        public string PresetGuess 
-        { 
-            get { return _presetGuess; } 
-        }
+        public string PresetGuess { get; private set; }
 
         /// <summary>
         /// Returns MPEG version and Layer
@@ -181,19 +173,19 @@ namespace IdSharp.AudioInfo.Inspection
         /// </summary>
         private void DeterminePresetRelatedValues()
         {
-            _preset = DeterminePreset(out _usePresetGuess);
+            Preset = DeterminePreset(out _usePresetGuess);
 
             if (_usePresetGuess == UsePresetGuess.NotNeeded)
             {
-                _presetGuess = "";
+                PresetGuess = "";
             }
             else
             {
-                _presetGuess = DeterminePresetGuess(ref _usePresetGuess);
+                PresetGuess = DeterminePresetGuess(ref _usePresetGuess);
 
                 if (_basicReader.IsPresetGuessNonBitrate)
                 {
-                    _presetGuess += string.Format(" -b {0}", _basicReader.Bitrate);
+                    PresetGuess += string.Format(" -b {0}", _basicReader.Bitrate);
                 }
             }
         }

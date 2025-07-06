@@ -11,11 +11,10 @@ namespace IdSharp.Tagging.ID3v2.Frames
         //private Int16 m_AdjustmentBits;
         private InterpolationMethod _interpolationMethod;
         private string _identification;
-        private readonly BindingList<IEqualizationItem> _items;
 
         public EqualizationList()
         {
-            _items = new EqualizationItemBindingList();
+            Items = new EqualizationItemBindingList();
         }
 
         /*// TODO : This will probably come out and adjustment bits will be interpreted
@@ -57,10 +56,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
         }
 
-        public BindingList<IEqualizationItem> Items
-        {
-            get { return _items; }
-        }
+        public BindingList<IEqualizationItem> Items { get; }
 
         public override string GetFrameID(ID3v2TagVersion tagVersion)
         {

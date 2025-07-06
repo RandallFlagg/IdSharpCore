@@ -9,11 +9,10 @@ namespace IdSharp.Tagging.ID3v2.Frames
         private int _indexedDataStart;
         private int _indexedDataLength;
         private byte _bitsPerIndexPoint;
-        private readonly BindingList<short> _fractionAtIndex;
 
         public AudioSeekPointIndex()
         {
-            _fractionAtIndex = new BindingList<short>();
+            FractionAtIndex = new BindingList<short>();
         }
 
         public int IndexedDataStart
@@ -52,11 +51,9 @@ namespace IdSharp.Tagging.ID3v2.Frames
             }
         }
 
-        public BindingList<short> FractionAtIndex
-        {
+        public BindingList<short> FractionAtIndex {
             // TODO: type must change to fire change events
-            get { return _fractionAtIndex; }
-        }
+            get; }
 
         public override string GetFrameID(ID3v2TagVersion tagVersion)
         {
@@ -74,7 +71,7 @@ namespace IdSharp.Tagging.ID3v2.Frames
 
         public override void Read(TagReadingInfo tagReadingInfo, Stream stream)
         {
-            _fractionAtIndex.Clear();
+            FractionAtIndex.Clear();
             throw new NotImplementedException();
         }
 

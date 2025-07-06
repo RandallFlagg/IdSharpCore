@@ -13,14 +13,6 @@ namespace IdSharp.AudioInfo
         private const int COMPRESSION_LEVEL_EXTRA_HIGH = 4000;
         private static readonly byte[] MAC_IDENTIFIER = Encoding.ASCII.GetBytes("MAC ");
 
-        private readonly int _frequency;
-        private readonly int _frames;
-        private readonly decimal _totalSeconds;
-        private readonly decimal _bitrate;
-        private readonly int _channels;
-        private readonly int _compressionLevel;
-        private readonly int _version;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MonkeysAudio"/> class.
         /// </summary>
@@ -43,64 +35,64 @@ namespace IdSharp.AudioInfo
 
                 byte[] buf = stream.Read(4);
 
-                _version = buf[0] + (buf[1] << 8);
+                Version = buf[0] + (buf[1] << 8);
                 int blocksPerFrame;
                 int finalBlocks;
 
-                if (_version >= 3980 && _version <= 3990)
+                if (Version >= 3980 && Version <= 3990)
                 {
                     buf = stream.Read(4);
                     int descriptorLength = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
                     stream.Seek(descriptorLength - 12, SeekOrigin.Current); // skip DESCRIPTOR
 
                     buf = stream.Read(4);
-                    _compressionLevel = buf[0] + (buf[1] << 8);
+                    CompressionLevel = buf[0] + (buf[1] << 8);
 
                     blocksPerFrame = stream.ReadInt32LittleEndian();
                     finalBlocks = stream.ReadInt32LittleEndian();
-                    _frames = stream.ReadInt32LittleEndian();
+                    Frames = stream.ReadInt32LittleEndian();
 
                     buf = stream.Read(4);
                     // skip bits per sample
-                    _channels = buf[2] + (buf[3] << 8);
+                    Channels = buf[2] + (buf[3] << 8);
 
-                    _frequency = stream.ReadInt32LittleEndian();
+                    Frequency = stream.ReadInt32LittleEndian();
                 }
-                else if (_version <= 3970)
+                else if (Version <= 3970)
                 {
                     // TODO: This section needs work
 
-                    _compressionLevel = buf[2] + (buf[3] << 8);
+                    CompressionLevel = buf[2] + (buf[3] << 8);
 
                     buf = stream.Read(24);
 
                     // skip format flags
-                    _channels = buf[2] + (buf[3] << 8);
+                    Channels = buf[2] + (buf[3] << 8);
 
-                    _frequency = buf[4] + (buf[5] << 8) + (buf[6] << 16) + (buf[7] << 32);
+                    Frequency = buf[4] + (buf[5] << 8) + (buf[6] << 16) + (buf[7] << 32);
 
-                    if (_version >= 3950)
+                    if (Version >= 3950)
                         blocksPerFrame = 73728 * 4;
-                    else if (_version >= 3900 || (_version >= 3800 && _compressionLevel == COMPRESSION_LEVEL_EXTRA_HIGH))
+                    else if (Version >= 3900 || (Version >= 3800 && CompressionLevel == COMPRESSION_LEVEL_EXTRA_HIGH))
                         blocksPerFrame = 73728;
                     else
                         blocksPerFrame = 9216;
 
                     // TODO: This is definitely fucked up
                     finalBlocks = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
-                    _frames = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
+                    Frames = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
                 }
                 else
                 {
-                    throw new NotImplementedException(string.Format("MAC {0:0.00} not supported", _version / 1000.0));
+                    throw new NotImplementedException(string.Format("MAC {0:0.00} not supported", Version / 1000.0));
                 }
 
-                long totalBlocks = ((_frames - 1) * blocksPerFrame) + finalBlocks;
+                long totalBlocks = ((Frames - 1) * blocksPerFrame) + finalBlocks;
 
                 long totalSize = stream.Length - stream.Position - tmpAPEv2TagSize - tmpID3v1TagSize;
 
-                _totalSeconds = totalBlocks / (decimal)_frequency;
-                _bitrate = totalSize / (_totalSeconds * 125.0m);
+                TotalSeconds = totalBlocks / (decimal)Frequency;
+                Bitrate = totalSize / (TotalSeconds * 125.0m);
             }
         }
 
@@ -108,46 +100,31 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; }
 
         /// <summary>
         /// Gets the frame count.
         /// </summary>
         /// <value>The frame count.</value>
-        public int Frames
-        {
-            get { return _frames; }
-        }
+        public int Frames { get; }
 
         /// <summary>
         /// Gets the total seconds.
         /// </summary>
         /// <value>The total seconds.</value>
-        public decimal TotalSeconds
-        {
-            get { return _totalSeconds; }
-        }
+        public decimal TotalSeconds { get; }
 
         /// <summary>
         /// Gets the bitrate.
         /// </summary>
         /// <value>The bitrate.</value>
-        public decimal Bitrate
-        {
-            get { return _bitrate; }
-        }
+        public decimal Bitrate { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; }
 
         /// <summary>
         /// Gets the type of the audio file.
@@ -162,18 +139,12 @@ namespace IdSharp.AudioInfo
         /// Gets the compression level.
         /// </summary>
         /// <value>The compression level.</value>
-        public int CompressionLevel
-        {
-            get { return _compressionLevel; }
-        }
+        public int CompressionLevel { get; }
 
         /// <summary>
         /// Gets the version.
         /// </summary>
         /// <value>The version.</value>
-        public int Version
-        {
-            get { return _version; }
-        }
+        public int Version { get; }
     }
 }

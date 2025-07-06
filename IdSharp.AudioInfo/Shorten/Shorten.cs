@@ -53,13 +53,6 @@ namespace IdSharp.AudioInfo
 
         private static readonly byte[] MAGIC = new byte[] { (byte)'a', (byte)'j', (byte)'k', (byte)'g', 0x00 };
         private static readonly uint[] masktab = new uint[MASKTABSIZE];
-
-        private readonly int _frequency = 44100; // TODO: Hard-coded
-        private readonly decimal _totalSeconds;
-        private readonly decimal _bitrate;
-        private readonly int _channels = 2; // TODO: Hard-coded
-        private readonly int _samples;
-
         private readonly byte[] getbuf;
         private int nbyteget;
         private uint gbuffer;
@@ -80,9 +73,9 @@ namespace IdSharp.AudioInfo
 
             using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                _samples = getSamples(fs);
-                _totalSeconds = (decimal)_samples / _frequency;
-                _bitrate = fs.Length / _totalSeconds / 125.0m;
+                Samples = getSamples(fs);
+                TotalSeconds = (decimal)Samples / Frequency;
+                Bitrate = fs.Length / TotalSeconds / 125.0m;
             }
         }
 
@@ -371,46 +364,31 @@ namespace IdSharp.AudioInfo
         /// Gets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
-        public int Frequency
-        {
-            get { return _frequency; }
-        }
+        public int Frequency { get; } = 44100;
 
         /// <summary>
         /// Gets the sample count.
         /// </summary>
         /// <value>The sample count.</value>
-        public int Samples
-        {
-            get { return _samples; }
-        }
+        public int Samples { get; }
 
         /// <summary>
         /// Gets the total seconds.
         /// </summary>
         /// <value>The total seconds.</value>
-        public decimal TotalSeconds
-        {
-            get { return _totalSeconds; }
-        }
+        public decimal TotalSeconds { get; }
 
         /// <summary>
         /// Gets the bitrate.
         /// </summary>
         /// <value>The bitrate.</value>
-        public decimal Bitrate
-        {
-            get { return _bitrate; }
-        }
+        public decimal Bitrate { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>The number of channels.</value>
-        public int Channels
-        {
-            get { return _channels; }
-        }
+        public int Channels { get; } = 2;
 
         /// <summary>
         /// Gets the type of the audio file.

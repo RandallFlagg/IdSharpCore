@@ -44,7 +44,6 @@ namespace IdSharp.AudioInfo
         private sealed class ID3v2Header
         {
             private readonly ID3v2TagVersion _tagVersion;
-            private readonly int _tagSize;
             private readonly bool _isFooterPresent;
 
             public ID3v2Header(Stream stream)
@@ -76,19 +75,13 @@ namespace IdSharp.AudioInfo
                 }
 
                 // Size
-                _tagSize = (tmpHeader[3] << 21);
-                _tagSize += (tmpHeader[4] << 14);
-                _tagSize += (tmpHeader[5] << 7);
-                _tagSize += (tmpHeader[6]);
+                TagSize = (tmpHeader[3] << 21);
+                TagSize += (tmpHeader[4] << 14);
+                TagSize += (tmpHeader[5] << 7);
+                TagSize += (tmpHeader[6]);
             }
 
-            public int TagSize
-            {
-                get
-                {
-                    return _tagSize;
-                }
-            }
+            public int TagSize { get; }
 
             public bool IsFooterPresent
             {
