@@ -39,7 +39,7 @@ public static class PathUtils
 
         for (int i = 1; i == 1 || File.Exists(path); i++)
         {
-            path = string.Format("{0} ({1}){2}", basePath, i, ext);
+            path = $"{basePath} ({i}){ext}";
         }
 
         return path;
@@ -68,7 +68,7 @@ public static class PathUtils
             {
                 if (_invalidFileNameChars.Contains(c))
                 {
-                    throw new ArgumentException(string.Format("Parameter 'extension' cannot contain '{0}'", c), nameof(extension));
+                    throw new ArgumentException($"Parameter 'extension' cannot contain '{c}'", nameof(extension));
                 }
             }
         }
@@ -103,7 +103,7 @@ public static class PathUtils
             }
 
             string randomString = Encoding.ASCII.GetString(randomBytes);
-            tempFile = string.Format("{0}.{1}.tmp", baseFileName, randomString);
+            tempFile = $"{baseFileName}.{randomString}.tmp";
         } while (File.Exists(tempFile));
         return tempFile;
     }

@@ -104,7 +104,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
         // to its original position and return.
         if (size >= 0x41000000)
         {
-            string msg = string.Format("FrameID found when expected extended header at position {0}", stream.Position - 4);
+            string msg = $"FrameID found when expected extended header at position {stream.Position - 4}";
             Trace.WriteLine(msg);
 
             stream.Seek(-4, SeekOrigin.Current);

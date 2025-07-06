@@ -213,7 +213,7 @@ public abstract partial class FrameContainer : IFrameContainer
 
             if (!isValid)
             {
-                FireWarning(nameof(Copyright), string.Format("The copyright field should begin with a year followed by the copyright owner{0}Example: 2007 Sony Records", Environment.NewLine));
+                FireWarning(nameof(Copyright), $"The copyright field should begin with a year followed by the copyright owner{Environment.NewLine}Example: 2007 Sony Records");
             }
         }
     }
@@ -227,7 +227,7 @@ public abstract partial class FrameContainer : IFrameContainer
             int tmpYear;
             if (!int.TryParse(value, out tmpYear) || tmpYear < 1000 || tmpYear >= 10000)
             {
-                FireWarning(nameof(Year), string.Format("The year field should be a 4 digit number{0}Example: 2007", Environment.NewLine));
+                FireWarning(nameof(Year), $"The year field should be a 4 digit number{Environment.NewLine}Example: 2007");
             }
         }
     }

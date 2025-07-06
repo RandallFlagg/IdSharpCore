@@ -162,8 +162,7 @@ internal sealed class Commercial : Frame, ICommercial
 
                 if (validUntil.Length == 8)
                 {
-                    validUntil = string.Format("{0}-{1}-{2}", validUntil.Substring(0, 4),
-                        validUntil.Substring(4, 2), validUntil.Substring(6, 2));
+                    validUntil = $"{validUntil.Substring(0, 4)}-{validUntil.Substring(4, 2)}-{validUntil.Substring(6, 2)}";
                     DateTime.TryParse(validUntil, out _validUntil);
                 }
 
@@ -225,7 +224,7 @@ internal sealed class Commercial : Frame, ICommercial
                         priceString += "/";
                     }
 
-                    priceString += string.Format("{0}{1:0.00}", priceInfo.CurrencyCode, priceInfo.Price);
+                    priceString += $"{priceInfo.CurrencyCode}{priceInfo.Price:0.00}";
                 }
             }
 

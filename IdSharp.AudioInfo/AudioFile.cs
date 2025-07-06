@@ -58,7 +58,7 @@ public static class AudioFile
         }
         else if (throwExceptionIfUnknown)
         {
-            throw new NotSupportedException(string.Format("Extension '{0}' not supported", ext));
+            throw new NotSupportedException($"Extension '{ext}' not supported");
         }
 
         //_ = audioFile.Bitrate; //TODO: force calculate bitrate?
@@ -143,7 +143,7 @@ public static class AudioFile
                 allExtensions += "*" + extension;
             }
 
-            filter += string.Format("All supported formats|{0}|", allExtensions);
+            filter += $"All supported formats|{allExtensions}|";
         }
         filter += "MP3 (*.mp3)|*.mp3|";
         filter += "MP4 (*.m4a)|*.m4a|";

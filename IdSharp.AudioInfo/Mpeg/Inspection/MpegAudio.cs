@@ -281,7 +281,7 @@ internal sealed class MpegAudio
     {
         VBRData result;
 
-        String id = String.Format("{0}{1}{2}{3}", (Char)data[index], (Char)data[index + 1], (Char)data[index + 2], (Char)data[index + 3]);
+        String id = $"{(Char)data[index]}{(Char)data[index + 1]}{(Char)data[index + 2]}{(Char)data[index + 3]}";
 
         // Check for VBR header at given position
         if (id == VBRHeaderID.Xing)
@@ -457,15 +457,7 @@ internal sealed class MpegAudio
             data[index + 15];
         result.Scale = data[index + 119];
         // Vendor ID can be not present
-        result.VendorID = String.Format("{0}{1}{2}{3}{4}{5}{6}{7}",
-            (Char)data[index + 120],
-            (Char)data[index + 121],
-            (Char)data[index + 122],
-            (Char)data[index + 123],
-            (Char)data[index + 124],
-            (Char)data[index + 125],
-            (Char)data[index + 126],
-            (Char)data[index + 127]);
+        result.VendorID = $"{(Char)data[index + 120]}{(Char)data[index + 121]}{(Char)data[index + 122]}{(Char)data[index + 123]}{(Char)data[index + 124]}{(Char)data[index + 125]}{(Char)data[index + 126]}{(Char)data[index + 127]}";
 
         return result;
     }
@@ -512,20 +504,12 @@ internal sealed class MpegAudio
         int size = data.Length;
         for (int i = 0; i <= size - 8; i++)
         {
-            String VendorID = String.Format("{0}{1}{2}{3}",
-                (Char)data[size - i - 8],
-                (Char)data[size - i - 7],
-                (Char)data[size - i - 6],
-                (Char)data[size - i - 5]);
+            String VendorID = $"{(Char)data[size - i - 8]}{(Char)data[size - i - 7]}{(Char)data[size - i - 6]}{(Char)data[size - i - 5]}";
 
             if (VendorID == VBRVendorID.LAME)
             {
                 result = VendorID +
-                    String.Format("{0}{1}{2}{3}",
-                        (Char)data[size - i - 4],
-                        (Char)data[size - i - 3],
-                        (Char)data[size - i - 2],
-                        (Char)data[size - i - 1]);
+                    $"{(Char)data[size - i - 4]}{(Char)data[size - i - 3]}{(Char)data[size - i - 2]}{(Char)data[size - i - 1]}";
                 break;
             }
 

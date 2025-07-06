@@ -72,7 +72,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
         }
         catch (Exception ex)
         {
-            throw new Exception(String.Format("Error reading '{0}'", path), ex);
+            throw new Exception($"Error reading '{path}'", ex);
         }
     }
 

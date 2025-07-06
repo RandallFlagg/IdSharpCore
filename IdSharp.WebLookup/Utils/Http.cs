@@ -102,7 +102,7 @@ internal static class Http
         webRequest.UserAgent = m_UserAgent;
         if (credentials != null)
         {
-            webRequest.Headers.Add(string.Format("Authorization: Basic {0}", Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", credentials.UserName, credentials.Password)))));
+            webRequest.Headers.Add($"Authorization: Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", credentials.UserName, credentials.Password)))}");
         }
         webResponse = (HttpWebResponse)webRequest.GetResponse();
 
@@ -343,7 +343,7 @@ internal static class Http
             getString.Insert(0, '&');
         }
 
-        return string.Format("{0}{1}", requestUriString, getString);
+        return $"{requestUriString}{getString}";
     }
 
     private static void AddField(StringBuilder postString, PostData postData)
@@ -374,7 +374,7 @@ internal static class Http
                 }
                 else
                 {
-                    value.Append(string.Format("%{0:X2}", (int)c));
+                    value.Append($"%{(int)c:X2}");
                 }
             }
         }
@@ -382,11 +382,11 @@ internal static class Http
 
         if (postString.Length == 0)
         {
-            postString.AppendFormat("{0}={1}", postData.Field, value);
+            postString.AppendFormat($"{postData.Field}={value}");
         }
         else
         {
-            postString.AppendFormat("&{0}={1}", postData.Field, value);
+            postString.AppendFormat($"&{postData.Field}={value}");
         }
     }
 

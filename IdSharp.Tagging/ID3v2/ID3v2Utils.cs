@@ -319,7 +319,7 @@ internal static class ID3v2Utils
         else
         {
             // Most likely bad data
-            string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+            string msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
             Trace.WriteLine(msg);
         }
 
@@ -443,7 +443,7 @@ internal static class ID3v2Utils
         else
         {
             // Most likely bad data
-            string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+            string msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
             Trace.WriteLine(msg);
             return "";
         }
@@ -621,7 +621,7 @@ internal static class ID3v2Utils
         else
         {
             // Most likely bad data
-            string msg = string.Format("Text Encoding '{0}' unknown at position {1}", textEncoding, stream.Position);
+            string msg = $"Text Encoding '{textEncoding}' unknown at position {stream.Position}";
             Trace.WriteLine(msg);
             return "";
         }

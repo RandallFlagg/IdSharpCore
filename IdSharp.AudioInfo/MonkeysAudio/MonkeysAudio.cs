@@ -90,7 +90,7 @@ public class MonkeysAudio : IAudioFile
             }
             else
             {
-                throw new NotImplementedException(string.Format("MAC {0:0.00} not supported", Version / 1000.0));
+                throw new NotImplementedException($"MAC {Version / 1000.0:0.00} not supported");
             }
 
             long totalBlocks = ((Frames - 1) * blocksPerFrame) + finalBlocks;

@@ -57,7 +57,7 @@ internal static class ID3v2
             // Version
             if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
             {
-                string msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
+                string msg = $"ID3 Version '{tmpHeader[0]}' not recognized (valid versions are 2, 3, and 4)";
                 Trace.WriteLine(msg);
                 throw new InvalidDataException(msg);
             }

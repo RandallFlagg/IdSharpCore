@@ -189,9 +189,9 @@ public partial class ID3v2UserControl : UserControl
 
     private void SetAudioFileDetails(IAudioFile audioFile, DescriptiveLameTagReader lameTagReader)
     {
-        txtPlayLength.Text = string.Format("{0}:{1:00}", (int)audioFile.TotalSeconds / 60, (int)audioFile.TotalSeconds % 60);
-        txtBitrate.Text = string.Format("{0:#,0} kbps", audioFile.Bitrate);
-        txtEncoderPreset.Text = string.Format("{0} {1}", lameTagReader.LameTagInfoEncoder, lameTagReader.UsePresetGuess == UsePresetGuess.NotNeeded ? lameTagReader.Preset : lameTagReader.PresetGuess);
+        txtPlayLength.Text = $"{(int)audioFile.TotalSeconds / 60}:{(int)audioFile.TotalSeconds % 60:00}";
+        txtBitrate.Text = $"{audioFile.Bitrate:#,0} kbps";
+        txtEncoderPreset.Text = $"{lameTagReader.LameTagInfoEncoder} {(lameTagReader.UsePresetGuess == UsePresetGuess.NotNeeded ? lameTagReader.Preset : lameTagReader.PresetGuess)}";
     }
 
     public void SaveFile(string path)

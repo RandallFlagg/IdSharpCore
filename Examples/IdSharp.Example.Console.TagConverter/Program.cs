@@ -30,11 +30,11 @@ if (_verbosity >= Verbosity.Default)
 {
     if (_directory != null)
     {
-        WriteLine(string.Format("Directory: \"{0}\"", _directory));
+        WriteLine($"Directory: \"{_directory}\"");
     }
     else
     {
-        WriteLine(string.Format("File: \"{0}\"", _fileName));
+        WriteLine($"File: \"{_fileName}\"");
     }
 
 
@@ -140,7 +140,7 @@ for (var i = 0; i < files.Length; i++)
     {
         if (_verbosity >= Verbosity.Default)
         {
-            string header = string.Format("File: {0}", file);
+            string header = $"File: {file}";
             WriteLine(header);
             WriteLine(new string('=', header.Length));
             WriteLine(ex.ToString());
@@ -161,18 +161,18 @@ if (_verbosity >= Verbosity.Default)
         WriteLine();
     }
 
-    WriteLine(string.Format("ID3v2.2:   {0:#,0}", id3v22Count));
-    WriteLine(string.Format("ID3v2.3:   {0:#,0}", id3v23Count));
-    WriteLine(string.Format("ID3v2.4:   {0:#,0}", id3v24Count));
-    WriteLine(string.Format("No ID3v2:  {0:#,0}", noid3v2Count));
+    WriteLine($"ID3v2.2:   {id3v22Count:#,0}");
+    WriteLine($"ID3v2.3:   {id3v23Count:#,0}");
+    WriteLine($"ID3v2.4:   {id3v24Count:#,0}");
+    WriteLine($"No ID3v2:  {noid3v2Count:#,0}");
     WriteLine();
-    WriteLine(string.Format("Start:     {0:HH:mm:ss}", start));
-    WriteLine(string.Format("End:       {0:HH:mm:ss}", end));
-    WriteLine(string.Format("Duration:  {0:hh}:{0:mm}:{0:ss}.{0:fff}", duration));
+    WriteLine($"Start:     {start:HH:mm:ss}");
+    WriteLine($"End:       {end:HH:mm:ss}");
+    WriteLine($"Duration:  {duration:hh}:{duration:mm}:{duration:ss}.{duration:fff}");
     WriteLine();
-    WriteLine(string.Format("Updated:   {0:#,0}", updated));
-    WriteLine(string.Format("Skipped:   {0:#,0}", skipped));
-    WriteLine(string.Format("Failed:    {0:#,0}", failed));
+    WriteLine($"Updated:   {updated:#,0}");
+    WriteLine($"Skipped:   {skipped:#,0}");
+    WriteLine($"Failed:    {failed:#,0}");
 }
 
 bool ParseArguments(string[] args)

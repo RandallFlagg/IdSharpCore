@@ -304,16 +304,16 @@ public class AmazonImages : INotifyPropertyChanged
         postData.Add(new PostData("Operation", "ItemLookup"));
         postData.Add(new PostData("ItemId", _asin));
         postData.Add(new PostData("ResponseGroup", "Images"));
-        postData.Add(new PostData("Timestamp", string.Format("{0:yyyy-MM-dd}T{0:HH:mm:ss}Z", DateTime.UtcNow)));
+        postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));
 
         string amazonDomain = Amazon.GetDomain(_amazonServer);
-        string hostHeader = string.Format("ecs.{0}", amazonDomain);
+        string hostHeader = $"ecs.{amazonDomain}";
         string signature = Amazon.GetSignature(postData, hostHeader, _secretAccessKey);
         postData.Add(new PostData("Signature", signature));
 
         //postData = GetOrderedPostData(postData);
 
-        string requestUri = String.Format("http://{0}{1}", hostHeader, Amazon.HttpRequestUri);
+        string requestUri = $"http://{hostHeader}{Amazon.HttpRequestUri}";
         requestUri = Http.GetQueryString(requestUri, postData);
 
         byte[] byteResponse = Http.Get(requestUri);

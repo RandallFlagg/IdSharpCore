@@ -68,7 +68,7 @@ public class ByteUtilsTest
 
         for (int i = 0; i < original.Length; i++)
         {
-            Assert.That(clone[i], Is.EqualTo(original[i]), string.Format("clone[{0}] ({1}) != original[{0}] ({2})", i, clone[i], original[i]));
+            Assert.That(clone[i], Is.EqualTo(original[i]), $"clone[{i}] ({clone[i]}) != original[{i}] ({original[i]})");
         }
 
         return clone;

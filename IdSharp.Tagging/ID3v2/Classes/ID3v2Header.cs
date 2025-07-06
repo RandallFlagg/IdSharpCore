@@ -45,7 +45,7 @@ internal sealed class ID3v2Header : IID3v2Header
         {
             if (value > 0xFFFFFFF)
             {
-                string msg = string.Format("Argument 'value' out of range.  Maximum tag size is {0}.", 0xFFFFFFF);
+                string msg = $"Argument 'value' out of range.  Maximum tag size is {0xFFFFFFF}.";
                 Trace.WriteLine(msg);
                 throw new ArgumentOutOfRangeException(nameof(value), value, msg);
             }
@@ -155,7 +155,7 @@ internal sealed class ID3v2Header : IID3v2Header
             // Version
             if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
             {
-                string msg = string.Format("ID3 Version '{0}' not recognized (valid versions are 2, 3, and 4)", tmpHeader[0]);
+                string msg = $"ID3 Version '{tmpHeader[0]}' not recognized (valid versions are 2, 3, and 4)";
                 Trace.WriteLine(msg);
                 throw new InvalidDataException(msg);
             }
