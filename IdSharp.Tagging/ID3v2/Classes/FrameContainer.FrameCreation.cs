@@ -326,9 +326,20 @@ public abstract partial class FrameContainer : IFrameContainer
         TFrame frame = new TFrame();
         _frameBinder.Bind(frame, "TODO", property, validator);
 
-        if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, frame);
-        if (id3v23FrameID != null) _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, frame);
-        if (id3v22FrameID != null) _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, frame);
+        if (id3v24FrameID != null)
+        {
+            _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, frame);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, frame);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, frame);
+        }
 
         return frame;
     }
@@ -338,9 +349,20 @@ public abstract partial class FrameContainer : IFrameContainer
         MusicCDIdentifier musicCDIdentifier = new MusicCDIdentifier();
         _frameBinder.Bind(musicCDIdentifier, "TOC", property, validator);
 
-        if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, musicCDIdentifier);
-        if (id3v23FrameID != null) _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, musicCDIdentifier);
-        if (id3v22FrameID != null) _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, musicCDIdentifier);
+        if (id3v24FrameID != null)
+        {
+            _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, musicCDIdentifier);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, musicCDIdentifier);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, musicCDIdentifier);
+        }
 
         return musicCDIdentifier;
     }
@@ -350,18 +372,40 @@ public abstract partial class FrameContainer : IFrameContainer
         LanguageFrame languageFrame = new LanguageFrame();
         _frameBinder.Bind(languageFrame, "Items", property, validator); // todo: may need work, Items is a BindingList
 
-        if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, languageFrame);
-        if (id3v23FrameID != null) _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, languageFrame);
-        if (id3v22FrameID != null) _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, languageFrame);
+        if (id3v24FrameID != null)
+        {
+            _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, languageFrame);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, languageFrame);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, languageFrame);
+        }
 
         return languageFrame;
     }
 
     private void AddMultipleOccurrenceFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, IBindingList bindingList)
     {
-        if (id3v24FrameID != null) _id3v24MultipleOccurrenceFrames.Add(id3v24FrameID, bindingList);
-        if (id3v23FrameID != null) _id3v23MultipleOccurrenceFrames.Add(id3v23FrameID, bindingList);
-        if (id3v22FrameID != null) _id3v22MultipleOccurrenceFrames.Add(id3v22FrameID, bindingList);
+        if (id3v24FrameID != null)
+        {
+            _id3v24MultipleOccurrenceFrames.Add(id3v24FrameID, bindingList);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23MultipleOccurrenceFrames.Add(id3v23FrameID, bindingList);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22MultipleOccurrenceFrames.Add(id3v22FrameID, bindingList);
+        }
     }
 
     private TextFrame CreateTextFrame(string id3v24FrameID, string id3v23FrameID, string id3v22FrameID, string property, Action validator)
@@ -369,9 +413,20 @@ public abstract partial class FrameContainer : IFrameContainer
         TextFrame textFrame = new TextFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
         _frameBinder.Bind(textFrame, "Value", property, validator);
 
-        if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, textFrame);
-        if (id3v23FrameID != null) _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, textFrame);
-        if (id3v22FrameID != null) _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, textFrame);
+        if (id3v24FrameID != null)
+        {
+            _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, textFrame);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, textFrame);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, textFrame);
+        }
 
         return textFrame;
     }
@@ -381,9 +436,20 @@ public abstract partial class FrameContainer : IFrameContainer
         UrlFrame urlFrame = new UrlFrame(id3v24FrameID, id3v23FrameID, id3v22FrameID);
         _frameBinder.Bind(urlFrame, "Value", property, validator);
 
-        if (id3v24FrameID != null) _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, urlFrame);
-        if (id3v23FrameID != null) _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, urlFrame);
-        if (id3v22FrameID != null) _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, urlFrame);
+        if (id3v24FrameID != null)
+        {
+            _id3v24SingleOccurrenceFrames.Add(id3v24FrameID, urlFrame);
+        }
+
+        if (id3v23FrameID != null)
+        {
+            _id3v23SingleOccurrenceFrames.Add(id3v23FrameID, urlFrame);
+        }
+
+        if (id3v22FrameID != null)
+        {
+            _id3v22SingleOccurrenceFrames.Add(id3v22FrameID, urlFrame);
+        }
 
         return urlFrame;
     }
@@ -392,25 +458,41 @@ public abstract partial class FrameContainer : IFrameContainer
     {
         // Arranged in order of commonness
         if (tagVersion == ID3v2TagVersion.ID3v23)
+        {
             return _id3v23SingleOccurrenceFrames;
+        }
         else if (tagVersion == ID3v2TagVersion.ID3v22)
+        {
             return _id3v22SingleOccurrenceFrames;
+        }
         else if (tagVersion == ID3v2TagVersion.ID3v24)
+        {
             return _id3v24SingleOccurrenceFrames;
+        }
         else
+        {
             throw new ArgumentException("Unknown ID3v2 tag version");
+        }
     }
 
     private Dictionary<string, IBindingList> GetMultipleOccurrenceFrames(ID3v2TagVersion tagVersion)
     {
         // Arranged in order of commonness
         if (tagVersion == ID3v2TagVersion.ID3v23)
+        {
             return _id3v23MultipleOccurrenceFrames;
+        }
         else if (tagVersion == ID3v2TagVersion.ID3v22)
+        {
             return _id3v22MultipleOccurrenceFrames;
+        }
         else if (tagVersion == ID3v2TagVersion.ID3v24)
+        {
             return _id3v24MultipleOccurrenceFrames;
+        }
         else
+        {
             throw new ArgumentException("Unknown ID3v2 tag version");
+        }
     }
 }

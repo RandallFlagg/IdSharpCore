@@ -126,12 +126,18 @@ internal static class ID3v2Utils
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
                         if (isTerminated)
+                        {
                             byteList.AddRange(new byte[] { 0, 0 });
+                        }
+
                         break;
                     default:
                         byteList.AddRange(ByteUtils.ISO88591GetBytes(value));
                         if (isTerminated)
+                        {
                             byteList.Add(0);
+                        }
+
                         break;
                 }
                 break;
@@ -147,12 +153,18 @@ internal static class ID3v2Utils
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
                         if (isTerminated)
+                        {
                             byteList.AddRange(new byte[] { 0, 0 });
+                        }
+
                         break;
                     default:
                         byteList.AddRange(ByteUtils.ISO88591GetBytes(value));
                         if (isTerminated)
+                        {
                             byteList.Add(0);
+                        }
+
                         break;
                 }
                 break;
@@ -166,7 +178,10 @@ internal static class ID3v2Utils
                             byteList.AddRange(Encoding.UTF8.GetBytes(value));
                         }
                         if (isTerminated)
+                        {
                             byteList.Add(0);
+                        }
+
                         break;
                     case EncodingType.UTF16BE:
                         if (!string.IsNullOrEmpty(value))
@@ -174,7 +189,10 @@ internal static class ID3v2Utils
                             byteList.AddRange(Encoding.BigEndianUnicode.GetBytes(value)); // no BOM
                         }
                         if (isTerminated)
+                        {
                             byteList.AddRange(new byte[] { 0, 0 });
+                        }
+
                         break;
                     case EncodingType.Unicode:
                         if (!string.IsNullOrEmpty(value))
@@ -184,12 +202,18 @@ internal static class ID3v2Utils
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
                         if (isTerminated)
+                        {
                             byteList.AddRange(new byte[] { 0, 0 });
+                        }
+
                         break;
                     default:
                         byteList.AddRange(ByteUtils.ISO88591GetBytes(value));
                         if (isTerminated)
+                        {
                             byteList.Add(0);
+                        }
+
                         break;
                 }
                 break;
@@ -275,9 +299,13 @@ internal static class ID3v2Utils
             {
                 // If BOM is part of the string, remove before decoding.
                 if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 0, byteArray.Length);
+                }
             }
             else
             {
@@ -314,7 +342,9 @@ internal static class ID3v2Utils
     public static string ReadString(EncodingType textEncoding, Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         string returnValue;
         List<byte> byteList = new List<byte>();
@@ -350,11 +380,17 @@ internal static class ID3v2Utils
                 // If BOM is part of the string, decode as the appropriate Unicode type.
                 // If no BOM is present use Little Endian Unicode.
                 if (byteArray[0] == 0xFF && byteArray[1] == 0xFE)
+                {
                     returnValue = Encoding.Unicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else
+                {
                     returnValue = Encoding.Unicode.GetString(byteArray, 0, byteArray.Length);
+                }
             }
             else
             {
@@ -379,9 +415,13 @@ internal static class ID3v2Utils
             {
                 // If BOM is part of the string, remove before decoding.
                 if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 0, byteArray.Length);
+                }
             }
             else
             {
@@ -444,7 +484,11 @@ internal static class ID3v2Utils
                 {
                     //String msg = String.Format("End of frame reached while reading unknown length string at position {0}", stream.Position);
                     //Trace.WriteLine(msg);
-                    if (readByte != 0) byteList.Add(readByte);
+                    if (readByte != 0)
+                    {
+                        byteList.Add(readByte);
+                    }
+
                     return ByteUtils.ISO88591GetString(byteList.ToArray());
                 }
             }
@@ -485,11 +529,17 @@ internal static class ID3v2Utils
                 // If BOM is part of the string, decode as the appropriate Unicode type.
                 // If no BOM is present use Little Endian Unicode.
                 if (byteArray[0] == 0xFF && byteArray[1] == 0xFE)
+                {
                     returnValue = Encoding.Unicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else
+                {
                     returnValue = Encoding.Unicode.GetString(byteArray, 0, byteArray.Length);
+                }
             }
             else
             {
@@ -529,9 +579,13 @@ internal static class ID3v2Utils
             {
                 // If BOM is part of the string, remove before decoding.
                 if (byteArray[0] == 0xFE && byteArray[1] == 0xFF)
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 2, byteArray.Length - 2);
+                }
                 else
+                {
                     returnValue = Encoding.BigEndianUnicode.GetString(byteArray, 0, byteArray.Length);
+                }
             }
             else
             {

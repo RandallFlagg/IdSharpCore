@@ -31,9 +31,13 @@ public static class PictureTypeHelper
     {
         PictureType pictureType;
         if (m_PictureTypeDictionary.TryGetValue(pictureTypeString, out pictureType))
+        {
             return pictureType;
+        }
         else
+        {
             return PictureType.Other;
+        }
     }
 
     /// <summary>
@@ -45,7 +49,9 @@ public static class PictureTypeHelper
         foreach (KeyValuePair<string, PictureType> pictureTypeKVP in m_PictureTypeDictionary)
         {
             if (pictureTypeKVP.Value == pictureType)
+            {
                 return pictureTypeKVP.Key;
+            }
         }
 
         return "Other";

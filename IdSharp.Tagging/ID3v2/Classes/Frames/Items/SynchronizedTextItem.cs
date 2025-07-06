@@ -32,7 +32,9 @@ internal sealed class SynchronizedTextItem : ISynchronizedTextItem
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _timestamp = value;
             FirePropertyChanged("Timestamp");

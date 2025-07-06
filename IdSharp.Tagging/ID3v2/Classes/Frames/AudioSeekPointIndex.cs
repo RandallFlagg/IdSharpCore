@@ -21,7 +21,9 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _indexedDataStart = value;
             RaisePropertyChanged("IndexedDataStart");
@@ -34,7 +36,9 @@ internal sealed class AudioSeekPointIndex : Frame, IAudioSeekPointIndex
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _indexedDataLength = value;
             RaisePropertyChanged("IndexedDataLength");

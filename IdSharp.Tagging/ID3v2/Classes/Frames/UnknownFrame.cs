@@ -38,7 +38,9 @@ internal sealed class UnknownFrame : Frame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_frameData == null || _frameData.Length == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream(_frameData))
         {

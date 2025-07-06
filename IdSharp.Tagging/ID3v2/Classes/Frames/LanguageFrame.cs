@@ -99,7 +99,9 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (Items.Count == 0)
+        {
             return new byte[0];
+        }
 
         // Set TextEncoding to Unicode/UTF8 if required
         if (TextEncoding == EncodingType.ISO88591)
@@ -118,8 +120,11 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
             for (int i = 0; i < Items.Count; i++)
             {
                 ILanguageItem languageItem = Items[i];
-                if (i == Items.Count - 1) 
+                if (i == Items.Count - 1)
+                {
                     isTerminated = false;
+                }
+
                 frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, languageItem.LanguageCode, isTerminated));
             }
             return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));

@@ -50,8 +50,10 @@ internal sealed class AttachedPictureBindingList : BindingList<IAttachedPicture>
 
     private void AttachedPicture_DescriptionChanging(object sender, CancelDataEventArgs<string> e)
     {
-        if (string.IsNullOrEmpty(e.Data)) 
+        if (string.IsNullOrEmpty(e.Data))
+        {
             return;
+        }
 
         foreach (IAttachedPicture attachedPicture in Items)
         {

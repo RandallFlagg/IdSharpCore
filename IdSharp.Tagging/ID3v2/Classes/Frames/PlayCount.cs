@@ -56,14 +56,20 @@ internal sealed class PlayCount : Frame, IPlayCount
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (m_Value == null)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {
             if (Value <= uint.MaxValue)
+            {
                 frameData.Write(ByteUtils.Get4Bytes((uint)Value.Value));
+            }
             else
+            {
                 frameData.Write(ByteUtils.GetBytesMinimal(Value.Value));
+            }
 
             return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));
         }

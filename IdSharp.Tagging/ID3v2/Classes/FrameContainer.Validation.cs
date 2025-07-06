@@ -156,15 +156,23 @@ public abstract partial class FrameContainer : IFrameContainer
                     }
                     else
                     {
-                        if (i == 0) extractedFirstPart = tmpIntValue;
-                        else if (i == 1) extractedSecondPart = tmpIntValue;
+                        if (i == 0)
+                        {
+                            extractedFirstPart = tmpIntValue;
+                        }
+                        else if (i == 1)
+                        {
+                            extractedSecondPart = tmpIntValue;
+                        }
                     }
                     i++;
                 }
 
                 // If first # is 0
                 if (extractedFirstPart == 0)
+                {
                     isValid = false;
+                }
                 // If ##/## used
                 else if (i == 2)
                 {
@@ -196,7 +204,10 @@ public abstract partial class FrameContainer : IFrameContainer
                 int year;
                 if (int.TryParse(yearString, out year) && year >= 1000 && year <= 9999)
                 {
-                    if (value[4] == ' ') isValid = true;
+                    if (value[4] == ' ')
+                    {
+                        isValid = true;
+                    }
                 }
             }
 

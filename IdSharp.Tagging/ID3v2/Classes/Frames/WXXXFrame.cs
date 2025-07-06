@@ -78,7 +78,9 @@ internal sealed class WXXXFrame : Frame, IWXXXFrame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (string.IsNullOrEmpty(Value))
+        {
             return new byte[0];
+        }
 
         byte[] descriptionData;
         do

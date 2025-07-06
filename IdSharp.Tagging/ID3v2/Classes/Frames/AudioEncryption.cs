@@ -27,7 +27,9 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _previewStart = value;
             RaisePropertyChanged("PreviewStart");
@@ -40,7 +42,9 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _previewLength = value;
             RaisePropertyChanged("PreviewLength");
@@ -126,8 +130,11 @@ internal sealed class AudioEncryption : Frame, IAudioEncryption
             stream.Write(ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, OwnerIdentifier, true));
             stream.Write(ByteUtils.Get2Bytes(PreviewStart));
             stream.Write(ByteUtils.Get2Bytes(PreviewLength));
-            if (_encryptionInfo != null) 
+            if (_encryptionInfo != null)
+            {
                 stream.Write(_encryptionInfo);
+            }
+
             return _frameHeader.GetBytes(stream, tagVersion, GetFrameID(tagVersion));
         }
     }

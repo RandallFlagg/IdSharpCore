@@ -36,9 +36,13 @@ internal sealed class TextFrame : Frame, ITextFrame
         set
         {
             if (string.IsNullOrEmpty(value))
+            {
                 _value = value;
+            }
             else
+            {
                 _value = value.Trim();
+            }
 
             RaisePropertyChanged("Value");
         }
@@ -82,7 +86,9 @@ internal sealed class TextFrame : Frame, ITextFrame
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (string.IsNullOrEmpty(Value))
+        {
             return new byte[0];
+        }
 
         byte[] valueData;
         do

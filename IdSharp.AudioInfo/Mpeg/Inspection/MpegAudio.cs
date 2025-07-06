@@ -98,7 +98,10 @@ internal sealed class MpegAudio
             }
         }
 
-        if (m_Frame.Found == false) ResetData();
+        if (m_Frame.Found == false)
+        {
+            ResetData();
+        }
     }
 
     #endregion <<< Constructor >>>
@@ -309,13 +312,25 @@ internal sealed class MpegAudio
         // Calculate VBR deviation
         if (Frame.VersionID == MpegVersion.Version1)
         {
-            if (Frame.ModeID != MpegChannel.Mono) result = 36;
-            else result = 21;
+            if (Frame.ModeID != MpegChannel.Mono)
+            {
+                result = 36;
+            }
+            else
+            {
+                result = 21;
+            }
         }
         else
         {
-            if (Frame.ModeID != MpegChannel.Mono) result = 21;
-            else result = 13;
+            if (Frame.ModeID != MpegChannel.Mono)
+            {
+                result = 21;
+            }
+            else
+            {
+                result = 13;
+            }
         }
 
         return result;
@@ -333,14 +348,29 @@ internal sealed class MpegAudio
         // Get frame size coefficient
         if (Frame.VersionID == MpegVersion.Version1)
         {
-            if (Frame.LayerID == MpegLayer.LayerI) result = 48;
-            else result = 144;
+            if (Frame.LayerID == MpegLayer.LayerI)
+            {
+                result = 48;
+            }
+            else
+            {
+                result = 144;
+            }
         }
         else
         {
-            if (Frame.LayerID == MpegLayer.LayerI) result = 24;
-            else if (Frame.LayerID == MpegLayer.LayerII) result = 144;
-            else result = 72;
+            if (Frame.LayerID == MpegLayer.LayerI)
+            {
+                result = 24;
+            }
+            else if (Frame.LayerID == MpegLayer.LayerII)
+            {
+                result = 144;
+            }
+            else
+            {
+                result = 72;
+            }
         }
 
         return result;
@@ -384,8 +414,14 @@ internal sealed class MpegAudio
         // Get frame padding
         if (Frame.PaddingBit)
         {
-            if (Frame.LayerID == MpegLayer.LayerI) result = 4;
-            else result = 1;
+            if (Frame.LayerID == MpegLayer.LayerI)
+            {
+                result = 4;
+            }
+            else
+            {
+                result = 1;
+            }
         }
         else
         {
@@ -514,8 +550,14 @@ internal sealed class MpegAudio
         // Get guessed encoder ID
         if (m_Frame.Found)
         {
-            if (m_VBR.Found) result = GetVBREncoderID();
-            else result = GetCBREncoderID();
+            if (m_VBR.Found)
+            {
+                result = GetVBREncoderID();
+            }
+            else
+            {
+                result = GetCBREncoderID();
+            }
         }
 
         return result;
@@ -532,16 +574,38 @@ internal sealed class MpegAudio
         String vbrVendor = m_VBR.VendorID.Substring(0, 4);
 
         // Guess VBR encoder and get ID
-        if (vbrVendor == VBRVendorID.LAME) result = MpegEncoder.LAME;
-        if (vbrVendor == VBRVendorID.GoGoNew) result = MpegEncoder.GoGo;
-        if (vbrVendor == VBRVendorID.GoGoOld) result = MpegEncoder.GoGo;
+        if (vbrVendor == VBRVendorID.LAME)
+        {
+            result = MpegEncoder.LAME;
+        }
+
+        if (vbrVendor == VBRVendorID.GoGoNew)
+        {
+            result = MpegEncoder.GoGo;
+        }
+
+        if (vbrVendor == VBRVendorID.GoGoOld)
+        {
+            result = MpegEncoder.GoGo;
+        }
+
         if (Encoding.ASCII.GetString(m_VBR.ID) == VBRHeaderID.Xing && 
             vbrVendor != VBRVendorID.LAME && 
             vbrVendor != VBRVendorID.GoGoNew && 
             vbrVendor != VBRVendorID.GoGoOld)
+        {
             result = MpegEncoder.Xing;
-        if (Encoding.ASCII.GetString(m_VBR.ID) == VBRHeaderID.FhG) result = MpegEncoder.FhG;
-        if (vbrVendor == VBRVendorID.LAME) result = MpegEncoder.LAME;
+        }
+
+        if (Encoding.ASCII.GetString(m_VBR.ID) == VBRHeaderID.FhG)
+        {
+            result = MpegEncoder.FhG;
+        }
+
+        if (vbrVendor == VBRVendorID.LAME)
+        {
+            result = MpegEncoder.LAME;
+        }
 
         return result;
     }
@@ -566,14 +630,45 @@ internal sealed class MpegAudio
         }
 
         // Guess CBR encoder and get ID
-        if (m_Frame.OriginalBit && m_Frame.ProtectionBit) result = MpegEncoder.LAME;
-        if (GetBitRate(m_Frame) <= 160 && m_Frame.ModeID == MpegChannel.Stereo) result = MpegEncoder.Blade;
-        if (m_Frame.CopyrightBit && m_Frame.OriginalBit && !m_Frame.ProtectionBit) result = MpegEncoder.Xing;
-        if (m_Frame.Xing && m_Frame.OriginalBit) result = MpegEncoder.Xing;
-        if (m_Frame.LayerID == MpegLayer.LayerII) result = MpegEncoder.QDesign;
-        if (m_Frame.ModeID == MpegChannel.DualChannel && m_Frame.ProtectionBit) result = MpegEncoder.Shine;
-        if (shortVendor == VBRVendorID.LAME) result = MpegEncoder.LAME;
-        if (shortVendor == VBRVendorID.GoGoNew) result = MpegEncoder.GoGo;
+        if (m_Frame.OriginalBit && m_Frame.ProtectionBit)
+        {
+            result = MpegEncoder.LAME;
+        }
+
+        if (GetBitRate(m_Frame) <= 160 && m_Frame.ModeID == MpegChannel.Stereo)
+        {
+            result = MpegEncoder.Blade;
+        }
+
+        if (m_Frame.CopyrightBit && m_Frame.OriginalBit && !m_Frame.ProtectionBit)
+        {
+            result = MpegEncoder.Xing;
+        }
+
+        if (m_Frame.Xing && m_Frame.OriginalBit)
+        {
+            result = MpegEncoder.Xing;
+        }
+
+        if (m_Frame.LayerID == MpegLayer.LayerII)
+        {
+            result = MpegEncoder.QDesign;
+        }
+
+        if (m_Frame.ModeID == MpegChannel.DualChannel && m_Frame.ProtectionBit)
+        {
+            result = MpegEncoder.Shine;
+        }
+
+        if (shortVendor == VBRVendorID.LAME)
+        {
+            result = MpegEncoder.LAME;
+        }
+
+        if (shortVendor == VBRVendorID.GoGoNew)
+        {
+            result = MpegEncoder.GoGo;
+        }
 
         return result;
     }
@@ -603,8 +698,16 @@ internal sealed class MpegAudio
 
             // Get guessed encoder name and encoder version for LAME
             String result = GetEncoderID().ToString();
-            if (!String.IsNullOrEmpty(m_VBR.VendorID)) myVendorID = m_VBR.VendorID;
-            if (!String.IsNullOrEmpty(m_VendorID)) myVendorID = m_VendorID;
+            if (!String.IsNullOrEmpty(m_VBR.VendorID))
+            {
+                myVendorID = m_VBR.VendorID;
+            }
+
+            if (!String.IsNullOrEmpty(m_VendorID))
+            {
+                myVendorID = m_VendorID;
+            }
+
             if (GetEncoderID() == MpegEncoder.LAME &&
                 myVendorID.Length >= 8 &&
                 Char.IsDigit(myVendorID, 4) &&

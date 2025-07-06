@@ -117,17 +117,25 @@ public abstract partial class FrameContainer : IFrameContainer
                     {
                         string newFrameID;
                         if (_id3v24FrameAliases.TryGetValue(frameID, out newFrameID))
+                        {
                             frameID = newFrameID;
+                        }
                         else
+                        {
                             break;
+                        }
                     }
                     else if (tagVersion == ID3v2TagVersion.ID3v23)
                     {
                         string newFrameID;
                         if (_id3v23FrameAliases.TryGetValue(frameID, out newFrameID))
+                        {
                             frameID = newFrameID;
+                        }
                         else
+                        {
                             break;
+                        }
                     }
                     else
                     {
@@ -258,7 +266,9 @@ public abstract partial class FrameContainer : IFrameContainer
         foreach (IFrame frame in new List<IFrame>(allFrames))
         {
             if (frame.GetBytes(tagVersion).Length == 0)
+            {
                 allFrames.Remove(frame);
+            }
         }
 
         return allFrames;
@@ -267,7 +277,9 @@ public abstract partial class FrameContainer : IFrameContainer
     internal List<IFrame> GetAllFrames(ID3v2TagVersion tagVersion, string frameID)
     {
         if (string.IsNullOrEmpty(frameID))
+        {
             throw new ArgumentNullException("frameID");
+        }
 
         return GetAllFrames(tagVersion, new List<string> { frameID });
     }
@@ -275,10 +287,14 @@ public abstract partial class FrameContainer : IFrameContainer
     internal List<IFrame> GetAllFrames(ID3v2TagVersion tagVersion, IEnumerable<string> frameIDs)
     {
         if (frameIDs == null)
+        {
             throw new ArgumentNullException("frameIDs");
+        }
 
         if (frameIDs.Any() == false)
+        {
             return new List<IFrame>();
+        }
 
         List<IFrame> allFrames = GetAllFrames(tagVersion);
         for (int i = allFrames.Count - 1; i >= 0; i--)

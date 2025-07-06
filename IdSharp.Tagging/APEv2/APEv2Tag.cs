@@ -157,7 +157,9 @@ public partial class APEv2Tag : IAPEv2Tag
         TagOffset = 0;
 
         if (readElements)
+        {
             _items.Clear();
+        }
 
         int footerOffset = 0;
 
@@ -328,10 +330,13 @@ public partial class APEv2Tag : IAPEv2Tag
         }
 
         if (itemKey.StartsWith(ReplayGainTagItems.TAG_PREFIX))
+        {
             ReplayGainItems.SetField(itemKey, itemValue);
+        }
         else if (itemKey.StartsWith(MP3GainTagItems.TAG_PREFIX))
+        {
             MP3GainItems.SetField(itemKey, itemValue);
-
+        }
     }
 
     /// <summary>

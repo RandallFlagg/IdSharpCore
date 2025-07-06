@@ -25,10 +25,14 @@ public static class PathUtils
     public static string GetUniqueFileName(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         if (!File.Exists(path))
+        {
             return path;
+        }
 
         string basePath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
         string ext = Path.GetExtension(path);
@@ -51,7 +55,9 @@ public static class PathUtils
         if (!string.IsNullOrEmpty(extension))
         {
             if (extension[0] != '.')
+            {
                 extension = "." + extension;
+            }
 
             if (extension.EndsWith("."))
             {
@@ -61,7 +67,9 @@ public static class PathUtils
             foreach (char c in extension)
             {
                 if (_invalidFileNameChars.Contains(c))
+                {
                     throw new ArgumentException(string.Format("Parameter 'extension' cannot contain '{0}'", c), "extension");
+                }
             }
         }
 
@@ -80,7 +88,9 @@ public static class PathUtils
     public static string GetTemporaryFileNameBasedOnFileName(string baseFileName)
     {
         if (string.IsNullOrEmpty(baseFileName))
+        {
             throw new ArgumentNullException("basefileName");
+        }
 
         string tempFile;
         Random rnd = new Random();

@@ -23,7 +23,10 @@ internal sealed class AudioText : Frame, IAudioText
         {
             byte n = NextByte(_scrambleTable[i]);
             if (n == 0xFE)
+            {
                 break;
+            }
+
             _scrambleTable[i + 1] = n;
         }
     }
@@ -34,7 +37,10 @@ internal sealed class AudioText : Frame, IAudioText
         for (int i = 0, j = 0; i < audioData.Length; i++, j++)
         {
             newAudioData[i] = (byte)(audioData[i] ^ _scrambleTable[j]);
-            if (j == 126) j = -1;
+            if (j == 126)
+            {
+                j = -1;
+            }
         }
         return newAudioData;
     }
@@ -103,9 +109,13 @@ internal sealed class AudioText : Frame, IAudioText
         else
         {
             if (_isMpegOrAac)
+            {
                 _audioData = ID3v2Utils.ConvertToUnsynchronized(_audioData);
+            }
             else
+            {
                 _audioData = Scramble(_audioData);
+            }
         }
         RaisePropertyChanged("AudioData");
     }
@@ -113,7 +123,9 @@ internal sealed class AudioText : Frame, IAudioText
     public byte[] GetAudioData(AudioScramblingMode audioScramblingMode)
     {
         if (audioScramblingMode == AudioScramblingMode.Default)
+        {
             audioScramblingMode = (_isMpegOrAac ? AudioScramblingMode.Unsynchronization : AudioScramblingMode.Scrambling);
+        }
 
         switch (audioScramblingMode)
         {
@@ -201,11 +213,15 @@ internal sealed class AudioText : Frame, IAudioText
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_audioData == null || _audioData.Length == 0)
+        {
             return new byte[0];
+        }
 
         string frameID = GetFrameID(tagVersion);
-        if (frameID == null) 
+        if (frameID == null)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {

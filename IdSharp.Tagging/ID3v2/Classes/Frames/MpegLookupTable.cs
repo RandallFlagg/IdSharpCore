@@ -24,9 +24,13 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
             else if (value > 0xFFFF)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be greater than 0xFFFF");
+            }
 
             _framesBetweenReference = value;
             RaisePropertyChanged("FramesBetweenReference");
@@ -42,9 +46,13 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
             else if (value > 0xFFFFFF)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be greater than 0xFFFFFF");
+            }
 
             _bytesBetweenReference = value;
             RaisePropertyChanged("BytesBetweenReference");
@@ -60,9 +68,13 @@ internal sealed class MpegLookupTable : Frame, IMpegLookupTable
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
             else if (value > 0xFFFFFF)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be greater than 0xFFFFFF");
+            }
 
             _millisecondsBetweenReference = value;
             RaisePropertyChanged("MillisecondsBetweenReference");

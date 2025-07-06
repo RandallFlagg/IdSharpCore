@@ -25,7 +25,9 @@ public sealed class BasicLameTagReader
     public BasicLameTagReader(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         // Initialize
         IsLameTagFound = true;
@@ -81,8 +83,11 @@ public sealed class BasicLameTagReader
         {
             byte[] versionString = new byte[6];
             int i;
-            for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++) 
+            for (i = 0; i < 4 || (i == 4 && _tag.VersionString[i] == 'b'); i++)
+            {
                 versionString[i] = _tag.VersionString[i];
+            }
+
             Array.Resize(ref versionString, i);
             VersionString = Encoding.ASCII.GetString(versionString);
         }

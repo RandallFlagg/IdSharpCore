@@ -31,7 +31,14 @@ internal sealed class PresetGuessRow
 
     public bool HasVersionGroup(LameVersionGroup vg1)
     {
-        for (int i=0; i<3; i++) if (vg1 == VGs[i]) return true;
+        for (int i=0; i<3; i++)
+        {
+            if (vg1 == VGs[i])
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 

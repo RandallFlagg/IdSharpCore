@@ -274,7 +274,11 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
                     {
                         // sometimes represented as BITS representing peak.. seriously.
                         byte bytesRepresentingPeak = stream.Read1(ref bytesLeft);
-                        if (bytesRepresentingPeak == 0) break;
+                        if (bytesRepresentingPeak == 0)
+                        {
+                            break;
+                        }
+
                         if (bytesLeft >= bytesRepresentingPeak)
                         {
                             // TODO: Finish implementation

@@ -98,9 +98,13 @@ public abstract partial class FrameContainer : IFrameContainer
         {
             int result;
             if (int.TryParse(m_PlaylistDelayMilliseconds.Value, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
         set
         {
@@ -261,14 +265,20 @@ public abstract partial class FrameContainer : IFrameContainer
         {
             int result;
             if (int.TryParse(m_LengthMilliseconds.Value, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
         set
         {
             if (value == null)
+            {
                 m_LengthMilliseconds.Value = null;
+            }
             else
             {
                 if (value < 0)
@@ -463,14 +473,20 @@ public abstract partial class FrameContainer : IFrameContainer
         {
             long result;
             if (long.TryParse(m_FileSizeExcludingTag.Value, out result))
+            {
                 return result;
+            }
             else
+            {
                 return null;
+            }
         }
         set
         {
             if (value == null)
+            {
                 m_FileSizeExcludingTag.Value = null;
+            }
             else
             {
                 if (value < 0)
@@ -888,9 +904,13 @@ public abstract partial class FrameContainer : IFrameContainer
         {
             int value;
             if (int.TryParse(m_IsPartOfCompilation.Value, out value) && value == 1)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
         set
         {

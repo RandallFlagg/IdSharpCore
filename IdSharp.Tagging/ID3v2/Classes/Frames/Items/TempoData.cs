@@ -37,7 +37,9 @@ internal sealed class TempoData : ITempoData
         set
         {
             if (value < 0)
+            {
                 throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+            }
 
             _timestamp = value;
             RaisePropertyChanged("Timestamp");

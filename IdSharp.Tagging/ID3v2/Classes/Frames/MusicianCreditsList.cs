@@ -54,7 +54,9 @@ internal sealed class MusicianCreditsList : Frame, IMusicianCreditsList
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (Items.Count == 0)
+        {
             return new byte[0];
+        }
 
         throw new NotImplementedException();
     }

@@ -62,8 +62,11 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
             // Open the file and read from the stream
             using (Stream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                if (stream.Length < 10) 
+                if (stream.Length < 10)
+                {
                     return;
+                }
+
                 Read(stream);
             }
         }
@@ -80,7 +83,9 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     public void Save(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         int originalTagSize = GetTagSize(path);
 
@@ -121,7 +126,9 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     public List<IFrame> GetFrames(string frameID)
     {
         if (string.IsNullOrEmpty(frameID))
+        {
             throw new ArgumentNullException("frameID");
+        }
 
         return GetAllFrames(_id3v2Header.TagVersion, frameID);
     }
@@ -133,7 +140,9 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     public List<IFrame> GetFrames(IEnumerable<string> frameIDs)
     {
         if (frameIDs == null)
+        {
             throw new ArgumentNullException("frameIDs");
+        }
 
         return GetAllFrames(_id3v2Header.TagVersion, frameIDs);
     }
@@ -257,9 +266,13 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
 
         TagReadingInfo tagReadingInfo = new TagReadingInfo(_id3v2Header.TagVersion);
         if (_id3v2Header.UsesUnsynchronization)
+        {
             tagReadingInfo.TagVersionOptions = TagVersionOptions.Unsynchronized;
+        }
         else
+        {
             tagReadingInfo.TagVersionOptions = TagVersionOptions.None;
+        }
 
         if (_id3v2Header.HasExtendedHeader)
         {

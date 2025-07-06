@@ -34,7 +34,9 @@ public partial class Lyrics3Tag
         : this()
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
@@ -50,7 +52,9 @@ public partial class Lyrics3Tag
         : this()
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         Read(stream);
     }
@@ -62,10 +66,14 @@ public partial class Lyrics3Tag
     public void Write(string path)
     {
         if (string.IsNullOrEmpty(path))
+        {
             throw new ArgumentNullException("path");
+        }
 
         if (_keyValues.Count == 0)
+        {
             return;
+        }
 
         throw new NotImplementedException();
     }
@@ -89,7 +97,9 @@ public partial class Lyrics3Tag
     private void Read(Stream stream)
     {
         if (stream == null)
+        {
             throw new ArgumentNullException("stream");
+        }
 
         _keyValues.Clear();
         TotalTagSize = 0;
@@ -100,7 +110,10 @@ public partial class Lyrics3Tag
         byte[] endMarker = stream.Read(9);
 
         if (!ByteUtils.Compare(endMarker, _lyrics200))
+        {
             return;
+        }
+
         stream.Seek(-9 - 6, SeekOrigin.Current);
         byte[] lszBytes = stream.Read(6);
         int lsz = GetLengthFromByteArray(lszBytes);
@@ -129,10 +142,15 @@ public partial class Lyrics3Tag
             
             // TODO: Indicate error reading Lyrics3 tag
             if (fsz <= 0)
+            {
                 break;
+            }
+
             if ((totalRead + fsz) > lsz)
+            {
                 break;
-            
+            }
+
             byte[] valueBytes = stream.Read(fsz);
             string value = Encoding.ASCII.GetString(valueBytes);
             totalRead += fsz;
@@ -204,12 +222,18 @@ public partial class Lyrics3Tag
     public void SetValue(string fieldID, string value)
     {
         if (value != null)
+        {
             value = value.Trim();
+        }
 
         if (_keyValues.ContainsKey(fieldID))
+        {
             _keyValues[fieldID] = value;
+        }
         else
+        {
             _keyValues.Add(fieldID, value);
+        }
     }
 
     private static int GetLengthFromByteArray(byte[] byteArray)

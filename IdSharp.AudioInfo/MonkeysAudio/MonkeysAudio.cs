@@ -72,11 +72,17 @@ public class MonkeysAudio : IAudioFile
                 Frequency = buf[4] + (buf[5] << 8) + (buf[6] << 16) + (buf[7] << 32);
 
                 if (Version >= 3950)
+                {
                     blocksPerFrame = 73728 * 4;
+                }
                 else if (Version >= 3900 || (Version >= 3800 && CompressionLevel == COMPRESSION_LEVEL_EXTRA_HIGH))
+                {
                     blocksPerFrame = 73728;
+                }
                 else
+                {
                     blocksPerFrame = 9216;
+                }
 
                 // TODO: This is definitely fucked up
                 finalBlocks = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);

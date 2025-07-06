@@ -45,9 +45,13 @@ public partial class MainForm : Form
         }
 
         if (Directory.Exists(txtDirectory.Text))
+        {
             StartRecursiveScan(txtDirectory.Text);
+        }
         else
+        {
             MessageBox.Show("Directory does not exist");
+        }
     }
 
     private void btnLoad_Click(object sender, EventArgs e)
@@ -76,9 +80,13 @@ public partial class MainForm : Form
             {
                 bool success = ID3v2Tag.RemoveTag(m_Filename);
                 if (success)
+                {
                     MessageBox.Show("ID3v2 tag successfully removed", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 else
+                {
                     MessageBox.Show("ID3v2 tag not found", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -99,9 +107,13 @@ public partial class MainForm : Form
             {
                 Boolean success = ID3v1Tag.RemoveTag(m_Filename);
                 if (success)
+                {
                     MessageBox.Show("ID3v1 tag successfully removed", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 else
+                {
                     MessageBox.Show("ID3v1 tag not found", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

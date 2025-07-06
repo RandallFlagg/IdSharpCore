@@ -61,7 +61,9 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
         if (_identifier == null || _identifier.Length == 0)
+        {
             return new byte[0];
+        }
 
         using (MemoryStream frameData = new MemoryStream())
         {
