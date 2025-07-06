@@ -1,43 +1,42 @@
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Items
+namespace IdSharp.Tagging.ID3v2.Frames.Items;
+
+internal sealed class MpegLookupTableItem : IMpegLookupTableItem
 {
-    internal sealed class MpegLookupTableItem : IMpegLookupTableItem
+    private long _deviationInBytes;
+    private long _deviationInMilliseconds;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public long DeviationInBytes
     {
-        private long _deviationInBytes;
-        private long _deviationInMilliseconds;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public long DeviationInBytes
+        get
         {
-            get
-            {
-                return _deviationInBytes;
-            }
-            set
-            {
-                _deviationInBytes = value;
-                RaisePropertyChanged("DeviationInBytes");
-            }
+            return _deviationInBytes;
         }
-
-        public long DeviationInMilliseconds
+        set
         {
-            get
-            {
-                return _deviationInMilliseconds;
-            }
-            set
-            {
-                _deviationInMilliseconds = value;
-                RaisePropertyChanged("DeviationInMilliseconds");
-            }
+            _deviationInBytes = value;
+            RaisePropertyChanged("DeviationInBytes");
         }
+    }
 
-        private void RaisePropertyChanged(string propertyName)
+    public long DeviationInMilliseconds
+    {
+        get
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return _deviationInMilliseconds;
         }
+        set
+        {
+            _deviationInMilliseconds = value;
+            RaisePropertyChanged("DeviationInMilliseconds");
+        }
+    }
+
+    private void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

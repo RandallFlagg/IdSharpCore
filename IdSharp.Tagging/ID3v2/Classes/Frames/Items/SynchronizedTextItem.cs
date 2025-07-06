@@ -1,47 +1,46 @@
 using System;
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Items
+namespace IdSharp.Tagging.ID3v2.Frames.Items;
+
+internal sealed class SynchronizedTextItem : ISynchronizedTextItem
 {
-    internal sealed class SynchronizedTextItem : ISynchronizedTextItem
+    private string _text;
+    private int _timestamp;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public string Text
     {
-        private string _text;
-        private int _timestamp;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Text
+        get
         {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                FirePropertyChanged("Text");
-            }
+            return _text;
         }
-
-        public int Timestamp
+        set
         {
-            get
-            {
-                return _timestamp;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
-
-                _timestamp = value;
-                FirePropertyChanged("Timestamp");
-            }
+            _text = value;
+            FirePropertyChanged("Text");
         }
+    }
 
-        private void FirePropertyChanged(string propertyName)
+    public int Timestamp
+    {
+        get
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return _timestamp;
         }
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+
+            _timestamp = value;
+            FirePropertyChanged("Timestamp");
+        }
+    }
+
+    private void FirePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -1,43 +1,42 @@
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Items
+namespace IdSharp.Tagging.ID3v2.Frames.Items;
+
+internal sealed class PriceInformation : IPriceInformation
 {
-    internal sealed class PriceInformation : IPriceInformation
+    private string _currencyCode;
+    private decimal _price;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public string CurrencyCode
     {
-        private string _currencyCode;
-        private decimal _price;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string CurrencyCode
+        get
         {
-            get
-            {
-                return _currencyCode;
-            }
-            set
-            {
-                _currencyCode = value;
-                RaisePropertyChanged("CurrencyCode");
-            }
+            return _currencyCode;
         }
-
-        public decimal Price
+        set
         {
-            get
-            {
-                return _price;
-            }
-            set
-            {
-                _price = value;
-                RaisePropertyChanged("Price");
-            }
+            _currencyCode = value;
+            RaisePropertyChanged("CurrencyCode");
         }
+    }
 
-        private void RaisePropertyChanged(string propertyName)
+    public decimal Price
+    {
+        get
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return _price;
         }
+        set
+        {
+            _price = value;
+            RaisePropertyChanged("Price");
+        }
+    }
+
+    private void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

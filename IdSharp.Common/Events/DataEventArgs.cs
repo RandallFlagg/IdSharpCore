@@ -1,29 +1,28 @@
 using System;
 
-namespace IdSharp.Common.Events
+namespace IdSharp.Common.Events;
+
+/// <summary>
+/// A helper class for providing generic EventArgs data.
+/// </summary>
+/// <typeparam name="T">The type of the <see cref="DataEventArgs{T}.Data"/> property.</typeparam>
+public class DataEventArgs<T> : EventArgs
 {
     /// <summary>
-    /// A helper class for providing generic EventArgs data.
+    /// Initializes a new instance of the <see cref="DataEventArgs&lt;T&gt;"/> class.
     /// </summary>
-    /// <typeparam name="T">The type of the <see cref="DataEventArgs{T}.Data"/> property.</typeparam>
-    public class DataEventArgs<T> : EventArgs
+    /// <param name="data">The data item to send to event handlers.</param>
+    public DataEventArgs(T data)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DataEventArgs&lt;T&gt;"/> class.
-        /// </summary>
-        /// <param name="data">The data item to send to event handlers.</param>
-        public DataEventArgs(T data)
-        {
-            Data = data;
-        }
+        Data = data;
+    }
 
-        /// <summary>
-        /// Gets the data value.
-        /// </summary>
-        /// <value>The data value.</value>
-        public T Data
-        {
-            get; set;
-        }
+    /// <summary>
+    /// Gets the data value.
+    /// </summary>
+    /// <value>The data value.</value>
+    public T Data
+    {
+        get; set;
     }
 }

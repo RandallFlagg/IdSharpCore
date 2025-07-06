@@ -1,52 +1,51 @@
 using System;
 using System.ComponentModel;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Items
+namespace IdSharp.Tagging.ID3v2.Frames.Items;
+
+internal sealed class TempoData : ITempoData
 {
-    internal sealed class TempoData : ITempoData
+    private short _tempoCode;
+    private int _timestamp;
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public short TempoCode
     {
-        private short _tempoCode;
-        private int _timestamp;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public short TempoCode
+        get
         {
-            get
-            {
-                return _tempoCode;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
-                }
-
-                _tempoCode = value;
-                RaisePropertyChanged("TempoCode");
-            }
+            return _tempoCode;
         }
-
-        public int Timestamp
+        set
         {
-            get
+            if (value < 0)
             {
-                return _timestamp;
+                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
             }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
 
-                _timestamp = value;
-                RaisePropertyChanged("Timestamp");
-            }
+            _tempoCode = value;
+            RaisePropertyChanged("TempoCode");
         }
+    }
 
-        private void RaisePropertyChanged(string propertyName)
+    public int Timestamp
+    {
+        get
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return _timestamp;
         }
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException("value", value, "Value cannot be less than 0");
+
+            _timestamp = value;
+            RaisePropertyChanged("Timestamp");
+        }
+    }
+
+    private void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

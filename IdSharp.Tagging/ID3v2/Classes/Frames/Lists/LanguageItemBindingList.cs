@@ -2,37 +2,36 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using IdSharp.Tagging.ID3v2.Frames.Items;
 
-namespace IdSharp.Tagging.ID3v2.Frames.Lists
+namespace IdSharp.Tagging.ID3v2.Frames.Lists;
+
+internal sealed class LanguageItemBindingList : BindingList<ILanguageItem>
 {
-    internal sealed class LanguageItemBindingList : BindingList<ILanguageItem>
+    public LanguageItemBindingList()
     {
-        public LanguageItemBindingList()
-        {
-            AllowNew = true;
-        }
+        AllowNew = true;
+    }
 
-        public LanguageItemBindingList(IList<ILanguageItem> languageItemList)
-            : base(languageItemList)
-        {
-            AllowNew = true;
-        }
+    public LanguageItemBindingList(IList<ILanguageItem> languageItemList)
+        : base(languageItemList)
+    {
+        AllowNew = true;
+    }
 
-        protected override object AddNewCore()
-        {
-            ILanguageItem languageItem = new LanguageItem();
-            Add(languageItem);
+    protected override object AddNewCore()
+    {
+        ILanguageItem languageItem = new LanguageItem();
+        Add(languageItem);
 
-            // Not necessary to hook up event handlers, base class calls InsertItem
+        // Not necessary to hook up event handlers, base class calls InsertItem
 
-            return languageItem;
-        }
+        return languageItem;
+    }
 
-        protected override void InsertItem(int index, ILanguageItem item)
-        {
-            //item.DescriptionChanging += new EventHandler<CancelDataEventArgs<String>>(AttachedPicture_DescriptionChanging);
-            //item.PictureTypeChanging += new EventHandler<CancelDataEventArgs<PictureType>>(AttachedPicture_PictureTypeChanging);
+    protected override void InsertItem(int index, ILanguageItem item)
+    {
+        //item.DescriptionChanging += new EventHandler<CancelDataEventArgs<String>>(AttachedPicture_DescriptionChanging);
+        //item.PictureTypeChanging += new EventHandler<CancelDataEventArgs<PictureType>>(AttachedPicture_PictureTypeChanging);
 
-            base.InsertItem(index, item);
-        }
+        base.InsertItem(index, item);
     }
 }
