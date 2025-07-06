@@ -9,6 +9,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>IdSharp.Common</AssemblyName>
     <Description>.NET Core ID3 Common Library</Description>
+    <RootNamespace>IdSharp.Common</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="nuget">

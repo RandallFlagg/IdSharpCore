@@ -5,6 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>IdSharp.Tagging</AssemblyName>
     <Description>.NET Core ID3 Tagging Library</Description>
+    <RootNamespace>IdSharp.Tagging</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Label="nuget">
