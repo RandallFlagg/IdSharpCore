@@ -1,16 +1,17 @@
-using System;
-using System.IO;
 using System.Text;
+
+using IdSharp.AudioInfo.Mpeg.Inspection;
 using IdSharp.Common.Utils;
 
-namespace IdSharp.AudioInfo;
+namespace IdSharp.AudioInfo.Mpeg;
 
+//TODO: Rename this class to Mpeg
 /// <summary>
 /// MPEG
 /// </summary>
-public class Mpeg : IAudioFile
+internal class TMpeg : IAudioFile
 {
-    static Mpeg()
+    static TMpeg()
     {
         BitrateTable = new[]
         {
@@ -67,21 +68,21 @@ public class Mpeg : IAudioFile
     /// </summary>
     /// <param name="path">The full path of the file.</param>
     /// <param name="calculateBitrate">if set to <c>true</c> the bitrate will be calculated before the constructor returns.</param>
-    public Mpeg(string path, bool calculateBitrate)
+    public TMpeg(string path, bool calculateBitrate)
     {
         _fileName = path;
 
-        using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
-            int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+            var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
             stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
-            byte[] tmpFrameHeader = new byte[4];
+            var tmpFrameHeader = new byte[4];
 
-            bool acceptNullSamples = false;
+            var acceptNullSamples = false;
             while (true)
             {
-                int tmpByte = stream.ReadByte(); // keep as ReadByte
+                var tmpByte = stream.ReadByte(); // keep as ReadByte
                 while (tmpByte != 0xFF && tmpByte != -1)
                 {
                     tmpByte = stream.ReadByte(); // keep as ReadByte
@@ -107,21 +108,21 @@ public class Mpeg : IAudioFile
                 }
 
                 // No sync
-                if ((tmpFrameHeader[1] >> 5) != 0x07 ||
-                    ((tmpFrameHeader[1] >> 1) & 0x03) == 0) // 2/18/05 - ignore reserved layer
+                if (tmpFrameHeader[1] >> 5 != 0x07 ||
+                    (tmpFrameHeader[1] >> 1 & 0x03) == 0) // 2/18/05 - ignore reserved layer
                 {
                     stream.Seek(-3, SeekOrigin.Current);
                 }
                 else if (tmpFrameHeader[1] == 0xFF ||
-                        ((tmpFrameHeader[1] >> 3) & 0x03) == 1) // 2/19/05 - more bad data
+                        (tmpFrameHeader[1] >> 3 & 0x03) == 1) // 2/19/05 - more bad data
                 {
                     stream.Seek(-3, SeekOrigin.Current);
                 }
                 else
                 {
-                    int tmpMpegID = (tmpFrameHeader[1] >> 3) & 0x03;
-                    int tmpLayerNum = (tmpFrameHeader[1] >> 1) & 0x03;
-                    int tmpFrequency = GetFrequency((MpegVersion)tmpMpegID, (tmpFrameHeader[2] >> 2) & 0x03);
+                    var tmpMpegID = tmpFrameHeader[1] >> 3 & 0x03;
+                    var tmpLayerNum = tmpFrameHeader[1] >> 1 & 0x03;
+                    var tmpFrequency = GetFrequency((MpegVersion)tmpMpegID, tmpFrameHeader[2] >> 2 & 0x03);
 
                     // Check for invalid frequency
                     if (tmpFrequency == 0)
@@ -130,12 +131,12 @@ public class Mpeg : IAudioFile
                         continue;
                     }
 
-                    int tmpSamplesPerFrame = GetSamplesPerFrame((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum);
+                    var tmpSamplesPerFrame = GetSamplesPerFrame((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum);
 
-                    int tmpUsesPadding = (tmpFrameHeader[2] >> 1) & 0x01;
-                    double tmpFrameSizeConst = 125.0 * tmpSamplesPerFrame / tmpFrequency;
-                    int tmpPaddingSize = (tmpLayerNum == 3 ? 4 : 1);
-                    int tmpBitrateIndex = tmpFrameHeader[2] >> 4;
+                    var tmpUsesPadding = tmpFrameHeader[2] >> 1 & 0x01;
+                    var tmpFrameSizeConst = 125.0 * tmpSamplesPerFrame / tmpFrequency;
+                    var tmpPaddingSize = tmpLayerNum == 3 ? 4 : 1;
+                    var tmpBitrateIndex = tmpFrameHeader[2] >> 4;
 
                     // Check for invalid values
                     if (tmpBitrateIndex < 1 || tmpBitrateIndex > 14 || tmpLayerNum == 0)
@@ -144,8 +145,8 @@ public class Mpeg : IAudioFile
                         continue;
                     }
 
-                    int tmpFrameBitrate = GetBitrate((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum, tmpBitrateIndex);
-                    int tmpFrameSize = (int)(tmpFrameBitrate * tmpFrameSizeConst) + (tmpUsesPadding * tmpPaddingSize);
+                    var tmpFrameBitrate = GetBitrate((MpegVersion)tmpMpegID, (MpegLayer)tmpLayerNum, tmpBitrateIndex);
+                    var tmpFrameSize = (int)(tmpFrameBitrate * tmpFrameSizeConst) + tmpUsesPadding * tmpPaddingSize;
                     _headerOffset = stream.Position - 4;
 
                     if (tmpFrameSize < 8)
@@ -159,14 +160,14 @@ public class Mpeg : IAudioFile
                     if (_headerOffset >= 1 && !acceptNullSamples) // if (ftell(fp) >= 5)
                     {
                         stream.Seek(-5, SeekOrigin.Current);
-                        byte tmpLastByte = stream.Read1();
+                        var tmpLastByte = stream.Read1();
                         stream.Seek(4, SeekOrigin.Current);
 
                         if (tmpFrameBitrate != 320 && (tmpLastByte == 0x00 || tmpLastByte == 0xFF))
                         {
                             // 7/31/05
                             // may be a valid frame - skip its contents to prevent false sync
-                            long tmpNewPosition = _headerOffset + tmpFrameSize;
+                            var tmpNewPosition = _headerOffset + tmpFrameSize;
                             if (tmpFrameSize == 0)
                             {
                                 tmpNewPosition++;
@@ -203,24 +204,24 @@ public class Mpeg : IAudioFile
                 }
             }
 
-            _mpegVersion = (MpegVersion)((tmpFrameHeader[1] >> 3) & 0x03);
-            _mpegLayer = (MpegLayer)((tmpFrameHeader[1] >> 1) & 0x03);
-            Frequency = GetFrequency(_mpegVersion, (tmpFrameHeader[2] >> 2) & 0x03);
+            _mpegVersion = (MpegVersion)(tmpFrameHeader[1] >> 3 & 0x03);
+            _mpegLayer = (MpegLayer)(tmpFrameHeader[1] >> 1 & 0x03);
+            Frequency = GetFrequency(_mpegVersion, tmpFrameHeader[2] >> 2 & 0x03);
             if (Frequency == 0)
             {
                 throw new InvalidDataException($"'{path}'; cannot determine frequency");
             }
 
-            IsPrivate = ((tmpFrameHeader[2] & 0x01) == 0x01);
+            IsPrivate = (tmpFrameHeader[2] & 0x01) == 0x01;
             _samplesPerFrame = GetSamplesPerFrame(_mpegVersion, _mpegLayer);
             _frameSizeConst = 125.0 * _samplesPerFrame / Frequency;
-            _paddingSizeConst = (_mpegLayer == MpegLayer.Layer1 ? 4 : 1);
-            IsCopyright = (((tmpFrameHeader[3] >> 3) & 0x01) == 0x01);
-            IsOriginal = (((tmpFrameHeader[3] >> 2) & 0x01) == 0x01);
+            _paddingSizeConst = _mpegLayer == MpegLayer.Layer1 ? 4 : 1;
+            IsCopyright = (tmpFrameHeader[3] >> 3 & 0x01) == 0x01;
+            IsOriginal = (tmpFrameHeader[3] >> 2 & 0x01) == 0x01;
             //tmpModeExtension = (FH[3] >> 4) & 0x03; // not interested, only used in joint-stereo
             //_mpegEmphasis = (MpegEmphasis)(tmpFrameHeader[3] & 0x03);
 
-            if ((tmpFrameHeader[3] >> 6) == 3)
+            if (tmpFrameHeader[3] >> 6 == 3)
             {
                 Channels = 1; // Single Channel
             }
@@ -230,10 +231,10 @@ public class Mpeg : IAudioFile
             }
 
             // Read LAME Info Tag
-            bool tmpHasLameInfoTag = false;
+            var tmpHasLameInfoTag = false;
 
             stream.Seek(tmpID3v2TagSize + 36, SeekOrigin.Begin);
-            Byte[] buf = stream.Read(4);
+            var buf = stream.Read(4);
 
             if (ByteUtils.Compare(buf, INFO_MARKER)) // CBR
             {
@@ -249,17 +250,17 @@ public class Mpeg : IAudioFile
             if (tmpHasLameInfoTag)
             {
                 stream.Seek(4, SeekOrigin.Current);
-                int tmpFrames = stream.ReadInt32();
-                uint tmpBytes = (uint)stream.ReadInt32();
+                var tmpFrames = stream.ReadInt32();
+                var tmpBytes = (uint)stream.ReadInt32();
 
                 if (tmpFrames > 256 && tmpBytes > 50000)
                 {
-                    decimal tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)Frequency);
+                    var tmpBitrate = tmpBytes / 125.0m / (tmpFrames * _samplesPerFrame / (decimal)Frequency);
                     if (tmpBitrate <= 320 && tmpBitrate >= 32)
                     {
                         _frames = tmpFrames;
                         _bitrate = tmpBitrate;
-                        _totalSeconds = (tmpBytes / 125.0m) / _bitrate;
+                        _totalSeconds = tmpBytes / 125.0m / _bitrate;
                     }
                 }
             }
@@ -291,31 +292,31 @@ public class Mpeg : IAudioFile
 
     private void CalculateBitrate(Stream stream, CInterestedFrames InterestedFrames)
     {
-        int totalTagSize = ID3v2.GetTagSize(stream);
+        var totalTagSize = ID3v2.GetTagSize(stream);
         totalTagSize += ID3v1.GetTagSize(stream);
         totalTagSize += APEv2.GetTagSize(stream);
 
-        Int64 audioLength = stream.Length - totalTagSize;
+        var audioLength = stream.Length - totalTagSize;
 
         _bitrate = 0;
         _isVBR = null;
         _frames = 0;
         _totalSeconds = 0;
 
-        String step = "";
+        var step = "";
 
         try
         {
             int BR, Padding;
             int FrameSize;
 
-            int TotalBR = 0;
-            int FrameOffset = 0;
+            var TotalBR = 0;
+            var FrameOffset = 0;
             //Int64 TagOffset = 0;
-            bool bTrusting = true;
-            bool ignoreall = false;
-            Byte[] FH = new Byte[4];
-            bool mPerfect = true;
+            var bTrusting = true;
+            var ignoreall = false;
+            var FH = new byte[4];
+            var mPerfect = true;
 
             stream.Position = _headerOffset;
 
@@ -324,31 +325,31 @@ public class Mpeg : IAudioFile
             //                    TagOffset = _headerOffset;
             //                }
 
-            int offset = 0;
-            int frameCount = 0;
-            int FirstBR = 0;
+            var offset = 0;
+            var frameCount = 0;
+            var FirstBR = 0;
 
-            int audioDataSize = (int)(stream.Length - _headerOffset);
-            Byte[] audioData = new Byte[audioDataSize];
+            var audioDataSize = (int)(stream.Length - _headerOffset);
+            var audioData = new byte[audioDataSize];
             //Int64 startoffset = stream.Position;
-            int BufLen = stream.Read(audioData, 0, audioDataSize);
+            var BufLen = stream.Read(audioData, 0, audioDataSize);
             while (offset < BufLen - 16 && !ignoreall)
             {
-                bool reservedlayer = false;
+                var reservedlayer = false;
 
                 // Find FrameSync
                 if (FindFrameSync(FH, audioData, BufLen, ref FrameOffset, ref offset, ref mPerfect, ref ignoreall, ref bTrusting, ref reservedlayer))
                 {
                     FrameOffset = 0;
 
-                    int bitrateIndex = FH[2] >> 4;
+                    var bitrateIndex = FH[2] >> 4;
                     if (bitrateIndex <= 0 || bitrateIndex >= 15)
                     {
                         offset -= 3;
                         continue;
                     }
 
-                    Padding = (FH[2] >> 1) & 0x01;
+                    Padding = FH[2] >> 1 & 0x01;
                     BR = GetBitrate(_mpegVersion, _mpegLayer, bitrateIndex);
 
                     if (BR == 0 || BR % 8 != 0)
@@ -422,7 +423,7 @@ public class Mpeg : IAudioFile
                 throw new InvalidDataException($"Error determining bitrate: {_fileName}");
             }
 
-            _totalSeconds = (audioLength / 125.0m) / _bitrate;
+            _totalSeconds = audioLength / 125.0m / _bitrate;
         }
         catch (Exception ex)
         {
@@ -430,7 +431,7 @@ public class Mpeg : IAudioFile
         }
     }
 
-    private bool FindFrameSync(Byte[] FH, Byte[] audioData, int BufLen, ref int FrameOffset, ref int offset, ref bool mPerfect, ref bool ignoreall, ref bool bTrusting, ref bool reservedlayer)
+    private bool FindFrameSync(byte[] FH, byte[] audioData, int BufLen, ref int FrameOffset, ref int offset, ref bool mPerfect, ref bool ignoreall, ref bool bTrusting, ref bool reservedlayer)
     {
         while (true)
         {
@@ -521,9 +522,9 @@ public class Mpeg : IAudioFile
             }
 
             // No sync
-            if ((FH[1] >> 5) != 0x07 || ((FH[1] >> 1) & 0x03) == 0) // 2/18/05 ignore reserved layer
+            if (FH[1] >> 5 != 0x07 || (FH[1] >> 1 & 0x03) == 0) // 2/18/05 ignore reserved layer
             {
-                if (((FH[1] >> 1) & 0x03) == 0)
+                if ((FH[1] >> 1 & 0x03) == 0)
                 {
                     reservedlayer = true;
                 }
@@ -551,7 +552,7 @@ public class Mpeg : IAudioFile
 
     private static int GetSamplesPerFrame(MpegVersion mpegVersion, MpegLayer mpegLayer)
     {
-        int tmpSamplesPerFrame = 0;
+        var tmpSamplesPerFrame = 0;
 
         switch (mpegVersion)
         {
@@ -593,7 +594,7 @@ public class Mpeg : IAudioFile
 
     private static int GetFrequency(MpegVersion mpegVersion, int frequencyID)
     {
-        int tmpFrequency = 0;
+        var tmpFrequency = 0;
 
         switch (mpegVersion)
         {
@@ -657,7 +658,7 @@ public class Mpeg : IAudioFile
 
     private void CalculateBitrate()
     {
-        using (FileStream fs = File.Open(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fs = File.Open(_fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             CalculateBitrate(fs, null);
         }

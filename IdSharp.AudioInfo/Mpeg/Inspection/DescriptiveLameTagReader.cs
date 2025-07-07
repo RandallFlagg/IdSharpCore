@@ -1,6 +1,6 @@
-using System;
+using IdSharp.AudioInfo.Mpeg.Mpeg.Inspection;
 
-namespace IdSharp.AudioInfo.Inspection;
+namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 /// <summary>
 /// DescriptiveLameTagReader
@@ -144,7 +144,7 @@ public sealed class DescriptiveLameTagReader
     {
         get
         {
-            string tmpLameTagInfoPreset = "";
+            var tmpLameTagInfoPreset = "";
 
             if (IsLameTagFound)
             {

@@ -1,23 +1,45 @@
-using System;
-
-namespace IdSharp.AudioInfo.Inspection;
+namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 // MPEG version codes
 internal enum MpegVersion : byte
 {
-    Version25 = 0,
     Unknown = 1,
+    /// <summary>
+    /// MPEG-1
+    /// </summary>
+    Mpeg1 = 3,
+    Version1 = 3,
+    /// <summary>
+    /// MPEG-2
+    /// </summary>
+    Mpeg2 = 2,
     Version2 = 2,
-    Version1 = 3
+    /// <summary>
+    /// MPEG-2.5
+    /// </summary>
+    Mpeg25 = 0,
+    Version25 = 0,
 }
 
 // MPEG layer codes
 internal enum MpegLayer : byte
 {
     Unknown = 0,
-    LayerIII = 1,
+        /// <summary>
+        /// Layer I
+        /// </summary>
+    LayerI = 3,
+    Layer1 = 3,
+    /// <summary>
+    /// Layer II
+    /// </summary>
     LayerII = 2,
-    LayerI = 3
+    Layer2 = 2,
+    /// <summary>
+    /// Layer III
+    /// </summary>
+    LayerIII = 1,
+    Layer3 = 1
 }
 
 // Channel mode codes
@@ -74,11 +96,11 @@ internal enum MpegEncoder
 // VBR header ID for Xing/FhG
 internal static class VBRHeaderID
 {
-    private const String m_Xing = "Xing";
-    private const String m_FhG = "VBRI";
+    private const string m_Xing = "Xing";
+    private const string m_FhG = "VBRI";
 
-    public static String Xing { get { return m_Xing; } }
-    public static String FhG { get { return m_FhG; } }
+    public static string Xing { get { return m_Xing; } }
+    public static string FhG { get { return m_FhG; } }
 }
 
 // VBR Vendor ID strings
@@ -178,7 +200,7 @@ public enum LamePreset
     /// the above three presets generate identical files for
     /// versions of lame from 3.90.3 and 3.93 up
     /// </summary>
-    TapeRadioFM, 
+    TapeRadioFM,
     /// <summary>
     /// --preset voice
     /// </summary>

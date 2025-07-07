@@ -1,7 +1,7 @@
 using System.ComponentModel;
 
 using IdSharp.AudioInfo;
-using IdSharp.AudioInfo.Inspection;
+using IdSharp.AudioInfo.Mpeg.Inspection;
 using IdSharp.Tagging.ID3v1;
 using IdSharp.Tagging.ID3v2;
 using IdSharp.Tagging.ID3v2.Frames;
