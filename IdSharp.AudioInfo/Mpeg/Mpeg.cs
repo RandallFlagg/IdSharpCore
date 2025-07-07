@@ -9,7 +9,7 @@ namespace IdSharp.AudioInfo.Mpeg;
 /// <summary>
 /// MPEG
 /// </summary>
-public class TMpeg : IAudioFile
+internal class TMpeg : IAudioFile
 {
     static TMpeg()
     {
