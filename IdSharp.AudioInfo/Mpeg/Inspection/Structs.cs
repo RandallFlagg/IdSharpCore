@@ -1,8 +1,5 @@
-using System;
-using System.IO;
 using System.Runtime.InteropServices;
 
-using IdSharp.AudioInfo.Mpeg;
 using IdSharp.AudioInfo.Mpeg.Inspection;
 
 namespace IdSharp.AudioInfo.Inspection;

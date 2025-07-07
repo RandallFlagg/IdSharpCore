@@ -1,5 +1,3 @@
-using System;
-
 namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 internal sealed class PresetGuessRow

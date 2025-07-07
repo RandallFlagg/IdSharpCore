@@ -1,5 +1,3 @@
-using System;
-
 namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 // MPEG version codes
