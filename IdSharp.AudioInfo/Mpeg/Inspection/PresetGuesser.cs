@@ -5,53 +5,53 @@ namespace IdSharp.AudioInfo.Inspection;
 
 internal sealed class PresetGuesser
 {
-    private static readonly List<PresetGuessRow> _presetGuessTable = new List<PresetGuessRow>();
+    public static readonly List<PresetGuessRow> _presetGuessTable = new List<PresetGuessRow>();
 
     static PresetGuesser()
     {
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, 255, 58, 1, 1, 3, 2, 205, LamePreset.Insane));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up, 255, 58, 1, 1, 3, 2, 206, LamePreset.Insane));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 255, 57, 1, 1, 3, 4, 205, LamePreset.Insane));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, 0, 78, 3, 2, 3, 2, 195, LamePreset.Extreme));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3902_391, 0, 78, 3, 2, 3, 2, 196, LamePreset.Extreme));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 0, 78, 3, 1, 3, 2, 196, LamePreset.Extreme));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, 0, 78, 4, 2, 3, 2, 195, LamePreset.FastExtreme));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up, 0, 78, 4, 2, 3, 2, 196, LamePreset.FastExtreme));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 0, 78, 3, 2, 3, 4, 190, LamePreset.Standard));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 0, 78, 3, 1, 3, 4, 190, LamePreset.Standard));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up, 0, 78, 4, 2, 3, 4, 190, LamePreset.FastStandard));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 0, 68, 3, 2, 3, 4, 180, LamePreset.Medium));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 0, 68, 4, 2, 3, 4, 180, LamePreset.FastMedium));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, 0, 88, 4, 1, 3, 3, 195, LamePreset.R3mix));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up, 0, 88, 4, 1, 3, 3, 196, LamePreset.R3mix));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 255, 99, 1, 1, 1, 2, 0, LamePreset.Studio));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 255, 58, 2, 1, 3, 2, 206, LamePreset.Studio));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, 255, 58, 2, 1, 3, 2, 205, LamePreset.Studio));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 255, 57, 2, 1, 3, 4, 205, LamePreset.Studio));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 192, 88, 1, 1, 1, 2, 0, LamePreset.CD));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 192, 58, 2, 2, 3, 2, 196, LamePreset.CD));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, 192, 58, 2, 2, 3, 2, 195, LamePreset.CD));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 192, 57, 2, 1, 3, 4, 195, LamePreset.CD));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 160, 78, 1, 1, 3, 2, 180, LamePreset.Hifi));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up, 160, 58, 2, 2, 3, 2, 180, LamePreset.Hifi));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 160, 57, 2, 1, 3, 4, 180, LamePreset.Hifi));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 128, 67, 1, 1, 3, 2, 180, LamePreset.Tape));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 128, 67, 1, 1, 3, 2, 150, LamePreset.Radio));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, 112, 67, 1, 1, 3, 2, 150, LamePreset.FM));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up, 112, 58, 2, 2, 3, 2, 160, LamePreset.TapeRadioFM));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 112, 57, 2, 1, 3, 4, 160, LamePreset.TapeRadioFM));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up, 56, 58, 2, 2, 0, 2, 100, LamePreset.Voice));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 56, 57, 2, 1, 0, 4, 150, LamePreset.Voice));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg390_3901_392, 40, 65, 1, 1, 0, 2, 75, LamePreset.MWUS));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3902_391, 40, 65, 1, 1, 0, 2, 76, LamePreset.MWUS));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up, 40, 58, 2, 2, 0, 2, 70, LamePreset.MWUS));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 40, 57, 2, 1, 0, 4, 105, LamePreset.MWUS));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 24, 58, 2, 2, 0, 2, 40, LamePreset.MWEU));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, 24, 58, 2, 2, 0, 2, 39, LamePreset.MWEU));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 24, 57, 2, 1, 0, 4, 59, LamePreset.MWEU));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg3931_3903up, 16, 58, 2, 2, 0, 2, 38, LamePreset.Phone));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg393, 16, 58, 2, 2, 0, 2, 37, LamePreset.Phone));
-        _presetGuessTable.Add(new PresetGuessRow(LameVersionGroup.lvg394up, 16, 57, 2, 1, 0, 4, 56, LamePreset.Phone));
+        _presetGuessTable.Add(new PresetGuessRow(255, 58, 1, 1, 3, 2, 205, LamePreset.Insane, LameVersionGroup.lvg390_3901_392));
+        _presetGuessTable.Add(new PresetGuessRow(255, 58, 1, 1, 3, 2, 206, LamePreset.Insane, LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(255, 57, 1, 1, 3, 4, 205, LamePreset.Insane, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 3, 2, 3, 2, 195, LamePreset.Extreme, LameVersionGroup.lvg390_3901_392));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 3, 2, 3, 2, 196, LamePreset.Extreme, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 3, 1, 3, 2, 196, LamePreset.Extreme, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 4, 2, 3, 2, 195, LamePreset.FastExtreme, LameVersionGroup.lvg390_3901_392));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 4, 2, 3, 2, 196, LamePreset.FastExtreme, LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 3, 2, 3, 4, 190, LamePreset.Standard, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 3, 1, 3, 4, 190, LamePreset.Standard, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 78, 4, 2, 3, 4, 190, LamePreset.FastStandard, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 68, 3, 2, 3, 4, 180, LamePreset.Medium, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 68, 4, 2, 3, 4, 180, LamePreset.FastMedium, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(0, 88, 4, 1, 3, 3, 195, LamePreset.R3mix, LameVersionGroup.lvg390_3901_392));
+        _presetGuessTable.Add(new PresetGuessRow(0, 88, 4, 1, 3, 3, 196, LamePreset.R3mix, LameVersionGroup.lvg3902_391, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(255, 99, 1, 1, 1, 2, 0, LamePreset.Studio, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(255, 58, 2, 1, 3, 2, 206, LamePreset.Studio, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(255, 58, 2, 1, 3, 2, 205, LamePreset.Studio, LameVersionGroup.lvg393));
+        _presetGuessTable.Add(new PresetGuessRow(255, 57, 2, 1, 3, 4, 205, LamePreset.Studio, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(192, 88, 1, 1, 1, 2, 0, LamePreset.CD, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(192, 58, 2, 2, 3, 2, 196, LamePreset.CD, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(192, 58, 2, 2, 3, 2, 195, LamePreset.CD, LameVersionGroup.lvg393));
+        _presetGuessTable.Add(new PresetGuessRow(192, 57, 2, 1, 3, 4, 195, LamePreset.CD, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(160, 78, 1, 1, 3, 2, 180, LamePreset.Hifi, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(160, 58, 2, 2, 3, 2, 180, LamePreset.Hifi, LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(160, 57, 2, 1, 3, 4, 180, LamePreset.Hifi, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(128, 67, 1, 1, 3, 2, 180, LamePreset.Tape, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(128, 67, 1, 1, 3, 2, 150, LamePreset.Radio, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(112, 67, 1, 1, 3, 2, 150, LamePreset.FM, LameVersionGroup.lvg390_3901_392, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(112, 58, 2, 2, 3, 2, 160, LamePreset.TapeRadioFM, LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(112, 57, 2, 1, 3, 4, 160, LamePreset.TapeRadioFM, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(56, 58, 2, 2, 0, 2, 100, LamePreset.Voice, LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(56, 57, 2, 1, 0, 4, 150, LamePreset.Voice, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(40, 65, 1, 1, 0, 2, 75, LamePreset.MWUS, LameVersionGroup.lvg390_3901_392));
+        _presetGuessTable.Add(new PresetGuessRow(40, 65, 1, 1, 0, 2, 76, LamePreset.MWUS, LameVersionGroup.lvg3902_391));
+        _presetGuessTable.Add(new PresetGuessRow(40, 58, 2, 2, 0, 2, 70, LamePreset.MWUS, LameVersionGroup.lvg393, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(40, 57, 2, 1, 0, 4, 105, LamePreset.MWUS, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(24, 58, 2, 2, 0, 2, 40, LamePreset.MWEU, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(24, 58, 2, 2, 0, 2, 39, LamePreset.MWEU, LameVersionGroup.lvg393));
+        _presetGuessTable.Add(new PresetGuessRow(24, 57, 2, 1, 0, 4, 59, LamePreset.MWEU, LameVersionGroup.lvg394up));
+        _presetGuessTable.Add(new PresetGuessRow(16, 58, 2, 2, 0, 2, 38, LamePreset.Phone, LameVersionGroup.lvg3931_3903up));
+        _presetGuessTable.Add(new PresetGuessRow(16, 58, 2, 2, 0, 2, 37, LamePreset.Phone, LameVersionGroup.lvg393));
+        _presetGuessTable.Add(new PresetGuessRow(16, 57, 2, 1, 0, 4, 56, LamePreset.Phone, LameVersionGroup.lvg394up));
     }
 
     public LamePreset GuessPreset(String AVersionString, Byte ABitrate, Byte AQuality,
