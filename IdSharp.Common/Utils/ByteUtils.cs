@@ -297,6 +297,11 @@ public static class ByteUtils
             using var outfile = File.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
             outfile.Write(bytesToAdd, 0, bytesToAdd.Length);
 
+            if (bytesToRemove > infile.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(bytesToRemove), "Cannot skip beyond end of file.");
+            }
+
             infile.Position = bytesToRemove;
             var bytesRead = infile.Read(buffer, 0, BUF_SIZE);
             while (bytesRead > 0)
@@ -304,8 +309,6 @@ public static class ByteUtils
                 outfile.Write(buffer, 0, bytesRead);
                 bytesRead = infile.Read(buffer, 0, BUF_SIZE);
             }
-
-            File.Delete(tempPath);
         }
         catch
         {
@@ -343,6 +346,8 @@ public static class ByteUtils
 
             throw;
         }
+
+        File.Delete(tempPath);
     }
 
     /// <summary>

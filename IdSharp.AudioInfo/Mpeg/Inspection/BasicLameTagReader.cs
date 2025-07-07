@@ -16,7 +16,7 @@ internal sealed class BasicLameTagReader
     private const byte Info3Offset = 0x24;
     private const byte LAMETagOffset = 0x77;
 
-    private LameTag _tag;
+    private readonly LameTag _tag;
     private readonly bool _isPresetGuessNonBitrate;
 
     /// <summary>
@@ -25,59 +25,54 @@ internal sealed class BasicLameTagReader
     /// <param name="path">The path.</param>
     public BasicLameTagReader(string path)
     {
-        if (string.IsNullOrEmpty(path))
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(nameof(path));
 
         // Initialize
-        IsLameTagFound = true;
+        using var br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read));
 
-        _tag = new LameTag();
+        IsLameTagFound = true;//TODO: Delete?
 
-        using (var br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+
+        var startPos = ID3v2.GetTagSize(br.BaseStream);
+
+        // Seek past ID3v2 tag
+        br.BaseStream.Seek(startPos, SeekOrigin.Begin); //Find frame header after tag
+
+        // Get StartOfFile structure
+        var startOfFile = StartOfFile.FromBinaryReader(br);
+
+        // Seek past ID3v2 tag
+        br.BaseStream.Seek(startPos, SeekOrigin.Begin); //Go back to the begining of the frame header
+
+        var info1 = Encoding.ASCII.GetString(startOfFile.Info1);
+        var info2 = Encoding.ASCII.GetString(startOfFile.Info2);
+        var info3 = Encoding.ASCII.GetString(startOfFile.Info3);
+
+        if (info1 is "Xing" or "Info")
         {
-            var startPos = ID3v2.GetTagSize(br.BaseStream);
-
-            // Seek past ID3v2 tag
-            br.BaseStream.Seek(startPos, SeekOrigin.Begin);
-
-            // Get StartOfFile structure
-            var startOfFile = StartOfFile.FromBinaryReader(br);
-
-            // Seek past ID3v2 tag
-            br.BaseStream.Seek(startPos, SeekOrigin.Begin);
-
-            var info1 = Encoding.ASCII.GetString(startOfFile.Info1);
-            var info2 = Encoding.ASCII.GetString(startOfFile.Info2);
-            var info3 = Encoding.ASCII.GetString(startOfFile.Info3);
-
-		        if (info1 == "Xing" || info1 == "Info")
-            {
-                br.BaseStream.Seek(Info1Offset, SeekOrigin.Current);
-            }
-		        else if (info2 == "Xing" || info2 == "Info")
-            {
-                br.BaseStream.Seek(Info2Offset, SeekOrigin.Current);
-            }
-		        else if (info3 == "Xing" || info3 == "Info")
-            {
-                br.BaseStream.Seek(Info3Offset, SeekOrigin.Current);
-            }
-		        else
-            {
-                IsLameTagFound = true;
-            }
-
-            // Read LAME tag structure
-            br.BaseStream.Seek(LAMETagOffset, SeekOrigin.Current);
-            _tag = LameTag.FromBinaryReader(br);
-            
-            // Read old LAME header
-            br.BaseStream.Seek(0 - Marshal.SizeOf(typeof(LameTag)), SeekOrigin.Current);
-            var oldLameHeader = OldLameHeader.FromBinaryReader(br);
-            VersionStringNonLameTag = Encoding.ASCII.GetString(oldLameHeader.VersionString);
+            br.BaseStream.Seek(Info1Offset, SeekOrigin.Current);
         }
+        else if (info2 is "Xing" or "Info")
+        {
+            br.BaseStream.Seek(Info2Offset, SeekOrigin.Current);
+        }
+        else if (info3 is "Xing" or "Info")
+        {
+            br.BaseStream.Seek(Info3Offset, SeekOrigin.Current);
+        }
+        else
+        {
+            IsLameTagFound = true;
+        }
+
+        // Read LAME tag structure
+        br.BaseStream.Seek(LAMETagOffset, SeekOrigin.Current);
+        _tag = LameTag.FromBinaryReader(br);
+
+        // Read old LAME header
+        br.BaseStream.Seek(0 - Marshal.SizeOf(typeof(LameTag)), SeekOrigin.Current);
+        var oldLameHeader = OldLameHeader.FromBinaryReader(br);
+        VersionStringNonLameTag = Encoding.ASCII.GetString(oldLameHeader.VersionString);
 
         // Set version string
         if (_tag.VersionString[1] == '.')
@@ -99,7 +94,7 @@ internal sealed class BasicLameTagReader
 
         // If encoder is not LAME, set IsLameTagFound to false
         // TODO : How about other encoders that use the LAME tag?
-		    if (Encoding.ASCII.GetString(_tag.Encoder) != "LAME")
+        if (Encoding.ASCII.GetString(_tag.Encoder) != "LAME")
         {
             IsLameTagFound = false;
         }
@@ -134,9 +129,9 @@ internal sealed class BasicLameTagReader
     /// <summary>
     /// Returns Encoding Method Byte
     /// </summary>
-    public byte EncodingMethod 
-    { 
-        get { return _tag.TagRevision_EncodingMethod; } 
+    public byte EncodingMethod
+    {
+        get { return _tag.TagRevision_EncodingMethod; }
     }
 
     /// <summary>
@@ -152,18 +147,18 @@ internal sealed class BasicLameTagReader
     /// <summary>
     /// Returns bitrate from the LAME tag (not the actual bitrate for VBR files)
     /// </summary>
-    public byte Bitrate 
-    { 
-        get { return _tag.Bitrate; } 
+    public byte Bitrate
+    {
+        get { return _tag.Bitrate; }
     }
 
     /// <summary>
     /// Returns true if the preset is guessed to be a command-line modified version of a preset.
     /// Only applies to LAME encoded MP3's that do not have preset info stored in the LAME tag.
     /// </summary>
-    public bool IsPresetGuessNonBitrate 
-    { 
-        get { return _isPresetGuessNonBitrate; } 
+    public bool IsPresetGuessNonBitrate
+    {
+        get { return _isPresetGuessNonBitrate; }
     }
 
     /// <summary>

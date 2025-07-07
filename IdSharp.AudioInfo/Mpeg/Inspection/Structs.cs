@@ -75,23 +75,24 @@ internal struct LameTag
 
     public static LameTag FromBinaryReader(BinaryReader br)
     {
-        LameTag tmpLameTag = new LameTag();
-        
-        tmpLameTag.Quality = br.ReadByte();
-        tmpLameTag.Encoder = br.ReadBytes(4);
-        tmpLameTag.VersionString = br.ReadBytes(5);
-        tmpLameTag.TagRevision_EncodingMethod = (byte)(br.ReadByte() & 0x0F);
-        tmpLameTag.Lowpass = br.ReadByte();
-        tmpLameTag.ReplayGain = br.ReadBytes(8);
-        tmpLameTag.EncodingFlags_ATHType = (byte)(br.ReadByte() & 0x0F);
-        tmpLameTag.Bitrate = br.ReadByte();
-        tmpLameTag.EncoderDelays = br.ReadBytes(3);
-        tmpLameTag.MiscInfo = br.ReadByte();
-        tmpLameTag.MP3Gain = br.ReadByte();
-        tmpLameTag.Surround_Preset = br.ReadBytes(2);
-        tmpLameTag.MusicLength = br.ReadBytes(4);
-        tmpLameTag.MusicCRC = br.ReadBytes(2);
-        tmpLameTag.InfoTagCRC = br.ReadBytes(2);
+        var tmpLameTag = new LameTag
+        {
+            Quality = br.ReadByte(),
+            Encoder = br.ReadBytes(4),
+            VersionString = br.ReadBytes(5),
+            TagRevision_EncodingMethod = (byte)(br.ReadByte() & 0x0F),
+            Lowpass = br.ReadByte(),
+            ReplayGain = br.ReadBytes(8),
+            EncodingFlags_ATHType = (byte)(br.ReadByte() & 0x0F),
+            Bitrate = br.ReadByte(),
+            EncoderDelays = br.ReadBytes(3),
+            MiscInfo = br.ReadByte(),
+            MP3Gain = br.ReadByte(),
+            Surround_Preset = br.ReadBytes(2),
+            MusicLength = br.ReadBytes(4),
+            MusicCRC = br.ReadBytes(2),
+            InfoTagCRC = br.ReadBytes(2)
+        };
 
         tmpLameTag.NoiseShaping = (byte)(tmpLameTag.MiscInfo & 0x03);
         tmpLameTag.StereoMode = (byte)((tmpLameTag.MiscInfo & 0x1C) >> 2);
@@ -137,7 +138,7 @@ internal struct StartOfFile
 
     public static StartOfFile FromBinaryReader(BinaryReader br)
     {
-        StartOfFile tmpStartOfFile = new StartOfFile();
+        var tmpStartOfFile = new StartOfFile();
         tmpStartOfFile.Misc1 = br.ReadBytes(13);
         tmpStartOfFile.Info1 = br.ReadBytes(4);
         tmpStartOfFile.Misc2 = br.ReadBytes(4);

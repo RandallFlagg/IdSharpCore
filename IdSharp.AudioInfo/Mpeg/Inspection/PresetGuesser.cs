@@ -1,7 +1,4 @@
-using IdSharp.AudioInfo.Inspection;
-using IdSharp.AudioInfo.Mpeg.Inspection;
-
-namespace IdSharp.AudioInfo.Mpeg.Mpeg.Inspection;
+namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 internal sealed class PresetGuesser
 {

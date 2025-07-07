@@ -1,8 +1,6 @@
 using System;
 
-using IdSharp.AudioInfo.Mpeg.Inspection;
-
-namespace IdSharp.AudioInfo.Inspection;
+namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 internal sealed class PresetGuessRow
 {
@@ -22,7 +20,7 @@ internal sealed class PresetGuessRow
 
     public bool HasVersionGroup(LameVersionGroup vg1)
     {
-        for (int i=0; i<3; i++)
+        for (var i=0; i<3; i++)
         {
             if (vg1 == VGs[i])
             {
@@ -34,7 +32,7 @@ internal sealed class PresetGuessRow
     }
 
     private void Initialize(LameVersionGroup vg1, LameVersionGroup vg2, LameVersionGroup vg3,
-        Byte tv1, Byte tv2, Byte tv3, Byte tv4, Byte tv5, Byte tv6, Byte tv7,
+        byte tv1, byte tv2, byte tv3, byte tv4, byte tv5, byte tv6, byte tv7,
         LamePreset result)
     {
         VGs[0] = vg1;
