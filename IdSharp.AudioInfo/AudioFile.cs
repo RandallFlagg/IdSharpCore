@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+using IdSharp.AudioInfo.Mpeg;
+
 namespace IdSharp.AudioInfo;
 
 /// <summary>
@@ -26,7 +28,7 @@ public static class AudioFile
 
         if (ext == ".mp3" || ext == ".mp2")
         {
-            audioFile = new Mpeg(path, false);
+            audioFile = new TMpeg(path, false);
         }
         else if (ext == ".ogg")
         {

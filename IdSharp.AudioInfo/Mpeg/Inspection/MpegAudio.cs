@@ -1,8 +1,8 @@
-using System;
-using System.IO;
 using System.Text;
 
-namespace IdSharp.AudioInfo.Inspection;
+using IdSharp.AudioInfo.Inspection;
+
+namespace IdSharp.AudioInfo.Mpeg.Inspection;
 
 internal sealed class MpegAudio
 {
@@ -11,46 +11,46 @@ internal sealed class MpegAudio
     // Limitation constants
     private const int MaxMpegFrameLength = 1729;
 
-    private static readonly String[] MPEG_VERSION = new String[] {"MPEG 2.5", "MPEG ?", "MPEG 2", "MPEG 1"};
-    private static readonly String[] MPEG_LAYER = new[] { "Layer ?", "Layer III", "Layer II", "Layer I" };
+    private static readonly string[] MPEG_VERSION = ["MPEG 2.5", "MPEG ?", "MPEG 2", "MPEG 1"];
+    private static readonly string[] MPEG_LAYER = ["Layer ?", "Layer III", "Layer II", "Layer I"];
 
     // Table for sample rates
-    private static readonly UInt16[][] MPEG_SAMPLE_RATE = new[] {
-        new UInt16[] {11025, 12000, 8000, 0},
-        new UInt16[] {0, 0, 0, 0},
-        new UInt16[] {22050, 24000, 16000, 0},
-        new UInt16[] {44100, 48000, 32000, 0}
-    };
+    private static readonly ushort[][] MPEG_SAMPLE_RATE = [
+        [11025, 12000, 8000, 0],
+        [0, 0, 0, 0],
+        [22050, 24000, 16000, 0],
+        [44100, 48000, 32000, 0]
+    ];
 
-    private static readonly UInt16[][][] BitrateTable = new[] {
-    new[] {   // MPEG-2.5
-        new UInt16[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-3
-        new UInt16[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-2
-        new UInt16[] { 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256 }  // Layer-1
-    },
-    new[] {
-        new UInt16[] {  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0 },
-        new UInt16[] {  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0 },
-        new UInt16[] {  0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0 }
-    },
-    new[] {   // MPEG-2
-        new UInt16[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-3
-        new UInt16[] {  8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160 }, // Layer-2
-        new UInt16[] { 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256 }  // Layer-1
-    },
-    new[] {   // MPEG-1
-        new UInt16[] { 32, 40, 48, 56, 64, 80,  96, 112, 128, 160, 192, 224, 256, 320 }, // Layer-3
-        new UInt16[] { 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384 }, // Layer-2
-        new UInt16[] { 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448 } // Layer-1
-    }
-    };
+    private static readonly ushort[][][] BitrateTable = [
+    [   // MPEG-2.5
+        [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-3
+        [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-2
+        [32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256]  // Layer-1
+    ],
+    [
+        [0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0],
+        [0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0],
+        [0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0]
+    ],
+    [   // MPEG-2
+        [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-3
+        [8, 16, 24, 32, 40, 48,  56,  64,  80,  96, 112, 128, 144, 160], // Layer-2
+        [32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256]  // Layer-1
+    ],
+    [   // MPEG-1
+        [32, 40, 48, 56, 64, 80,  96, 112, 128, 160, 192, 224, 256, 320], // Layer-3
+        [32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384], // Layer-2
+        [32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448] // Layer-1
+    ]
+    ];
 
     #endregion <<< Private Constants >>>
 
     #region <<< Private Fields >>>
 
-    private Int64 m_FileLength;
-    private String m_VendorID;
+    private long m_FileLength;
+    private string m_VendorID;
     private VBRData m_VBR;
     private FrameData m_Frame;
 
@@ -58,15 +58,15 @@ internal sealed class MpegAudio
 
     #region <<< Constructor >>>
 
-    public MpegAudio(String path)
+    public MpegAudio(string path)
     {
         const int dataLength = MaxMpegFrameLength * 2;
 
         ResetData();
 
-        using (BinaryReader br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+        using (var br = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
         {
-            int startPos = ID3v2.GetTagSize(br.BaseStream);
+            var startPos = ID3v2.GetTagSize(br.BaseStream);
 
             // Get file length
             m_FileLength = br.BaseStream.Length;
@@ -75,7 +75,7 @@ internal sealed class MpegAudio
             br.BaseStream.Seek(startPos, SeekOrigin.Begin);
 
             // Read first block of data and search for a frame
-            Byte[] data = br.ReadBytes(dataLength);
+            var data = br.ReadBytes(dataLength);
             FindFrame(data, ref m_VBR);
             m_VendorID = FindVendorID(data);
 
@@ -88,7 +88,7 @@ internal sealed class MpegAudio
             }
 
             // Search for vendor ID at the end if CBR encoded
-            if (m_Frame.Found && String.IsNullOrEmpty(m_VendorID))
+            if (m_Frame.Found && string.IsNullOrEmpty(m_VendorID))
             {
                 br.BaseStream.Seek(-(data.Length + ID3v1.GetTagSize(br.BaseStream)), SeekOrigin.End);
 
@@ -128,21 +128,21 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="data">Byte array of data from MP3 file</param>
     /// <param name="vbrHeader">Method sets this variable to a VBRData struct, if frame found</param>
-    private void FindFrame(Byte[] data, ref VBRData vbrHeader)
+    private void FindFrame(byte[] data, ref VBRData vbrHeader)
     {
-        Byte[] headerData = new Byte[4];
+        var headerData = new byte[4];
 
         // Search for valid frame
         Buffer.BlockCopy(data, 0, headerData, 0, 4);
 
-        int size = data.Length - 4;
-        for (int i = 0; i < size; i++)
+        var size = data.Length - 4;
+        for (var i = 0; i < size; i++)
         {
             // Decode data if frame header found
             if (IsFrameHeader(headerData))
             {
                 DecodeHeader(headerData);
-                int nextHeader = i + GetFrameLength(m_Frame);
+                var nextHeader = i + GetFrameLength(m_Frame);
                 if (nextHeader < size)
                 {
                     // Check for next frame and try to find VBR header
@@ -171,16 +171,16 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="headerData">Header data to test</param>
     /// <returns>True if valid frame header sent</returns>
-    private static bool IsFrameHeader(Byte[] headerData)
+    private static bool IsFrameHeader(byte[] headerData)
     {
         // Check for valid frame header
         if ((headerData[0] & 0xFF) != 0xFF ||
             (headerData[1] & 0xE0) != 0xE0 ||
-            ((headerData[1] >> 3) & 3) == 1 ||
-            ((headerData[1] >> 1) & 3) == 0 ||
+            (headerData[1] >> 3 & 3) == 1 ||
+            (headerData[1] >> 1 & 3) == 0 ||
             (headerData[2] & 0xF0) == 0xF0 ||
             (headerData[2] & 0xF0) == 0 ||
-            ((headerData[2] >> 2) & 3) == 3 ||
+            (headerData[2] >> 2 & 3) == 3 ||
             (headerData[3] & 3) == 2)
         {
             return false;
@@ -195,23 +195,23 @@ internal sealed class MpegAudio
     /// Populates the "m_Frame" struct with data from the header
     /// </summary>
     /// <param name="headerData">Header data byte array</param>
-    private void DecodeHeader(Byte[] headerData)
+    private void DecodeHeader(byte[] headerData)
     {
         // Decode frame header data            
-        m_Frame.Data = new Byte[headerData.Length];
+        m_Frame.Data = new byte[headerData.Length];
         Buffer.BlockCopy(headerData, 0, m_Frame.Data, 0, headerData.Length);
 
-        m_Frame.VersionID = (MpegVersion)((headerData[1] >> 3) & 3);
-        m_Frame.LayerID = (MpegLayer)((headerData[1] >> 1) & 3);
+        m_Frame.VersionID = (MpegVersion)(headerData[1] >> 3 & 3);
+        m_Frame.LayerID = (MpegLayer)(headerData[1] >> 1 & 3);
         m_Frame.ProtectionBit = (headerData[1] & 1) != 1;
-        m_Frame.BitRateID = (Byte)(headerData[2] >> 4);
-        m_Frame.SampleRateID = (SampleRateLevel)((headerData[2] >> 2) & 3);
-        m_Frame.PaddingBit = ((headerData[2] >> 1) & 1) == 1;
+        m_Frame.BitRateID = (byte)(headerData[2] >> 4); //TODO: why is this being cast to byte and not ushort?
+        m_Frame.SampleRateID = (SampleRateLevel)(headerData[2] >> 2 & 3);
+        m_Frame.PaddingBit = (headerData[2] >> 1 & 1) == 1;
         m_Frame.PrivateBit = (headerData[2] & 1) == 1;
-        m_Frame.ModeID = (MpegChannel)((headerData[3] >> 6) & 3);
-        m_Frame.ModeExtensionID = (JointStereoExtensionMode)((headerData[3] >> 4) & 3);
-        m_Frame.CopyrightBit = ((headerData[3] >> 3) & 1) == 1;
-        m_Frame.OriginalBit = ((headerData[3] >> 2) & 1) == 1;
+        m_Frame.ModeID = (MpegChannel)(headerData[3] >> 6 & 3);
+        m_Frame.ModeExtensionID = (JointStereoExtensionMode)(headerData[3] >> 4 & 3);
+        m_Frame.CopyrightBit = (headerData[3] >> 3 & 1) == 1;
+        m_Frame.OriginalBit = (headerData[3] >> 2 & 1) == 1;
         m_Frame.EmphasisID = (Emphasis)(headerData[3] & 3);
     }
 
@@ -221,10 +221,10 @@ internal sealed class MpegAudio
     /// <param name="index">Index</param>
     /// <param name="data">Data byte array</param>
     /// <returns>True if valid frame found at Index</returns>
-    private static bool ValidFrameAt(int index, Byte[] data)
+    private static bool ValidFrameAt(int index, byte[] data)
     {
-        Byte[] HeaderData = new Byte[4];
-        
+        var HeaderData = new byte[4];
+
         // Check for frame at given position
         HeaderData[0] = data[index];
         HeaderData[1] = data[index + 1];
@@ -239,15 +239,15 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="frame">Frame</param>
     /// <returns>Length of frame in bytes</returns>
-    private static UInt16 GetFrameLength(FrameData frame)
+    private static ushort GetFrameLength(FrameData frame)
     {
         // Calculate MPEG frame length
         ushort Coefficient = GetCoefficient(frame);
-        ushort BitRate = GetBitRate(frame);
-        ushort SampleRate = GetSampleRate(frame);
+        var BitRate = GetBitRate(frame);
+        var SampleRate = GetSampleRate(frame);
         ushort Padding = GetPadding(frame);
 
-        ushort result = (ushort)((Coefficient * BitRate * 1000 / SampleRate) + Padding);
+        var result = (ushort)(Coefficient * BitRate * 1000 / SampleRate + Padding);
 
         return result;
     }
@@ -260,13 +260,13 @@ internal sealed class MpegAudio
     /// <returns>True of Xing encoder</returns>
     private static bool IsXing(int index, byte[] data)
     {
-        bool result =
-            (data[index] == 0) &&
-            (data[index + 1] == 0) &&
-            (data[index + 2] == 0) &&
-            (data[index + 3] == 0) &&
-            (data[index + 4] == 0) &&
-            (data[index + 5] == 0);
+        var result =
+            data[index] == 0 &&
+            data[index + 1] == 0 &&
+            data[index + 2] == 0 &&
+            data[index + 3] == 0 &&
+            data[index + 4] == 0 &&
+            data[index + 5] == 0;
 
         return result;
     }
@@ -277,11 +277,11 @@ internal sealed class MpegAudio
     /// <param name="index">Index</param>
     /// <param name="data">Byte array</param>
     /// <returns>VBRData structure</returns>
-    private static VBRData FindVBR(int index, Byte[] data)
+    private static VBRData FindVBR(int index, byte[] data)
     {
         VBRData result;
 
-        String id = $"{(Char)data[index]}{(Char)data[index + 1]}{(Char)data[index + 2]}{(Char)data[index + 3]}";
+        var id = $"{(char)data[index]}{(char)data[index + 1]}{(char)data[index + 2]}{(char)data[index + 3]}";
 
         // Check for VBR header at given position
         if (id == VBRHeaderID.Xing)
@@ -305,9 +305,9 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="Frame">Populated FrameData structure</param>
     /// <returns>Offset of the VBRData structure</returns>
-    private static Byte GetVBRFrameOffset(FrameData Frame)
+    private static byte GetVBRFrameOffset(FrameData Frame)
     {
-        Byte result;
+        byte result;
 
         // Calculate VBR deviation
         if (Frame.VersionID == MpegVersion.Version1)
@@ -341,9 +341,9 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="Frame">Populated FrameData structure</param>
     /// <returns>Frame size coefficient</returns>
-    private static Byte GetCoefficient(FrameData Frame)
+    private static byte GetCoefficient(FrameData Frame)
     {
-        Byte result;
+        byte result;
 
         // Get frame size coefficient
         if (Frame.VersionID == MpegVersion.Version1)
@@ -381,10 +381,10 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="Frame">Populated FrameData structure</param>
     /// <returns>Bitrate of the frame</returns>
-    private static UInt16 GetBitRate(FrameData Frame)
+    private static ushort GetBitRate(FrameData Frame)
     {
         // Get bit rate
-        UInt16 result = BitrateTable[(int)Frame.VersionID][(int)Frame.LayerID - 1][Frame.BitRateID - 1];
+        var result = BitrateTable[(int)Frame.VersionID][(int)Frame.LayerID - 1][Frame.BitRateID - 1];
 
         return result;
     }
@@ -394,10 +394,10 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="Frame">Populated FrameData structure</param>
     /// <returns>Sample rate of the frame</returns>
-    private static UInt16 GetSampleRate(FrameData Frame)
+    private static ushort GetSampleRate(FrameData Frame)
     {
         // Get sample rate
-        UInt16 result = MPEG_SAMPLE_RATE[(int)Frame.VersionID][(int)Frame.SampleRateID];
+        var result = MPEG_SAMPLE_RATE[(int)Frame.VersionID][(int)Frame.SampleRateID];
 
         return result;
     }
@@ -407,9 +407,9 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="Frame">Populated FrameData structure</param>
     /// <returns>Padding size</returns>
-    private static Byte GetPadding(FrameData Frame)
+    private static byte GetPadding(FrameData Frame)
     {
-        Byte result;
+        byte result;
 
         // Get frame padding
         if (Frame.PaddingBit)
@@ -437,12 +437,12 @@ internal sealed class MpegAudio
     /// <param name="index">Index in array</param>
     /// <param name="data">Data byte array</param>
     /// <returns>VBRData structure</returns>
-    private static VBRData GetXingInfo(int index, Byte[] data)
+    private static VBRData GetXingInfo(int index, byte[] data)
     {
         VBRData result;
 
         // Extract Xing VBR info at given position
-        
+
         result.Found = true;
         result.ID = Encoding.ASCII.GetBytes(VBRHeaderID.Xing);
         result.Frames =
@@ -457,7 +457,7 @@ internal sealed class MpegAudio
             data[index + 15];
         result.Scale = data[index + 119];
         // Vendor ID can be not present
-        result.VendorID = $"{(Char)data[index + 120]}{(Char)data[index + 121]}{(Char)data[index + 122]}{(Char)data[index + 123]}{(Char)data[index + 124]}{(Char)data[index + 125]}{(Char)data[index + 126]}{(Char)data[index + 127]}";
+        result.VendorID = $"{(char)data[index + 120]}{(char)data[index + 121]}{(char)data[index + 122]}{(char)data[index + 123]}{(char)data[index + 124]}{(char)data[index + 125]}{(char)data[index + 126]}{(char)data[index + 127]}";
 
         return result;
     }
@@ -468,9 +468,9 @@ internal sealed class MpegAudio
     /// <param name="index">Index in array</param>
     /// <param name="data">Data byte array</param>
     /// <returns>VBRData structure</returns>
-    private static VBRData GetFhGInfo(int index, Byte[] data)
+    private static VBRData GetFhGInfo(int index, byte[] data)
     {
-        VBRData result = new VBRData();
+        var result = new VBRData();
 
         // Extract FhG VBR info at given position
 
@@ -496,20 +496,20 @@ internal sealed class MpegAudio
     /// </summary>
     /// <param name="data">Byte array</param>
     /// <returns>VendorID</returns>
-    private static String FindVendorID(Byte[] data)
+    private static string FindVendorID(byte[] data)
     {
-        String result = "";
+        var result = "";
 
         // Search for vendor ID
-        int size = data.Length;
-        for (int i = 0; i <= size - 8; i++)
+        var size = data.Length;
+        for (var i = 0; i <= size - 8; i++)
         {
-            String VendorID = $"{(Char)data[size - i - 8]}{(Char)data[size - i - 7]}{(Char)data[size - i - 6]}{(Char)data[size - i - 5]}";
+            var VendorID = $"{(char)data[size - i - 8]}{(char)data[size - i - 7]}{(char)data[size - i - 6]}{(char)data[size - i - 5]}";
 
             if (VendorID == VBRVendorID.LAME)
             {
                 result = VendorID +
-                    $"{(Char)data[size - i - 4]}{(Char)data[size - i - 3]}{(Char)data[size - i - 2]}{(Char)data[size - i - 1]}";
+                    $"{(char)data[size - i - 4]}{(char)data[size - i - 3]}{(char)data[size - i - 2]}{(char)data[size - i - 1]}";
                 break;
             }
 
@@ -529,7 +529,7 @@ internal sealed class MpegAudio
     /// <returns>Encoder</returns>
     private MpegEncoder GetEncoderID()
     {
-        MpegEncoder result = MpegEncoder.Unknown;
+        var result = MpegEncoder.Unknown;
 
         // Get guessed encoder ID
         if (m_Frame.Found)
@@ -553,9 +553,9 @@ internal sealed class MpegAudio
     /// <returns>Encoder from a VBR info tag</returns>
     private MpegEncoder GetVBREncoderID()
     {
-        MpegEncoder result = MpegEncoder.Unknown;
+        var result = MpegEncoder.Unknown;
 
-        String vbrVendor = m_VBR.VendorID.Substring(0, 4);
+        var vbrVendor = m_VBR.VendorID.Substring(0, 4);
 
         // Guess VBR encoder and get ID
         if (vbrVendor == VBRVendorID.LAME)
@@ -573,9 +573,9 @@ internal sealed class MpegAudio
             result = MpegEncoder.GoGo;
         }
 
-        if (Encoding.ASCII.GetString(m_VBR.ID) == VBRHeaderID.Xing && 
-            vbrVendor != VBRVendorID.LAME && 
-            vbrVendor != VBRVendorID.GoGoNew && 
+        if (Encoding.ASCII.GetString(m_VBR.ID) == VBRHeaderID.Xing &&
+            vbrVendor != VBRVendorID.LAME &&
+            vbrVendor != VBRVendorID.GoGoNew &&
             vbrVendor != VBRVendorID.GoGoOld)
         {
             result = MpegEncoder.Xing;
@@ -600,11 +600,11 @@ internal sealed class MpegAudio
     /// <returns>Encoder from a CBR info tag</returns>
     private MpegEncoder GetCBREncoderID()
     {
-        MpegEncoder result = MpegEncoder.FhG;
+        var result = MpegEncoder.FhG;
 
-        String shortVendor;
+        string shortVendor;
 
-        if (!String.IsNullOrEmpty(m_VendorID) && m_VendorID.Length >= 4)
+        if (!string.IsNullOrEmpty(m_VendorID) && m_VendorID.Length >= 4)
         {
             shortVendor = m_VendorID.Substring(0, 4);
         }
@@ -664,40 +664,40 @@ internal sealed class MpegAudio
     /// <summary>
     /// Returns MPEG version
     /// </summary>
-    public String Version { get { return MPEG_VERSION[(int)m_Frame.VersionID]; } }
+    public string Version { get { return MPEG_VERSION[(int)m_Frame.VersionID]; } }
 
     /// <summary>
     /// Returns MPEG layer
     /// </summary>
-    public String Layer { get { return MPEG_LAYER[(int)m_Frame.LayerID]; } }
+    public string Layer { get { return MPEG_LAYER[(int)m_Frame.LayerID]; } }
 
     /// <summary>
     /// Returns MPEG encoder and version (if known)
     /// </summary>
-    public String Encoder
+    public string Encoder
     {
         get
         {
-            String myVendorID = "";
+            var myVendorID = "";
 
             // Get guessed encoder name and encoder version for LAME
-            String result = GetEncoderID().ToString();
-            if (!String.IsNullOrEmpty(m_VBR.VendorID))
+            var result = GetEncoderID().ToString();
+            if (!string.IsNullOrEmpty(m_VBR.VendorID))
             {
                 myVendorID = m_VBR.VendorID;
             }
 
-            if (!String.IsNullOrEmpty(m_VendorID))
+            if (!string.IsNullOrEmpty(m_VendorID))
             {
                 myVendorID = m_VendorID;
             }
 
             if (GetEncoderID() == MpegEncoder.LAME &&
                 myVendorID.Length >= 8 &&
-                Char.IsDigit(myVendorID, 4) &&
+                char.IsDigit(myVendorID, 4) &&
                 myVendorID[5] == '.' &&
-                Char.IsDigit(myVendorID, 6) &&
-                Char.IsDigit(myVendorID, 7))
+                char.IsDigit(myVendorID, 6) &&
+                char.IsDigit(myVendorID, 7))
             {
                 result += " " + myVendorID.Substring(4, 4);
             }

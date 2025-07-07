@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using IdSharp.AudioInfo.Inspection;
+using IdSharp.AudioInfo.Mpeg.Inspection;
 
 using NUnit.Framework;
 
