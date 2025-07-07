@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdSharp.Common.Tests", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdSharp.Tagging.Tests", "Tests\IdSharp.Tagging.Tests\IdSharp.Tagging.Tests.csproj", "{B31871DE-B39F-4AF5-91CB-DDD985ACA1E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdSharp.AudioInfo.Tests", "Tests\IdSharp.AudioInfo.Tests\IdSharp.AudioInfo.Tests.csproj", "{88ACB9DD-9E47-B57D-5978-05B3617839A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{B31871DE-B39F-4AF5-91CB-DDD985ACA1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B31871DE-B39F-4AF5-91CB-DDD985ACA1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31871DE-B39F-4AF5-91CB-DDD985ACA1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88ACB9DD-9E47-B57D-5978-05B3617839A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88ACB9DD-9E47-B57D-5978-05B3617839A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88ACB9DD-9E47-B57D-5978-05B3617839A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88ACB9DD-9E47-B57D-5978-05B3617839A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{70C9EC79-F3EB-43A0-B6B1-1C306034A5B7} = {4FE79B14-AC9E-45BE-8412-FBD13E7D1F0C}
 		{5D99BEEA-86CA-4144-A089-7E65F27364B1} = {2BA9EB65-1684-47D1-A477-868048A3CCD0}
 		{B31871DE-B39F-4AF5-91CB-DDD985ACA1E1} = {2BA9EB65-1684-47D1-A477-868048A3CCD0}
+		{88ACB9DD-9E47-B57D-5978-05B3617839A1} = {2BA9EB65-1684-47D1-A477-868048A3CCD0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A735BB0-B12D-4018-8DF4-41F914D220A0}
