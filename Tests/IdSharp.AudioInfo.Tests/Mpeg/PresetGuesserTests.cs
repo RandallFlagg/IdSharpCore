@@ -61,52 +61,25 @@ public class PresetGuesserTests
         };
 
         //IList<PresetGuessRow> actual = PresetGuesser();
-        List<PresetGuessRow> actual = null; // Replace with actual call to PresetGuesser() method
+        var actual = PresetGuesser._presetGuessTable; // Replace with actual call to PresetGuesser() method
         Assert.That(actual.Count, Is.EqualTo(expected.Count), "Preset row count mismatch");
-
-        for (var i = 0; i < expected.Count; i++)
-        {
-            var a = actual[i];
-            var e = expected[i];
-
-            Assert.That(a.Res, Is.EqualTo(e.Res), $"Row {i} - Res mismatch");
-
-            for (var t = 0; t < 7; t++)
-            {
-                Assert.That(a.TVs[t], Is.EqualTo(e.TVs[t]), $"Row {i} - TVs[{t}] mismatch");
-            }
-
-            for (var v = 0; v < 3; v++)
-            {
-                Assert.That(a.VGs[v], Is.EqualTo(e.VGs[v]), $"Row {i} - VGs[{v}] mismatch");
-            }
-        }
-
-
-        Assert.That(actual.Count, Is.EqualTo(expected.Count), "PresetGuesser entry count mismatch");
 
         for (var i = 0; i < expected.Count; i++)
         {
             var act = actual[i];
             var exp = expected[i];
 
-            var msg = $"Row {i}: ";
+            Assert.That(act.Res, Is.EqualTo(exp.Res), $"Row {i} - Res mismatch");
 
-            Assert.That(act.TVs[0], Is.EqualTo(exp.TVs[0]), msg + "TV1 mismatch");
-            Assert.That(act.TVs[1], Is.EqualTo(exp.TVs[1]), msg + "TV2 mismatch");
-            Assert.That(act.TVs[2], Is.EqualTo(exp.TVs[2]), msg + "TV3 mismatch");
-            Assert.That(act.TVs[3], Is.EqualTo(exp.TVs[3]), msg + "TV4 mismatch");
-            Assert.That(act.TVs[4], Is.EqualTo(exp.TVs[4]), msg + "TV5 mismatch");
-            Assert.That(act.TVs[5], Is.EqualTo(exp.TVs[5]), msg + "TV6 mismatch");
-            Assert.That(act.TVs[6], Is.EqualTo(exp.TVs[6]), msg + "TV7 mismatch");
+            for (var t = 0; t < 7; t++)
+            {
+                Assert.That(act.TVs[t], Is.EqualTo(exp.TVs[t]), $"Row {i} - TVs[{t}] mismatch");
+            }
 
-            Assert.That(act.Res, Is.EqualTo(exp.Res), msg + "Preset mismatch");
-
-            Assert.That(act.VGs[0], Is.EqualTo(exp.VGs[0]), msg + "VG1 mismatch");
-            var vg1 = exp.VGs[1] != LameVersionGroup.None ? exp.VGs[1] : LameVersionGroup.None;
-            Assert.That(act.VGs[1], Is.EqualTo(vg1), msg + "VG2 mismatch");
-            var vg2 = exp.VGs[2] != LameVersionGroup.None ? exp.VGs[2] : LameVersionGroup.None;
-            Assert.That(act.VGs[2], Is.EqualTo(vg2), msg + "VG3 mismatch");
+            for (var v = 0; v < 3; v++)
+            {
+                Assert.That(act.VGs[v], Is.EqualTo(exp.VGs[v]), $"Row {i} - VGs[{v}] mismatch");
+            }
         }
     }
 }
