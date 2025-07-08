@@ -323,11 +323,13 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                         isID3v24SyncSafe = false;
                         break;
                     }
+
                     if ((frameSize & 0x8000) == 0x8000)
                     {
                         isID3v24SyncSafe = false;
                         break;
                     }
+
                     if ((frameSize & 0x800000) == 0x800000)
                     {
                         isID3v24SyncSafe = false;
@@ -389,6 +391,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                         {
                             isID3v24SyncSafe = isValidAtSyncSafe;
                         }
+
                         break;
                     }
                 }

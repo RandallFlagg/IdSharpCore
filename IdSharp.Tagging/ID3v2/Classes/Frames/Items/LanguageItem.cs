@@ -26,6 +26,7 @@ internal sealed class LanguageItem : ILanguageItem
                 LanguageDisplay = _languageCode;
                 // TODO: notify about bad data?
             }
+
             RaisePropertyChanged(nameof(LanguageCode));
         }
     }

@@ -37,6 +37,7 @@ internal static class ID3v2
                     return 0;
                 }
             }
+
             return 0;
         }
         finally

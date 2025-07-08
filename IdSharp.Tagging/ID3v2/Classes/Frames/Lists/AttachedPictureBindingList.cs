@@ -38,6 +38,7 @@ internal sealed class AttachedPictureBindingList : BindingList<IAttachedPicture>
                 //e.CancelReason = "There may only be one picture of this picture type in the tag";
                 return;
             }
+
             if (e.Data == PictureType.FileIcon32x32Png && attachedPicture.PictureType == PictureType.FileIcon32x32Png)
             {
                 // TODO: Make this a warning

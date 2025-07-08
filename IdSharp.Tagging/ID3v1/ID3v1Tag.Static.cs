@@ -29,6 +29,7 @@ public partial class ID3v1Tag
                     return 128;
                 }
             }
+
             return 0;
         }
         finally

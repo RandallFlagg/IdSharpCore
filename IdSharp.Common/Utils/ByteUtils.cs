@@ -29,6 +29,7 @@ public static class ByteUtils
             value <<= 8;
             value += byteArray[i];
         }
+
         return value;
     }
 
@@ -73,6 +74,7 @@ public static class ByteUtils
             {
                 returnValue[j] = byteArray[i];
             }
+
             return returnValue;
         }
         else
@@ -83,6 +85,7 @@ public static class ByteUtils
             {
                 returnValue[i] = byteArray[j];
             }
+
             return returnValue;
         }
     }

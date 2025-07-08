@@ -203,6 +203,7 @@ public static class GenreHelper
                 return i;
             }
         }
+
         return Other_GenreIndex;
     }
 }

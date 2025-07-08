@@ -125,6 +125,7 @@ internal static class ID3v2Utils
                             byteList.Add(0xFE);
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
+
                         if (isTerminated)
                         {
                             byteList.AddRange(new byte[] { 0, 0 });
@@ -140,6 +141,7 @@ internal static class ID3v2Utils
 
                         break;
                 }
+
                 break;
 
             case ID3v2TagVersion.ID3v23:
@@ -152,6 +154,7 @@ internal static class ID3v2Utils
                             byteList.Add(0xFE);
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
+
                         if (isTerminated)
                         {
                             byteList.AddRange(new byte[] { 0, 0 });
@@ -167,6 +170,7 @@ internal static class ID3v2Utils
 
                         break;
                 }
+
                 break;
 
             case ID3v2TagVersion.ID3v24:
@@ -177,6 +181,7 @@ internal static class ID3v2Utils
                         {
                             byteList.AddRange(Encoding.UTF8.GetBytes(value));
                         }
+
                         if (isTerminated)
                         {
                             byteList.Add(0);
@@ -188,6 +193,7 @@ internal static class ID3v2Utils
                         {
                             byteList.AddRange(Encoding.BigEndianUnicode.GetBytes(value)); // no BOM
                         }
+
                         if (isTerminated)
                         {
                             byteList.AddRange(new byte[] { 0, 0 });
@@ -201,6 +207,7 @@ internal static class ID3v2Utils
                             byteList.Add(0xFE);
                             byteList.AddRange(Encoding.Unicode.GetBytes(value)); // WITH BOM
                         }
+
                         if (isTerminated)
                         {
                             byteList.AddRange(new byte[] { 0, 0 });
@@ -216,6 +223,7 @@ internal static class ID3v2Utils
 
                         break;
                 }
+
                 break;
 
             default:
@@ -468,6 +476,7 @@ internal static class ID3v2Utils
                 //Trace.WriteLine(msg);
                 return "";
             }
+
             while (readByte != 0)
             {
                 byteList.Add(readByte);
@@ -596,6 +605,7 @@ internal static class ID3v2Utils
                 //Trace.WriteLine(msg);
                 return "";
             }
+
             while (readByte != 0)
             {
                 byteList.Add(readByte);

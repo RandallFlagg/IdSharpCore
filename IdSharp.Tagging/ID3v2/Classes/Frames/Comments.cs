@@ -130,6 +130,7 @@ internal sealed class Comments : Frame, IComments
                     {
                         Description = languageCode + description;
                     }
+
                     LanguageCode = "eng";
                 }
                 else

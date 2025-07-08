@@ -233,8 +233,10 @@ public partial class Lyrics3Tag
                 // invalid;
                 return 0;
             }
+
             length += j * val;
         }
+
         return length;
     }
 }

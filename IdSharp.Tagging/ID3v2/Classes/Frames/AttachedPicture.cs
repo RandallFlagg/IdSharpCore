@@ -104,6 +104,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
                 {
                     LoadPicture();
                 }
+
                 RaisePropertyChanged(nameof(PictureData));
             }
         }

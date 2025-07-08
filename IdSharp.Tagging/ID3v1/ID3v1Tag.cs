@@ -158,6 +158,7 @@ public partial class ID3v1Tag : IID3v1Tag
                     TagVersion = ID3v1TagVersion.ID3v11;
                 }
             }
+
             RaisePropertyChanged(nameof(TrackNumber));
         }
     }
@@ -337,6 +338,7 @@ public partial class ID3v1Tag : IID3v1Tag
         {
             stream.WriteByte(byteArray[i]);
         }
+
         for (; i < length; i++)
         {
             stream.WriteByte(0);

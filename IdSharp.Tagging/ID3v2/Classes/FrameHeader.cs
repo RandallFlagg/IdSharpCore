@@ -307,6 +307,7 @@ internal sealed class FrameHeader : IFrameHeader
             {
                 FrameSize++;
             }
+
             FrameSizeExcludingAdditions = FrameSize;
 
             // These fields are not supported in ID3v2.2
@@ -447,6 +448,7 @@ internal sealed class FrameHeader : IFrameHeader
                 tmpRawData[tmpCurrentPosition++] = (byte)(DecompressedSize >> 8);
                 tmpRawData[tmpCurrentPosition++] = (byte)DecompressedSize;
             }
+
             if (_encryptionMethod != null)
             {
                 tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;
@@ -524,6 +526,7 @@ internal sealed class FrameHeader : IFrameHeader
                 tmpRawData[tmpCurrentPosition++] = (byte)(DecompressedSize >> 8);
                 tmpRawData[tmpCurrentPosition++] = (byte)DecompressedSize;
             }
+
             if (_encryptionMethod != null)
             {
                 tmpRawData[tmpCurrentPosition++] = _encryptionMethod.Value;

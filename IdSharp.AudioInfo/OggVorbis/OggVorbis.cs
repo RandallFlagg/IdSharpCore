@@ -94,6 +94,7 @@ public class OggVorbis : IAudioFile
                             {
                                 Samples += buf[i] << (8 * i);
                             }
+
                             break;
                         }
                     }
