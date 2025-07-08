@@ -99,7 +99,7 @@ internal static class Http
         webRequest.UserAgent = m_UserAgent;
         if (credentials != null)
         {
-            webRequest.Headers.Add($"Authorization: Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", credentials.UserName, credentials.Password)))}");
+            webRequest.Headers.Add($"Authorization: Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes($"{credentials.UserName}:{credentials.Password}"))}");
         }
 
         webResponse = (HttpWebResponse)webRequest.GetResponse();
