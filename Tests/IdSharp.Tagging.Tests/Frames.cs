@@ -19,9 +19,9 @@ internal static class Frames
         }
 
         IID3v2Tag id3 = new ID3v2Tag();
-        IEncryptionMethod aud = id3.EncryptionMethodList.AddNew();
+        var aud = id3.EncryptionMethodList.AddNew();
 
-        using (MemoryStream ms = new MemoryStream())
+        using (var ms = new MemoryStream())
         {
             Write(ms, Encoding.ASCII.GetBytes("http://owneridentifier.org"));
             ms.WriteByte(0); // terminate
@@ -43,9 +43,9 @@ internal static class Frames
         }
 
         IID3v2Tag id3 = new ID3v2Tag();
-        ICommercial aud = id3.CommercialInfoList.AddNew();
+        var aud = id3.CommercialInfoList.AddNew();
 
-        using (MemoryStream ms = new MemoryStream())
+        using (var ms = new MemoryStream())
         {
             ms.WriteByte(0); // text encoding
             Write(ms, Encoding.ASCII.GetBytes("usd10.00/cad15.00"));
@@ -72,7 +72,7 @@ internal static class Frames
     public static void AudioEncryption(ID3v2TagVersion tagVersion)
     {
         IID3v2Tag id3 = new ID3v2Tag();
-        IAudioEncryption aud = id3.AudioEncryptionList.AddNew();
+        var aud = id3.AudioEncryptionList.AddNew();
         byte[] data = {
           0x61, 0x62, 0x63, 0x00, // "abc"
           0x00, 0x10, // PreviewStart
@@ -85,17 +85,17 @@ internal static class Frames
 
     private static void TestFrame(IFrame frame, ID3v2TagVersion tagVersion, byte[] data)
     {
-        TagReadingInfo tagReadingInfo = new TagReadingInfo(tagVersion);
-        Stream stream = GetFrame(tagVersion, data);
+        var tagReadingInfo = new TagReadingInfo(tagVersion);
+        var stream = GetFrame(tagVersion, data);
 
         frame.Read(tagReadingInfo, stream);
 
-        byte[] data2 = frame.GetBytes(tagVersion);
-        int offset = (tagVersion == ID3v2TagVersion.ID3v22 ? 6 : 10);
+        var data2 = frame.GetBytes(tagVersion);
+        var offset = (tagVersion == ID3v2TagVersion.ID3v22 ? 6 : 10);
 
         Assert.That(data.Length, Is.EqualTo(data2.Length - offset), "Frame sizes are different");
 
-        for (int i = 0; i < data.Length; i++)
+        for (var i = 0; i < data.Length; i++)
         {
             Assert.That(data[i], Is.EqualTo(data2[i + offset]), $"Byte offset {i + offset}");
         }
@@ -103,9 +103,9 @@ internal static class Frames
 
     private static Stream GetFrame(ID3v2TagVersion tagVersion, byte[] data)
     {
-        MemoryStream ms = new MemoryStream();
+        var ms = new MemoryStream();
 
-        int length = data.Length;
+        var length = data.Length;
 
         if (tagVersion == ID3v2TagVersion.ID3v22)
         {

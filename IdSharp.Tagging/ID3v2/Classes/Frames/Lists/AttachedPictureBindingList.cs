@@ -29,7 +29,7 @@ internal sealed class AttachedPictureBindingList : BindingList<IAttachedPicture>
 
     private void AttachedPicture_PictureTypeChanging(object sender, CancelDataEventArgs<PictureType> e)
     {
-        foreach (IAttachedPicture attachedPicture in Items)
+        foreach (var attachedPicture in Items)
         {
             if (e.Data == PictureType.OtherFileIcon && attachedPicture.PictureType == PictureType.OtherFileIcon)
             {
@@ -55,7 +55,7 @@ internal sealed class AttachedPictureBindingList : BindingList<IAttachedPicture>
             return;
         }
 
-        foreach (IAttachedPicture attachedPicture in Items)
+        foreach (var attachedPicture in Items)
         {
             if (attachedPicture != sender)
             {

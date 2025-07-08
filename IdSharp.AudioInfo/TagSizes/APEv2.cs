@@ -15,10 +15,10 @@ internal static class APEv2
     /// <param name="stream">The stream.</param>
     public static int GetTagSize(Stream stream)
     {
-        Int64 currentPosition = stream.Position;
+        var currentPosition = stream.Position;
         try
         {
-            byte[] buf = new byte[32];
+            var buf = new byte[32];
             stream.Seek(-32, SeekOrigin.End);
             stream.Read(buf, 0, 32);
 
@@ -35,8 +35,8 @@ internal static class APEv2
             }
 
             // Check version
-            int version = 0;
-            for (int i = 8; i < 12; i++)
+            var version = 0;
+            for (var i = 8; i < 12; i++)
             {
                 version += (buf[i] << ((i - 8) * 8));
             }
@@ -48,13 +48,13 @@ internal static class APEv2
             }
 
             // Size
-            int tagSize = 0;
-            for (int i = 12; i < 16; i++)
+            var tagSize = 0;
+            for (var i = 12; i < 16; i++)
             {
                 tagSize += (buf[i] << ((i - 12) * 8));
             }
 
-            bool containsHeader = ((buf[23] >> 7) == 1);
+            var containsHeader = ((buf[23] >> 7) == 1);
 
             tagSize += (containsHeader ? 32 : 0);
             return tagSize;

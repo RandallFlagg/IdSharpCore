@@ -53,18 +53,18 @@ internal sealed class InvolvedPersonList : Frame, IInvolvedPersonList
         _frameHeader.Read(tagReadingInfo, ref stream);
         _involvedPersons.Clear();
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft > 0)
         {
             TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
             while (bytesLeft > 0)
             {
-                string involvement = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
-                string name = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+                var involvement = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+                var name = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
 
                 if (!string.IsNullOrEmpty(involvement) || !string.IsNullOrEmpty(name))
                 {
-                    IInvolvedPerson involvedPerson = _involvedPersons.AddNew();
+                    var involvedPerson = _involvedPersons.AddNew();
                     involvedPerson.Involvement = involvement;
                     involvedPerson.Name = name;
                 }
@@ -82,15 +82,15 @@ internal sealed class InvolvedPersonList : Frame, IInvolvedPersonList
         // Sets appropriate TextEncoding if ISO-8859-1 is insufficient
         if (TextEncoding == EncodingType.ISO88591)
         {
-            foreach (IInvolvedPerson involvedPerson in Items)
+            foreach (var involvedPerson in Items)
             {
                 if (string.IsNullOrEmpty(involvedPerson.Involvement) && string.IsNullOrEmpty(involvedPerson.Name))
                 {
                     continue;
                 }
 
-                byte[] involvementData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Involvement, true);
-                byte[] nameData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Name, true);
+                var involvementData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Involvement, true);
+                var nameData = ID3v2Utils.GetStringBytes(tagVersion, _textEncoding, involvedPerson.Name, true);
 
                 if (this.RequiresFix(tagVersion, involvedPerson.Involvement, involvementData))
                 {
@@ -104,12 +104,12 @@ internal sealed class InvolvedPersonList : Frame, IInvolvedPersonList
             }
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.WriteByte((byte)_textEncoding);
 
-            bool foundItem = false;
-            foreach (IInvolvedPerson involvedPerson in Items)
+            var foundItem = false;
+            foreach (var involvedPerson in Items)
             {
                 if (string.IsNullOrEmpty(involvedPerson.Involvement) && string.IsNullOrEmpty(involvedPerson.Name))
                 {

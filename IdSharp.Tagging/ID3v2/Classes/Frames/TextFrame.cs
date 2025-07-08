@@ -96,7 +96,7 @@ internal sealed class TextFrame : Frame, ITextFrame
             valueData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, Value, false);
         } while (this.RequiresFix(tagVersion, Value, valueData));
 
-        using (MemoryStream stream = new MemoryStream())
+        using (var stream = new MemoryStream())
         {
             stream.WriteByte((byte)_textEncoding);
             stream.Write(valueData);

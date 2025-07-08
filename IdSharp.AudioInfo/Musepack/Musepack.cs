@@ -18,19 +18,19 @@ public class Musepack : IAudioFile
     /// <param name="path">The path of the file.</param>
     public Musepack(string path)
     {
-        using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             // Skip ID3v2 tag
-            int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
-            int tmpID3v1TagSize = ID3v1.GetTagSize(stream);
-            int tmpAPEv2TagSize = APEv2.GetTagSize(stream);
+            var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+            var tmpID3v1TagSize = ID3v1.GetTagSize(stream);
+            var tmpAPEv2TagSize = APEv2.GetTagSize(stream);
             stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
             StreamVersion = 0;
 
-            byte[] byteArray = stream.Read(32);
-            int[] integerArray = new int[8];
-            for (int i = 0; i < 8; i++)
+            var byteArray = stream.Read(32);
+            var integerArray = new int[8];
+            for (var i = 0; i < 8; i++)
             {
                 integerArray[i] = (byteArray[i * 4]) +
                                                       (byteArray[i * 4 + 1] << 8) +
@@ -39,7 +39,7 @@ public class Musepack : IAudioFile
             }
 
             // Size TODO - ignore Lyrics3
-            long audioDataLength = stream.Length - tmpID3v2TagSize - tmpID3v1TagSize - tmpAPEv2TagSize;
+            var audioDataLength = stream.Length - tmpID3v2TagSize - tmpID3v1TagSize - tmpAPEv2TagSize;
 
             // Stream version
             if (integerArray[0] == STREAM_VERSION_70_ID)

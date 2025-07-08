@@ -23,10 +23,10 @@ public class PathUtilsTest
     [Test]
     public void GetTempFileName_NormalCase()
     {
-        string a = PathUtils.GetTempFileName(null);
-        string b = PathUtils.GetTempFileName(string.Empty);
-        string c = PathUtils.GetTempFileName(".txt");
-        string d = PathUtils.GetTempFileName("txt");
+        var a = PathUtils.GetTempFileName(null);
+        var b = PathUtils.GetTempFileName(string.Empty);
+        var c = PathUtils.GetTempFileName(".txt");
+        var d = PathUtils.GetTempFileName("txt");
 
         Assert.That(string.IsNullOrEmpty(Path.GetExtension(a)));
         Assert.That(string.IsNullOrEmpty(Path.GetExtension(b)));
@@ -50,7 +50,7 @@ public class PathUtilsTest
     public void GetTemporaryFileNameBasedOnFileName_NormalCase()
     {
         const string path = @"C:\WINDOWS\HelloWorld.txt";
-        string a = PathUtils.GetTemporaryFileNameBasedOnFileName(path);
+        var a = PathUtils.GetTemporaryFileNameBasedOnFileName(path);
 
         Assert.That(a.StartsWith(path));
         Assert.That(!File.Exists(a));
@@ -66,11 +66,11 @@ public class PathUtilsTest
     [Test]
     public void GetUniqueFileName_NormalCase_FileExists()
     {
-        string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+        var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 
         Assert.That(File.Exists(assemblyLocation), "File.Exists(assemblyLocation) failed");
 
-        string uniqueFileName = PathUtils.GetUniqueFileName(assemblyLocation);
+        var uniqueFileName = PathUtils.GetUniqueFileName(assemblyLocation);
 
         Assert.That(uniqueFileName, Is.Not.Null);
         Assert.That(uniqueFileName != assemblyLocation, "uniqueFileName != assemblyLocation failed");
@@ -80,13 +80,13 @@ public class PathUtilsTest
     [Test]
     public void GetUniqueFileName_NormalCase_FileDoesNotExist()
     {
-        string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-        string assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
-        string newFileName = Path.Combine(assemblyDirectory, "doesNotExist.txt");
+        var assemblyLocation = Assembly.GetExecutingAssembly().Location;
+        var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+        var newFileName = Path.Combine(assemblyDirectory, "doesNotExist.txt");
 
         Assert.That(!File.Exists(newFileName), "!File.Exists(newFileName) failed");
 
-        string uniqueFileName = PathUtils.GetUniqueFileName(newFileName);
+        var uniqueFileName = PathUtils.GetUniqueFileName(newFileName);
 
         Assert.That(uniqueFileName, Is.Not.Null);
         Assert.That(uniqueFileName == newFileName, "uniqueFileName == newFileName failed");

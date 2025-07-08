@@ -196,7 +196,7 @@ public static class GenreHelper
     /// <returns>The index of the genre.  If the genre is not found, 12 is returned to indicate 'Other'.</returns>
     public static int GetGenreIndex(string genre)
     {
-        for (int i = 0; i <= _genreCount; i++)
+        for (var i = 0; i <= _genreCount; i++)
         {
             if (string.Compare(genre, GenreByIndex[i], true) == 0)
             {

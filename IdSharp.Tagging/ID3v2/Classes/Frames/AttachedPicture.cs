@@ -123,8 +123,8 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             }
 
 
-            int width = Picture.Width;
-            int height = Picture.Height;
+            var width = Picture.Width;
+            var height = Picture.Height;
             var image = Image.LoadPixelData<Rgba32>(_pictureData, width, height);
             //image.Metadata.DecodedImageFormat
             //if (_picture.RawFormat.Equals(ImageFormat.Bmp))
@@ -285,7 +285,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
         _frameHeader.Read(tagReadingInfo, ref stream);
 
         // Read frame data
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft >= 6) // note: 6 was chosen arbitrarily
         {
             // Read text encoding
@@ -294,7 +294,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22)
             {
                 // TODO: Do something with this?
-                string imageFormat = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
+                var imageFormat = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
                 bytesLeft -= 3;
             }
             else
@@ -312,7 +312,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
             // Picture data
             if (bytesLeft > 0)
             {
-                byte[] pictureData = stream.Read(bytesLeft);
+                var pictureData = stream.Read(bytesLeft);
                 bytesLeft = 0;
                 _readingTag = true;
                 try
@@ -358,7 +358,7 @@ internal sealed class AttachedPicture : Frame, IAttachedPicture
         // iTunes doesn't like Unicode in APIC descriptions - fixed in iTunes 7.1.0.59
         //TextEncoding = EncodingType.ISO88591;
 
-        using (MemoryStream stream = new MemoryStream())
+        using (var stream = new MemoryStream())
         {
             byte[] descriptionData;
 

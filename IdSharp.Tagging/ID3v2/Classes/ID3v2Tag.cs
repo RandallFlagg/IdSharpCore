@@ -87,9 +87,9 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
             throw new ArgumentNullException(nameof(path));
         }
 
-        int originalTagSize = GetTagSize(path);
+        var originalTagSize = GetTagSize(path);
 
-        byte[] tagBytes = GetBytes(originalTagSize);
+        var tagBytes = GetBytes(originalTagSize);
 
         if (tagBytes.Length < originalTagSize)
         {
@@ -103,7 +103,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
         else
         {
             // Write tag of equal length
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Write, FileShare.None))
+            using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Write, FileShare.None))
             {
                 fileStream.Write(tagBytes, 0, tagBytes.Length);
             }
@@ -160,13 +160,13 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     /// <returns>The bytes of the current ID3v2 tag.</returns>
     public byte[] GetBytes(int minimumSize)
     {
-        ID3v2TagVersion tagVersion = _id3v2Header.TagVersion;
+        var tagVersion = _id3v2Header.TagVersion;
 
-        using (MemoryStream tag = new MemoryStream())
+        using (var tag = new MemoryStream())
         {
-            byte[] framesByteArray = GetBytes(tagVersion);
+            var framesByteArray = GetBytes(tagVersion);
 
-            int tagSize = framesByteArray.Length;
+            var tagSize = framesByteArray.Length;
 
             _id3v2Header.UsesUnsynchronization = false; // hack
             _id3v2Header.IsExperimental = true; // hack
@@ -179,7 +179,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                 tagSize += _id3v2ExtendedHeader.SizeExcludingSizeBytes + 4;
             }
 
-            int paddingSize = minimumSize - (tagSize + 10);
+            var paddingSize = minimumSize - (tagSize + 10);
             if (paddingSize < 0)
             {
                 paddingSize = 2000;
@@ -190,7 +190,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
             // Set tag size in ID3v2 header
             _id3v2Header.TagSize = tagSize;
 
-            byte[] id3v2Header = _id3v2Header.GetBytes();
+            var id3v2Header = _id3v2Header.GetBytes();
             tag.Write(id3v2Header, 0, id3v2Header.Length);
             if (_id3v2Header.HasExtendedHeader)
             {
@@ -203,18 +203,18 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                 // Set padding size
                 _id3v2ExtendedHeader.PaddingSize = paddingSize; // todo: check
 
-                byte[] id3v2ExtendedHeader = _id3v2ExtendedHeader.GetBytes(tagVersion);
+                var id3v2ExtendedHeader = _id3v2ExtendedHeader.GetBytes(tagVersion);
                 tag.Write(id3v2ExtendedHeader, 0, id3v2ExtendedHeader.Length);
             }
 
             tag.Write(framesByteArray, 0, framesByteArray.Length);
-            byte[] padding = new byte[paddingSize];
+            var padding = new byte[paddingSize];
             tag.Write(padding, 0, paddingSize);
 
             // Make sure WE can read it without throwing errors
             // TODO: Take this out eventually, this is just a precaution.
             tag.Position = 0;
-            ID3v2Tag newID3v2 = new ID3v2Tag();
+            var newID3v2 = new ID3v2Tag();
             newID3v2.Read(tag);
 
             return tag.ToArray();
@@ -252,7 +252,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
     public void Read(Stream stream)
     {
         // Check for 'ID3' marker
-        byte[] identifier = stream.Read(3);
+        var identifier = stream.Read(3);
         if (!(identifier[0] == 0x49 && identifier[1] == 0x44 && identifier[2] == 0x33))
         {
             return;
@@ -261,7 +261,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
         // Read the header
         _id3v2Header = new ID3v2Header(stream, false);
 
-        TagReadingInfo tagReadingInfo = new TagReadingInfo(_id3v2Header.TagVersion);
+        var tagReadingInfo = new TagReadingInfo(_id3v2Header.TagVersion);
         if (_id3v2Header.UsesUnsynchronization)
         {
             tagReadingInfo.TagVersionOptions = TagVersionOptions.Unsynchronized;
@@ -276,7 +276,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
             _id3v2ExtendedHeader = new ID3v2ExtendedHeader(tagReadingInfo, stream);
         }
 
-        int frameIDSize = (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22 ? 3 : 4);
+        var frameIDSize = (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22 ? 3 : 4);
         int bytesRead;
         int readUntil;
 
@@ -284,14 +284,14 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
 
         if (_id3v2Header.TagVersion == ID3v2TagVersion.ID3v24)
         {
-            bool isID3v24SyncSafe = true;
+            var isID3v24SyncSafe = true;
 
             bytesRead = 0;
             readUntil = _id3v2Header.TagSize - _id3v2ExtendedHeader.SizeIncludingSizeBytes - frameIDSize;
-            long initialPosition = stream.Position;
+            var initialPosition = stream.Position;
             while (bytesRead < readUntil)
             {
-                byte[] frameIDBytes = stream.Read(frameIDSize);
+                var frameIDBytes = stream.Read(frameIDSize);
 
                 // TODO: Noticed some tags contain 0x00 'E' 'N' as a FrameID.  Frame is well structured
                 // and other frames follow.  I believe the below (keep reading+looking) will cover this issue.
@@ -315,7 +315,7 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                     break;
                 }
 
-                int frameSize = stream.ReadInt32();
+                var frameSize = stream.ReadInt32();
                 if (frameSize > 0xFF)
                 {
                     if ((frameSize & 0x80) == 0x80)
@@ -343,12 +343,12 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
                     else
                     {
                         stream.Seek(-4, SeekOrigin.Current); // go back to read sync-safe version
-                        int syncSafeFrameSize = ID3v2Utils.ReadInt32SyncSafe(stream);
+                        var syncSafeFrameSize = ID3v2Utils.ReadInt32SyncSafe(stream);
 
-                        long currentPosition = stream.Position;
+                        var currentPosition = stream.Position;
 
-                        bool isValidAtSyncSafe = true;
-                        bool isValidAtNonSyncSafe = true;
+                        var isValidAtSyncSafe = true;
+                        var isValidAtNonSyncSafe = true;
 
                         // TODO - if it's the last frame and there is padding, both would indicate false
                         // Use the one that returns some padding bytes opposed to bytes with non-zero values (could be frame data)
@@ -405,18 +405,18 @@ public partial class ID3v2Tag : FrameContainer, IID3v2Tag
         }
         else if (_id3v2Header.TagVersion == ID3v2TagVersion.ID3v22)
         {
-            bool isID3v22CorrectSize = true;
+            var isID3v22CorrectSize = true;
 
             bytesRead = 0;
             readUntil = _id3v2Header.TagSize - _id3v2ExtendedHeader.SizeIncludingSizeBytes - frameIDSize;
-            long initialPosition = stream.Position;
+            var initialPosition = stream.Position;
 
             stream.Read(frameIDSize);
-            UnknownFrame unknownFrame = new UnknownFrame(null, tagReadingInfo, stream);
+            var unknownFrame = new UnknownFrame(null, tagReadingInfo, stream);
             bytesRead += unknownFrame.FrameHeader.FrameSizeTotal;
             if (bytesRead < readUntil)
             {
-                byte[] frameIDBytes = stream.Read(frameIDSize);
+                var frameIDBytes = stream.Read(frameIDSize);
 
                 // TODO: Noticed some tags contain 0x00 'E' 'N' as a FrameID.  Frame is well structured
                 // and other frames follow.  I believe the below (keep reading+looking) will cover this issue.

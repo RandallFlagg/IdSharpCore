@@ -63,7 +63,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft > 0)
         {
             UserEmail = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
@@ -72,7 +72,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
                 Rating = stream.Read1(ref bytesLeft);
                 if (bytesLeft > 0)
                 {
-                    byte[] playCount = stream.Read(bytesLeft);
+                    var playCount = stream.Read(bytesLeft);
                     PlayCount = ByteUtils.ConvertToInt64(playCount);
                 }
                 else
@@ -101,7 +101,7 @@ internal sealed class Popularimeter : Frame, IPopularimeter
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, _userEmail, true));
             frameData.WriteByte(_rating);

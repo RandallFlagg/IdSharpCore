@@ -209,7 +209,7 @@ public class MP3GainTagItems {
             UndoLeftChannelAdjustment = ConvertValue(value, 0);
             UndoRightChannelAdjustment = ConvertValue(value, 1);
             
-            string val = ConvertValueToString(value, 2);
+            var val = ConvertValueToString(value, 2);
 
             if (string.IsNullOrWhiteSpace(val))
             {
@@ -268,7 +268,7 @@ public class MP3GainTagItems {
             return null;
         }
 
-        string[] parts = value.Split(new char[] { ',' });
+        var parts = value.Split(new char[] { ',' });
 
         if (parts.Length <= position)
         {
@@ -280,7 +280,7 @@ public class MP3GainTagItems {
 
     private short? ConvertValue(string value, int position) {
 
-        string part = ConvertValueToString(value, position);
+        var part = ConvertValueToString(value, position);
 
         if (string.IsNullOrWhiteSpace(part))
         {

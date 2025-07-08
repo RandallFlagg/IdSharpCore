@@ -56,7 +56,7 @@ internal sealed class UrlFrame : Frame, IUrlFrame
             return new byte[0];
         }
 
-        using (MemoryStream stream = new MemoryStream())
+        using (var stream = new MemoryStream())
         {
             stream.Write(ByteUtils.ISO88591GetBytes(_value));
             return _frameHeader.GetBytes(stream, tagVersion, GetFrameID(tagVersion));

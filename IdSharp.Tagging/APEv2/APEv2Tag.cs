@@ -78,15 +78,15 @@ public partial class APEv2Tag : IAPEv2Tag
     public byte[] GetBytes()
     {
         int tagSize;
-        int elements = _items.Count;
+        var elements = _items.Count;
 
         if (elements != 0)
         {
             tagSize = 32; // footer + all tag items, excluding header (to be compatible with APEv1)
 
-            foreach (KeyValuePair<string, string> item in _items)
+            foreach (var item in _items)
             {
-                int valueLength = Encoding.UTF8.GetByteCount(item.Value);
+                var valueLength = Encoding.UTF8.GetByteCount(item.Value);
                 tagSize += 8 + item.Key.Length + 1 + valueLength;
             }
         }
@@ -95,7 +95,7 @@ public partial class APEv2Tag : IAPEv2Tag
             return new byte[0];
         }
 
-        using (MemoryStream ms = new MemoryStream())
+        using (var ms = new MemoryStream())
         {
             ms.Write(_APETAGEX); // Footer
             ms.WriteInt32LittleEndian(2000); // Version (2000) ; 0xD0 0x07 0x00 0x00
@@ -107,9 +107,9 @@ public partial class APEv2Tag : IAPEv2Tag
             // 0xA0 = 0000 1010
 
             // Elements
-            foreach (KeyValuePair<string, string> item in _items)
+            foreach (var item in _items)
             {
-                byte[] valueBytes = Encoding.UTF8.GetBytes(item.Value);
+                var valueBytes = Encoding.UTF8.GetBytes(item.Value);
 
                 ms.WriteInt32LittleEndian(valueBytes.Length); // size
                 ms.Write(new byte[] { 0x00, 0x00, 0x00, 0x00 }); // todo: account for encoding type
@@ -137,7 +137,7 @@ public partial class APEv2Tag : IAPEv2Tag
     /// <param name="path">The file to read from.</param>
     public void Read(string path)
     {
-        using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             Read(fs);
         }
@@ -162,9 +162,9 @@ public partial class APEv2Tag : IAPEv2Tag
             _items.Clear();
         }
 
-        int footerOffset = 0;
+        var footerOffset = 0;
 
-        byte[] buf = new byte[32];
+        var buf = new byte[32];
         stream.Seek(-32, SeekOrigin.End);
         stream.Read(buf, 0, 32);
 
@@ -205,7 +205,7 @@ public partial class APEv2Tag : IAPEv2Tag
 
         // Check version
         _version = 0;
-        for (int i = 8; i < 12; i++)
+        for (var i = 8; i < 12; i++)
         {
             _version += (buf[i] << ((i - 8) * 8));
         }
@@ -218,20 +218,20 @@ public partial class APEv2Tag : IAPEv2Tag
         }
 
         // Size
-        int tagSize = 0;
-        for (int i = 12; i < 16; i++)
+        var tagSize = 0;
+        for (var i = 12; i < 16; i++)
         {
             tagSize += (buf[i] << ((i - 12) * 8));
         }
 
         // Elements
-        int elements = 0;
-        for (int i = 16; i < 20; i++)
+        var elements = 0;
+        for (var i = 16; i < 20; i++)
         {
             elements += (buf[i] << ((i - 16) * 8));
         }
 
-        bool containsHeader = ((buf[23] >> 7) == 1);
+        var containsHeader = ((buf[23] >> 7) == 1);
 
         // The other item flags are uninteresting in the context of the header/footer
         // They include:
@@ -247,7 +247,7 @@ public partial class APEv2Tag : IAPEv2Tag
         {
             stream.Seek(0 - (footerOffset + tagSize), SeekOrigin.End);
 
-            for (int i = 0; i < elements; i++)
+            for (var i = 0; i < elements; i++)
             {
                 ReadField(stream);
             }
@@ -256,11 +256,11 @@ public partial class APEv2Tag : IAPEv2Tag
 
     private void ReadField(Stream stream)
     {
-        byte[] buf = new byte[8];
-        int size = 0;
+        var buf = new byte[8];
+        var size = 0;
 
         stream.Read(buf, 0, 8);
-        for (int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
             size += (buf[i] << (i * 8));
         }
@@ -272,8 +272,8 @@ public partial class APEv2Tag : IAPEv2Tag
         else if (encoding == 3) sencoding = "reserved";*/
         // don't care what's in the item flags
 
-        string itemKey = stream.ReadISO88591().ToUpper();
-        string itemValue = stream.ReadUTF8(size);
+        var itemKey = stream.ReadISO88591().ToUpper();
+        var itemValue = stream.ReadUTF8(size);
 
         // does the key already exist?
         if (_items.ContainsKey(itemKey))

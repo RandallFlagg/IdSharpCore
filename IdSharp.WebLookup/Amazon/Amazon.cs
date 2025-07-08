@@ -31,16 +31,16 @@ public static class Amazon
         }
 
         // remove everything after parentheses
-        int parenIndex = value.IndexOf('(');
+        var parenIndex = value.IndexOf('(');
         if (parenIndex > 0)
         {
             value = value.Substring(0, parenIndex);
         }
 
         // remove all characters that are not letters, digits, or spaces
-        for (int i = 0; i < value.Length; i++)
+        for (var i = 0; i < value.Length; i++)
         {
-            char c = value[i];
+            var c = value[i];
             if (!char.IsLetterOrDigit(c) && c != ' ')
             {
                 value = value.Replace(c, ' ');
@@ -49,9 +49,9 @@ public static class Amazon
         }
 
         // remove dangling digits
-        for (int i = 0; i < value.Length; i++)
+        for (var i = 0; i < value.Length; i++)
         {
-            char c = value[i];
+            var c = value[i];
             if (char.IsDigit(c))
             {
                 if (i > 0)
@@ -120,14 +120,14 @@ public static class Amazon
             throw new ArgumentNullException(nameof(secretAccessKey));
         }
 
-        String amazonDomain = GetDomain(server);
+        var amazonDomain = GetDomain(server);
 
         FixSearchString(ref artist);
         FixSearchString(ref album);
         FixSearchString(ref keywords);
 
-        string sort = (String.IsNullOrEmpty(artist) ? "artistrank" : "titlerank");
-        List<PostData> postData = new List<PostData>();
+        var sort = (String.IsNullOrEmpty(artist) ? "artistrank" : "titlerank");
+        var postData = new List<PostData>();
         postData.Add(new PostData("Service", "AWSECommerceService"));
         postData.Add(new PostData("AWSAccessKeyId", awsAccessKeyId));
         postData.Add(new PostData("Operation", "ItemSearch"));
@@ -148,25 +148,25 @@ public static class Amazon
         postData.Add(new PostData("Sort", sort));
         postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));
 
-        string hostHeader = $"ecs.{amazonDomain}";
-        string signature = GetSignature(postData, hostHeader, secretAccessKey);
+        var hostHeader = $"ecs.{amazonDomain}";
+        var signature = GetSignature(postData, hostHeader, secretAccessKey);
         postData.Add(new PostData("Signature", signature));
 
-        string requestUri = $"http://{hostHeader}{HttpRequestUri}";
+        var requestUri = $"http://{hostHeader}{HttpRequestUri}";
         requestUri = Http.GetQueryString(requestUri, postData);
-        byte[] byteResponse = Http.Get(requestUri);
+        var byteResponse = Http.Get(requestUri);
         if (byteResponse == null)
         {
             throw new WebException($"Response from {amazonDomain} was null");
         }
 
-        string response = Encoding.UTF8.GetString(byteResponse);
+        var response = Encoding.UTF8.GetString(byteResponse);
 
-        AmazonSearchResponse result = new AmazonSearchResponse();
+        var result = new AmazonSearchResponse();
         result.TotalPages = 0;
         result.TotalResults = 0;
 
-        XmlDocument xmlDocument = new XmlDocument();
+        var xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(response);
         foreach (XmlNode node in xmlDocument.ChildNodes)
         {
@@ -180,13 +180,13 @@ public static class Amazon
                         {
                             if (opReqNode.Name == "Errors")
                             {
-                                string fullErrorMessage = "";
+                                var fullErrorMessage = "";
                                 foreach (XmlNode errorNode in opReqNode.ChildNodes)
                                 {
                                     if (errorNode.Name == "Error")
                                     {
-                                        string errorMessage = "";
-                                        string errorCode = "";
+                                        var errorMessage = "";
+                                        var errorCode = "";
                                         foreach (XmlNode errorItemNode in errorNode.ChildNodes)
                                         {
                                             if (errorItemNode.Name == "Code")
@@ -245,7 +245,7 @@ public static class Amazon
                             }
                             else if (itemNode.Name == "Item")
                             {
-                                AmazonAlbum albumItem = new AmazonAlbum(server, awsAccessKeyId, secretAccessKey);
+                                var albumItem = new AmazonAlbum(server, awsAccessKeyId, secretAccessKey);
                                 result.Items.Add(albumItem);
                                 foreach (XmlNode itemDetail in itemNode.ChildNodes)
                                 {
@@ -299,7 +299,7 @@ public static class Amazon
 
             getString.Append(item.Field);
             getString.Append("=");
-            foreach (char c in item.Value)
+            foreach (var c in item.Value)
             {
                 if (c <= 255)
                 {

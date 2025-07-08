@@ -98,7 +98,7 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         
         if (bytesLeft >= 1)
         {
@@ -117,10 +117,10 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
                         while (bytesLeft > 0)
                         {
-                            string lyrics = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+                            var lyrics = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
                             if (bytesLeft >= 4)
                             {
-                                SynchronizedTextItem textItem = new SynchronizedTextItem();
+                                var textItem = new SynchronizedTextItem();
                                 textItem.Text = lyrics;
                                 textItem.Timestamp = stream.ReadInt32();
                                 bytesLeft -= 4;
@@ -176,9 +176,9 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
 
         if (TextEncoding == EncodingType.ISO88591)
         {
-            foreach (ISynchronizedTextItem item in Items)
+            foreach (var item in Items)
             {
-                byte[] textData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, item.Text, true);
+                var textData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, item.Text, true);
                 if (this.RequiresFix(tagVersion, item.Text, textData))
                 {
                     break;
@@ -192,14 +192,14 @@ internal sealed class SynchronizedText : Frame, ISynchronizedText
             contentDescriptorData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, ContentDescriptor, true);
         } while (this.RequiresFix(tagVersion, ContentDescriptor, contentDescriptorData));
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.WriteByte((byte)TextEncoding);
             frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));
             frameData.WriteByte((byte)TimestampFormat);
             frameData.WriteByte((byte)ContentType);
             frameData.Write(contentDescriptorData);
-            foreach (ISynchronizedTextItem item in Items)
+            foreach (var item in Items)
             {
                 frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, item.Text, true));
                 frameData.Write(ByteUtils.Get4Bytes(item.Timestamp));

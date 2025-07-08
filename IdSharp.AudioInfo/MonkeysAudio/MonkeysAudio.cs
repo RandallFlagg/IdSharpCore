@@ -19,21 +19,21 @@ public class MonkeysAudio : IAudioFile
     /// <param name="path">The path.</param>
     public MonkeysAudio(string path)
     {
-        using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             // Skip ID3v2 tag
-            int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
-            int tmpID3v1TagSize = ID3v1.GetTagSize(stream);
-            int tmpAPEv2TagSize = APEv2.GetTagSize(stream);
+            var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+            var tmpID3v1TagSize = ID3v1.GetTagSize(stream);
+            var tmpAPEv2TagSize = APEv2.GetTagSize(stream);
             stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
-            byte[] identifier = stream.Read(4);
+            var identifier = stream.Read(4);
             if (ByteUtils.Compare(identifier, MAC_IDENTIFIER, 4) == false)
             {
                 throw new InvalidDataException("Invalid Monkey's Audio file");
             }
 
-            byte[] buf = stream.Read(4);
+            var buf = stream.Read(4);
 
             Version = buf[0] + (buf[1] << 8);
             int blocksPerFrame;
@@ -42,7 +42,7 @@ public class MonkeysAudio : IAudioFile
             if (Version >= 3980 && Version <= 3990)
             {
                 buf = stream.Read(4);
-                int descriptorLength = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
+                var descriptorLength = buf[0] + (buf[1] << 8) + (buf[2] << 16) + (buf[3] << 24);
                 stream.Seek(descriptorLength - 12, SeekOrigin.Current); // skip DESCRIPTOR
 
                 buf = stream.Read(4);
@@ -95,7 +95,7 @@ public class MonkeysAudio : IAudioFile
 
             long totalBlocks = ((Frames - 1) * blocksPerFrame) + finalBlocks;
 
-            long totalSize = stream.Length - stream.Position - tmpAPEv2TagSize - tmpID3v1TagSize;
+            var totalSize = stream.Length - stream.Position - tmpAPEv2TagSize - tmpID3v1TagSize;
 
             TotalSeconds = totalBlocks / (decimal)Frequency;
             Bitrate = totalSize / (TotalSeconds * 125.0m);

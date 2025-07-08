@@ -41,7 +41,7 @@ internal sealed class PlayCount : Frame, IPlayCount
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
         long playCount = 0;
         while (bytesLeft > 0)
@@ -60,7 +60,7 @@ internal sealed class PlayCount : Frame, IPlayCount
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             if (Value <= uint.MaxValue)
             {

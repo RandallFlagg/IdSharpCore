@@ -47,7 +47,7 @@ public static class ByteUtils
             throw new ArgumentOutOfRangeException(nameof(bitToCheck), bitToCheck, "bitToCheck must be <= 7");
         }
 
-        bool returnValue = ((byteToCheck >> bitToCheck) & 0x01) == 0x01;
+        var returnValue = ((byteToCheck >> bitToCheck) & 0x01) == 0x01;
         return returnValue;
     }
 
@@ -58,7 +58,7 @@ public static class ByteUtils
     /// <param name="byteArraySize">Size of the byte array.</param>
     public static byte[] GetBytesDecimal(decimal decimalValue, int byteArraySize)
     {
-        byte[] byteArray = GetBytesMinimal((ulong)decimalValue);
+        var byteArray = GetBytesMinimal((ulong)decimalValue);
 
         if (byteArray.Length == byteArraySize)
         {
@@ -68,7 +68,7 @@ public static class ByteUtils
         else if (byteArray.Length > byteArraySize)
         {
             // Size is greater than requested. Return new array with right 'byteArraySize' bytes.
-            byte[] returnValue = new byte[byteArraySize];
+            var returnValue = new byte[byteArraySize];
             for (int i = byteArray.Length - byteArraySize, j = 0; i < byteArray.Length; i++, j++)
             {
                 returnValue[j] = byteArray[i];
@@ -78,7 +78,7 @@ public static class ByteUtils
         else
         {
             // Size is less than requested. Return new array left padded with 0's.
-            byte[] returnValue = new byte[byteArraySize];
+            var returnValue = new byte[byteArraySize];
             for (int i = byteArraySize - byteArray.Length, j = 0; i < byteArraySize; i++, j++)
             {
                 returnValue[i] = byteArray[j];
@@ -130,7 +130,7 @@ public static class ByteUtils
     public static byte[] Get8Bytes(ulong value)
     {
         // BitConverter.GetBytes uses LE - we need BE
-        byte[] byteArray = new[] { (byte)((value >> 56) & 0xFF),
+        var byteArray = new[] { (byte)((value >> 56) & 0xFF),
                                    (byte)((value >> 48) & 0xFF),
                                    (byte)((value >> 40) & 0xFF),
                                    (byte)((value >> 32) & 0xFF),
@@ -149,7 +149,7 @@ public static class ByteUtils
     public static byte[] Get4Bytes(uint value)
     {
         // BitConverter.GetBytes uses LE - we need BE
-        byte[] byteArray = new[] { (byte)((value >> 24) & 0xFF),
+        var byteArray = new[] { (byte)((value >> 24) & 0xFF),
                                    (byte)((value >> 16) & 0xFF),
                                    (byte)((value >> 8) & 0xFF),
                                    (byte)(value & 0xFF)
@@ -164,7 +164,7 @@ public static class ByteUtils
     public static byte[] Get2Bytes(ushort value)
     {
         // BitConverter.GetBytes uses LE - we need BE
-        byte[] byteArray = new[] { (byte)((value >> 8) & 0xFF),
+        var byteArray = new[] { (byte)((value >> 8) & 0xFF),
                                    (byte)(value & 0xFF)
                                  };
         return byteArray;

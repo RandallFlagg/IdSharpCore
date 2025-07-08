@@ -39,7 +39,7 @@ internal sealed class Podcast : Frame, IPodcast
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
         while (bytesLeft > 0)
         {
@@ -55,7 +55,7 @@ internal sealed class Podcast : Frame, IPodcast
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.Write(ByteUtils.Get4Bytes(1));
             return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));

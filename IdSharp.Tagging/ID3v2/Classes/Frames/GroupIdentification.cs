@@ -61,7 +61,7 @@ internal sealed class GroupIdentification : Frame, IGroupIdentification
 
     public override byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, _ownerIdentifier, true));
             frameData.WriteByte(_groupSymbol);

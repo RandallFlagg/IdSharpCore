@@ -61,7 +61,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
         if (_frameHeader.FrameSizeExcludingAdditions > 0)
         {
             TextEncoding = (EncodingType)stream.Read1();
-            int bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1;
+            var bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1;
             Description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
             Value = ID3v2Utils.ReadString(TextEncoding, stream, bytesLeft);
         }
@@ -93,7 +93,7 @@ internal sealed class TXXXFrame : Frame, ITXXXFrame
             this.RequiresFix(tagVersion, Value, valueData)
         );
 
-        using (MemoryStream stream = new MemoryStream())
+        using (var stream = new MemoryStream())
         {
             stream.WriteByte((byte)TextEncoding);
             stream.Write(descriptionData);

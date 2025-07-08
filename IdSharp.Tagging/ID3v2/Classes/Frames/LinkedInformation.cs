@@ -58,8 +58,8 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
-        int frameIDSize = (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22 ? 3 : 4);
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var frameIDSize = (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v22 ? 3 : 4);
         if (bytesLeft > frameIDSize)
         {
             FrameIdentifier = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, frameIDSize);
@@ -95,7 +95,7 @@ internal sealed class LinkedInformation : Frame, ILinkedInformation
             }
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.Write(ByteUtils.ISO88591GetBytes(_frameIdentifier));
             frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, EncodingType.ISO88591, _url, true));

@@ -45,7 +45,7 @@ internal class Mpeg4Tag
 
     private static int ReadInt32(byte[] data, int offset)
     {
-        int n = (data[offset] & 0xff) << 24;
+        var n = (data[offset] & 0xff) << 24;
         n += (data[offset + 1] & 0xff) << 16;
         n += (data[offset + 2] & 0xff) << 8;
         n += (data[offset + 3] & 0xff);
@@ -54,19 +54,19 @@ internal class Mpeg4Tag
 
     private void ParseStsdAtom(byte[] atomdata)
     {
-        byte[] data_format = new byte[4];
-        byte[] encoder_vendor = new byte[4];
+        var data_format = new byte[4];
+        var encoder_vendor = new byte[4];
 
-        int num = ReadInt32(atomdata, 4);
-        int stsdOff = 8;
-        for (int i = 0; i < num; i++)
+        var num = ReadInt32(atomdata, 4);
+        var stsdOff = 8;
+        for (var i = 0; i < num; i++)
         {
-            int size = ReadInt32(atomdata, stsdOff);
+            var size = ReadInt32(atomdata, stsdOff);
             stsdOff += 4;
             Buffer.BlockCopy(atomdata, stsdOff, data_format, 0, 4);
 
             stsdOff += 12;
-            byte[] data = new byte[size - 4 - 12];
+            var data = new byte[size - 4 - 12];
             Buffer.BlockCopy(atomdata, stsdOff, data, 0, (size - 4 - 12));
             stsdOff += (size - 4 - 12);
 
@@ -91,21 +91,21 @@ internal class Mpeg4Tag
     {
         ++level;
 
-        long end = stream.Length;
-        long offset = firstOffset;
+        var end = stream.Length;
+        var offset = firstOffset;
         while (offset < stopAt)
         {
             stream.Seek(offset, SeekOrigin.Begin);
 
-            int atomsize = stream.ReadInt32();
-            string atomname = ByteUtils.ISO88591.GetString(stream.Read(4));
+            var atomsize = stream.ReadInt32();
+            var atomname = ByteUtils.ISO88591.GetString(stream.Read(4));
 
             if ((offset + atomsize) > end)
             {
                 throw new InvalidDataException($"atom at {offset} claims {atomsize} bytes, end = {end}");
             }
 
-            Atom atom = new Atom();
+            var atom = new Atom();
             atom.name = atomname;
             //atom.size = atomsize;
             //atom.pos = stream.Position - 8;
@@ -133,7 +133,7 @@ internal class Mpeg4Tag
                 if (atom.level == 2)
                 {
                     // go backwards through the entries
-                    for (int i = _atoms.Count - 1; i > 0; i--)
+                    for (var i = _atoms.Count - 1; i > 0; i--)
                     {
                         // until we hit a level 1
                         if (_atoms[i].level == 1)
@@ -157,7 +157,7 @@ internal class Mpeg4Tag
             } // if free
 
             // if it's a container atom, parse the contents of the atom
-            foreach (string atomType in ATOM_TYPES)
+            foreach (var atomType in ATOM_TYPES)
             {
                 if (string.Compare(atomname, atomType, true) == 0)
                 {
@@ -170,9 +170,9 @@ internal class Mpeg4Tag
             if (string.Compare(atomname, "meta", true) == 0)
             {
                 // read in meta atom
-                byte[] atomdata = stream.Read(atomsize - 8);
-                int nextTagPosition = 0;
-                for (int i = 0; i < atomdata.Length - 4; i++)
+                var atomdata = stream.Read(atomsize - 8);
+                var nextTagPosition = 0;
+                for (var i = 0; i < atomdata.Length - 4; i++)
                 {
                     // ilst
                     if (atomdata[i] == 'i' && atomdata[i + 1] == 'l' && atomdata[i + 2] == 's' && atomdata[i + 3] == 't')
@@ -184,7 +184,7 @@ internal class Mpeg4Tag
 
                 while (nextTagPosition < (atomsize - 4) && nextTagPosition > 8)
                 {
-                    int size = ReadInt32(atomdata, (nextTagPosition - 4)) - 4;
+                    var size = ReadInt32(atomdata, (nextTagPosition - 4)) - 4;
                     nextTagPosition += size + 4;
                 }
             } // if meta
@@ -200,7 +200,7 @@ internal class Mpeg4Tag
             // stsd has data for sample, channels and codec
             if (string.Compare(atomname, "stsd", true) == 0)
             {
-                byte[] atomdata = stream.Read(atomsize - 8);
+                var atomdata = stream.Read(atomsize - 8);
                 ParseStsdAtom(atomdata);
             }
 
@@ -225,7 +225,7 @@ internal class Mpeg4Tag
     /// <param name="path">The path.</param>
     public void Read(string path)
     {
-        using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             ReadStream(fs);
         }
@@ -241,7 +241,7 @@ internal class Mpeg4Tag
         _freesize = 0;
         MdatAtomSize = 0;
 
-        long end = stream.Length;
+        var end = stream.Length;
         ParseAtom(stream, 0, end, 0);
     }
 }
