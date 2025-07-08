@@ -15,8 +15,8 @@ public static class EnumUtils
     public static string GetDescription<T>(T enumValue)
         where T : struct
     {
-        string enumString = enumValue.ToString();
-        object[] descriptions = typeof(T).GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
+        var enumString = enumValue.ToString();
+        var descriptions = typeof(T).GetField(enumString).GetCustomAttributes(typeof(DescriptionAttribute), false);
         if (descriptions.Length == 1)
         {
             enumString = ((DescriptionAttribute)descriptions[0]).Description;

@@ -39,7 +39,7 @@ internal sealed class Comments : Frame, IComments
                 // Language code must be 3 characters
                 if (_languageCode.Length != 3)
                 {
-                    string msg = $"Invalid language code '{value}' in COMM frame";
+                    var msg = $"Invalid language code '{value}' in COMM frame";
                     Trace.WriteLine(msg);
 
                     // TODO: Should this fire a warning?
@@ -107,11 +107,11 @@ internal sealed class Comments : Frame, IComments
 
             if (_frameHeader.FrameSizeExcludingAdditions >= 4)
             {
-                string languageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
-                int bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 - 3;
-                string description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+                var languageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
+                var bytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 - 3;
+                var description = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
 
-                bool invalidFrame = false;
+                var invalidFrame = false;
                 if (LanguageHelper.Languages.ContainsKey(languageCode.ToLower()) == false && languageCode.ToLower() != "xxx")
                 {
                     // most likely, it's en\0, or some other funk
@@ -164,7 +164,7 @@ internal sealed class Comments : Frame, IComments
             }
             else
             {
-                string msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
+                var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
                 Trace.WriteLine(msg);
 
                 LanguageCode = "eng";
@@ -173,7 +173,7 @@ internal sealed class Comments : Frame, IComments
         }
         else
         {
-            string msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
+            var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) COMM frame at position {stream.Position}";
             Trace.WriteLine(msg);
 
             LanguageCode = "eng";
@@ -221,7 +221,7 @@ internal sealed class Comments : Frame, IComments
             this.RequiresFix(tagVersion, Value, valueData)
         );
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.WriteByte((byte) TextEncoding);
             frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));

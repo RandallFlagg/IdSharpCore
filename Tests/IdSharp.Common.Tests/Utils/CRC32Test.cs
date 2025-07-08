@@ -24,7 +24,7 @@ public class CRC32Test
     [Test]
     public void Calculate_Set1_ByteArray()
     {
-        string result = CRC32.Calculate(_testByteArray_1);
+        var result = CRC32.Calculate(_testByteArray_1);
         Assert.That(_crc32StringResult_1, Is.EqualTo(result));
     }
 
@@ -33,7 +33,7 @@ public class CRC32Test
     {
         using (Stream stream = new MemoryStream(_testByteArray_1))
         {
-            string result = CRC32.Calculate(stream);
+            var result = CRC32.Calculate(stream);
             Assert.That(_crc32StringResult_1, Is.EqualTo(result));
         }
     }
@@ -41,11 +41,11 @@ public class CRC32Test
     [Test]
     public void Calculate_Set1_Path()
     {
-        string path = PathUtils.GetTempFileName(".txt");
+        var path = PathUtils.GetTempFileName(".txt");
         File.WriteAllText(path, _testString_1);
         try
         {
-            string result = CRC32.Calculate(new FileInfo(path));
+            var result = CRC32.Calculate(new FileInfo(path));
             Assert.That(_crc32StringResult_1, Is.EqualTo(result));
         }
         finally
@@ -57,7 +57,7 @@ public class CRC32Test
     [Test]
     public void CalculateInt32_Set1_ByteArray()
     {
-        uint result = CRC32.CalculateInt32(_testByteArray_1);
+        var result = CRC32.CalculateInt32(_testByteArray_1);
         Assert.That(_crc32Result_1, Is.EqualTo(result));
     }
 
@@ -66,7 +66,7 @@ public class CRC32Test
     {
         using (Stream stream = new MemoryStream(_testByteArray_1))
         {
-            uint result = CRC32.CalculateInt32(stream);
+            var result = CRC32.CalculateInt32(stream);
             Assert.That(_crc32Result_1, Is.EqualTo(result));
         }
     }
@@ -74,11 +74,11 @@ public class CRC32Test
     [Test]
     public void CalculateInt32_Set1_Path()
     {
-        string path = PathUtils.GetTempFileName(".txt");
+        var path = PathUtils.GetTempFileName(".txt");
         File.WriteAllText(path, _testString_1);
         try
         {
-            uint result = CRC32.CalculateInt32(new FileInfo(path));
+            var result = CRC32.CalculateInt32(new FileInfo(path));
             Assert.That(_crc32Result_1, Is.EqualTo(result));
         }
         finally
@@ -90,7 +90,7 @@ public class CRC32Test
     [Test]
     public void Calculate_Set2_ByteArray()
     {
-        string result = CRC32.Calculate(_testByteArray_2);
+        var result = CRC32.Calculate(_testByteArray_2);
         Assert.That(_crc32StringResult_2, Is.EqualTo(result));
     }
 
@@ -99,7 +99,7 @@ public class CRC32Test
     {
         using (Stream stream = new MemoryStream(_testByteArray_2))
         {
-            string result = CRC32.Calculate(stream);
+            var result = CRC32.Calculate(stream);
             Assert.That(_crc32StringResult_2, Is.EqualTo(result));
         }
     }
@@ -107,11 +107,11 @@ public class CRC32Test
     [Test]
     public void Calculate_Set2_Path()
     {
-        string path = PathUtils.GetTempFileName(".txt");
+        var path = PathUtils.GetTempFileName(".txt");
         File.WriteAllText(path, _testString_2);
         try
         {
-            string result = CRC32.Calculate(new FileInfo(path));
+            var result = CRC32.Calculate(new FileInfo(path));
             Assert.That(_crc32StringResult_2, Is.EqualTo(result));
         }
         finally
@@ -123,7 +123,7 @@ public class CRC32Test
     [Test]
     public void CalculateInt32_Set2_ByteArray()
     {
-        uint result = CRC32.CalculateInt32(_testByteArray_2);
+        var result = CRC32.CalculateInt32(_testByteArray_2);
         Assert.That(_crc32Result_2, Is.EqualTo(result));
     }
 
@@ -132,7 +132,7 @@ public class CRC32Test
     {
         using (Stream stream = new MemoryStream(_testByteArray_2))
         {
-            uint result = CRC32.CalculateInt32(stream);
+            var result = CRC32.CalculateInt32(stream);
             Assert.That(_crc32Result_2, Is.EqualTo(result));
         }
     }
@@ -140,11 +140,11 @@ public class CRC32Test
     [Test]
     public void CalculateInt32_Set2_Path()
     {
-        string path = PathUtils.GetTempFileName(".txt");
+        var path = PathUtils.GetTempFileName(".txt");
         File.WriteAllText(path, _testString_2);
         try
         {
-            uint result = CRC32.CalculateInt32(new FileInfo(path));
+            var result = CRC32.CalculateInt32(new FileInfo(path));
             Assert.That(_crc32Result_2, Is.EqualTo(result));
         }
         finally

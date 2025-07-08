@@ -54,7 +54,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
 
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft >= 4)
         {
             TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
@@ -65,7 +65,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
             // English 0x00 French 0x00 Spanish 0x00
 
             // TODO: Finish implementation
-            string languageCode = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
+            var languageCode = ID3v2Utils.ReadString(TextEncoding, stream, ref bytesLeft);
             if (languageCode.Length != 3)
             {
                 if (languageCode.ToLower() == "english" || languageCode.ToLower() == "en")
@@ -74,7 +74,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
                 }
                 else
                 {
-                    foreach (KeyValuePair<string, string> kvp in LanguageHelper.Languages)
+                    foreach (var kvp in LanguageHelper.Languages)
                     {
                         if (kvp.Value.ToLower() == languageCode.ToLower())
                         {
@@ -106,20 +106,20 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
         // Set TextEncoding to Unicode/UTF8 if required
         if (TextEncoding == EncodingType.ISO88591)
         {
-            foreach (ILanguageItem languageItem in Items)
+            foreach (var languageItem in Items)
             {
-                byte[] languageCodeData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, languageItem.LanguageCode, true);
+                var languageCodeData = ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, languageItem.LanguageCode, true);
                 this.RequiresFix(tagVersion, languageItem.LanguageCode, languageCodeData);
             }
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.WriteByte((byte)TextEncoding);
-            bool isTerminated = true; //(tagVersion == TagVersion.ID3v24);
-            for (int i = 0; i < Items.Count; i++)
+            var isTerminated = true; //(tagVersion == TagVersion.ID3v24);
+            for (var i = 0; i < Items.Count; i++)
             {
-                ILanguageItem languageItem = Items[i];
+                var languageItem = Items[i];
                 if (i == Items.Count - 1)
                 {
                     isTerminated = false;

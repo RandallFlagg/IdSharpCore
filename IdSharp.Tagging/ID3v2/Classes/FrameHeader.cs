@@ -224,7 +224,7 @@ internal sealed class FrameHeader : IFrameHeader
 
         TagVersion = tagReadingInfo.TagVersion;
 
-        bool usesUnsynchronization = ((tagReadingInfo.TagVersionOptions & TagVersionOptions.Unsynchronized) == TagVersionOptions.Unsynchronized);
+        var usesUnsynchronization = ((tagReadingInfo.TagVersionOptions & TagVersionOptions.Unsynchronized) == TagVersionOptions.Unsynchronized);
 
         if (tagReadingInfo.TagVersion == ID3v2TagVersion.ID3v23)
         {
@@ -239,8 +239,8 @@ internal sealed class FrameHeader : IFrameHeader
 
             FrameSizeExcludingAdditions = FrameSize;
 
-            byte byte0 = stream.Read1();
-            byte byte1 = stream.Read1();
+            var byte0 = stream.Read1();
+            var byte1 = stream.Read1();
 
             // First byte
             IsTagAlterPreservation = ((byte0 & 0x80) == 0x80);
@@ -249,8 +249,8 @@ internal sealed class FrameHeader : IFrameHeader
 
             // Second byte
             IsCompressed = ((byte1 & 0x80) == 0x80);
-            bool tmpIsEncrypted = ((byte1 & 0x40) == 0x40);
-            bool tmpIsGroupingIdentity = ((byte1 & 0x20) == 0x20);
+            var tmpIsEncrypted = ((byte1 & 0x40) == 0x40);
+            var tmpIsGroupingIdentity = ((byte1 & 0x20) == 0x20);
 
             // Additional bytes
 
@@ -336,10 +336,10 @@ internal sealed class FrameHeader : IFrameHeader
 
             FrameSizeExcludingAdditions = FrameSize;
 
-            byte byte0 = stream.Read1();
-            byte byte1 = stream.Read1();
+            var byte0 = stream.Read1();
+            var byte1 = stream.Read1();
 
-            bool hasDataLengthIndicator = ((byte1 & 0x01) == 0x01);
+            var hasDataLengthIndicator = ((byte1 & 0x01) == 0x01);
             usesUnsynchronization = ((byte1 & 0x03) == 0x03);
             if (hasDataLengthIndicator)
             {
@@ -373,7 +373,7 @@ internal sealed class FrameHeader : IFrameHeader
             return new byte[0];
         }
 
-        byte[] frameIDBytes = ByteUtils.ISO88591GetBytes(frameID);
+        var frameIDBytes = ByteUtils.ISO88591GetBytes(frameID);
         byte[] tmpRawData;
 
         if (tagVersion == ID3v2TagVersion.ID3v22)
@@ -393,13 +393,13 @@ internal sealed class FrameHeader : IFrameHeader
         }
         else if (tagVersion == ID3v2TagVersion.ID3v23)
         {
-            int tmpRawDataSize = 10;
+            var tmpRawDataSize = 10;
 
-            byte tmpByte1 = (byte)((_isTagAlterPreservation ? 0x80 : 0) +
+            var tmpByte1 = (byte)((_isTagAlterPreservation ? 0x80 : 0) +
                                (_isFileAlterPreservation ? 0x40 : 0) +
                                (_isReadOnly ? 0x20 : 0));
 
-            byte tmpByte2 = (byte)((_isCompressed ? 0x80 : 0) +
+            var tmpByte2 = (byte)((_isCompressed ? 0x80 : 0) +
                                (_encryptionMethod != null ? 0x40 : 0) +
                                (_groupingIdentity != null ? 0x20 : 0));
 
@@ -418,7 +418,7 @@ internal sealed class FrameHeader : IFrameHeader
                 tmpRawDataSize++;
             }
 
-            int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
+            var tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
 
             tmpRawData = new byte[tmpRawDataSize];
 
@@ -438,7 +438,7 @@ internal sealed class FrameHeader : IFrameHeader
             tmpRawData[8] = tmpByte1;
             tmpRawData[9] = tmpByte2;
 
-            int tmpCurrentPosition = 10;
+            var tmpCurrentPosition = 10;
 
             if (_isCompressed)
             {
@@ -459,13 +459,13 @@ internal sealed class FrameHeader : IFrameHeader
         }
         else if (tagVersion == ID3v2TagVersion.ID3v24)
         {
-            int tmpRawDataSize = 10;
+            var tmpRawDataSize = 10;
 
-            byte tmpByte1 = (byte)((_isTagAlterPreservation ? 0x40 : 0) +
+            var tmpByte1 = (byte)((_isTagAlterPreservation ? 0x40 : 0) +
                               (_isFileAlterPreservation ? 0x20 : 0) +
                               (_isReadOnly ? 0x10 : 0));
 
-            byte tmpByte2 = (byte)((_groupingIdentity != null ? 0x40 : 0) +
+            var tmpByte2 = (byte)((_groupingIdentity != null ? 0x40 : 0) +
                               (_isCompressed ? 0x08 : 0) +
                               (_encryptionMethod != null ? 0x04 : 0)/* +
                               (false Unsynchronization ? 0x02 : 0) +
@@ -488,7 +488,7 @@ internal sealed class FrameHeader : IFrameHeader
             }
             /*TODO: unsync,DLI*/
 
-            int tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
+            var tmpFrameSize = FrameSizeExcludingAdditions + (tmpRawDataSize - 10);
 
             tmpRawData = new byte[tmpRawDataSize];
 
@@ -510,7 +510,7 @@ internal sealed class FrameHeader : IFrameHeader
             tmpRawData[8] = tmpByte1;
             tmpRawData[9] = tmpByte2;
 
-            int tmpCurrentPosition = 10;
+            var tmpCurrentPosition = 10;
 
             if (_groupingIdentity != null)
             {
@@ -535,7 +535,7 @@ internal sealed class FrameHeader : IFrameHeader
             throw new ArgumentOutOfRangeException(nameof(tagVersion), tagVersion, "Unknown tag version");
         }
 
-        using (MemoryStream totalFrame = new MemoryStream())
+        using (var totalFrame = new MemoryStream())
         {
             totalFrame.Write(tmpRawData);
             totalFrame.Write(frameData.ToArray());

@@ -96,7 +96,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
     {
         //Guard.ArgumentNotNull(stream, "stream");
 
-        int size = stream.ReadInt32();
+        var size = stream.ReadInt32();
 
         // Test for a possible FrameID (0x41 = 'A')
         // Most likely the extended header bit is set but
@@ -104,7 +104,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
         // to its original position and return.
         if (size >= 0x41000000)
         {
-            string msg = $"FrameID found when expected extended header at position {stream.Position - 4}";
+            var msg = $"FrameID found when expected extended header at position {stream.Position - 4}";
             Trace.WriteLine(msg);
 
             stream.Seek(-4, SeekOrigin.Current);
@@ -112,8 +112,8 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
             return;
         }
 
-        byte flags1 = stream.Read1();
-        byte flags2 = stream.Read1();
+        var flags1 = stream.Read1();
+        var flags2 = stream.Read1();
 
         _isCRCDataPresent = ((flags1 & 0x80) == 0x80);
 
@@ -131,7 +131,7 @@ internal sealed class ID3v2ExtendedHeader : IID3v2ExtendedHeader
 
     public byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
-        byte[] buf = new byte[_isCRCDataPresent ? 14 : 10];
+        var buf = new byte[_isCRCDataPresent ? 14 : 10];
 
         // Size (excluding these 4 bytes)
         buf[0] = 0;

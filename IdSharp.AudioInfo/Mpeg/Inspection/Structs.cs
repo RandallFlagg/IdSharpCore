@@ -109,7 +109,7 @@ internal struct OldLameHeader
 
     public static OldLameHeader FromBinaryReader(BinaryReader br)
     {
-        OldLameHeader tmpOldLameHeader = new OldLameHeader();
+        var tmpOldLameHeader = new OldLameHeader();
         tmpOldLameHeader.UnusedByte = br.ReadByte();
         tmpOldLameHeader.Encoder = br.ReadBytes(4);
         tmpOldLameHeader.VersionString = br.ReadBytes(16);

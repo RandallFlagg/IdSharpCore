@@ -81,7 +81,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft >= 4)
         {
             TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
@@ -115,7 +115,7 @@ internal sealed class GeneralEncapsulatedObject : Frame, IGeneralEncapsulatedObj
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             byte[] fileNameData;
             byte[] descriptionData;

@@ -28,13 +28,13 @@ public abstract partial class FrameContainer : IFrameContainer
 
     internal void Read(Stream stream, ID3v2TagVersion tagVersion, TagReadingInfo tagReadingInfo, int readUntil, int frameIDSize)
     {
-        Dictionary<string, IBindingList> multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
-        Dictionary<string, IFrame> singleOccurrenceFrames = GetSingleOccurrenceFrames(tagVersion);
+        var multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
+        var singleOccurrenceFrames = GetSingleOccurrenceFrames(tagVersion);
 
-        int bytesRead = 0;
+        var bytesRead = 0;
         while (bytesRead < readUntil)
         {
-            byte[] frameIDBytes = stream.Read(frameIDSize);
+            var frameIDBytes = stream.Read(frameIDSize);
 
             // If character is not a letter or number, padding reached, audio began,
             // or otherwise the frame is not readable
@@ -48,10 +48,10 @@ public abstract partial class FrameContainer : IFrameContainer
                     // TODO: Try to keep reading and look for a valid frame
                     if (frameIDBytes[0] != 0 && frameIDBytes[0] != 0xFF)
                     {
-                        string msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}|0x{frameIDBytes[3]:X}";
+                        var msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}|0x{frameIDBytes[3]:X}";
                         if (ByteUtils.ISO88591GetString(frameIDBytes) != "MP3e")
                         {
-                            string tmpBadFrameID = ByteUtils.ISO88591GetString(frameIDBytes).TrimEnd('\0');
+                            var tmpBadFrameID = ByteUtils.ISO88591GetString(frameIDBytes).TrimEnd('\0');
                             Trace.WriteLine(msg + " - " + tmpBadFrameID);
                         }
                     }
@@ -68,7 +68,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     // TODO: Try to keep reading and look for a valid frame
                     if (frameIDBytes[0] != 0 && frameIDBytes[0] != 0xFF)
                     {
-                        string msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}";
+                        var msg = $"Out of range FrameID - 0x{frameIDBytes[0]:X}|0x{frameIDBytes[1]:X}|0x{frameIDBytes[2]:X}";
                         Trace.WriteLine(msg);
                         Trace.WriteLine(ByteUtils.ISO88591GetString(frameIDBytes));
                     }
@@ -77,7 +77,7 @@ public abstract partial class FrameContainer : IFrameContainer
                 }
             }
 
-            string frameID = ByteUtils.ISO88591GetString(frameIDBytes);
+            var frameID = ByteUtils.ISO88591GetString(frameIDBytes);
 
             // TODO: Take out
             //Console.WriteLine(tmpFrameID); // TODO: take out
@@ -165,7 +165,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     Trace.WriteLine(msg);*/
                 }
 
-                UnknownFrame unknownFrame = new UnknownFrame(frameID, tagReadingInfo, stream);
+                var unknownFrame = new UnknownFrame(frameID, tagReadingInfo, stream);
                 _unknownFrames.Add(unknownFrame);
                 //m_ReadFrames.Add(tmpUNKN);
                 bytesRead += unknownFrame.FrameHeader.FrameSizeTotal;
@@ -173,10 +173,10 @@ public abstract partial class FrameContainer : IFrameContainer
         }
 
         // Process iTunes comments
-        int iTunesCommentsInsertIndex = m_iTunesCommentsList.Count;
-        for (int i = m_CommentsList.Count - 1; i >= 0; i--)
+        var iTunesCommentsInsertIndex = m_iTunesCommentsList.Count;
+        for (var i = m_CommentsList.Count - 1; i >= 0; i--)
         {
-            IComments comment = m_CommentsList[i];
+            var comment = m_CommentsList[i];
             if (comment.Description?.StartsWith("iTun", StringComparison.Ordinal) == true)
             {
                 m_CommentsList.RemoveAt(i);
@@ -199,7 +199,7 @@ public abstract partial class FrameContainer : IFrameContainer
         {
             if (m_Genre.Value.StartsWith("("))
             {
-                int closeIndex = m_Genre.Value.IndexOf(')');
+                var closeIndex = m_Genre.Value.IndexOf(')');
                 if (closeIndex != -1)
                 {
                     if (closeIndex != m_Genre.Value.Length - 1)
@@ -210,7 +210,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     else
                     {
                         // Lookup genre value
-                        string innerValue = m_Genre.Value.Substring(1, closeIndex - 1);
+                        var innerValue = m_Genre.Value.Substring(1, closeIndex - 1);
                         int innerValueResult;
                         if (int.TryParse(innerValue, out innerValueResult))
                         {
@@ -235,14 +235,14 @@ public abstract partial class FrameContainer : IFrameContainer
 
     internal List<IFrame> GetAllFrames(ID3v2TagVersion tagVersion)
     {
-        Dictionary<string, IBindingList> multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
-        Dictionary<string, IFrame> singleOccurenceFrames = GetSingleOccurrenceFrames(tagVersion);
+        var multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
+        var singleOccurenceFrames = GetSingleOccurrenceFrames(tagVersion);
 
-        List<IFrame> allFrames = new List<IFrame>();
+        var allFrames = new List<IFrame>();
         allFrames.AddRange(singleOccurenceFrames.Select(p => p.Value));
-        foreach (KeyValuePair<string, IBindingList> kvp in multipleOccurrenceFrames)
+        foreach (var kvp in multipleOccurrenceFrames)
         {
-            IBindingList bindingList = kvp.Value;
+            var bindingList = kvp.Value;
             allFrames.AddRange(bindingList.Cast<IFrame>());
 
             // Special handling for iTunes comment frames
@@ -261,7 +261,7 @@ public abstract partial class FrameContainer : IFrameContainer
 
         allFrames.AddRange(_unknownFrames);
 
-        foreach (IFrame frame in new List<IFrame>(allFrames))
+        foreach (var frame in new List<IFrame>(allFrames))
         {
             if (frame.GetBytes(tagVersion).Length == 0)
             {
@@ -291,18 +291,18 @@ public abstract partial class FrameContainer : IFrameContainer
             return new List<IFrame>();
         }
 
-        List<IFrame> allFrames = GetAllFrames(tagVersion);
-        for (int i = allFrames.Count - 1; i >= 0; i--)
+        var allFrames = GetAllFrames(tagVersion);
+        for (var i = allFrames.Count - 1; i >= 0; i--)
         {
-            IFrame frame = allFrames[i];
+            var frame = allFrames[i];
 
             // Cached frame IDs.
-            string iD3v22ID = frame.GetFrameID(ID3v2TagVersion.ID3v22);
-            string iD3v23ID = frame.GetFrameID(ID3v2TagVersion.ID3v23);
-            string iD3v24ID = frame.GetFrameID(ID3v2TagVersion.ID3v24);
+            var iD3v22ID = frame.GetFrameID(ID3v2TagVersion.ID3v22);
+            var iD3v23ID = frame.GetFrameID(ID3v2TagVersion.ID3v23);
+            var iD3v24ID = frame.GetFrameID(ID3v2TagVersion.ID3v24);
 
-            bool found = false;
-            foreach (string frameID in frameIDs)
+            var found = false;
+            foreach (var frameID in frameIDs)
             {
                 if (iD3v22ID.Equals(frameID, StringComparison.Ordinal) ||
                     iD3v23ID.Equals(frameID, StringComparison.Ordinal) ||
@@ -323,26 +323,26 @@ public abstract partial class FrameContainer : IFrameContainer
 
     internal byte[] GetBytes(ID3v2TagVersion tagVersion)
     {
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             // Note: this doesn't use GetAllFrames() because it would cause multiple calls to IFrame.GetBytes
 
-            Dictionary<string, IBindingList> multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
-            Dictionary<string, IFrame> singleOccurrenceFrames = GetSingleOccurrenceFrames(tagVersion);
+            var multipleOccurrenceFrames = GetMultipleOccurrenceFrames(tagVersion);
+            var singleOccurrenceFrames = GetSingleOccurrenceFrames(tagVersion);
 
             foreach (var frame in singleOccurrenceFrames.Values)
             {
-                byte[] rawData = frame.GetBytes(tagVersion);
+                var rawData = frame.GetBytes(tagVersion);
                 frameData.Write(rawData);
             }
 
-            foreach (KeyValuePair<string, IBindingList> kvp in multipleOccurrenceFrames)
+            foreach (var kvp in multipleOccurrenceFrames)
             {
-                IBindingList bindingList = kvp.Value;
+                var bindingList = kvp.Value;
 
                 foreach (var frame in bindingList.Cast<IFrame>())
                 {
-                    byte[] rawData = frame.GetBytes(tagVersion);
+                    var rawData = frame.GetBytes(tagVersion);
                     frameData.Write(rawData);
                 }
 
@@ -352,7 +352,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     foreach (var frame in m_iTunesCommentsList)
                     {
                         // iTunes will only respect comments that end with a terminating null character
-                        byte[] rawData = ((Comments) frame).GetBytes(tagVersion, true);
+                        var rawData = ((Comments) frame).GetBytes(tagVersion, true);
                         frameData.Write(rawData);
                     }
                 }
@@ -362,18 +362,18 @@ public abstract partial class FrameContainer : IFrameContainer
                 {
                     foreach (var frame in m_ReplayGainList)
                     {   
-                        byte[] rawData = frame.GetBytes(tagVersion);
+                        var rawData = frame.GetBytes(tagVersion);
                         frameData.Write(rawData);
                     }
                 }
             }
 
-            foreach (UnknownFrame unknownFrame in _unknownFrames)
+            foreach (var unknownFrame in _unknownFrames)
             {
                 //if (m_ReadFrames.Contains(tmpUNKN))
                 //    continue;
 
-                byte[] rawData = unknownFrame.GetBytes(tagVersion);
+                var rawData = unknownFrame.GetBytes(tagVersion);
                 frameData.Write(rawData);
             }
 

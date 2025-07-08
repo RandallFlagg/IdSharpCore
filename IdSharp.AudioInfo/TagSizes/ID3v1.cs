@@ -13,14 +13,14 @@ internal static class ID3v1
     {
         ArgumentNullException.ThrowIfNull(stream);
 
-        long currentPosition = stream.Position;
+        var currentPosition = stream.Position;
         try
         {
             if (stream.Length >= 128)
             {
                 stream.Seek(-128, SeekOrigin.End);
 
-                byte[] buf = new byte[3];
+                var buf = new byte[3];
                 stream.Read(buf, 0, 3);
 
                 // Check for 'TAG'

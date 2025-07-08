@@ -45,7 +45,7 @@ internal sealed class ID3v2Header : IID3v2Header
         {
             if (value > 0xFFFFFFF)
             {
-                string msg = $"Argument 'value' out of range.  Maximum tag size is {0xFFFFFFF}.";
+                var msg = $"Argument 'value' out of range.  Maximum tag size is {0xFFFFFFF}.";
                 Trace.WriteLine(msg);
                 throw new ArgumentOutOfRangeException(nameof(value), value, msg);
             }
@@ -150,12 +150,12 @@ internal sealed class ID3v2Header : IID3v2Header
         }
         else
         {
-            byte[] tmpHeader = stream.Read(7);
+            var tmpHeader = stream.Read(7);
 
             // Version
             if (tmpHeader[0] < 2 || tmpHeader[0] > 4)
             {
-                string msg = $"ID3 Version '{tmpHeader[0]}' not recognized (valid versions are 2, 3, and 4)";
+                var msg = $"ID3 Version '{tmpHeader[0]}' not recognized (valid versions are 2, 3, and 4)";
                 Trace.WriteLine(msg);
                 throw new InvalidDataException(msg);
             }
@@ -207,7 +207,7 @@ internal sealed class ID3v2Header : IID3v2Header
     {
         //Guard.ArgumentNotNull(stream, "stream");
 
-        byte[] header = stream.Read(3);
+        var header = stream.Read(3);
 
         // Identifier
         if (!(header[0] == 0x49 && header[1] == 0x44 && header[2] == 0x33))
@@ -222,7 +222,7 @@ internal sealed class ID3v2Header : IID3v2Header
 
     public byte[] GetBytes()
     {
-        byte[] header = new byte[10];
+        var header = new byte[10];
 
         // Identifier
         header[0] = 0x49; // 'I'

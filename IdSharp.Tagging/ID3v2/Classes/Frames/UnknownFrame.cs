@@ -42,7 +42,7 @@ internal sealed class UnknownFrame : Frame
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream(_frameData))
+        using (var frameData = new MemoryStream(_frameData))
         {
             return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));
         }

@@ -63,7 +63,7 @@ public partial class ID3v2UserControl : UserControl
 
     private void cmbImageType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+        var attachedPicture = GetCurrentPictureFrame();
         if (attachedPicture != null)
         {
             attachedPicture.PictureType = PictureTypeHelper.GetPictureTypeFromString(cmbImageType.Text);
@@ -72,7 +72,7 @@ public partial class ID3v2UserControl : UserControl
 
     private void txtImageDescription_Validated(object sender, EventArgs e)
     {
-        IAttachedPicture attachedPicture = GetCurrentPictureFrame();
+        var attachedPicture = GetCurrentPictureFrame();
         if (attachedPicture != null)
         {
             attachedPicture.Description = txtImageDescription.Text;
@@ -102,14 +102,14 @@ public partial class ID3v2UserControl : UserControl
 
     private void SaveImageToFile(IAttachedPicture attachedPicture)
     {
-        string extension = attachedPicture.PictureExtension;
+        var extension = attachedPicture.PictureExtension;
 
         imageSaveFileDialog.FileName = "image." + extension;
 
-        DialogResult dialogResult = imageSaveFileDialog.ShowDialog();
+        var dialogResult = imageSaveFileDialog.ShowDialog();
         if (dialogResult == DialogResult.OK)
         {
-            using (FileStream fs = File.Open(imageSaveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var fs = File.Open(imageSaveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 fs.Write(attachedPicture.PictureData, 0, attachedPicture.PictureData.Length);
             }
@@ -152,7 +152,7 @@ public partial class ID3v2UserControl : UserControl
         chkPodcast.Checked = _id3v2.IsPodcast;
         txtPodcastFeedUrl.Text = _id3v2.PodcastFeedUrl;
 
-        BindingSource bindingSource = new BindingSource();
+        var bindingSource = new BindingSource();
         imageBindingNavigator.BindingSource = bindingSource;
         bindingSource.CurrentChanged += bindingSource_CurrentChanged;
         bindingSource.DataSource = _id3v2.PictureList;

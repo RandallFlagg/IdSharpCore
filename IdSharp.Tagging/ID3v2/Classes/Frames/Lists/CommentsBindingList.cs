@@ -28,7 +28,7 @@ internal sealed class CommentsBindingList : BindingList<IComments>
 
     protected override void InsertItem(int index, IComments item)
     {
-        foreach (IComments comment in Items)
+        foreach (var comment in Items)
         {
         }
 

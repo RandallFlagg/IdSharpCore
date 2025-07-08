@@ -130,20 +130,20 @@ internal sealed class Commercial : Frame, ICommercial
 
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft > 1)
         {
             TextEncoding = (EncodingType)stream.Read1(ref bytesLeft);
-            string priceString = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
+            var priceString = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
 
             if (!string.IsNullOrEmpty(priceString))
             {
-                foreach (string priceItem in priceString.Split('/'))
+                foreach (var priceItem in priceString.Split('/'))
                 {
                     if (priceItem.Length > 3)
                     {
                         decimal price;
-                        string pricePart = priceItem.Substring(3, priceItem.Length - 3);
+                        var pricePart = priceItem.Substring(3, priceItem.Length - 3);
                         if (decimal.TryParse(pricePart, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out price))
                         {
                             IPriceInformation priceInfo = new PriceInformation();
@@ -157,7 +157,7 @@ internal sealed class Commercial : Frame, ICommercial
 
             if (bytesLeft > 0)
             {
-                string validUntil = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 8);
+                var validUntil = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 8);
                 bytesLeft -= 8;
 
                 if (validUntil.Length == 8)
@@ -199,7 +199,7 @@ internal sealed class Commercial : Frame, ICommercial
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             byte[] nameOfSellerData;
             byte[] descriptionData;
@@ -214,8 +214,8 @@ internal sealed class Commercial : Frame, ICommercial
 
             frameData.WriteByte((byte)_textEncoding);
 
-            string priceString = string.Empty;
-            foreach (IPriceInformation priceInfo in _priceList)
+            var priceString = string.Empty;
+            foreach (var priceInfo in _priceList)
             {
                 if (priceInfo.CurrencyCode != null && priceInfo.CurrencyCode.Length == 3)
                 {

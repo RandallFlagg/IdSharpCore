@@ -17,29 +17,29 @@ public class ByteUtilsTest
     [Test]
     public void Clone_0Bytes()
     {
-        byte[] original = new byte[0];
+        var original = new byte[0];
         TestClone(original);
     }
 
     [Test]
     public void Clone_1Bytes()
     {
-        byte[] original = new[] { (byte)0xFF };
+        var original = new[] { (byte)0xFF };
         TestClone(original);
     }
 
     [Test]
     public void Clone_6Bytes()
     {
-        byte[] original = new[] { (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x04, (byte)0x09, (byte)0x00 };
+        var original = new[] { (byte)0x00, (byte)0x01, (byte)0x02, (byte)0x04, (byte)0x09, (byte)0x00 };
         TestClone(original);
     }
 
     [Test]
     public void Clone_1000000Bytes()
     {
-        byte[] original = new byte[1000000];
-        for (int i = 0; i < original.Length; i++)
+        var original = new byte[1000000];
+        for (var i = 0; i < original.Length; i++)
         {
             original[i] = (byte)(i % 256);
         }
@@ -51,9 +51,9 @@ public class ByteUtilsTest
     public void Clone_UnicodeBytes()
     {
         const string unicode = "ひらがな平仮名";
-        byte[] original = Encoding.UTF8.GetBytes(unicode);
-        byte[] clone = TestClone(original);
-        string unicodeClone = Encoding.UTF8.GetString(clone);
+        var original = Encoding.UTF8.GetBytes(unicode);
+        var clone = TestClone(original);
+        var unicodeClone = Encoding.UTF8.GetString(clone);
         Assert.That(unicode, Is.EqualTo(unicodeClone));
     }
 
@@ -61,12 +61,12 @@ public class ByteUtilsTest
     {
         Assert.That(original, Is.Not.Null);
 
-        byte[] clone = ByteUtils.Clone(original);
+        var clone = ByteUtils.Clone(original);
 
         Assert.That(clone != original, "clone != original failed");
         Assert.That(clone.Length, Is.EqualTo(original.Length), "clone.Length != original.Length");
 
-        for (int i = 0; i < original.Length; i++)
+        for (var i = 0; i < original.Length; i++)
         {
             Assert.That(clone[i], Is.EqualTo(original[i]), $"clone[{i}] ({clone[i]}) != original[{i}] ({original[i]})");
         }
@@ -78,7 +78,7 @@ public class ByteUtilsTest
     public void Compare_TwoParameters_Nulls()
     {
         // first parameter null
-        bool result = ByteUtils.Compare(null, new byte[0]);
+        var result = ByteUtils.Compare(null, new byte[0]);
         Assert.That(result, Is.False, "first parameter null (1)");
         result = ByteUtils.Compare(null, new byte[] { 0xFF });
         Assert.That(result, Is.False, "first parameter null (2)");
@@ -98,7 +98,7 @@ public class ByteUtilsTest
     public void Compare_TwoParameters()
     {
         // equal
-        bool result = ByteUtils.Compare(new byte[0], new byte[0]);
+        var result = ByteUtils.Compare(new byte[0], new byte[0]);
         Assert.That(result, Is.True);
 
         result = ByteUtils.Compare(new[] { (byte)0xFF }, new[] { (byte)0xFF });
@@ -113,7 +113,7 @@ public class ByteUtilsTest
         result = ByteUtils.Compare(new[] { (byte)0x00, (byte)0xFF, (byte)0xFE, (byte)0x00 }, new[] { (byte)0x00, (byte)0xFF, (byte)0xFE, (byte)0x00 });
         Assert.That(result, Is.True);
 
-        byte[] sameReference = new[] { (byte)0x00, (byte)0x01 };
+        var sameReference = new[] { (byte)0x00, (byte)0x01 };
         result = ByteUtils.Compare(sameReference, sameReference);
         Assert.That(result, Is.True, "same reference");
 
@@ -144,7 +144,7 @@ public class ByteUtilsTest
     public void Compare_ThreeParameters_Nulls()
     {
         // first parameter null
-        bool result = ByteUtils.Compare(null, new byte[0], 0);
+        var result = ByteUtils.Compare(null, new byte[0], 0);
         Assert.That(result, Is.False, "first parameter null, second parameter byte[0]");
         result = ByteUtils.Compare(null, new byte[] { 0xFF }, 0);
         Assert.That(result, Is.False, "first parameter null, second paramter byte[1]");
@@ -198,7 +198,7 @@ public class ByteUtilsTest
         Assert.That(result, Is.False, "same length, different values, maxLength = 10");
 
         // same reference
-        byte[] sameReference = new[] { (byte)0x00, (byte)0x01 };
+        var sameReference = new[] { (byte)0x00, (byte)0x01 };
         result = ByteUtils.Compare(sameReference, sameReference, 100);
         Assert.That(result, Is.True, "same reference");
 

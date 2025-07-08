@@ -298,7 +298,7 @@ public class AmazonImages : INotifyPropertyChanged
             return;
         }
 
-        List<PostData> postData = new List<PostData>();
+        var postData = new List<PostData>();
         postData.Add(new PostData("Service", "AWSECommerceService"));
         postData.Add(new PostData("AWSAccessKeyId", _awsAccessKeyId));
         postData.Add(new PostData("Operation", "ItemLookup"));
@@ -306,20 +306,20 @@ public class AmazonImages : INotifyPropertyChanged
         postData.Add(new PostData("ResponseGroup", "Images"));
         postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));
 
-        string amazonDomain = Amazon.GetDomain(_amazonServer);
-        string hostHeader = $"ecs.{amazonDomain}";
-        string signature = Amazon.GetSignature(postData, hostHeader, _secretAccessKey);
+        var amazonDomain = Amazon.GetDomain(_amazonServer);
+        var hostHeader = $"ecs.{amazonDomain}";
+        var signature = Amazon.GetSignature(postData, hostHeader, _secretAccessKey);
         postData.Add(new PostData("Signature", signature));
 
         //postData = GetOrderedPostData(postData);
 
-        string requestUri = $"http://{hostHeader}{Amazon.HttpRequestUri}";
+        var requestUri = $"http://{hostHeader}{Amazon.HttpRequestUri}";
         requestUri = Http.GetQueryString(requestUri, postData);
 
-        byte[] byteResponse = Http.Get(requestUri);
-        string response = Encoding.UTF8.GetString(byteResponse);
+        var byteResponse = Http.Get(requestUri);
+        var response = Encoding.UTF8.GetString(byteResponse);
 
-        XmlDocument xmlDocument = new XmlDocument();
+        var xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(response);
         foreach (XmlNode node in xmlDocument.ChildNodes)
         {

@@ -77,7 +77,7 @@ internal sealed class EqualizationList : Frame, IEqualizationList
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
 
         if (bytesLeft != 0)
         {

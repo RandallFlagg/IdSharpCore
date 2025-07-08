@@ -23,14 +23,14 @@ public class OggVorbis : IAudioFile
     /// <param name="path">The path.</param>
     public OggVorbis(string path)
     {
-        using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             try
             {
-                int tmpID3v2Size = ID3v2.GetTagSize(stream);
+                var tmpID3v2Size = ID3v2.GetTagSize(stream);
                 stream.Seek(tmpID3v2Size, SeekOrigin.Begin);
 
-                byte[] oggMarker = stream.Read(4);
+                var oggMarker = stream.Read(4);
                 if (ByteUtils.Compare(oggMarker, OGG_MARKER) == false)
                 {
                     throw new InvalidDataException("OggS marker not found");
@@ -50,7 +50,7 @@ public class OggVorbis : IAudioFile
                     throw new InvalidDataException("Vorbis identification header not found");
                 }
 
-                byte[] vorbisMarker = stream.Read(6);
+                var vorbisMarker = stream.Read(6);
                 if (ByteUtils.Compare(vorbisMarker, VORBIS_MARKER) == false)
                 {
                     throw new InvalidDataException("Vorbis marker not found");
@@ -62,22 +62,22 @@ public class OggVorbis : IAudioFile
                 Channels = stream.Read1();
                 Frequency = stream.ReadInt32LittleEndian();
 
-                byte[] buf = new byte[251];
-                long size = stream.Length;
+                var buf = new byte[251];
+                var size = stream.Length;
 
                 // Get total number of samples
                 Samples = 0;
-                for (int index = 1; index <= 50 && Samples == 0; index++)
+                for (var index = 1; index <= 50 && Samples == 0; index++)
                 {
-                    long dataIndex = size - ((251 - 10) * index) - 10;
+                    var dataIndex = size - ((251 - 10) * index) - 10;
                     stream.Seek(dataIndex, SeekOrigin.Begin);
                     stream.Read(buf, 0, 251);
 
                     // Get number of PCM samples from last Ogg packet header
-                    for (int i = 251 - 10; i >= 0; i--)
+                    for (var i = 251 - 10; i >= 0; i--)
                     {
-                        bool headerFound = true;
-                        for (int j = 0; j < 4; j++)
+                        var headerFound = true;
+                        for (var j = 0; j < 4; j++)
                         {
                             if (buf[i + j] != OGG_MARKER[j])
                             {
@@ -117,7 +117,7 @@ public class OggVorbis : IAudioFile
     internal static bool IsOggVorbis(Stream stream)
     {
         // Read Ogg marker
-        byte[] oggMarker = new byte[4];
+        var oggMarker = new byte[4];
         stream.Read(oggMarker, 0, 4);
         stream.Seek(-4, SeekOrigin.Current);
         return ByteUtils.Compare(oggMarker, OGG_MARKER);

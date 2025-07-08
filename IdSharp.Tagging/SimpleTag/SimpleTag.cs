@@ -148,13 +148,13 @@ public class SimpleTag : ISimpleTag
     {
         ArgumentNullException.ThrowIfNull(stream);
 
-        bool id3v2Found = false;
-        string tagVersion = string.Empty;
+        var id3v2Found = false;
+        var tagVersion = string.Empty;
 
         // ID3v2
         if (ID3v2Tag.DoesTagExist(stream))
         {
-            ID3v2Tag id3v2 = new ID3v2Tag(stream);
+            var id3v2 = new ID3v2Tag(stream);
             Title = id3v2.Title;
             Artist = id3v2.Artist;
             Album = id3v2.Album;
@@ -179,7 +179,7 @@ public class SimpleTag : ISimpleTag
         // ID3v1
         if (ID3v1Tag.DoesTagExist(stream))
         {
-            ID3v1Tag id3v1 = new ID3v1Tag(stream);
+            var id3v1 = new ID3v1Tag(stream);
 
             // Use ID3v1 fields if ID3v2 doesn't exist or field is blank
             if (!id3v2Found || string.IsNullOrEmpty(Title))
@@ -223,7 +223,7 @@ public class SimpleTag : ISimpleTag
         // Vorbis Comment
         if (VorbisComment.VorbisComment.IsFlac(stream))
         {
-            VorbisComment.VorbisComment vc = new VorbisComment.VorbisComment(stream);
+            var vc = new VorbisComment.VorbisComment(stream);
             Title = vc.Title;
             Artist = vc.Artist;
             Album = vc.Album;
@@ -262,7 +262,7 @@ public class SimpleTag : ISimpleTag
 
         if (VorbisComment.VorbisComment.IsFlac(path))
         {
-            VorbisComment.VorbisComment vc = new VorbisComment.VorbisComment(path);
+            var vc = new VorbisComment.VorbisComment(path);
             vc.Title = Title;
             vc.Artist = Artist;
             vc.Album = Album;
@@ -277,7 +277,7 @@ public class SimpleTag : ISimpleTag
         }
         else
         {
-            ID3v2Tag id3v2 = new ID3v2Tag(path);
+            var id3v2 = new ID3v2Tag(path);
             id3v2.Title = Title;
             id3v2.Artist = Artist;
             id3v2.Album = Album;
@@ -297,7 +297,7 @@ public class SimpleTag : ISimpleTag
                 }
             }
 
-            ID3v1Tag id3v1 = new ID3v1Tag(path);
+            var id3v1 = new ID3v1Tag(path);
             id3v1.Title = Title;
             id3v1.Artist = Artist;
             id3v1.Album = Album;
@@ -345,7 +345,7 @@ public class SimpleTag : ISimpleTag
             throw new ArgumentNullException(nameof(path));
         }
 
-        using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             Read(fileStream);
         }

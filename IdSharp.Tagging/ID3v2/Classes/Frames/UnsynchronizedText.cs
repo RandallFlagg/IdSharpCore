@@ -75,14 +75,14 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
             TextEncoding = (EncodingType)stream.Read1();
             LanguageCode = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, 3);
 
-            int tmpBytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 /*encoding*/- 3 /*language code*/;
+            var tmpBytesLeft = _frameHeader.FrameSizeExcludingAdditions - 1 /*encoding*/- 3 /*language code*/;
             ContentDescriptor = ID3v2Utils.ReadString(TextEncoding, stream, ref tmpBytesLeft);
 
             Text = ID3v2Utils.ReadString(_textEncoding, stream, tmpBytesLeft);
         }
         else
         {
-            string msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) unsynchronized text frame at position {stream.Position}";
+            var msg = $"Under-sized ({_frameHeader.FrameSizeExcludingAdditions} bytes) unsynchronized text frame at position {stream.Position}";
             Trace.WriteLine(msg);
 
             LanguageCode = "eng";
@@ -111,7 +111,7 @@ internal sealed class UnsynchronizedText : Frame, IUnsynchronizedText
             this.RequiresFix(tagVersion, Text, textData)
         );
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.WriteByte((byte)TextEncoding);
             frameData.Write(ByteUtils.ISO88591GetBytes(LanguageCode));

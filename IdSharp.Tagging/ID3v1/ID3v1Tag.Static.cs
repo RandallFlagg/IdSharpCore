@@ -13,14 +13,14 @@ public partial class ID3v1Tag
     {
         ArgumentNullException.ThrowIfNull(stream);
 
-        long currentPosition = stream.Position;
+        var currentPosition = stream.Position;
         try
         {
             if (stream.Length >= 128)
             {
                 stream.Seek(-128, SeekOrigin.End);
 
-                byte[] buf = new byte[3];
+                var buf = new byte[3];
                 stream.Read(buf, 0, 3);
 
                 // Check for 'TAG'
@@ -48,7 +48,7 @@ public partial class ID3v1Tag
             throw new ArgumentNullException(nameof(path));
         }
 
-        using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             return GetTagSize(fileStream);
         }
@@ -91,7 +91,7 @@ public partial class ID3v1Tag
             throw new ArgumentNullException(nameof(path));
         }
 
-        using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+        using (var fileStream = File.Open(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
         {
             if (!DoesTagExist(fileStream))
             {

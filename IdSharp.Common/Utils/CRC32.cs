@@ -22,7 +22,7 @@ public static class CRC32
 
             for (uint i = 0; i < 256; i++)
             {
-                uint dwCrc = i;
+                var dwCrc = i;
                 for (uint j = 8; j > 0; j--)
                 {
                     if ((dwCrc & 1) == 1)

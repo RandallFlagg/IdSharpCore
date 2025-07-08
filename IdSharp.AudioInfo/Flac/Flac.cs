@@ -23,16 +23,16 @@ public class Flac : IAudioFile
     {
         try
         {
-            using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 // Skip ID3v2 tag
-                int tmpID3v2TagSize = ID3v2.GetTagSize(stream);
-                int tmpID3v1TagSize = ID3v1.GetTagSize(stream);
-                int tmpAPEv2TagSize = APEv2.GetTagSize(stream);
+                var tmpID3v2TagSize = ID3v2.GetTagSize(stream);
+                var tmpID3v1TagSize = ID3v1.GetTagSize(stream);
+                var tmpAPEv2TagSize = APEv2.GetTagSize(stream);
                 stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
 
                 // Read flac marker
-                byte[] flacMarker = new Byte[4];
+                var flacMarker = new Byte[4];
                 stream.Read(flacMarker, 0, 4);
                 if (ByteUtils.Compare(flacMarker, FLAC_MARKER) == false)
                 {
@@ -42,7 +42,7 @@ public class Flac : IAudioFile
                 // skip frame header and stuff we're not interested in
                 stream.Seek(14, SeekOrigin.Current);
 
-                byte[] buf = stream.Read(8);
+                var buf = stream.Read(8);
 
                 Frequency = (buf[0] << 12) + (buf[1] << 4) + (buf[2] >> 4);
                 Channels = ((buf[2] >> 1) & 0x03) + 1;
@@ -55,7 +55,7 @@ public class Flac : IAudioFile
                 // TODO: There's probably a better way to do this.. also an embedded PICTURE might
                 // cause a false sync. Not high priority since it will only cause a slight error
                 // in bitrate calculation if a false sync is found.
-                int c = stream.ReadByte(); // keep as ReadByte
+                var c = stream.ReadByte(); // keep as ReadByte
                 while (c != -1)
                 {
                     if (c == 0xFF)
@@ -77,8 +77,8 @@ public class Flac : IAudioFile
                     throw new InvalidDataException("No sync found");
                 }
 
-                long startaudio = stream.Position;
-                long totalsize = stream.Length - startaudio - tmpAPEv2TagSize - tmpID3v1TagSize;
+                var startaudio = stream.Position;
+                var totalsize = stream.Length - startaudio - tmpAPEv2TagSize - tmpID3v1TagSize;
                 Bitrate = totalsize / (TotalSeconds * 125);
             }
         }

@@ -21,7 +21,7 @@ public class RiffWave : IAudioFile
 
     private void ReadStream(Stream stream)
     {
-        byte[] header = stream.Read(12);
+        var header = stream.Read(12);
 			if (header[0] != 'R' || header[1] != 'I' || header[2] != 'F' || header[3] != 'F')
         {
             throw new InvalidDataException("'RIFF' identifier not found");
@@ -32,11 +32,11 @@ public class RiffWave : IAudioFile
             throw new InvalidDataException("'WAVE' identifier not found");
         }
 
-			bool fmtBlockFound = false;
+			var fmtBlockFound = false;
 			int dataSize;
 			while (true)
 			{
-				byte[] identifierHeader = stream.Read(4);
+				var identifierHeader = stream.Read(4);
 				dataSize = stream.ReadInt32LittleEndian();
 
 				// the data block starts WAV data
@@ -45,7 +45,7 @@ public class RiffWave : IAudioFile
                 break;
             }
 
-            byte[] data = stream.Read(dataSize);
+            var data = stream.Read(dataSize);
 
 				if (identifierHeader[0] == 'f' && identifierHeader[1] == 'm' && identifierHeader[2] == 't' && identifierHeader[3] == ' ')
 				{
@@ -54,7 +54,7 @@ public class RiffWave : IAudioFile
 					//int extraBytes = hdr[16] + (hdr[17] << 8) + (hdr[18] << 16) + (hdr[19] << 24) - 16;
 
 					// start at 20
-					int compression = data[0] + (data[1] << 8);
+					var compression = data[0] + (data[1] << 8);
 					// Type 1 is PCM/Uncompressed
 					if (compression != 1)
                 {
@@ -73,7 +73,7 @@ public class RiffWave : IAudioFile
 					// Bytes 8-11 contain the "average bytes per second", unneeded here
 					// Bytes 12-13 contain the number of bytes per sample (includes channels)
 					// Bytes 14-15 contain the number of bits per single sample
-					int bits = data[14] + (data[15] << 8);
+					var bits = data[14] + (data[15] << 8);
 					// Supporting othe sample depths will require conversion
 					if (bits != 16)
                 {
@@ -104,7 +104,7 @@ public class RiffWave : IAudioFile
             b = stream.Read(8);
         }*/
 
-        int bytes = dataSize;
+        var bytes = dataSize;
 
         AudioDataOffset = stream.Position;
         TotalSeconds = bytes / (Channels * 2.0m * Frequency);
@@ -117,7 +117,7 @@ public class RiffWave : IAudioFile
     /// <param name="path">The path.</param>
     public RiffWave(string path)
     {
-        using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             ReadStream(fs);
         }

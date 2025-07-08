@@ -47,7 +47,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
     {
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft > 0)
         {
             OwnerIdentifier = ID3v2Utils.ReadString(EncodingType.ISO88591, stream, ref bytesLeft);
@@ -65,7 +65,7 @@ internal sealed class UniqueFileIdentifier : Frame, IUniqueFileIdentifier
             return new byte[0];
         }
 
-        using (MemoryStream frameData = new MemoryStream())
+        using (var frameData = new MemoryStream())
         {
             frameData.Write(ByteUtils.ISO88591GetBytes(_ownerIdentifier));
             frameData.WriteByte(0); // terminator

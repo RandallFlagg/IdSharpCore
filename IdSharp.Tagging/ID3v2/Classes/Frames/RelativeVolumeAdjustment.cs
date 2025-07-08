@@ -251,13 +251,13 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
 
         _frameHeader.Read(tagReadingInfo, ref stream);
 
-        int bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
+        var bytesLeft = _frameHeader.FrameSizeExcludingAdditions;
         if (bytesLeft > 0)
         {
             // todo: there needs to be some kind of a test to see if this is RVAD/RVA2 format, too
             // much varying implementation in 2.3 and 2.4
 
-            bool isRVA2 = (_frameHeader.TagVersion == ID3v2TagVersion.ID3v24);
+            var isRVA2 = (_frameHeader.TagVersion == ID3v2TagVersion.ID3v24);
 
             if (isRVA2)
             {
@@ -266,14 +266,14 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
                 while (bytesLeft >= 3)
                 {
                     // TODO: Implementation not complete
-                    byte channelType = stream.Read1(ref bytesLeft);
+                    var channelType = stream.Read1(ref bytesLeft);
                     //if (channelType == 16) break; // Invalid, probably stored as an ID3v2.3 RVAD frame
                     // TODO: some kind of switch.. maybe a new internal enum
-                    short volumeAdjustment = stream.ReadInt16(ref bytesLeft);
+                    var volumeAdjustment = stream.ReadInt16(ref bytesLeft);
                     if (bytesLeft > 0)
                     {
                         // sometimes represented as BITS representing peak.. seriously.
-                        byte bytesRepresentingPeak = stream.Read1(ref bytesLeft);
+                        var bytesRepresentingPeak = stream.Read1(ref bytesLeft);
                         if (bytesRepresentingPeak == 0)
                         {
                             break;
@@ -282,7 +282,7 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
                         if (bytesLeft >= bytesRepresentingPeak)
                         {
                             // TODO: Finish implementation
-                            byte[] peakVolume = stream.Read(bytesRepresentingPeak);
+                            var peakVolume = stream.Read(bytesRepresentingPeak);
                             bytesLeft -= peakVolume.Length;
                         }
                         else
@@ -312,11 +312,11 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
             // ID3v2.2, ID3v2.3, or mal-formed ID3v2.4
             if (isRVA2 == false)
             {
-                byte incrementDecrement = stream.Read1(ref bytesLeft);
+                var incrementDecrement = stream.Read1(ref bytesLeft);
                 if (bytesLeft > 0)
                 {
-                    byte bitsUsedForVolumeDescription = stream.Read1(ref bytesLeft);
-                    int bytesUsedForVolumeDescription = bitsUsedForVolumeDescription / 8;
+                    var bitsUsedForVolumeDescription = stream.Read1(ref bytesLeft);
+                    var bytesUsedForVolumeDescription = bitsUsedForVolumeDescription / 8;
 
                     // TODO: (may be useful for testing which implementation)
                     // if bits used for volume description is > 64, don't bother
@@ -324,73 +324,73 @@ internal sealed class RelativeVolumeAdjustment : Frame, IRelativeVolumeAdjustmen
                     // Relative volume change, right
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontRightAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 0) ? 1 : -1);
                     }
                     // Relative volume change, left
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontLeftAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 1) ? 1 : -1);
                     }
                     // Peak volume right
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontRightPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                     // Peak volume left
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontLeftPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                     // Relative volume change, right back
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         BackRightAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 2) ? 1 : -1);
                     }
                     // Relative volume change, left back
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         BackLeftAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 3) ? 1 : -1);
                     }
                     // Peak volume right back
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         BackRightPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                     // Peak volume left back
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         BackLeftPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                     // Relative volume change, center
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontCenterAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 4) ? 1 : -1);
                     }
                     // Peak volume center
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         FrontCenterPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                     // Relative volume change, bass
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         SubwooferAdjustment = ByteUtils.ConvertToInt64(byteArray) * (ByteUtils.IsBitSet(incrementDecrement, 5) ? 1 : -1);
                     }
                     // Peak volume bass
                     if (bytesLeft >= bytesUsedForVolumeDescription)
                     {
-                        byte[] byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
+                        var byteArray = stream.Read(bytesUsedForVolumeDescription, ref bytesLeft);
                         SubwooferPeak = ByteUtils.ConvertToInt64(byteArray);
                     }
                 }

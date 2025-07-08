@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using IdSharp.Common.Events;
 
 namespace IdSharp.Tagging.ID3v2;
@@ -17,7 +17,7 @@ partial class FrameContainer
 
     private void ValidateRecordingTimestamp()
     {
-        string value = RecordingTimestamp;
+        var value = RecordingTimestamp;
         if (value != null)
         {
             // yyyy-MM-dd
@@ -71,7 +71,7 @@ partial class FrameContainer
 
     private void ValidateReleaseTimestamp()
     {
-        string value = ReleaseTimestamp;
+        var value = ReleaseTimestamp;
         if (value != null)
         {
             // yyyy
@@ -94,7 +94,7 @@ partial class FrameContainer
 
     private void ValidateISRC()
     {
-        string value = ISRC;
+        var value = ISRC;
         if (!string.IsNullOrEmpty(value))
         {
             if (value.Length != 12)
@@ -106,7 +106,7 @@ partial class FrameContainer
 
     private void ValidateBPM()
     {
-        string value = BPM;
+        var value = BPM;
 
         if (!string.IsNullOrEmpty(value))
         {
@@ -134,19 +134,19 @@ partial class FrameContainer
     {
         if (!string.IsNullOrEmpty(value))
         {
-            bool isValid = true;
+            var isValid = true;
 
-            string[] valueArray = value.Split('/');
+            var valueArray = value.Split('/');
             if (valueArray.Length > 2)
             {
                 isValid = false;
             }
             else
             {
-                int i = 0;
+                var i = 0;
                 uint extractedFirstPart = 0;
                 uint extractedSecondPart = 0;
-                foreach (string tmpValuePart in valueArray)
+                foreach (var tmpValuePart in valueArray)
                 {
                     uint tmpIntValue;
                     if (!uint.TryParse(tmpValuePart, out tmpIntValue))
@@ -193,14 +193,14 @@ partial class FrameContainer
 
     private void ValidateCopyright()
     {
-        string value = Copyright;
+        var value = Copyright;
 
         if (!string.IsNullOrEmpty(value))
         {
-            bool isValid = false;
+            var isValid = false;
             if (value.Length >= 6)
             {
-                string yearString = value.Substring(0, 4);
+                var yearString = value.Substring(0, 4);
                 int year;
                 if (int.TryParse(yearString, out year) && year >= 1000 && year <= 9999)
                 {
@@ -220,7 +220,7 @@ partial class FrameContainer
 
     private void ValidateYear()
     {
-        string value = Year;
+        var value = Year;
 
         if (!string.IsNullOrEmpty(value))
         {

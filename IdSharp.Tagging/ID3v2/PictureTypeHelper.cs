@@ -46,7 +46,7 @@ public static class PictureTypeHelper
     /// <param name="pictureType">Type of the picture.</param>
     public static string GetStringFromPictureType(PictureType pictureType)
     {
-        foreach (KeyValuePair<string, PictureType> pictureTypeKVP in m_PictureTypeDictionary)
+        foreach (var pictureTypeKVP in m_PictureTypeDictionary)
         {
             if (pictureTypeKVP.Value == pictureType)
             {
@@ -85,8 +85,8 @@ public static class PictureTypeHelper
         PictureTypeStrings = new string[m_PictureTypeDictionary.Count];
         PictureTypes = new PictureType[m_PictureTypeDictionary.Count];
         
-        int i = 0;
-        foreach (KeyValuePair<string, PictureType> kvp in m_PictureTypeDictionary)
+        var i = 0;
+        foreach (var kvp in m_PictureTypeDictionary)
         {
             PictureTypeStrings[i] = kvp.Key;
             PictureTypes[i] = kvp.Value;
@@ -97,7 +97,7 @@ public static class PictureTypeHelper
 
     private static void AddToPictureTypeDictionary(PictureType pictureType)
     {
-        string enumString = EnumUtils.GetDescription(pictureType);
+        var enumString = EnumUtils.GetDescription(pictureType);
 
         m_PictureTypeDictionary.Add(enumString, pictureType);
     }

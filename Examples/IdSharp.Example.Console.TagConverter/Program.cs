@@ -3,14 +3,14 @@ using System.Globalization;
 using IdSharp.Example.Console.TagConverter;
 using IdSharp.Tagging.ID3v2;
 
-bool _isRecursive = false;
+var _isRecursive = false;
 string _fileName = null;
 string _directory = null;
-Verbosity _verbosity = Verbosity.Default;
-bool _upgradeOnly = false;
+var _verbosity = Verbosity.Default;
+var _upgradeOnly = false;
 ID3v2TagVersion? _newTagVersion = ID3v2TagVersion.ID3v24;
-bool _hasWritten = false;
-bool _isTest = false;
+var _hasWritten = false;
+var _isTest = false;
 
 var success = ParseArguments(args);
 if (!success)
@@ -38,7 +38,7 @@ if (_verbosity >= Verbosity.Default)
     }
 
 
-    string options = "Options: Convert to " + _newTagVersion;
+    var options = "Options: Convert to " + _newTagVersion;
     if (_isTest)
     {
         options += ", test";
@@ -140,7 +140,7 @@ for (var i = 0; i < files.Length; i++)
     {
         if (_verbosity >= Verbosity.Default)
         {
-            string header = $"File: {file}";
+            var header = $"File: {file}";
             WriteLine(header);
             WriteLine(new string('=', header.Length));
             WriteLine(ex.ToString());
@@ -153,8 +153,8 @@ for (var i = 0; i < files.Length; i++)
 
 if (_verbosity >= Verbosity.Default)
 {
-    DateTime end = DateTime.Now;
-    TimeSpan duration = end - start;
+    var end = DateTime.Now;
+    var duration = end - start;
 
     if (_hasWritten)
     {
@@ -179,7 +179,7 @@ bool ParseArguments(string[] args)
 {
     for (var i = 0; i < args.Length; i++)
     {
-        string arg = args[i];
+        var arg = args[i];
 
         if (arg.StartsWith("--"))
         {
@@ -205,7 +205,7 @@ bool ParseArguments(string[] args)
                 throw new ArgumentException("Missing verbosity level after -v.");
             }
 
-            string level = args[++i];
+            var level = args[++i];
 
             switch (level)
             {
@@ -242,7 +242,7 @@ bool ParseArguments(string[] args)
             }
             else
             {
-                string message = arg.StartsWith("-")
+                var message = arg.StartsWith("-")
                     ? $"switch '{arg}' not recognized."
                     : $"'{arg}' not found.";
 
