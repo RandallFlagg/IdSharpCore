@@ -57,8 +57,8 @@
 
   <ItemGroup Label="nuget">
     <!-- If README is outside of project folders -->
-    <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
-    <None Include="..\README.md" Pack="true" PackagePath="/" />
+    <None Include="$(SolutionRoot)/LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="$(SolutionRoot)/README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>

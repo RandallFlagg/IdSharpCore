@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace IdSharp.Tagging.Harness.WinForms;
 
 internal static class Program

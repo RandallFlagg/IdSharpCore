@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Windows.Forms;
 
 using IdSharp.AudioInfo;
 using IdSharp.AudioInfo.Mpeg.Inspection;

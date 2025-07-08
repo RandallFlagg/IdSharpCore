@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Drawing.Imaging;
 
 using SixLabors.ImageSharp;
