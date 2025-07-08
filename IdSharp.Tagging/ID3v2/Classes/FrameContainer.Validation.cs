@@ -165,6 +165,7 @@ partial class FrameContainer
                             extractedSecondPart = tmpIntValue;
                         }
                     }
+
                     i++;
                 }
 

@@ -45,6 +45,7 @@ internal sealed class Podcast : Frame, IPodcast
         {
             stream.Read1(ref bytesLeft);
         }
+
         Value = true;
     }
 

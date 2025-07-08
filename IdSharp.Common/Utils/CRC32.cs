@@ -34,6 +34,7 @@ public static class CRC32
                         dwCrc >>= 1;
                     }
                 }
+
                 crc32Table[i] = dwCrc;
             }
         }

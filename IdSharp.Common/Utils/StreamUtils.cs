@@ -22,6 +22,7 @@ public static class StreamUtils
             var msg = $"Attempted to read past the end of the stream at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
+
         return (byte)readByte;
     }
 
@@ -57,6 +58,7 @@ public static class StreamUtils
             var msg = $"Attempted to read past the end of the stream when requesting {count} bytes at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
+
         return buffer;
     }
 
@@ -73,6 +75,7 @@ public static class StreamUtils
             var msg = $"Attempted to read past the end of the frame at position {stream.Position}";
             throw new InvalidDataException(msg);
         }
+
         bytesLeft -= count;
         return Read(stream, count);
     }

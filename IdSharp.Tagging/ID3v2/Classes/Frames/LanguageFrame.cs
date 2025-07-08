@@ -127,6 +127,7 @@ internal sealed class LanguageFrame : Frame, ILanguageFrame
 
                 frameData.Write(ID3v2Utils.GetStringBytes(tagVersion, TextEncoding, languageItem.LanguageCode, isTerminated));
             }
+
             return _frameHeader.GetBytes(frameData, tagVersion, GetFrameID(tagVersion));
         }
     }

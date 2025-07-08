@@ -132,6 +132,7 @@ public static class AudioFile
         {
             filter += "All files|*.*|";
         }
+
         if (includeAllFormats)
         {
             var allExtensions = "";
@@ -147,6 +148,7 @@ public static class AudioFile
 
             filter += $"All supported formats|{allExtensions}|";
         }
+
         filter += "MP3 (*.mp3)|*.mp3|";
         filter += "MP4 (*.m4a)|*.m4a|";
         filter += "FLAC (*.flac, *.fla)|*.flac, *.fla|";

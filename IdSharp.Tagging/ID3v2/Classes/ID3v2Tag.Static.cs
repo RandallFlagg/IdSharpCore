@@ -36,6 +36,7 @@ public partial class ID3v2Tag
                     return 0;
                 }
             }
+
             return 0;
         }
         finally

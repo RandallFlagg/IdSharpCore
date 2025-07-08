@@ -101,6 +101,7 @@ internal static class Http
         {
             webRequest.Headers.Add($"Authorization: Basic {Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", credentials.UserName, credentials.Password)))}");
         }
+
         webResponse = (HttpWebResponse)webRequest.GetResponse();
 
         var data = new byte[256];

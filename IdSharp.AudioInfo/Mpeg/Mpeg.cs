@@ -94,6 +94,7 @@ internal class TMpeg : IAudioFile
                     {
 							throw new InvalidDataException($"'{path}': Can't find frame sync");
                     }
+
                     stream.Seek(tmpID3v2TagSize, SeekOrigin.Begin);
                     acceptNullSamples = true;
                     continue;
@@ -441,6 +442,7 @@ internal class TMpeg : IAudioFile
                 {
                     return false;
                 }
+
                 FH[0] = audioData[offset++];
                 while (FH[0] != 0xFF && offset < BufLen)
                 {
@@ -612,6 +614,7 @@ internal class TMpeg : IAudioFile
                         tmpFrequency = 32000;
                         break;
                 } // end switch (Frequency)
+
                 break;
 
             // MPEG-2
@@ -628,6 +631,7 @@ internal class TMpeg : IAudioFile
                         tmpFrequency = 16000;
                         break;
                 } // end switch (Frequency)
+
                 break;
 
             // MPEG-2.5
@@ -644,6 +648,7 @@ internal class TMpeg : IAudioFile
                         tmpFrequency = 8000;
                         break;
                 } // end switch (Frequency)
+
                 break;
         } // end switch (ID)
 

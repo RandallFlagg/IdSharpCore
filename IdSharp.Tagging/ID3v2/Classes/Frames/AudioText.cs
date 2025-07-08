@@ -42,6 +42,7 @@ internal sealed class AudioText : Frame, IAudioText
                 j = -1;
             }
         }
+
         return newAudioData;
     }
 
@@ -117,6 +118,7 @@ internal sealed class AudioText : Frame, IAudioText
                 _audioData = Scramble(_audioData);
             }
         }
+
         RaisePropertyChanged("AudioData");
     }
 

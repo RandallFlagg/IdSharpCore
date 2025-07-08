@@ -312,6 +312,7 @@ public abstract partial class FrameContainer : IFrameContainer
                     break;
                 }
             }
+
             if (!found)
             {
                 allFrames.RemoveAt(i);

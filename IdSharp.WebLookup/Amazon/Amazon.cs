@@ -136,14 +136,17 @@ public static class Amazon
         {
             postData.Add(new PostData("Artist", artist));
         }
+
         if (!string.IsNullOrEmpty(album))
         {
             postData.Add(new PostData("Title", album));
         }
+
         if (!string.IsNullOrEmpty(keywords))
         {
             postData.Add(new PostData("Keywords", keywords));
         }
+
         postData.Add(new PostData("ItemPage", page.ToString()));
         postData.Add(new PostData("Sort", sort));
         postData.Add(new PostData("Timestamp", $"{DateTime.UtcNow:yyyy-MM-dd}T{DateTime.UtcNow:HH:mm:ss}Z"));

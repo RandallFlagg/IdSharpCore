@@ -203,6 +203,7 @@ public class Shorten : IAudioFile
                 {
                     nscan = 0;
                 }
+
                 version = MAX_VERSION + 1;
             }
         }
@@ -337,6 +338,7 @@ public class Shorten : IAudioFile
                                     }
                                 }
                             }
+
                             break;
                         case FN_QLPC:
                             var nlpc = uvar_get(LPCQSIZE, stream);
@@ -353,6 +355,7 @@ public class Shorten : IAudioFile
                     {
                         SampleNumber += blocksize;
                     }
+
                     chan = (chan + 1) % nchan;
                     break;
                 case FN_BLOCKSIZE:
@@ -367,6 +370,7 @@ public class Shorten : IAudioFile
                     {
                         uvar_get(VERBATIM_BYTE_SIZE, stream);
                     }
+
                     break;
 
                 default:
